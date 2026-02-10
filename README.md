@@ -1,84 +1,50 @@
-# Vigilense AI - AI-Powered SIEM Platform
+# Vigilense AI - The Sovereign SOC
 
-A modern, sleek website for a next-generation Security Information and Event Management (SIEM) tool with AI-powered features.
+Marketing website for Vigilense AI, an autonomous SOC platform that delivers detection, investigation, and response on your data, under your control.
 
-## Features
+## Core Messaging
 
-### Core Capabilities
-- **Universal Database Connectivity**: Connect to any database (SQL, NoSQL, cloud databases, data warehouses)
-- **Scalable Detection Engine**: Process millions of events per second with distributed processing
-- **Reports & Dashboards**: Create interactive visualizations and comprehensive reports
-- **AI-Powered Query Generation**: Generate complex database queries using natural language
-- **Security Intelligence Integration**: Connect with CrowdStrike, IP reputation services, threat intelligence tools
-- **Smart Detection Consolidation**: Dynamic risk assignment based on urgency and context (better than traditional risk-based alerting)
+- **Primary**: The Sovereign SOC - your data, your infrastructure, our intelligence
+- **Secondary**: BYODb (Bring Your Own Database), BYO-LLM, integrated detection engine
 
-### AI-Powered Workflows
-- **Agentic Investigation Workflow**: 
-  - Dynamically runs queries to enrich investigations
-  - Makes API calls to integrated security intelligence tools
-  - Saves 80% of SOC analyst work hours
-  - Generates ready-to-use investigation reports
-  - Can interact with analysts for clarification
+## Tech Stack
 
-- **Agentic Resolution Workflow**:
-  - Automates corrective actions
-  - Creates tickets automatically
-  - Sends emails and messages
-  - Executes API action calls
-  - Completely automates SOC team workflows
-
-## Design
-
-The website features a modern, AI-like design with:
-- Sleek dark theme with gradient accents
-- Smooth animations and transitions
-- Responsive design for all devices
-- Interactive elements and hover effects
-- Modern typography and spacing
-
-## Getting Started
-
-1. Open `index.html` in a web browser
-2. No build process required - pure HTML, CSS, and JavaScript
-3. All assets are self-contained
+Pure HTML, CSS, and JavaScript. No build process required.
 
 ## File Structure
 
 ```
-Vigilense AI website/
-├── index.html      # Main HTML file
-├── styles.css      # All styling and animations
-├── script.js       # Interactive functionality
-└── README.md       # This file
+├── index.html                  # Homepage (Sovereign SOC landing page)
+├── styles.css                  # Base structural styles
+├── theme.css                   # Light theme overrides (loaded after styles.css)
+├── design-tokens.css           # Color palette reference (not linked in HTML)
+├── script.js                   # Navigation, interactions
+├── trust.html                  # Trust Center
+├── security.html               # Security page
+├── privacy.html                # Privacy Policy
+├── terms.html                  # Terms of Service
+├── disclaimer.html             # Disclaimer
+├── CNAME                       # Custom domain (vigilense.ai)
+├── Vigilense Logo.png          # Brand logo
+└── resources/
+    ├── byodb-architecture.html
+    ├── byollm-guide.html
+    ├── deployment-comparison.html
+    ├── healthcare-case-study.html
+    ├── siem-buyers-guide.html
+    └── tenant-separation.html
 ```
 
-## Browser Support
+## Design
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+- **Color palette**: Deep navy (#0A1628), electric teal (#00D4AA), warm amber (#F59E0B) on light off-white (#FAFAF8)
+- **Fonts**: JetBrains Mono (headings, code), Outfit (body)
+- **Theme**: Clean authority - light, editorial, premium feel
 
-## Customization
+## Running Locally
 
-### Colors
-Edit the CSS variables in `styles.css`:
-```css
-:root {
-    --primary-color: #6366f1;
-    --secondary-color: #8b5cf6;
-    --accent-color: #06b6d4;
-    /* ... */
-}
-```
+Open `index.html` in a browser. No dependencies or build step needed.
 
-### Content
-All content is in `index.html` - edit directly to customize text, features, and sections.
+## Deployment
 
-## Future Enhancements
-
-- Backend integration for database connections
-- Real-time dashboard data
-- User authentication
-- API endpoints for AI features
-- Interactive demo environment
+Hosted via GitHub Pages with custom domain `vigilense.ai`.
