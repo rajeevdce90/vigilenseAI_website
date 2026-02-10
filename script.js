@@ -23,11 +23,11 @@ const navbar = document.querySelector('.navbar');
 
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(0, 0, 0, 0.95)';
-        navbar.style.borderBottomColor = 'rgba(59, 130, 246, 0.2)';
+        navbar.style.background = 'rgba(255, 255, 255, 0.97)';
+        navbar.style.borderBottomColor = 'rgba(0, 212, 170, 0.15)';
     } else {
-        navbar.style.background = 'rgba(0, 0, 0, 0.8)';
-        navbar.style.borderBottomColor = 'rgba(51, 65, 85, 0.5)';
+        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.borderBottomColor = '#E2E8F0';
     }
 });
 
@@ -45,7 +45,7 @@ const observer = new IntersectionObserver((entries) => {
             entry.target.classList.add('visible');
             
             // Stagger children animations
-            const children = entry.target.querySelectorAll('.signal-item, .workflow-step-card, .platform-card, .result-card');
+            const children = entry.target.querySelectorAll('.problem-card, .pillar-card, .control-card, .persona-card, .promise-item, .faq-item');
             children.forEach((child, index) => {
                 child.style.animationDelay = `${index * 0.1}s`;
             });
@@ -133,7 +133,7 @@ if (heroGlow) {
 // ═══════════════════════════════════════════
 // CARD HOVER GLOW
 // ═══════════════════════════════════════════
-document.querySelectorAll('.workflow-step-card, .platform-card, .result-card, .signal-item').forEach(card => {
+document.querySelectorAll('.problem-card, .pillar-card, .control-card, .persona-card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -146,9 +146,10 @@ document.querySelectorAll('.workflow-step-card, .platform-card, .result-card, .s
 // Add glow effect styles
 const glowStyles = document.createElement('style');
 glowStyles.textContent = `
-    .workflow-step-card::before,
-    .platform-card::before,
-    .result-card::before {
+    .problem-card::before,
+    .pillar-card::before,
+    .control-card::before,
+    .persona-card::before {
         content: '';
         position: absolute;
         top: 0;
@@ -158,7 +159,7 @@ glowStyles.textContent = `
         border-radius: inherit;
         background: radial-gradient(
             400px circle at var(--mouse-x) var(--mouse-y),
-            rgba(59, 130, 246, 0.1),
+            rgba(0, 212, 170, 0.06),
             transparent 40%
         );
         pointer-events: none;
@@ -166,15 +167,17 @@ glowStyles.textContent = `
         transition: opacity 0.3s;
     }
     
-    .workflow-step-card:hover::before,
-    .platform-card:hover::before,
-    .result-card:hover::before {
+    .problem-card:hover::before,
+    .pillar-card:hover::before,
+    .control-card:hover::before,
+    .persona-card:hover::before {
         opacity: 1;
     }
     
-    .workflow-step-card,
-    .platform-card,
-    .result-card {
+    .problem-card,
+    .pillar-card,
+    .control-card,
+    .persona-card {
         position: relative;
         overflow: hidden;
     }
@@ -188,9 +191,9 @@ const coreIcon = document.querySelector('.core-icon');
 
 if (coreIcon) {
     setInterval(() => {
-        coreIcon.style.filter = 'drop-shadow(0 0 40px rgba(59, 130, 246, 1))';
+        coreIcon.style.filter = 'drop-shadow(0 0 40px rgba(0, 212, 170, 0.8))';
         setTimeout(() => {
-            coreIcon.style.filter = 'drop-shadow(0 0 30px rgba(59, 130, 246, 0.8))';
+            coreIcon.style.filter = 'drop-shadow(0 0 30px rgba(0, 212, 170, 0.5))';
         }, 500);
     }, 2000);
 }
@@ -355,6 +358,6 @@ document.querySelectorAll('.workflow-stage').forEach(stage => {
 // ═══════════════════════════════════════════
 // CONSOLE BRANDING
 // ═══════════════════════════════════════════
-console.log('%c🛡️ Vigilense AI', 'font-size: 24px; font-weight: bold; color: #3b82f6;');
-console.log('%cAutonomous AI-Powered SIEM', 'font-size: 14px; color: #60a5fa;');
-console.log('%cFrom Signal to Resolution — Fully Automated', 'font-size: 12px; color: #94a3b8;');
+console.log('%c> Vigilense AI', 'font-size: 24px; font-weight: bold; color: #0A1628; font-family: monospace;');
+console.log('%cThe Sovereign SOC', 'font-size: 14px; color: #00D4AA; font-family: monospace;');
+console.log('%cYour Data. Your Infrastructure. Our Intelligence.', 'font-size: 12px; color: #475569; font-family: monospace;');

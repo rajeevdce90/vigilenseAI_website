@@ -1,0 +1,71 @@
+/* ============================================
+   VIGILENSE AI — Design Tokens
+   Color Palette & Typography Reference
+   ============================================ */
+
+:root {
+    /* ── Brand ── */
+    --navy:                 #0A1628;       /* Deep navy — sovereignty, authority, control */
+    --navy-light:           #0F1E36;       /* Terminal bar, dark UI surfaces */
+    --accent:               #00D4AA;       /* Electric teal — CTAs, highlights, innovation */
+    --accent-dim:           #00B892;       /* Teal for links, secondary interactive */
+    --accent-glow:          rgba(0, 212, 170, 0.08);
+    --accent-glow-strong:   rgba(0, 212, 170, 0.15);
+    --amber:                #F59E0B;       /* Warm amber — trust badges, guarantees (use sparingly) */
+    --amber-glow:           rgba(245, 158, 11, 0.1);
+
+    /* ── Backgrounds ── */
+    --bg-primary:           #FAFAFA;       /* Page background (off-white) */
+    --bg-secondary:         #F1F5F9;       /* Alternating section background (slate) */
+    --bg-tertiary:          #E2E8F0;       /* Pillar tags, subtle fills */
+    --bg-card:              #FFFFFF;       /* Card surfaces */
+
+    /* ── Text ── */
+    --text-primary:         #0F1419;       /* Body text (near-black) */
+    --text-secondary:       #475569;       /* Descriptions, subtitles */
+    --text-muted:           #94A3B8;       /* Captions, footnotes, timestamps */
+
+    /* ── Borders ── */
+    --border-color:         #E2E8F0;       /* Default card/section borders */
+    --border-accent:        rgba(0, 212, 170, 0.3);  /* Teal-tinted borders */
+
+    /* ── Status ── */
+    --error:                #DC2626;       /* Problem labels, old-way comparisons */
+    --success:              #16A34A;       /* Confirmation, success states */
+
+    /* ── Typography ── */
+    --font-mono:            'JetBrains Mono', 'Space Mono', monospace;  /* Headlines, labels, code */
+    --font-body:            'Outfit', sans-serif;                        /* Body text */
+
+    /* ── Special surfaces ── */
+    /* Terminal (stays dark for contrast)
+       background: var(--navy)        #0A1628
+       bar:        var(--navy-light)  #0F1E36
+       cmd text:   #FFFFFF
+       output:     var(--accent)      #00D4AA
+       alert:      #ff7b7b                         */
+}
+
+/* ============================================
+   USAGE GUIDE
+   ============================================
+
+   Headings (h1–h4):      color: var(--navy)
+   Body text:              color: var(--text-primary)
+   Descriptions:           color: var(--text-secondary)
+   Muted / captions:       color: var(--text-muted)
+
+   Primary CTA:            background: var(--accent), color: var(--navy)
+   Secondary CTA:          border: var(--navy), color: var(--navy)
+   CTA hover glow:         box-shadow: 0 4px 20px rgba(0, 212, 170, 0.3)
+
+   Section tags:           color: var(--accent), border: var(--border-accent), bg: var(--accent-glow)
+   Section alternation:    even sections use var(--bg-secondary), odd use var(--bg-primary)
+
+   Promise / trust:        border-top: var(--amber), badge icons: var(--amber)
+   Problem / error:        color: var(--error)  #DC2626
+   
+   Navbar:                 background: rgba(255, 255, 255, 0.95), backdrop-filter: blur(12px)
+   Terminal block:         background: var(--navy), text: var(--accent)
+
+   ============================================ */

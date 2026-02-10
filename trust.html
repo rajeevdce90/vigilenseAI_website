@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trust Center - Vigilense AI</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="theme.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -18,12 +19,16 @@
                 <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
             </a>
             <ul class="nav-menu">
+                <li><a href="index.html#pillars">Platform</a></li>
                 <li><a href="index.html#how-it-works">How It Works</a></li>
-                <li><a href="index.html#platform">Platform</a></li>
-                <li><a href="index.html#deployment">Deployment</a></li>
                 <li><a href="trust.html" class="active">Trust Center</a></li>
-                <li><a href="index.html#contact" class="btn-primary btn-nav">Get Started</a></li>
+                <li><a href="index.html#contact" class="btn-nav">Get Blueprint</a></li>
             </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
 
@@ -46,35 +51,35 @@
                 <div class="cert-card">
                     <div class="cert-badge">🛡️</div>
                     <h3>SOC 2 Type II</h3>
-                    <span class="cert-status compliant">Compliant</span>
+                    <span class="cert-status progress">In Progress</span>
                     <p>Independently audited for security, availability, processing integrity, confidentiality, and privacy controls.</p>
                     <a href="index.html#contact" class="cert-link">Request Report →</a>
                 </div>
                 <div class="cert-card">
                     <div class="cert-badge">📜</div>
                     <h3>ISO 27001</h3>
-                    <span class="cert-status aligned">Aligned</span>
+                    <span class="cert-status progress">In Progress</span>
                     <p>Information security management system aligned with ISO 27001 international standards.</p>
                     <a href="security.html" class="cert-link">Learn More →</a>
                 </div>
                 <div class="cert-card">
                     <div class="cert-badge">🇪🇺</div>
                     <h3>GDPR</h3>
-                    <span class="cert-status compliant">Compliant</span>
+                    <span class="cert-status progress">In Progress</span>
                     <p>Full compliance with the General Data Protection Regulation for EU data subjects.</p>
                     <a href="privacy.html" class="cert-link">Privacy Policy →</a>
                 </div>
                 <div class="cert-card">
                     <div class="cert-badge">🇺🇸</div>
                     <h3>CCPA</h3>
-                    <span class="cert-status compliant">Compliant</span>
+                    <span class="cert-status progress">In Progress</span>
                     <p>California Consumer Privacy Act compliance for California residents.</p>
                     <a href="privacy.html" class="cert-link">Privacy Policy →</a>
                 </div>
                 <div class="cert-card">
                     <div class="cert-badge">🏥</div>
                     <h3>HIPAA</h3>
-                    <span class="cert-status ready">Self-Hosted Ready</span>
+                    <span class="cert-status progress">In Progress</span>
                     <p>Self-hosted deployment option enables HIPAA-compliant security operations for healthcare organizations.</p>
                     <a href="resources/healthcare-case-study.html" class="cert-link">Learn More →</a>
                 </div>
@@ -102,7 +107,7 @@
                     <p>Bring Your Own Database means your security data never leaves your infrastructure.</p>
                     <ul>
                         <li>Query your databases in real-time</li>
-                        <li>Process in memory — no data stored</li>
+                        <li>Process in memory  no data stored</li>
                         <li>Support for 20+ database types</li>
                         <li>Zero data replication required</li>
                     </ul>
@@ -128,7 +133,7 @@
                         <li>Azure OpenAI, AWS Bedrock, OpenAI API</li>
                         <li>Self-hosted models (Ollama, vLLM)</li>
                         <li>Prompts never touch our infrastructure</li>
-                        <li>No training on your data — ever</li>
+                        <li>No training on your data  ever</li>
                     </ul>
                 </div>
 
@@ -187,45 +192,6 @@
                         <tr>
                             <td>Uptime SLA</td>
                             <td>99.9%</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="deploy-option self-hosted">
-                    <h3>🏢 Self-Hosted Deployment</h3>
-                    <p>Complete control in your environment</p>
-                    <table class="deploy-table">
-                        <tr>
-                            <td>Infrastructure</td>
-                            <td>Your choice (any cloud / on-prem)</td>
-                        </tr>
-                        <tr>
-                            <td>Tenant Isolation</td>
-                            <td>Dedicated instance</td>
-                        </tr>
-                        <tr>
-                            <td>Data Residency</td>
-                            <td>100% your control</td>
-                        </tr>
-                        <tr>
-                            <td>Encryption</td>
-                            <td>Your keys, your policies</td>
-                        </tr>
-                        <tr>
-                            <td>Access Control</td>
-                            <td>Your identity provider</td>
-                        </tr>
-                        <tr>
-                            <td>Audit Logging</td>
-                            <td>Your SIEM / logging</td>
-                        </tr>
-                        <tr>
-                            <td>Air-Gapped</td>
-                            <td>Fully supported</td>
-                        </tr>
-                        <tr>
-                            <td>Source Code Review</td>
-                            <td>Available for enterprise</td>
                         </tr>
                     </table>
                 </div>
