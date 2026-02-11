@@ -1,23 +1,33 @@
 /* ============================================
    VIGILENSE AI — Design Tokens
    Color Palette & Typography Reference
+   ============================================
+
+   PALETTE PHILOSOPHY
+   ──────────────────
+   Navy        = structure and authority
+   White/light = clarity and transparency
+   Teal        = signal and active intelligence
+   Light blue  = system flow and data movement
+
    ============================================ */
 
 :root {
     /* ── Brand ── */
-    --navy:                 #0A1628;       /* Deep navy — sovereignty, authority, control */
+    --navy:                 #0A1628;       /* Deep navy — structure, authority, control */
     --navy-light:           #0F1E36;       /* Terminal bar, dark UI surfaces */
-    --accent:               #00D4AA;       /* Electric teal — CTAs, highlights, innovation */
+    --accent:               #00D4AA;       /* Electric teal — signal, active intelligence */
     --accent-dim:           #00B892;       /* Teal for links, secondary interactive */
     --accent-glow:          rgba(0, 212, 170, 0.08);
     --accent-glow-strong:   rgba(0, 212, 170, 0.15);
-    --amber:                #F59E0B;       /* Warm amber — trust badges, guarantees (use sparingly) */
-    --amber-glow:           rgba(245, 158, 11, 0.1);
+    --light-blue:           #38BDF8;       /* Light blue — system flow, data movement */
+    --light-blue-dim:       #7DD3FC;       /* Light blue secondary */
+    --light-blue-glow:      rgba(56, 189, 248, 0.1);
 
     /* ── Backgrounds ── */
-    --bg-primary:           #FAFAFA;       /* Page background (off-white) */
-    --bg-secondary:         #F1F5F9;       /* Alternating section background (slate) */
-    --bg-tertiary:          #E2E8F0;       /* Pillar tags, subtle fills */
+    --bg-primary:           #FAFAF8;       /* Page background (warm off-white) — clarity */
+    --bg-secondary:         #F2F5F7;       /* Alternating section background — transparency */
+    --bg-tertiary:          #E2E8F0;       /* Subtle fills */
     --bg-card:              #FFFFFF;       /* Card surfaces */
 
     /* ── Text ── */
@@ -50,7 +60,7 @@
    USAGE GUIDE
    ============================================
 
-   Headings (h1–h4):      color: var(--navy)
+   Headings (h1-h4):      color: var(--navy)
    Body text:              color: var(--text-primary)
    Descriptions:           color: var(--text-secondary)
    Muted / captions:       color: var(--text-muted)
@@ -62,9 +72,10 @@
    Section tags:           color: var(--accent), border: var(--border-accent), bg: var(--accent-glow)
    Section alternation:    even sections use var(--bg-secondary), odd use var(--bg-primary)
 
-   Promise / trust:        border-top: var(--amber), badge icons: var(--amber)
+   Promise / trust:        border-top: var(--light-blue), badge icons: var(--light-blue)
+   In-progress badges:     color: var(--light-blue), bg: var(--light-blue-glow)
    Problem / error:        color: var(--error)  #DC2626
-   
+
    Navbar:                 background: rgba(255, 255, 255, 0.95), backdrop-filter: blur(12px)
    Terminal block:         background: var(--navy), text: var(--accent)
 

@@ -20,8 +20,9 @@
             --accent-glow-strong: rgba(0, 212, 170, 0.15);
             --navy: #0A1628;
             --navy-light: #0F1E36;
-            --amber: #F59E0B;
-            --amber-glow: rgba(245, 158, 11, 0.1);
+            --light-blue: #38BDF8;
+            --light-blue-dim: #7DD3FC;
+            --light-blue-glow: rgba(56, 189, 248, 0.1);
             --bg-primary: #FAFAF8;
             --bg-secondary: #F2F5F7;
             --bg-tertiary: #E2E8F0;
@@ -69,11 +70,11 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: var(--accent);
-            border: 1px solid var(--border-accent);
-            padding: 4px 12px;
+            color: #FFFFFF;
+            border: none;
+            padding: 5px 14px;
             margin-bottom: 16px;
-            background: var(--accent-glow);
+            background: var(--navy);
         }
 
         .section-title {
@@ -96,6 +97,18 @@
         .brand-name .vigilense { color: var(--navy); font-weight: 700; }
         .brand-name .ai { color: var(--accent); font-weight: 700; }
 
+        /* Navy highlight for key phrases */
+        .navy-highlight {
+            color: var(--navy);
+            font-weight: 700;
+        }
+        .navy-mark {
+            background: var(--navy);
+            color: #FFFFFF;
+            padding: 1px 8px;
+            font-weight: 700;
+        }
+
         /* --- Buttons --- */
         .btn {
             display: inline-block;
@@ -110,20 +123,20 @@
         }
 
         .btn-primary {
-            background: var(--accent);
-            color: var(--navy);
+            background: var(--navy);
+            color: #FFFFFF;
             font-weight: 700;
         }
         .btn-primary:hover {
-            background: #33E0BB;
+            background: #0F1E36;
             opacity: 1;
-            box-shadow: 0 4px 20px rgba(0, 212, 170, 0.3);
+            box-shadow: 0 4px 20px rgba(10, 22, 40, 0.3);
         }
 
         .btn-secondary {
             background: transparent;
             color: var(--navy);
-            border: 1px solid var(--navy);
+            border: 2px solid var(--navy);
         }
         .btn-secondary:hover {
             background: var(--navy);
@@ -143,9 +156,9 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--navy);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             padding: 0 24px;
         }
 
@@ -160,7 +173,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            color: var(--navy);
+            color: #FFFFFF;
         }
 
         .nav-brand .logo-icon {
@@ -169,7 +182,7 @@
         }
 
         .logo-text { font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700; }
-        .logo-vigilense { color: var(--navy); }
+        .logo-vigilense { color: #FFFFFF; }
         .logo-ai { color: var(--accent); }
 
         .nav-menu {
@@ -180,14 +193,14 @@
         }
 
         .nav-menu a {
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.7);
             font-family: var(--font-mono);
             font-size: 0.8rem;
             font-weight: 500;
             letter-spacing: 0.02em;
             transition: color 0.2s;
         }
-        .nav-menu a:hover { color: var(--navy); opacity: 1; }
+        .nav-menu a:hover { color: #FFFFFF; opacity: 1; }
 
         .btn-nav {
             padding: 8px 20px;
@@ -210,7 +223,7 @@
         .hamburger span {
             width: 24px;
             height: 2px;
-            background: var(--text-primary);
+            background: #FFFFFF;
         }
 
         /* ============================
@@ -275,10 +288,11 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: var(--accent);
+            color: var(--navy);
             line-height: 1.05;
             margin: 0;
         }
+        .hero-headline .accent { color: var(--accent); }
 
         .hero-subhead {
             font-family: var(--font-mono);
@@ -459,101 +473,87 @@
         .hero-stat .stat-dot {
             width: 6px;
             height: 6px;
-            background: var(--accent);
+            background: var(--navy);
             border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent);
         }
 
         /* ============================
-           3. PROBLEM SECTION
+           3-4. PRODUCT SECTIONS
            ============================ */
-        .problem-section {
+        .product-section {
             padding: 100px 0;
+        }
+
+        .product-section-alt {
             background: var(--bg-secondary);
             border-top: 1px solid var(--border-color);
             border-bottom: 1px solid var(--border-color);
         }
 
-        .problem-grid {
+        .product-split {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 48px;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 64px;
+            align-items: start;
         }
 
-        .problem-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 32px 28px;
-            transition: border-color 0.3s;
-        }
-        .problem-card:hover {
-            border-color: rgba(220, 38, 38, 0.3);
+        .product-split.reverse {
+            grid-template-columns: 1fr 1.2fr;
         }
 
-        .problem-card .card-label {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: #DC2626;
+        .product-text .section-title {
             margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .problem-card .card-label .icon-x {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 18px;
-            height: 18px;
-            border: 1px solid #DC2626;
-            font-size: 0.65rem;
-            color: #DC2626;
-        }
-
-        .problem-card p {
+        .product-desc {
             color: var(--text-secondary);
-            font-size: 0.92rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .product-features {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .feature-marker {
+            flex-shrink: 0;
+            width: 10px;
+            height: 10px;
+            background: var(--navy);
+            border-radius: 2px;
+            margin-top: 7px;
+        }
+
+        .feature-item h4 {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 4px;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-item p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
             line-height: 1.6;
         }
 
-        .problem-bottom-line {
-            text-align: center;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            padding: 24px;
-            border: 1px solid var(--border-accent);
-            background: var(--accent-glow);
+        @media (max-width: 768px) {
+            .product-split,
+            .product-split.reverse {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
         }
-
-        .problem-bottom-line strong {
-            color: var(--accent);
-        }
-
-        /* ============================
-           4. THREE PILLARS SECTION
-           ============================ */
-        .pillars-section {
-            padding: 100px 0;
-        }
-
-        /* --- Loop visual SVG animation --- */
-        .loop-visual { text-align: center; margin: 0 auto 56px; }
-        .loop-visual svg { max-width: 660px; width: 100%; }
-        .loop-node { fill: var(--bg-card); stroke: #00D4AA; stroke-width: 2; }
-        .loop-label { font-family: var(--font-mono); font-size: 13px; fill: var(--navy); font-weight: 700; text-anchor: middle; letter-spacing: 0.12em; }
-        .loop-pulse { fill: #00D4AA; opacity: 0.9; }
-
-        /* --- Pillars grid (simple 3-col) --- */
-        .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-        .pillar-card-simple { padding: 32px 0; }
-        .pillar-card-simple .pillar-num { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; }
-        .pillar-card-simple h3 { font-size: 1.2rem; color: var(--navy); margin-bottom: 12px; }
-        .pillar-card-simple p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; }
 
         /* ============================
            5. SOVEREIGN BY DESIGN
@@ -561,7 +561,7 @@
         .sovereign-section { padding: 100px 0; background: var(--bg-secondary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
         .sovereign-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
         .sovereign-card { background: var(--bg-card); border: 1px solid var(--border-color); padding: 36px 28px; transition: border-color 0.3s; }
-        .sovereign-card:hover { border-color: var(--border-accent); }
+        .sovereign-card:hover { border-color: var(--navy); }
         .sovereign-card h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 14px; }
         .sovereign-card p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.7; }
         .sovereign-tagline {
@@ -578,11 +578,11 @@
             text-align: center;
             font-family: var(--font-mono);
             font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--accent);
+            font-weight: 700;
+            color: var(--navy);
             margin-top: 24px;
             padding-top: 32px;
-            border-top: 1px solid var(--border-color);
+            border-top: 2px solid var(--navy);
             letter-spacing: 0.01em;
         }
 
@@ -710,8 +710,8 @@
         .arch-stage-num {
             width: 28px;
             height: 28px;
-            background: var(--accent);
-            color: var(--navy);
+            background: var(--navy);
+            color: #FFFFFF;
             border-radius: 50%;
             font-family: var(--font-mono);
             font-size: 0.8rem;
@@ -735,7 +735,7 @@
         }
         .arch-arrow {
             font-size: 1.5rem;
-            color: var(--accent);
+            color: var(--navy);
             font-weight: 300;
         }
         .arch-expand-btn {
@@ -753,12 +753,12 @@
             transition: all 0.2s ease;
         }
         .arch-expand-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--navy);
+            color: var(--navy);
         }
         .arch-expand-btn.expanded {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--navy);
+            color: var(--navy);
         }
         .arch-expand-btn.expanded .arch-expand-arrow {
             transform: rotate(180deg);
@@ -796,7 +796,7 @@
            ============================ */
         .guarantee-section { padding: 100px 0; background: var(--bg-secondary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
         .guarantee-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 48px; }
-        .guarantee-item { border-top: 2px solid var(--amber); padding-top: 20px; }
+        .guarantee-item { border-top: 3px solid var(--navy); padding-top: 20px; }
         .guarantee-item h3 { font-size: 1rem; color: var(--navy); margin-bottom: 10px; }
         .guarantee-item p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
         .guarantee-cta { text-align: center; }
@@ -852,7 +852,7 @@
 
         .contact-item {
             padding-left: 16px;
-            border-left: 2px solid var(--accent);
+            border-left: 3px solid var(--navy);
         }
 
         .contact-item strong {
@@ -913,7 +913,7 @@
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--accent);
+            border-color: var(--navy);
         }
 
         .checkbox-group {
@@ -957,7 +957,7 @@
         }
 
         .form-badge .badge-icon {
-            color: var(--amber);
+            color: var(--light-blue);
             font-family: var(--font-mono);
             font-weight: 700;
         }
@@ -979,7 +979,7 @@
         }
 
         .security-badge .shield-icon {
-            color: var(--amber);
+            color: var(--light-blue);
         }
 
         /* ============================
@@ -1107,13 +1107,11 @@
                 top: 64px;
                 left: 0;
                 right: 0;
-                background: var(--bg-primary);
-                border-bottom: 1px solid var(--border-color);
+                background: var(--navy);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
                 padding: 24px;
                 gap: 16px;
             }
-            .problem-grid { grid-template-columns: 1fr; }
-            .pillars-grid { grid-template-columns: 1fr; }
             .sovereign-grid { grid-template-columns: 1fr; }
             .guarantee-items { grid-template-columns: 1fr; }
             .hero-stats-bar { flex-direction: column; gap: 12px; align-items: center; }
@@ -1137,7 +1135,7 @@
                 <li><a href="#pillars">Platform</a></li>
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="trust.html">Trust Center</a></li>
-                <li><a href="#contact" class="btn-nav">Get Blueprint</a></li>
+                <li><a href="#contact" class="btn-nav">Book a Demo</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -1159,27 +1157,26 @@
             <div class="hero-split">
                 <!-- Left column: text content -->
                 <div class="hero-text">
-                    <h1 class="hero-headline">The Sovereign<br>SOC</h1>
-                    <h2 class="hero-subhead">A new operating model for security.<br><span class="hero-subhead-secondary">Autonomous AI executing detection, investigation, and response.</span></h2>
+                    <h1 class="hero-headline">The Sovereign<br><span class="accent">SOC</span></h1>
+                    <h2 class="hero-subhead"><span class="navy-mark">BYODb SIEM</span> Detects on your databases.<br><span class="navy-mark">AI SOC</span> Investigates and resolves autonomously.</h2>
                     <div class="hero-cta">
-                        <a href="#contact" class="btn btn-primary btn-large">Get the Architecture Blueprint</a>
-                        <a href="#contact" class="btn btn-secondary btn-large">Run a Local Pilot</a>
+                        <a href="#contact" class="btn btn-primary btn-large">Book a Demo</a>
                     </div>
                     <div class="hero-stats-bar">
                         <div class="hero-stat">
                             <span class="stat-dot"></span>
-                            <span>Real-time detection</span>
+                            <span>No SIEM Ingestion Tax</span>
                         </div>
                         <div class="hero-stat">
                             <span class="stat-dot"></span>
-                            <span>In-place queries</span>
+                            <span>Autonomous AI SOC</span>
                         </div>
                         <div class="hero-stat">
                             <span class="stat-dot"></span>
-                            <span>Zero data movement</span>
+                            <span>Human in Loop</span>
                         </div>
                     </div>
-                    <p class="hero-proof">In pilot with enterprise security teams across financial services and healthcare.</p>
+                    <p class="hero-proof">In pilot with enterprise security teams across Technology, financial services, healthcare and Government Agencies.</p>
                 </div>
 
                 <!-- Right column: terminal -->
@@ -1203,112 +1200,90 @@
     </section>
 
     <!-- ========================================
-         SECTION 2: THE HOSTAGE PROBLEM
+         SECTION 2: AI SOC ANALYST
          ======================================== -->
-    <section class="problem-section">
+    <section id="pillars" class="product-section">
         <div class="container">
-            <div class="section-header">
-                <span class="section-tag">The Problem</span>
-                <h2 class="section-title">Your SIEM Holds Your Data Hostage.</h2>
-            </div>
-
-            <div class="problem-grid">
-                <div class="problem-card">
-                    <div class="card-label"><span class="icon-x">X</span> Slow Response</div>
-                    <p>Mean time to respond (MTTR) measured in hours or days. Threats have time to spread and escalate.</p>
+            <div class="product-split">
+                <div class="product-text">
+                    <span class="section-tag">01</span>
+                    <h2 class="section-title">AI SOC Analyst</h2>
+                    <p class="product-desc">An autonomous analyst that investigates, triages, and resolves threats alongside your team.</p>
                 </div>
-                <div class="problem-card">
-                    <div class="card-label"><span class="icon-x">X</span> Per-GB Trap</div>
-                    <p>Data volumes grow. Bills explode. Log sources get dropped. Blind spots multiply.</p>
+                <div class="product-features">
+                    <div class="feature-item">
+                        <span class="feature-marker"></span>
+                        <div>
+                            <h4>AI-powered investigations</h4>
+                            <p>Enriches alerts across 50+ sources, correlates signals, and delivers verdicts in seconds.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-marker"></span>
+                        <div>
+                            <h4>Resolution in seconds, not hours</h4>
+                            <p>Automated containment, ticketing, and notification with full audit trails.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-marker"></span>
+                        <div>
+                            <h4>Learns from your team's decisions</h4>
+                            <p>Absorbs tribal knowledge: escalation patterns, asset criticality, what's normal in your environment.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-marker"></span>
+                        <div>
+                            <h4>Human-in-the-loop, not human-out-of-the-loop</h4>
+                            <p>Approval workflows, policy guardrails, and one-click rollback. Machine speed. Human authority.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="problem-card">
-                    <div class="card-label"><span class="icon-x">X</span> Vendor Lock-In</div>
-                    <p>Proprietary formats. Prohibitive migration costs. Your security data becomes someone else's leverage.</p>
-                </div>
-            </div>
-
-            <div class="problem-bottom-line">
-                The industry forces a choice: <strong>intelligence or sovereignty</strong>. We refuse to choose.
             </div>
         </div>
     </section>
 
     <!-- ========================================
-         SECTION 3: THREE PILLARS
+         SECTION 3: BYODb SIEM
          ======================================== -->
-    <section id="pillars" class="pillars-section">
+    <section class="product-section product-section-alt">
         <div class="container">
-            <div class="section-header">
-                <span class="section-tag">The Sovereign SOC</span>
-                <h2 class="section-title">AI Vigilance at Machine Speed.<br>Human Vigilance at Strategic Scale.</h2>
-            </div>
-
-            <!-- Loop Visual SVG -->
-            <div class="loop-visual">
-                <svg viewBox="0 0 660 130" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="loopGrad" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stop-color="#00D4AA" stop-opacity="0.4" />
-                            <stop offset="50%" stop-color="#00D4AA" stop-opacity="1" />
-                            <stop offset="100%" stop-color="#00D4AA" stop-opacity="0.4" />
-                        </linearGradient>
-                        <filter id="pulseGlow">
-                            <feGaussianBlur stdDeviation="3" result="blur" />
-                            <feMerge>
-                                <feMergeNode in="blur" />
-                                <feMergeNode in="SourceGraphic" />
-                            </feMerge>
-                        </filter>
-                    </defs>
-
-                    <!-- Connecting paths with gradient -->
-                    <line x1="118" y1="50" x2="282" y2="50" stroke="url(#loopGrad)" stroke-width="3" stroke-linecap="round" />
-                    <line x1="358" y1="50" x2="522" y2="50" stroke="url(#loopGrad)" stroke-width="3" stroke-linecap="round" />
-                    <!-- Arrow heads -->
-                    <polygon points="278,44 290,50 278,56" fill="#00D4AA" opacity="0.8" />
-                    <polygon points="518,44 530,50 518,56" fill="#00D4AA" opacity="0.8" />
-
-                    <!-- Animated pulses with glow -->
-                    <circle class="loop-pulse" r="5" filter="url(#pulseGlow)">
-                        <animateMotion dur="2.5s" repeatCount="indefinite" path="M118,50 L282,50" />
-                    </circle>
-                    <circle class="loop-pulse" r="5" filter="url(#pulseGlow)">
-                        <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.6s" path="M358,50 L522,50" />
-                    </circle>
-
-                    <!-- Node 1: Detect (Shield) -->
-                    <circle class="loop-node" cx="90" cy="50" r="28" />
-                    <path d="M90,36 L78,42 L78,52 C78,58 83,64 90,66 C97,64 102,58 102,52 L102,42 Z" fill="none" stroke="#00D4AA" stroke-width="1.8" />
-                    <text class="loop-label" x="90" y="100">DETECT</text>
-
-                    <!-- Node 2: Investigate (Magnifying glass) -->
-                    <circle class="loop-node" cx="320" cy="50" r="28" />
-                    <circle cx="316" cy="46" r="10" fill="none" stroke="#00D4AA" stroke-width="1.8" />
-                    <line x1="324" y1="54" x2="332" y2="62" stroke="#00D4AA" stroke-width="2" stroke-linecap="round" />
-                    <text class="loop-label" x="320" y="100">INVESTIGATE</text>
-
-                    <!-- Node 3: Resolve (Bolt) -->
-                    <circle class="loop-node" cx="550" cy="50" r="28" />
-                    <polygon points="554,35 543,52 551,52 546,65 557,48 549,48" fill="#00D4AA" />
-                    <text class="loop-label" x="550" y="100">RESOLVE</text>
-                </svg>
-            </div>
-
-            <div class="pillars-grid">
-                <div class="pillar-card-simple">
-                    <div class="pillar-num">Pillar 01 DETECT</div>
-                    <h3>Zero-Movement Intelligence</h3>
-                    <p>AI-powered detection running directly on your databases. No ingestion. No per-GB tax. Real-time, in place.</p>
+            <div class="product-split reverse">
+                <div class="product-text">
+                    <span class="section-tag">02</span>
+                    <h2 class="section-title">BYODb SIEM</h2>
+                    <p class="product-desc">A SIEM that runs on your existing databases. No ingestion pipeline. No vendor lock-in.</p>
                 </div>
-                <div class="pillar-card-simple">
-                    <div class="pillar-num">Pillar 02 INVESTIGATE</div>
-                    <h3>Agentic Triage</h3>
-                    <p>Agentic AI triages, enriches, and correlates across 50+ sources. 10,000 alerts become the 10 that matter. In seconds, not shifts.</p>
-                </div>
-                <div class="pillar-card-simple">
-                    <div class="pillar-num">Pillar 03 RESOLVE</div>
-                    <h3>Supervised Remediation</h3>
-                    <p>Supervised remediation block, isolate, disable, ticket with approval workflows, policy guardrails, and one-click rollback. Machine Execution. Human Authorization.</p>
+                <div class="product-features">
+                    <div class="feature-item">
+                        <span class="feature-marker"></span>
+                        <div>
+                            <h4>Query your databases in place</h4>
+                            <p>OpenSearch, Snowflake, MS Sentinel, Splunk, Security Lakes. Connected in days, not months.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-marker"></span>
+                        <div>
+                            <h4>No data movement, no duplication</h4>
+                            <p>Your telemetry stays where it is. Zero egress. Zero replication costs.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-marker"></span>
+                        <div>
+                            <h4>Natural language search</h4>
+                            <p>Ask questions in plain English. The AI generates and executes the queries across your databases.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-marker"></span>
+                        <div>
+                            <h4>Zero per-GB ingestion fees</h4>
+                            <p>Stop paying to store your own data. Move your budget from ingestion to intelligence.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1321,7 +1296,7 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Why Different</span>
-                <h2 class="section-title">Three things no other SOC platform gives you at once.</h2>
+                <h2 class="section-title">Three things <span class="navy-mark">no other SOC platform</span> gives you at once.</h2>
             </div>
 
             <div class="sovereign-grid">
@@ -1334,13 +1309,12 @@
                     <p>Your telemetry stays in your databases. OpenSearch, Snowflake, BigQuery, S3, Splunk we query in place. Zero movement. Zero lock-in. Zero per-GB licensing.</p>
                 </div>
                 <div class="sovereign-card">
-                    <h3>Your AI: BYO-LLM</h3>
-                    <p>Connect your self-hosted models or cloud AI providers directly. We orchestrate the detection logic while you provide the model via your own Azure, AWS, or GCP account. No data is sent to a third-party vendor for training, and all AI spend stays under your existing cloud commits.</p>
+                    <h3>Your Privacy: Zero Data Exposure</h3>
+                    <p>No security telemetry leaves your environment for AI processing. We orchestrate detection logic while all AI inference runs within your cloud account. No vendor training on your data. Full control over model spend.</p>
                 </div>
             </div>
 
             <p class="sovereign-tagline">Stop paying for the privilege of storing your own data. Move your budget from &lsquo;Ingestion&rsquo; to &lsquo;Intelligence&rsquo;.</p>
-            <p class="sovereign-quote">No vendor has ever been breached by data they never had.</p>
         </div>
     </section>
 
@@ -1698,13 +1672,9 @@
                 <span>OpenSearch</span>
                 <span>Elasticsearch</span>
                 <span>Snowflake</span>
-                <span>CrowdStrike</span>
-                <span>SentinelOne</span>
-                <span>Okta</span>
-                <span>Jira</span>
-                <span>ServiceNow</span>
-                <span>Slack</span>
-                <span>and more</span>
+                <span>MS Sentinel</span>
+                <span>Splunk</span>
+                <span>Security Lakes</span>
             </div>
 
         </div>
@@ -1717,7 +1687,7 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Our Promise</span>
-                <h2 class="section-title">We Deploy. You Don't Pay Until We Deliver.</h2>
+                <h2 class="section-title">We Deploy. You Don't Pay Until We <span class="navy-mark">Deliver</span>.</h2>
             </div>
 
             <div class="guarantee-items">
@@ -1757,8 +1727,8 @@
             </div>
 
             <div class="section-header">
-                <h2 class="section-title">Get the Architecture Blueprint</h2>
-                <p class="section-subtitle">See how the Sovereign SOC maps to your infrastructure.</p>
+                <h2 class="section-title">See It In Action</h2>
+                <p class="section-subtitle">Run a pilot on your infrastructure or book a live demo.</p>
             </div>
 
             <div class="contact-layout">
@@ -1786,7 +1756,7 @@
                 </div>
                 <div class="contact-form-container">
                     <form class="contact-form" id="contactForm" action="https://formspree.io/f/xyzeroez" method="POST">
-                        <h3>Request Architecture Blueprint</h3>
+                        <h3>Request a Demo or Pilot</h3>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="firstName">First Name *</label>
@@ -1827,7 +1797,7 @@
                             <input type="checkbox" id="consent" name="consent" required>
                             <label for="consent">I agree to the <a href="privacy.html">Privacy Policy</a> and consent to being contacted about <span class="brand-name"><span class="vigilense">Vigilense</span><span class="ai"> AI</span></span>.</label>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-large btn-full">Get Architecture Blueprint</button>
+                        <button type="submit" class="btn btn-primary btn-large btn-full">Request Demo</button>
                         <p class="form-note">We respond within 24 hours</p>
                         <div class="form-trust-badges">
                             <div class="form-badge">
@@ -1898,7 +1868,7 @@
                     <div class="footer-column">
                         <h4>Resources</h4>
                         <ul>
-                            <li><a href="resources/byollm-guide.html">Documentation</a></li>
+                            <li><a href="resources/byodb-architecture.html">Documentation</a></li>
                             <li><a href="resources/byodb-architecture.html">BYODb Guide</a></li>
                             <li><a href="resources/siem-buyers-guide.html">SIEM Buyer's Guide</a></li>
                             <li><a href="resources/healthcare-case-study.html">Case Studies</a></li>

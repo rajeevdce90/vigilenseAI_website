@@ -23,11 +23,11 @@ const navbar = document.querySelector('.navbar');
 
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.97)';
-        navbar.style.borderBottomColor = 'rgba(0, 212, 170, 0.15)';
+        navbar.style.background = '#0A1628';
+        navbar.style.borderBottomColor = 'rgba(255, 255, 255, 0.12)';
     } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.borderBottomColor = '#E2E8F0';
+        navbar.style.background = '#0A1628';
+        navbar.style.borderBottomColor = 'rgba(255, 255, 255, 0.08)';
     }
 });
 
