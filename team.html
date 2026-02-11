@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team - Vigilense AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .team-hero {
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .team-hero .section-tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #00D4AA;
+            border: 1px solid #00D4AA;
+            padding: 6px 16px;
+            border-radius: 2px;
+            margin-bottom: 20px;
+        }
+        .team-hero h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: #0A1628;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+        }
+        .team-hero p {
+            font-size: 1.1rem;
+            color: #475569;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 0 100px;
+        }
+
+        .team-card {
+            text-align: center;
+        }
+
+        .team-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 28px;
+            display: block;
+            border: 3px solid #E2E8F0;
+            filter: grayscale(20%);
+            transition: filter 0.3s, border-color 0.3s;
+        }
+
+        .team-card:hover .team-photo {
+            filter: grayscale(0%);
+            border-color: #0A1628;
+        }
+
+        .team-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0A1628;
+            margin-bottom: 4px;
+            letter-spacing: -0.02em;
+        }
+
+        .team-role {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #00D4AA;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 20px;
+        }
+
+        .team-bio {
+            font-size: 0.95rem;
+            color: #475569;
+            line-height: 1.75;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .hamburger { display: flex; }
+            .nav-menu.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: #0A1628;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 24px;
+                gap: 16px;
+            }
+            .team-hero { padding: 110px 0 40px; }
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 56px;
+                padding: 20px 0 80px;
+            }
+            .team-photo {
+                width: 160px;
+                height: 160px;
+            }
+            .footer-content { grid-template-columns: 1fr; gap: 24px; }
+            .footer-links { grid-template-columns: 1fr 1fr; }
+            .footer-bottom-content { flex-direction: column; gap: 12px; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .team-hero h1 { font-size: 1.8rem; }
+            .team-hero p { font-size: 0.95rem; }
+            .team-name { font-size: 1.1rem; }
+            .team-bio { font-size: 0.88rem; }
+            .team-photo { width: 140px; height: 140px; }
+            .footer-links { grid-template-columns: 1fr; gap: 24px; }
+            .container { padding: 0 16px; }
+        }
+
+        /* Footer overrides to match index.html */
+        .footer {
+            border-top: none;
+            background: #0A1628;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .footer .logo-vigilense { color: #FFFFFF; }
+        .footer .logo-ai { color: #00D4AA; }
+        .footer-brand p { color: rgba(255, 255, 255, 0.5); }
+        .footer-column h4 { color: #FFFFFF; }
+        .footer-column a { color: rgba(255, 255, 255, 0.5); }
+        .footer-column a:hover { color: #00D4AA; }
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-bottom p { color: rgba(255, 255, 255, 0.35); }
+        .footer-legal-links a { color: rgba(255, 255, 255, 0.35); }
+        .footer-legal-links a:hover { color: #00D4AA; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <img src="Vigilense Logo.png" alt="Vigilense AI" class="logo-icon">
+                <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html#pillars">Platform</a></li>
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="trust.html">Trust Center</a></li>
+                <li><a href="index.html#contact" class="btn-nav">Talk to a Human Vigilant</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Team Hero -->
+    <section class="team-hero">
+        <div class="container">
+            <span class="section-tag">Leadership</span>
+            <h1>Meet the Vigilants</h1>
+            <p>Led by strategists who scale what matters. Built by operators who lived in the SOC.</p>
+        </div>
+    </section>
+
+    <!-- Team Members -->
+    <section>
+        <div class="container">
+            <div class="team-grid">
+                <!-- Zach -->
+                <div class="team-card">
+                    <img src="Zach Image.jpg" alt="Zachary Troyer" class="team-photo">
+                    <div class="team-name">Zachary Troyer</div>
+                    <div class="team-role">Co-Founder &amp; CEO</div>
+                    <p class="team-bio">A strategic leader focused on scale and operational excellence, Zach leads the mission to bring Sovereign SOC to the global enterprise. With a background in finance and high-growth operations, he bridges the gap between complex AI security technology and the business-critical needs of the modern C-Suite.</p>
+                </div>
+
+                <!-- Raj -->
+                <div class="team-card">
+                    <img src="Rajeev Image.jpeg" alt="Raj Choudhary" class="team-photo">
+                    <div class="team-name">Raj Choudhary</div>
+                    <div class="team-role">Co-Founder &amp; CTO</div>
+                    <p class="team-bio">A cybersecurity veteran with over 15 years of deep-tier IT experience, Raj is the architect behind Vigilense AI. Having spent over a decade in the "SOC weeds" from engineering complex SIEM deployments to authoring automated response playbooks he built the Sovereign SOC platform to solve the real-world friction points of modern incident response.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-brand">
+                        <img src="Vigilense Logo.png" alt="Vigilense AI" class="logo-icon">
+                        <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+                    </a>
+                    <p>The Sovereign SOC</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="index.html#how-it-works">How It Works</a></li>
+                            <li><a href="index.html#pillars">Platform</a></li>
+                            <li><a href="index.html#contact">Deployment</a></li>
+                            <li><a href="index.html#contact">Integrations</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="team.html">Team</a></li>
+                            <li><a href="security.html">About & Security</a></li>
+                            <li><a href="trust.html">Trust Center</a></li>
+                            <li><a href="index.html#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="resources/byodb-architecture.html">Documentation</a></li>
+                            <li><a href="resources/byodb-architecture.html">BYODb Guide</a></li>
+                            <li><a href="resources/siem-buyers-guide.html">SIEM Buyer's Guide</a></li>
+                            <li><a href="resources/healthcare-case-study.html">Case Studies</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal & Security</h4>
+                        <ul>
+                            <li><a href="trust.html">Trust Center</a></li>
+                            <li><a href="security.html">Security</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="disclaimer.html">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Vigilense AI. All rights reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="privacy.html">Privacy</a>
+                        <a href="terms.html">Terms</a>
+                        <a href="disclaimer.html">Disclaimer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

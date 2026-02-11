@@ -478,81 +478,381 @@
         }
 
         /* ============================
-           3-4. PRODUCT SECTIONS
+           3-4. PRODUCT SECTIONS (side by side)
            ============================ */
-        .product-section {
-            padding: 100px 0;
+        .products-section {
+            padding: 80px 0 100px;
         }
 
-        .product-section-alt {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .product-split {
+        .products-grid {
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 64px;
-            align-items: start;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
         }
 
-        .product-split.reverse {
-            grid-template-columns: 1fr 1.2fr;
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 40px 36px;
+            transition: border-color 0.3s;
         }
 
-        .product-text .section-title {
+        .product-card:hover {
+            border-color: var(--navy);
+        }
+
+        .product-card .section-tag {
             margin-bottom: 12px;
+        }
+
+        .product-card .section-title {
+            margin-bottom: 8px;
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
         }
 
         .product-desc {
             color: var(--text-secondary);
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             line-height: 1.7;
+            margin-bottom: 28px;
         }
 
         .product-features {
             display: flex;
             flex-direction: column;
-            gap: 28px;
+            gap: 20px;
         }
 
         .feature-item {
             display: flex;
-            gap: 16px;
+            gap: 14px;
             align-items: flex-start;
         }
 
         .feature-marker {
             flex-shrink: 0;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: var(--navy);
             border-radius: 2px;
-            margin-top: 7px;
+            margin-top: 6px;
         }
 
         .feature-item h4 {
             font-family: var(--font-mono);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: var(--navy);
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             letter-spacing: -0.01em;
         }
 
         .feature-item p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             line-height: 1.6;
         }
 
-        @media (max-width: 768px) {
-            .product-split,
-            .product-split.reverse {
+        @media (max-width: 900px) {
+            .products-grid {
                 grid-template-columns: 1fr;
                 gap: 32px;
             }
+        }
+
+        @media (max-width: 600px) {
+            .product-card {
+                padding: 28px 20px;
+            }
+        }
+
+        /* ============================
+           PRODUCT DASHBOARD PREVIEW
+           ============================ */
+        .dashboard-preview {
+            padding: 0 0 80px;
+            margin-top: -40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .dashboard-frame {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #0B1120;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 80px rgba(10, 22, 40, 0.4), 0 0 0 1px rgba(0, 212, 170, 0.05);
+            overflow: hidden;
+        }
+
+        .dash-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: #080E1A;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .dash-topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dash-logo {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            letter-spacing: 0.05em;
+        }
+
+        .dash-logo span { color: var(--accent); }
+
+        .dash-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .dash-nav span {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .dash-nav span.active {
+            color: var(--accent);
+        }
+
+        .dash-topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .dash-ai-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--accent);
+            background: rgba(0, 212, 170, 0.08);
+            border: 1px solid rgba(0, 212, 170, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .dash-ai-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: dashPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dashPulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--accent); }
+            50% { opacity: 0.5; box-shadow: none; }
+        }
+
+        .dash-body {
+            padding: 24px;
+        }
+
+        /* Metrics row */
+        .dash-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .dash-metric {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 18px 16px;
+        }
+
+        .dash-metric-label {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .dash-metric-value {
+            font-family: var(--font-mono);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1;
+        }
+
+        .dash-metric-value.accent { color: var(--accent); }
+        .dash-metric-value.blue { color: var(--light-blue); }
+
+        .dash-metric-change {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--accent);
+            margin-top: 6px;
+        }
+
+        .dash-metric-change.down { color: #ff7b7b; }
+
+        /* Main content grid */
+        .dash-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 16px;
+        }
+
+        .dash-panel {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 18px;
+        }
+
+        .dash-panel-title {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dash-panel-title .live-tag {
+            color: var(--accent);
+            font-size: 0.55rem;
+        }
+
+        /* AI Activity Feed */
+        .dash-feed-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .dash-feed-item:last-child { border-bottom: none; }
+
+        .dash-feed-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        .dash-feed-icon.green { background: var(--accent); }
+        .dash-feed-icon.blue { background: var(--light-blue); }
+        .dash-feed-icon.red { background: #ff7b7b; }
+
+        .dash-feed-text {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.5;
+        }
+
+        .dash-feed-text strong {
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .dash-feed-time {
+            font-size: 0.55rem;
+            color: rgba(255, 255, 255, 0.25);
+            margin-top: 2px;
+        }
+
+        /* Simple bar chart */
+        .dash-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            height: 80px;
+            padding-top: 8px;
+        }
+
+        .dash-bar {
+            flex: 1;
+            background: rgba(0, 212, 170, 0.15);
+            border-radius: 3px 3px 0 0;
+            position: relative;
+            min-height: 8px;
+        }
+
+        .dash-bar .bar-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--accent);
+            border-radius: 3px 3px 0 0;
+            opacity: 0.7;
+        }
+
+        .dash-bar-labels {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .dash-bar-labels span {
+            flex: 1;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Fade-out bottom edge */
+        .dashboard-frame::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(transparent, var(--bg-primary));
+            pointer-events: none;
+        }
+
+        .dashboard-preview .container {
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .dash-metrics { grid-template-columns: repeat(2, 1fr); }
+            .dash-content { grid-template-columns: 1fr; }
+            .dash-nav { display: none; }
+            .dashboard-preview { margin-top: -20px; }
+            .dash-body { padding: 16px; }
+            .dash-topbar { padding: 10px 14px; }
+        }
+
+        @media (max-width: 480px) {
+            .dash-metrics { grid-template-columns: 1fr; gap: 10px; }
+            .dash-metric { padding: 14px 12px; }
+            .dash-metric-value { font-size: 1.3rem; }
+            .dash-body { padding: 12px; }
+            .dash-feed-text { font-size: 0.6rem; }
         }
 
         /* ============================
@@ -987,8 +1287,9 @@
            ============================ */
         .footer {
             padding: 64px 0 32px;
-            border-top: 1px solid var(--border-color);
-            background: var(--bg-primary);
+            border-top: none;
+            background: var(--navy);
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .footer-content {
@@ -1000,9 +1301,12 @@
 
         .footer-brand p {
             font-size: 0.88rem;
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.5);
             margin-top: 12px;
         }
+
+        .footer .logo-vigilense { color: #FFFFFF; }
+        .footer .logo-ai { color: var(--accent); }
 
         .footer-links {
             display: grid;
@@ -1012,7 +1316,7 @@
 
         .footer-column h4 {
             font-size: 0.8rem;
-            color: var(--navy);
+            color: #FFFFFF;
             margin-bottom: 16px;
             text-transform: uppercase;
             letter-spacing: 0.08em;
@@ -1028,12 +1332,12 @@
 
         .footer-column a {
             font-size: 0.85rem;
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.5);
         }
         .footer-column a:hover { color: var(--accent); }
 
         .footer-bottom {
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 24px;
         }
 
@@ -1045,7 +1349,7 @@
 
         .footer-bottom p {
             font-size: 0.8rem;
-            color: var(--text-muted);
+            color: rgba(255, 255, 255, 0.35);
         }
 
         .footer-legal-links {
@@ -1055,8 +1359,9 @@
 
         .footer-legal-links a {
             font-size: 0.8rem;
-            color: var(--text-muted);
+            color: rgba(255, 255, 255, 0.35);
         }
+        .footer-legal-links a:hover { color: var(--accent); }
 
         /* ============================
            RESPONSIVE
@@ -1118,6 +1423,22 @@
             .form-row { grid-template-columns: 1fr; }
             .footer-links { grid-template-columns: 1fr 1fr; }
             .footer-bottom-content { flex-direction: column; gap: 12px; text-align: center; }
+            .terminal-body { height: 280px; padding: 16px 18px; font-size: 0.68rem; }
+            .hero { padding: 100px 0 60px; min-height: auto; }
+            .hero-headline { font-size: clamp(1.8rem, 8vw, 3rem); }
+            .hero-subhead { font-size: clamp(0.85rem, 3vw, 1.2rem); }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content { grid-template-columns: 1fr; gap: 24px; }
+            .footer-links { grid-template-columns: 1fr; gap: 24px; }
+            .hero-headline { font-size: 1.6rem; letter-spacing: 0.04em; }
+            .hero-subhead { font-size: 0.85rem; }
+            .hero-cta .btn-large { padding: 14px 24px; font-size: 0.85rem; width: 100%; text-align: center; }
+            .container { padding: 0 16px; }
+            .contact-form-container { padding: 24px 16px; }
+            .sovereign-card { padding: 28px 20px; }
+            .guarantee-item { padding-top: 16px; }
         }
     </style>
 </head>
@@ -1135,7 +1456,7 @@
                 <li><a href="#pillars">Platform</a></li>
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="trust.html">Trust Center</a></li>
-                <li><a href="#contact" class="btn-nav">Book a Demo</a></li>
+                <li><a href="#contact" class="btn-nav">Talk to a Human Vigilant</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -1200,88 +1521,193 @@
     </section>
 
     <!-- ========================================
-         SECTION 2: AI SOC ANALYST
+         PRODUCT DASHBOARD PREVIEW
          ======================================== -->
-    <section id="pillars" class="product-section">
+    <div class="dashboard-preview">
         <div class="container">
-            <div class="product-split">
-                <div class="product-text">
-                    <span class="section-tag">01</span>
-                    <h2 class="section-title">AI SOC Analyst</h2>
-                    <p class="product-desc">An autonomous analyst that investigates, triages, and resolves threats alongside your team.</p>
+            <div class="dashboard-frame">
+                <!-- Top bar -->
+                <div class="dash-topbar">
+                    <div class="dash-topbar-left">
+                        <div class="dash-logo">Vigilense <span>AI</span></div>
+                        <div class="dash-nav">
+                            <span class="active">Overview</span>
+                            <span>Alerts</span>
+                            <span>Investigations</span>
+                            <span>Databases</span>
+                            <span>Playbooks</span>
+                        </div>
+                    </div>
+                    <div class="dash-topbar-right">
+                        <div class="dash-ai-badge">
+                            <span class="dash-ai-dot"></span>
+                            AI VIGILANT ANALYST ACTIVE
+                        </div>
+                    </div>
                 </div>
-                <div class="product-features">
-                    <div class="feature-item">
-                        <span class="feature-marker"></span>
-                        <div>
-                            <h4>AI-powered investigations</h4>
-                            <p>Enriches alerts across 50+ sources, correlates signals, and delivers verdicts in seconds.</p>
+
+                <!-- Dashboard body -->
+                <div class="dash-body">
+                    <!-- Metric cards -->
+                    <div class="dash-metrics">
+                        <div class="dash-metric">
+                            <div class="dash-metric-label">Alerts Processed (24h)</div>
+                            <div class="dash-metric-value">12,847</div>
+                            <div class="dash-metric-change">+18% vs last week</div>
+                        </div>
+                        <div class="dash-metric">
+                            <div class="dash-metric-label">Mean Time to Resolve</div>
+                            <div class="dash-metric-value accent">14s</div>
+                            <div class="dash-metric-change">from 4.2 hrs (manual)</div>
+                        </div>
+                        <div class="dash-metric">
+                            <div class="dash-metric-label">Auto-Resolved by AI</div>
+                            <div class="dash-metric-value">94.2%</div>
+                            <div class="dash-metric-change">1,091 cases closed</div>
+                        </div>
+                        <div class="dash-metric">
+                            <div class="dash-metric-label">Ingestion Cost</div>
+                            <div class="dash-metric-value blue">$0</div>
+                            <div class="dash-metric-change">BYODb — zero data movement</div>
                         </div>
                     </div>
-                    <div class="feature-item">
-                        <span class="feature-marker"></span>
-                        <div>
-                            <h4>Resolution in seconds, not hours</h4>
-                            <p>Automated containment, ticketing, and notification with full audit trails.</p>
+
+                    <!-- Main content -->
+                    <div class="dash-content">
+                        <!-- AI Activity Feed -->
+                        <div class="dash-panel">
+                            <div class="dash-panel-title">
+                                AI Analyst Activity
+                                <span class="live-tag">LIVE</span>
+                            </div>
+                            <div class="dash-feed-item">
+                                <span class="dash-feed-icon red"></span>
+                                <div>
+                                    <div class="dash-feed-text"><strong>ALT-4891</strong> Credential stuffing detected — 312 accounts targeted. Investigating source IPs.</div>
+                                    <div class="dash-feed-time">2s ago</div>
+                                </div>
+                            </div>
+                            <div class="dash-feed-item">
+                                <span class="dash-feed-icon green"></span>
+                                <div>
+                                    <div class="dash-feed-text"><strong>ALT-4889</strong> Resolved — Blocked 8 IPs, disabled compromised session, ticket JIRA-2041 created.</div>
+                                    <div class="dash-feed-time">47s ago</div>
+                                </div>
+                            </div>
+                            <div class="dash-feed-item">
+                                <span class="dash-feed-icon blue"></span>
+                                <div>
+                                    <div class="dash-feed-text"><strong>ALT-4887</strong> Enrichment complete — GreyNoise, AbuseIPDB, CrowdStrike correlated. Verdict: True Positive (0.96).</div>
+                                    <div class="dash-feed-time">1m ago</div>
+                                </div>
+                            </div>
+                            <div class="dash-feed-item">
+                                <span class="dash-feed-icon green"></span>
+                                <div>
+                                    <div class="dash-feed-text"><strong>ALT-4882</strong> Auto-closed — False positive. Pattern matched known deploy from CI/CD pipeline.</div>
+                                    <div class="dash-feed-time">3m ago</div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-marker"></span>
-                        <div>
-                            <h4>Learns from your team's decisions</h4>
-                            <p>Absorbs tribal knowledge: escalation patterns, asset criticality, what's normal in your environment.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-marker"></span>
-                        <div>
-                            <h4>Human-in-the-loop, not human-out-of-the-loop</h4>
-                            <p>Approval workflows, policy guardrails, and one-click rollback. Machine speed. Human authority.</p>
+
+                        <!-- Detection volume chart -->
+                        <div class="dash-panel">
+                            <div class="dash-panel-title">Detections (7d)</div>
+                            <div class="dash-bars">
+                                <div class="dash-bar" style="height:55%"><div class="bar-fill" style="height:70%"></div></div>
+                                <div class="dash-bar" style="height:70%"><div class="bar-fill" style="height:65%"></div></div>
+                                <div class="dash-bar" style="height:45%"><div class="bar-fill" style="height:80%"></div></div>
+                                <div class="dash-bar" style="height:85%"><div class="bar-fill" style="height:60%"></div></div>
+                                <div class="dash-bar" style="height:60%"><div class="bar-fill" style="height:75%"></div></div>
+                                <div class="dash-bar" style="height:90%"><div class="bar-fill" style="height:55%"></div></div>
+                                <div class="dash-bar" style="height:75%"><div class="bar-fill" style="height:85%"></div></div>
+                            </div>
+                            <div class="dash-bar-labels">
+                                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- ========================================
-         SECTION 3: BYODb SIEM
+         SECTION 2: PRODUCTS (side by side)
          ======================================== -->
-    <section class="product-section product-section-alt">
+    <section id="pillars" class="products-section">
         <div class="container">
-            <div class="product-split reverse">
-                <div class="product-text">
+            <div class="products-grid">
+                <!-- AI SOC Analyst -->
+                <div class="product-card">
+                    <span class="section-tag">01</span>
+                    <h2 class="section-title">AI SOC Analyst</h2>
+                    <p class="product-desc">An autonomous analyst that investigates, triages, and resolves threats alongside your team.</p>
+                    <div class="product-features">
+                        <div class="feature-item">
+                            <span class="feature-marker"></span>
+                            <div>
+                                <h4>AI-powered investigations</h4>
+                                <p>Enriches alerts across 50+ sources, correlates signals, and delivers verdicts in seconds.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-marker"></span>
+                            <div>
+                                <h4>Resolution in seconds, not hours</h4>
+                                <p>Automated containment, ticketing, and notification with full audit trails.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-marker"></span>
+                            <div>
+                                <h4>Learns from your team's decisions</h4>
+                                <p>Absorbs tribal knowledge: escalation patterns, asset criticality, what's normal in your environment.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-marker"></span>
+                            <div>
+                                <h4>Human-in-the-loop, not human-out-of-the-loop</h4>
+                                <p>Approval workflows, policy guardrails, and one-click rollback. Machine speed. Human authority.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BYODb SIEM -->
+                <div class="product-card">
                     <span class="section-tag">02</span>
                     <h2 class="section-title">BYODb SIEM</h2>
                     <p class="product-desc">A SIEM that runs on your existing databases. No ingestion pipeline. No vendor lock-in.</p>
-                </div>
-                <div class="product-features">
-                    <div class="feature-item">
-                        <span class="feature-marker"></span>
-                        <div>
-                            <h4>Query your databases in place</h4>
-                            <p>OpenSearch, Elasticsearch, Snowflake, MS Sentinel, Splunk, Security Lakes. Connected in days, not months.</p>
+                    <div class="product-features">
+                        <div class="feature-item">
+                            <span class="feature-marker"></span>
+                            <div>
+                                <h4>Query your databases in place</h4>
+                                <p>OpenSearch, Elasticsearch, Snowflake, MS Sentinel, Splunk, Security Lakes. Connected in days, not months.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-marker"></span>
-                        <div>
-                            <h4>No data movement, no duplication</h4>
-                            <p>Your telemetry stays where it is. Zero egress. Zero replication costs.</p>
+                        <div class="feature-item">
+                            <span class="feature-marker"></span>
+                            <div>
+                                <h4>No data movement, no duplication</h4>
+                                <p>Your telemetry stays where it is. Zero egress. Zero replication costs.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-marker"></span>
-                        <div>
-                            <h4>Natural language search</h4>
-                            <p>Ask questions in plain English. The AI generates and executes the queries across your databases.</p>
+                        <div class="feature-item">
+                            <span class="feature-marker"></span>
+                            <div>
+                                <h4>Natural language search</h4>
+                                <p>Ask questions in plain English. The AI generates and executes the queries across your databases.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-marker"></span>
-                        <div>
-                            <h4>Zero per-GB ingestion fees</h4>
-                            <p>Stop paying to store your own data. Move your budget from ingestion to intelligence.</p>
+                        <div class="feature-item">
+                            <span class="feature-marker"></span>
+                            <div>
+                                <h4>Zero per-GB ingestion fees</h4>
+                                <p>Stop paying to store your own data. Move your budget from ingestion to intelligence.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1859,6 +2285,7 @@
                     <div class="footer-column">
                         <h4>Company</h4>
                         <ul>
+                            <li><a href="team.html">Team</a></li>
                             <li><a href="security.html">About & Security</a></li>
                             <li><a href="trust.html">Trust Center</a></li>
                             <li><a href="#contact">Careers</a></li>

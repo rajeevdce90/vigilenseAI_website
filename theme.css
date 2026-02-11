@@ -299,3 +299,29 @@ code, pre {
     color: var(--navy);
     border-color: var(--border-color);
 }
+
+/* ── Mobile overrides for subpages ── */
+@media (max-width: 768px) {
+    .nav-menu { display: none; }
+    .hamburger { display: flex; }
+    .nav-menu.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--navy);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 24px;
+        gap: 16px;
+    }
+    .footer-content { grid-template-columns: 1fr; gap: 24px; }
+    .footer-links { grid-template-columns: 1fr 1fr; }
+    .footer-bottom-content { flex-direction: column; gap: 12px; text-align: center; }
+}
+
+@media (max-width: 480px) {
+    .footer-links { grid-template-columns: 1fr; gap: 24px; }
+    .container { padding: 0 16px; }
+}
