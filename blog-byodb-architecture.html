@@ -310,11 +310,9 @@
                 <hr class="post-divider">
 
                 <div class="post-body">
-                    <p>Every traditional SIEM works the same way: ship your data to us, we will index it, and then you can search it. The entire model assumes that security telemetry needs to be centralized before it can be useful. We disagree.</p>
+                    <p>Every traditional SIEM works the same way: ship your data to us, we will index it, and then we tax you to search it. This model assumes that security telemetry must be centralized to be useful. In the era of the "AI Query Explosion," where automated analysts may run 50x more queries than a human, this centralized model is not just inefficient. It is a financial death sentence for your security budget.</p>
 
                     <p>BYODb (Bring Your Own Database) is the architecture at the core of Vigilense AI. The principle is simple: move compute to data, not data to compute. Your logs stay in your infrastructure. We bring the detection engine to them.</p>
-
-                    <p>This post walks through how that actually works under the hood, the security model that makes it safe, and the performance numbers we are seeing in production.</p>
 
                     <h2>The Five-Stage Pipeline</h2>
 
@@ -322,127 +320,68 @@
 
                     <h3>Stage 1: Connection</h3>
 
-                    <p>We establish a read-only connection to your database. Read-only is non-negotiable. We will never request write access to your data stores. The connection uses your existing authentication infrastructure, whether that is service accounts, IAM roles, OAuth tokens, or certificate-based auth.</p>
+                    <p>We establish a read-only connection to your database. Read-only is non-negotiable. The connection uses your existing authentication infrastructure (IAM roles, OAuth, etc.).</p>
 
-                    <p>Supported backends today include:</p>
-
-                    <ul>
-                        <li><strong>Search engines:</strong> OpenSearch, Elasticsearch</li>
-                        <li><strong>Cloud warehouses:</strong> Snowflake, BigQuery, Databricks, Redshift</li>
-                        <li><strong>Object storage:</strong> S3 (via Athena), Azure Blob Storage</li>
-                        <li><strong>Databases:</strong> PostgreSQL, MongoDB, ClickHouse</li>
-                    </ul>
-
-                    <p>If you are running a database we do not support yet, reach out. Our connector framework is designed to be extensible, and we add new backends based on customer demand.</p>
+                    <p>Supported backends: Snowflake, BigQuery, OpenSearch, S3 (via Athena), and more.</p>
 
                     <h3>Stage 2: Schema Discovery</h3>
 
-                    <p>Once connected, the system runs an automated schema discovery process. It maps your tables, indices, and field structures, then normalizes them against our internal detection schema. This step is critical because no two organizations store their security telemetry the same way.</p>
-
-                    <p>One customer might log authentication events in a field called <code>event.action</code>. Another uses <code>auth_type</code>. A third has it nested inside <code>metadata.authentication.method</code>. Schema discovery handles all of this without requiring you to reformat anything.</p>
-
-                    <p>The normalization layer maps your fields to a common schema so our detection rules work across any backend. You do not rewrite your data. We adapt to it.</p>
+                    <p>We map your tables and indices and normalize them against our internal detection schema. You do not rewrite your data; we adapt to it. Whether you call a field <code>auth_type</code> or <code>event.action</code>, our normalization layer makes it "Vigilense-ready."</p>
 
                     <h3>Stage 3: Query Federation</h3>
 
-                    <p>This is where the real engineering lives. Our detection rules are written in an abstract query language that gets translated at runtime into the native query format of whatever database you are running.</p>
-
-                    <p>A single detection rule for "impossible travel" might execute as:</p>
-
-                    <ul>
-                        <li>An Elasticsearch DSL query against an OpenSearch cluster</li>
-                        <li>A SQL query against a Snowflake warehouse</li>
-                        <li>An Athena query against Parquet files in S3</li>
-                    </ul>
-
-                    <p>Same logic, different execution paths. The federation layer handles query optimization for each backend, including partition pruning, predicate pushdown, and result set limiting. We do not just translate syntax. We optimize for the specific performance characteristics of each engine.</p>
+                    <p>This is where the real engineering lives. Our detection rules are written in an abstract language that translates at runtime into native queries (SQL, DSL, etc.) for your specific database. We optimize for each engine, handling partition pruning and predicate pushdown so the query is as fast as a native search.</p>
 
                     <h3>Stage 4: In-Memory Processing</h3>
 
-                    <p>Query results come back to the Vigilense AI processing layer, where correlation, enrichment, and scoring happen entirely in memory. This is a critical design decision: <strong>nothing is written to disk</strong>.</p>
-
-                    <p>The data enters our processing pipeline as a stream, gets analyzed, gets scored, and the results (alerts, context, recommended actions) are delivered to your SOC team. The raw data itself is never persisted on our side. It cannot be bulk exported, cannot be queried after the fact, and cannot be accessed by anyone outside of the active processing window.</p>
-
-                    <p>Once processing completes, the data is gone from our systems. Period.</p>
+                    <p>Query results are analyzed, enriched, and scored entirely in memory. Nothing is written to disk. The raw data is never persisted on our side, ensuring it cannot be bulk exported or accessed by anyone outside the active processing window. Once the analysis is done, the data is purged from our systems. Period.</p>
 
                     <h3>Stage 5: Intelligence Delivery</h3>
 
-                    <p>The output of the pipeline is actionable intelligence: scored alerts with full context, recommended response actions, and correlation across data sources. This gets delivered through your existing workflows, whether that is a SOAR platform, Slack, PagerDuty, or our own console.</p>
+                    <p>We deliver Intelligence, not Ingestion. Your SOC gets scored alerts and full forensic narratives delivered through your existing tools (Slack, PagerDuty, or our console), without us ever owning your underlying telemetry.</p>
 
-                    <p>The key distinction is that we deliver intelligence, not raw data. Your security team gets the answers they need without us ever storing the underlying telemetry.</p>
-
-                    <h2>The Security Model</h2>
-
-                    <p>Connecting a third-party system to your security data stores requires serious trust. We built the security model to hold up under the most demanding enterprise and regulatory requirements.</p>
-
-                    <h3>Credential Management</h3>
-
-                    <p>All database credentials are encrypted using HSM-backed encryption. For customers with existing secrets management infrastructure, we support integration with HashiCorp Vault, AWS KMS, Azure Key Vault, and GCP KMS. Credentials are automatically rotated on a configurable schedule.</p>
-
-                    <p>No human at Vigilense AI can view, export, or access your database credentials. They are sealed at rest, decrypted only in an isolated execution environment at query time, and never logged.</p>
-
-                    <h3>Network Security</h3>
-
-                    <p>Connections support IP whitelisting so you can restrict access to specific source addresses. For customers who require private connectivity, we support VPC peering and AWS PrivateLink, meaning traffic between your infrastructure and ours never traverses the public internet.</p>
-
-                    <h3>Access Controls</h3>
-
-                    <p>Read-only access is enforced at the connection level. We request the minimum permissions necessary to execute detection queries. For most backends, this means <code>SELECT</code> access on specific tables or indices, nothing more.</p>
-
-                    <p>We cannot create tables, modify data, drop indices, or execute administrative commands on your infrastructure. If a connector is somehow misconfigured to have broader permissions, our query engine will reject write operations at the application layer as a secondary safeguard.</p>
-
-                    <h3>Data Handling Guarantees</h3>
+                    <h2>The Security and Trust Model</h2>
 
                     <ul>
-                        <li>All data is processed in memory only</li>
-                        <li>Nothing is written to disk at any stage</li>
-                        <li>Data cannot be bulk exported from the processing pipeline</li>
-                        <li>No Vigilense AI employee has access to customer data streams</li>
-                        <li>All processing is tenant-isolated with dedicated execution contexts</li>
+                        <li><strong>Credential Management:</strong> All credentials are encrypted using HSM-backed encryption or your own secrets manager (HashiCorp Vault, AWS KMS).</li>
+                        <li><strong>Network Security:</strong> We support VPC peering and PrivateLink; your data never traverses the public internet.</li>
+                        <li><strong>Minimal Permissions:</strong> We only request SELECT access. We cannot modify or delete your data.</li>
                     </ul>
 
-                    <h2>Performance Benchmarks</h2>
+                    <h2>Performance Benchmarks: Real Production Numbers</h2>
 
-                    <p>One of the first questions we get from engineering teams is: "How fast is this compared to having the data locally?" Fair question. Here are the numbers from production workloads.</p>
+                    <table style="width:100%; border-collapse:collapse; margin:32px 0; font-family:'Outfit',sans-serif; font-size:1rem;">
+                        <thead>
+                            <tr style="border-bottom:2px solid #E2E8F0; text-align:left;">
+                                <th style="padding:12px 16px; font-family:'JetBrains Mono',monospace; font-size:0.85rem; color:#0A1628;">Database Backend</th>
+                                <th style="padding:12px 16px; font-family:'JetBrains Mono',monospace; font-size:0.85rem; color:#0A1628;">Data Volume</th>
+                                <th style="padding:12px 16px; font-family:'JetBrains Mono',monospace; font-size:0.85rem; color:#0A1628;">Latency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #E2E8F0;">
+                                <td style="padding:12px 16px; color:#475569;">OpenSearch</td>
+                                <td style="padding:12px 16px; color:#475569;">10TB+</td>
+                                <td style="padding:12px 16px; color:#00B892; font-weight:600;">&lt; 500ms</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #E2E8F0;">
+                                <td style="padding:12px 16px; color:#475569;">Snowflake</td>
+                                <td style="padding:12px 16px; color:#475569;">100TB+</td>
+                                <td style="padding:12px 16px; color:#00B892; font-weight:600;">&lt; 2 seconds</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:12px 16px; color:#475569;">S3 + Athena</td>
+                                <td style="padding:12px 16px; color:#475569;">Petabyte-scale</td>
+                                <td style="padding:12px 16px; color:#00B892; font-weight:600;">&lt; 5 seconds</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                    <h3>OpenSearch / Elasticsearch</h3>
+                    <h2>Why This Matters in the AI Era</h2>
 
-                    <p>Sub-500ms query latency at 10TB+ data volumes. This is on par with native Kibana queries because we are using the same underlying search engine. The difference is that we are executing detection logic, not ad-hoc searches.</p>
+                    <p>The "Ingestion SIEM" is a relic of a pre-AI world. When an AI SOC Analyst performs a 3-layer blast radius investigation, it might run dozens of queries for a single alert. If you are paying a "Query Tax" to a legacy vendor, your costs will go vertical the moment you turn on AI automation.</p>
 
-                    <h3>Snowflake</h3>
-
-                    <p>Under 2 seconds at 100TB+ data volumes, using medium warehouse compute. Snowflake's architecture handles the heavy lifting here, and our query optimizer takes advantage of clustering keys and micro-partitions to minimize scan volume.</p>
-
-                    <h3>S3 + Athena</h3>
-
-                    <p>Under 5 seconds at petabyte-scale data volumes. This is the slowest backend in our lineup, but also the cheapest. For organizations that store historical telemetry in S3 Parquet format, this is a massive cost win compared to ingesting that same data into a traditional SIEM.</p>
-
-                    <p>These are real production numbers, not synthetic benchmarks. Your mileage will vary depending on cluster sizing, network latency, and query complexity, but they represent what we see in typical deployments.</p>
-
-                    <h2>Real-World Impact</h2>
-
-                    <p>A Fortune 500 financial services company came to us after their SIEM renewal hit $3.1M annually. They were generating roughly 2TB of security telemetry per day across Elasticsearch, Snowflake, and S3.</p>
-
-                    <p>After deploying BYODb, they retired their SIEM ingestion pipeline entirely. Their telemetry stayed in the same data stores it was already flowing into for business analytics and compliance. Vigilense AI queried it in place.</p>
-
-                    <p>The result: <strong>$2.3M in annual savings</strong> compared to their previous SIEM contract, with faster detection times and no loss of visibility.</p>
-
-                    <p>The savings came from three places: eliminated ingestion costs, eliminated SIEM-specific storage infrastructure, and reduced the administrative overhead of maintaining a separate data pipeline for security.</p>
-
-                    <h2>Why This Matters</h2>
-
-                    <p>BYODb is not a feature. It is a fundamental architectural decision that changes the economics, security posture, and operational independence of your SOC.</p>
-
-                    <p>When your data stays in your infrastructure:</p>
-
-                    <ul>
-                        <li>You control retention, access, and compliance</li>
-                        <li>You eliminate vendor lock-in at the data layer</li>
-                        <li>You stop paying an ingestion tax that grows with your business</li>
-                        <li>You keep your existing data engineering investments intact</li>
-                    </ul>
-
-                    <p>That is the bet we made when we built Vigilense AI: that the best security platform is one that works with your infrastructure, not one that replaces it.</p>
+                    <p>BYODb allows you to scale your investigative depth by 50x without increasing your vendor bill. You control retention, you eliminate vendor lock-in, and you finally stop paying an ingestion tax on your own security.</p>
 
                     <p>If you want to see BYODb running against your own data, <a href="demo.html">book a demo</a> and we will connect to your environment live.</p>
                 </div>

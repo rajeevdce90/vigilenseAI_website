@@ -310,97 +310,60 @@
                 <hr class="post-divider">
 
                 <div class="post-body">
-                    <p>I have spent most of my career scaling B2B companies, and I have seen plenty of broken pricing models. But I have never seen anything quite as backwards as the way legacy SIEMs charge for security.</p>
+                    <p>I have spent my career scaling B2B companies, and I have seen plenty of broken pricing models. But I have never seen anything quite as backwards as the way legacy SIEMs charge for security.</p>
 
-                    <p>The core of the problem is what I call the ingestion tax: you pay per gigabyte of data your SIEM ingests. Not per threat detected. Not per incident resolved. Per gigabyte indexed. The average cost across major SIEM vendors sits at about $0.88 per GB.</p>
+                    <p>The core of the problem is the Ingestion Tax: you pay per gigabyte of data your SIEM ingests. Not per threat detected. Not per incident resolved. You are being billed based on how much data your business generates, essentially a tax on your own growth.</p>
 
-                    <p>Let that sink in. You are being billed based on how much data your business generates, not on how much value your security tool provides.</p>
+                    <h2>The Math of Failure</h2>
 
-                    <h2>The Real Cost of Running a SIEM</h2>
-
-                    <p>Let's break down what a mid-size organization actually pays to run a traditional SIEM. I am using conservative numbers here.</p>
-
-                    <p>Assume you are generating 500GB of security telemetry per day. That is not unusual for a company with a few thousand endpoints, cloud workloads, and network infrastructure generating logs.</p>
+                    <p>In 2026, the average cost across major SIEM vendors sits at about $0.88 per GB. Let us look at what a mid-size organization actually pays to stay "visible":</p>
 
                     <ul>
-                        <li><strong>Ingestion costs:</strong> 500GB x 365 days x $0.88/GB = $160,600/year</li>
-                        <li><strong>Infrastructure and compute:</strong> $200,000/year</li>
-                        <li><strong>SIEM add-ons and integrations:</strong> $75,000+/year</li>
-                        <li><strong>Dedicated SIEM administrator salary:</strong> $150,000/year</li>
+                        <li><strong>Ingestion (500GB/day):</strong> $160,600/year</li>
+                        <li><strong>Infrastructure and Compute:</strong> $200,000/year</li>
+                        <li><strong>SIEM Add-ons/Integrations:</strong> $75,000/year</li>
+                        <li><strong>Dedicated SIEM Admin Salary:</strong> $150,000+</li>
                     </ul>
 
-                    <p><strong>Year 1 total: $585,000+</strong></p>
+                    <p><strong>Year 1 Total: $585,600+</strong></p>
 
-                    <p>Now here is the question that keeps me up at night: how many threats did that $585K stop?</p>
+                    <p>Here is the question that keeps me up at night: How many threats did that $585K stop? Ingestion does not stop threats. Indexing does not stop threats. These are infrastructure costs disguised as security spending.</p>
 
-                    <p>Ingestion does not stop threats. Indexing does not stop threats. Storage does not stop threats. These are infrastructure costs disguised as security spending. The actual detection and response happens downstream, after all that money has already been spent just to make your data searchable.</p>
+                    <h2>The Growth Penalty and The AI Explosion</h2>
 
-                    <h2>The Growth Penalty</h2>
+                    <p>The most insidious part of per-GB pricing is how it reacts to the modern "AI Storm." As attackers use AI to automate campaigns, security teams are forced to investigate lower-level "informational" alerts.</p>
 
-                    <p>The really insidious part of per-GB pricing is what it does to growing companies. Your business scales. You add more cloud workloads. You deploy more endpoints. You instrument more applications. Your data volume grows.</p>
+                    <p>To catch a silent AI attacker, your investigative depth might need to increase 5x to 50x. Under a legacy SIEM model, your bill does not just grow. It goes vertical. I have talked to CISOs who deliberately dropped log sources to keep costs under control. They made their organization less secure because the tool designed to protect them was too expensive to "feed."</p>
 
-                    <p>And your SIEM bill grows right alongside it, often faster than revenue.</p>
+                    <h2>The Healthcare Case Study: Visibility Without the Tax</h2>
 
-                    <p>I have talked to security leaders who told me they deliberately dropped log sources to keep costs under control. Think about that for a second. They made their organization less secure because the tool that was supposed to protect them was too expensive to feed.</p>
+                    <p>A regional healthcare system recently faced a $1.8M annual SIEM renewal. With 14 hospitals and thousands of medical devices, dropping data was not an option. It was a compliance risk.</p>
 
-                    <p>This is the growth penalty in action. A pricing model that punishes data growth creates a direct conflict between visibility and budget. Every new data source becomes a cost-benefit analysis when it should just be a checkbox.</p>
+                    <p>By deploying Vigilense AI with BYODb, they retired the legacy SIEM entirely. They kept their telemetry in their own Snowflake and S3 buckets.</p>
 
-                    <h2>Blind Spots Are Not a Budget Line Item</h2>
-
-                    <p>When organizations start trimming log sources to manage SIEM costs, they create blind spots. And blind spots are exactly where attackers operate.</p>
-
-                    <p>IBM puts the average cost of a data breach at $4.88M. Most of the companies that suffered those breaches were already spending $500K or more per year on SIEM infrastructure. The money was being spent. The protection was not being delivered.</p>
-
-                    <p>The uncomfortable truth is that most enterprise SIEM deployments are functioning as very expensive log storage systems. They collect data, index it, and make it searchable. The actual security work, the triage, the investigation, the response, still falls on human analysts who are already buried under thousands of daily alerts.</p>
-
-                    <p>So you have a $585K infrastructure bill, a team drowning in alert noise, and the attacker who actually matters is operating in the blind spot you created to save money on ingestion. That is not a security program. That is a sunk cost.</p>
+                    <ul>
+                        <li><strong>Result:</strong> $2.1M in first-year savings.</li>
+                        <li><strong>ROI:</strong> 340%.</li>
+                        <li><strong>Visibility:</strong> 100% of log sources maintained.</li>
+                    </ul>
 
                     <h2>Legacy Pricing for a World That No Longer Exists</h2>
 
-                    <p>Per-GB pricing made a certain kind of sense 15 years ago. Data volumes were smaller. Cloud was nascent. Most telemetry came from a handful of on-premise sources. The SIEM vendor was providing real value by centralizing and indexing data that would otherwise sit in scattered log files.</p>
+                    <p>Per-GB pricing made sense 15 years ago when data was scarce. Today, your data is already in modern platforms like BigQuery or Snowflake. Paying a SIEM vendor to re-ingest and re-index data you already own is paying twice for the same thing.</p>
 
-                    <p>That world is gone. Today, most organizations already have their telemetry flowing into modern data platforms: Snowflake, BigQuery, Elasticsearch, S3. The data is already centralized, already queryable, already paid for at commodity storage rates.</p>
+                    <p>In 2026, data centralization is table stakes. Intelligence is the hard part.</p>
 
-                    <p>Paying a SIEM vendor to ingest and re-index data that already exists in a perfectly good database is paying twice for the same thing. It is a relic of an architecture that assumed centralization was the hard part. In 2026, centralization is table stakes. Intelligence is the hard part.</p>
+                    <h2>Choose Your Future</h2>
 
-                    <h2>What the Math Looks Like Without the Tax</h2>
+                    <p>Next time your SIEM renewal lands on your desk, ask one question: What percentage of this cost is actually stopping threats? If most of it is going toward the "Ingestion Tax," you are not buying security. You are buying a storage bill.</p>
 
-                    <p>At Vigilense AI, we built BYODb (Bring Your Own Database) specifically to kill the ingestion tax. The concept is simple: we query your data where it already lives. No ingestion. No replication. No per-GB fees.</p>
-
-                    <p>Your telemetry stays in your existing infrastructure at commodity storage prices. We bring the detection engine, the AI analyst, and the response automation. You pay for capability, not for data volume.</p>
-
-                    <h3>Case Study: Regional Healthcare System</h3>
-
-                    <p>A regional healthcare system came to us running a legacy SIEM that cost $1.8M annually. They had 14 hospitals, thousands of connected medical devices, and strict HIPAA compliance requirements that meant every log source mattered. Dropping data was not an option.</p>
-
-                    <p>After deploying Vigilense AI with BYODb, they retired the legacy SIEM entirely. Their telemetry continued flowing into the same Elasticsearch and S3 infrastructure it was already using. We queried it in place.</p>
-
-                    <p>The results in year one:</p>
-
-                    <ul>
-                        <li><strong>Legacy SIEM retired:</strong> $1.8M in annual costs eliminated</li>
-                        <li><strong>Total first-year savings:</strong> $2.1M (including infrastructure consolidation)</li>
-                        <li><strong>ROI:</strong> 340%</li>
-                        <li><strong>Log sources dropped:</strong> Zero. Full visibility maintained.</li>
-                    </ul>
-
-                    <p>They did not just save money. They got better security. Full visibility, faster detection, and an AI analyst working every alert around the clock. The budget conversation stopped being about how much data they could afford to look at and started being about how fast they could respond.</p>
-
-                    <h2>The Question Every Security Leader Should Ask</h2>
-
-                    <p>Next time your SIEM renewal lands on your desk, ask one question: what percentage of this cost is going toward actually stopping threats?</p>
-
-                    <p>If the answer is that most of it is going toward ingestion, storage, and infrastructure, you are paying an ingestion tax. And that tax is making you less secure, not more.</p>
-
-                    <p>The SIEM model is not broken because the vendors are bad. It is broken because the architecture was designed for a different era, and the pricing never caught up with reality.</p>
-
-                    <p>There is a better way to do this. <a href="demo.html">Let's talk about it.</a></p>
+                    <p>There is a better way. Stop paying the tax. Start catching the threat.</p>
                 </div>
 
                 <hr class="post-divider">
 
                 <div class="post-cta">
-                    <h3>Stop paying the ingestion tax.</h3>
+                    <h3>Schedule a 20-minute Financial Impact Audit.</h3>
                     <a href="demo.html" class="btn">Book a Demo</a>
                 </div>
 

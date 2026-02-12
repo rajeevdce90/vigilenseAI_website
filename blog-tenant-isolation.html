@@ -310,128 +310,86 @@
                 <hr class="post-divider">
 
                 <div class="post-body">
-                    <p>Multi-tenancy is hard. Multi-tenancy where every customer brings their own database, their own schema, their own access patterns, and their own compliance requirements? That is a fundamentally different engineering problem. At Vigilense, we built our isolation model from the ground up for BYODb, and it goes far beyond logical separation. In the cloud, each tenant's data, compute, and network are fully separated at the infrastructure level.</p>
+                    <p>Multi-tenancy is hard. Multi-tenancy where every customer brings their own database, schema, and access patterns is a fundamentally different engineering problem. At Vigilense, we built our isolation model from the ground up for BYODb, and it goes far beyond logical separation.</p>
 
-                    <p>This post walks through the six isolation layers that protect every tenant on our platform, the cryptographic architecture that underpins them, and the testing regimen that keeps us honest.</p>
+                    <p>In the cloud, each tenant's data, compute, and network are fully separated at the infrastructure level. This ensures that even in the "AI Storm," where automated reasoning engines are running thousands of queries, your data remains in a "Sovereign" silo.</p>
 
                     <h2>Why BYODb Makes Isolation Harder</h2>
 
-                    <p>Most multi-tenant platforms control the data layer. They decide the schema, the storage engine, and the access patterns. That simplifies isolation because you own the entire stack.</p>
+                    <p>Most multi-tenant platforms control the data layer. They decide the schema and the storage engine. BYODb removes that luxury. You cannot rely on a single shared database with row-level policies. You need:</p>
 
-                    <p>BYODb removes that luxury. Every customer has a different database engine, a different schema, a different set of credentials, and a different network topology. You cannot rely on a single shared database with row-level policies and call it a day. You need credential vaults that never co-mingle secrets. You need query sandboxing that prevents a detection rule from one tenant from reaching another tenant's data. You need network segmentation that treats every customer connection as its own trust boundary.</p>
-
-                    <p>That is the starting point, not the finish line.</p>
+                    <ul>
+                        <li>Credential vaults that never co-mingle secrets.</li>
+                        <li>Query sandboxing to prevent a detection rule from reaching another tenant's data.</li>
+                        <li>Network segmentation that treats every customer connection as its own trust boundary.</li>
+                    </ul>
 
                     <h2>The Six Isolation Layers</h2>
 
-                    <p>Our isolation model is built in depth. Compromise of any single layer does not expose tenant data because the remaining five layers continue to enforce boundaries independently.</p>
+                    <p>Our model is built in depth. Compromise of any single layer does not expose data because the remaining five enforce boundaries independently.</p>
 
                     <h3>1. Identity Layer</h3>
 
-                    <p>Every request that enters the system is authenticated with tenant context before it touches any business logic. There is no anonymous path through the platform. Authentication verifies both the user identity and the tenant they belong to, and that pairing is immutable for the lifetime of the session.</p>
-
-                    <p>We enforce MFA on all accounts. SSO is supported through SAML 2.0 and OIDC, so customers can bring their own identity providers. Sessions are managed with short-lived tokens, and device trust validation ensures that only approved endpoints can establish sessions. If a session token is replayed from an untrusted device, it is rejected.</p>
+                    <p>Every request is authenticated with tenant context before it touches any business logic. We enforce MFA and SSO (SAML 2.0/OIDC). Sessions are short-lived and use device-trust validation to prevent token replay.</p>
 
                     <h3>2. Application Layer</h3>
 
-                    <p>Once a request is authenticated, the tenant ID is injected into every downstream operation. This is not optional. Our application framework enforces it at the middleware level. Every database query, every API call, every log write, every cache lookup carries a tenant identifier. If a code path attempts to execute without tenant context, the request fails immediately.</p>
-
-                    <p>This design prevents an entire class of bugs where a developer forgets to scope a query. The framework makes unscoped queries impossible.</p>
+                    <p>The tenant ID is injected into every downstream operation via middleware. If a code path attempts to execute without tenant context, the request fails immediately. This makes unscoped queries impossible.</p>
 
                     <h3>3. Data Layer</h3>
 
-                    <p>We support three levels of database isolation, and customers choose based on their compliance and security requirements:</p>
+                    <p>We offer three levels of isolation based on your compliance needs:</p>
 
                     <ul>
-                        <li><strong>Row-Level Isolation (Standard):</strong> Shared tables with enforced row-level security (RLS) policies. Every query is automatically scoped to the tenant's rows. This is the default for most customers and provides strong isolation with efficient resource utilization.</li>
-                        <li><strong>Schema-Level Isolation (Enhanced):</strong> Each tenant gets a dedicated schema within a shared database instance. Queries are restricted to the tenant's schema at the database engine level. Cross-schema access requires explicit privilege grants that are never configured in production.</li>
-                        <li><strong>Database-Level Isolation (Maximum):</strong> Each tenant gets a fully dedicated database instance. No shared storage, no shared processes, no shared connection pools. This is for customers with the strictest regulatory requirements: financial services, defense contractors, and healthcare organizations handling PHI at scale.</li>
+                        <li><strong>Standard:</strong> Row-Level Security (RLS) on shared tables.</li>
+                        <li><strong>Enhanced:</strong> Dedicated schema per tenant within a shared instance.</li>
+                        <li><strong>Maximum (Sovereign):</strong> A fully dedicated database instance. No shared processes, no shared memory.</li>
                     </ul>
 
                     <h3>4. Encryption Layer</h3>
 
-                    <p>Every piece of data on the platform is encrypted, and every tenant has their own encryption key hierarchy. The architecture works like this:</p>
+                    <p>We use a sophisticated key hierarchy:</p>
 
                     <ul>
-                        <li><strong>HSM-Protected Master Key:</strong> The root of the key hierarchy lives in a hardware security module. It never leaves the HSM boundary.</li>
-                        <li><strong>Tenant Key Encryption Key (KEK):</strong> Each tenant gets a unique KEK derived under the master key. This KEK wraps all of the tenant's data encryption keys.</li>
-                        <li><strong>Data Encryption Keys (DEKs):</strong> The actual keys used to encrypt data. These are rotated regularly and are unique per tenant. Each DEK is wrapped by the tenant's KEK, so a compromised DEK from one tenant has zero impact on any other tenant.</li>
+                        <li><strong>Master Key:</strong> HSM-protected (Hardware Security Module).</li>
+                        <li><strong>Tenant KEK (Key Encryption Key):</strong> Unique to you; wraps all your data keys.</li>
+                        <li><strong>Crypto-Shredding:</strong> If a tenant leaves, we destroy the KEK, rendering all data permanently unrecoverable.</li>
                     </ul>
 
-                    <p>All data types are encrypted with AES-256-GCM using per-tenant DEKs. This includes configuration data, database credentials, API keys, alert data, and audit logs. There are no exceptions.</p>
+                    <h3>5. Network Layer (The "PrivateLink" Standard)</h3>
 
-                    <p>If a tenant leaves the platform, we support crypto-shredding: destroying the tenant's KEK renders all of their encrypted data permanently unrecoverable without touching the underlying storage. No residual data, no recovery window, no ambiguity.</p>
-
-                    <h3>5. Network Layer</h3>
-
-                    <p>Every tenant's traffic is isolated at the network level. This is not just firewall rules on a shared subnet. It is full VPC isolation with strict security groups, private subnets, and a web application firewall (WAF) on all entry points.</p>
-
-                    <p>Network security groups are configured to prevent any cross-tenant network access. Tenant A's compute cannot open a connection to Tenant B's data store, even if an attacker gains code execution inside a container.</p>
-
-                    <p>For customer connectivity, we support multiple options depending on security requirements:</p>
-
-                    <ul>
-                        <li><strong>TLS 1.3:</strong> Standard encrypted transport for all API and UI traffic.</li>
-                        <li><strong>VPC Peering:</strong> Direct network peering between the customer's VPC and their isolated Vigilense environment.</li>
-                        <li><strong>PrivateLink:</strong> AWS PrivateLink endpoints for customers who need connectivity without traversing the public internet.</li>
-                        <li><strong>VPN:</strong> Site-to-site VPN tunnels for customers with on-premises infrastructure that needs to reach their Vigilense deployment.</li>
-                    </ul>
+                    <p>Tenant traffic is isolated via full VPC isolation. We support AWS PrivateLink and VPC Peering, meaning your security telemetry never traverses the public internet to reach our "brain."</p>
 
                     <h3>6. Compute Layer</h3>
 
-                    <p>Processing isolation is the layer most platforms skip, and it is the one that matters most when an attacker achieves code execution. Our approach: container isolation per tenant.</p>
+                    <p>This is where we differentiate. Each tenant's workloads (including our AI SOC Analysts) run in dedicated containers. A "noisy neighbor" or a high-intensity AI investigation in another tenant's environment cannot degrade your performance or access your memory.</p>
 
-                    <p>Each tenant's workloads run in dedicated containers with enforced CPU and memory limits. Kubernetes namespaces provide the orchestration boundary, and network policies within the cluster prevent cross-namespace traffic. There is no shared memory between tenant containers. A noisy-neighbor problem in one tenant's detection pipeline cannot degrade another tenant's performance, and a container escape in one namespace cannot reach another tenant's workloads.</p>
+                    <h2>The AI Safety Factor: Causal Reasoning Boundaries</h2>
 
-                    <h2>Full Cloud Tenant Separation</h2>
+                    <p>As we deploy AI agents to perform 3-Layer Blast Radius investigations, isolation becomes even more critical. Our AI agents are "Context-Locked." They are physically unable to generate a query that traverses outside of your specific VPC and credential set. We do not just "tell" the AI to stay in its lane; we build the lane out of iron.</p>
 
-                    <p>We want to be explicit about this: in the Vigilense cloud deployment, tenant separation is not just a logical construct enforced by application code. It is infrastructure-level isolation.</p>
+                    <h2>How We Test the "Blast Radius"</h2>
 
-                    <p>Each tenant's data lives in isolated storage. Each tenant's compute runs in isolated containers within isolated namespaces. Each tenant's network traffic flows through isolated network segments with independent security group policies. The encryption keys are unique per tenant and managed in dedicated key hierarchies.</p>
-
-                    <p>This means a compromise of one tenant's environment does not give an attacker a foothold into any other tenant's environment. The blast radius is contained by design, not by hope.</p>
-
-                    <h2>Access Control</h2>
-
-                    <p>Strong isolation is meaningless if access control is weak. Our access model enforces the principle of least privilege at every level:</p>
+                    <p>Architecture diagrams are promises; testing is proof.</p>
 
                     <ul>
-                        <li><strong>MFA Required:</strong> Every account, no exceptions. Hardware keys supported.</li>
-                        <li><strong>SSO Integration:</strong> SAML 2.0 and OIDC so customers control their own identity lifecycle.</li>
-                        <li><strong>Session Management:</strong> Short-lived tokens, automatic expiration, re-authentication on sensitive operations.</li>
-                        <li><strong>Device Trust:</strong> Only registered and compliant devices can establish sessions.</li>
-                        <li><strong>RBAC:</strong> Role-based access control with granular permissions. Analysts see alerts. Admins configure integrations. No role has more access than it needs.</li>
-                    </ul>
-
-                    <h2>The BYODb Isolation Challenge: Credentials, Queries, and Segmentation</h2>
-
-                    <p>BYODb introduces isolation challenges that do not exist in traditional SaaS architectures. Every customer's database credentials need to be stored, rotated, and accessed without any possibility of cross-tenant leakage. Every query our detection engine executes needs to be sandboxed so it only touches the intended tenant's data. And every network connection to a customer database needs to be segmented so traffic from Tenant A's queries never traverses Tenant B's network path.</p>
-
-                    <p>We handle this with dedicated credential vaults per tenant, query execution sandboxes that enforce tenant scope at the engine level, and network segmentation that creates independent connectivity paths to each customer's database infrastructure. The credential vault for each tenant is encrypted with that tenant's KEK, so even our own operators cannot view raw credentials without the key hierarchy producing the correct decryption chain.</p>
-
-                    <h2>How We Test All of This</h2>
-
-                    <p>Architecture diagrams are promises. Testing is proof. Our security validation program includes:</p>
-
-                    <ul>
-                        <li><strong>Annual Third-Party Penetration Tests:</strong> We engage external security firms to conduct targeted penetration tests specifically focused on tenant isolation. The scope includes attempts to access one tenant's data from another tenant's context, privilege escalation across tenant boundaries, and credential extraction from the vault layer.</li>
-                        <li><strong>CI/CD Tenant Boundary Tests:</strong> Every code change runs through automated tests that validate tenant boundaries. These tests attempt cross-tenant data access, unscoped queries, and privilege escalation. If any test fails, the build is rejected.</li>
-                        <li><strong>Chaos Engineering Fault Injection:</strong> We deliberately inject failures into the isolation layers to verify that the remaining layers hold. What happens when a network policy is misconfigured? What happens when a container escapes its namespace? What happens when a key rotation fails midway? We test these scenarios continuously.</li>
-                        <li><strong>Security-Focused Code Review:</strong> Every pull request that touches tenant-scoped logic requires review from a security engineer. This is not optional. The review checklist explicitly covers tenant boundary enforcement, credential handling, and query scoping.</li>
+                        <li><strong>Annual 3rd-Party Pentests:</strong> Focused specifically on cross-tenant privilege escalation.</li>
+                        <li><strong>CI/CD Boundary Tests:</strong> Every code change is tested for "unscoped query" vulnerabilities.</li>
+                        <li><strong>Chaos Engineering:</strong> We deliberately misconfigure network policies in a sandbox to ensure our secondary layers (Encryption/Identity) hold firm.</li>
                     </ul>
 
                     <h2>The Bottom Line</h2>
 
-                    <p>Tenant isolation in a BYODb architecture is not a single feature. It is a system of interlocking controls that span identity, application logic, data storage, encryption, networking, and compute. Each layer is designed to hold independently, so a failure in one does not cascade into a breach.</p>
+                    <p>Tenant isolation in a BYODb architecture is not a feature. It is a system of interlocking controls. We built this because our customers are trusting us with their most sensitive telemetry. We earn that trust with engineering rigor, not marketing language.</p>
 
-                    <p>We built this because our customers are trusting us with access to their most sensitive security data. That trust has to be earned with engineering rigor, not marketing language. If you want to dig deeper into our security posture, visit our <a href="trust.html">Trust Center</a> or <a href="demo.html">talk to our team directly</a>.</p>
+                    <p>View our full security posture in the <a href="trust.html">Trust Center</a>.</p>
                 </div>
 
                 <hr class="post-divider">
 
                 <div class="post-cta">
-                    <h3>See how Vigilense isolates your data.</h3>
-                    <a href="demo.html" class="btn">Book a Demo</a>
+                    <h3>View our full security posture.</h3>
+                    <a href="trust.html" class="btn">Explore Trust Center</a>
                 </div>
 
                 <div class="author-card">
