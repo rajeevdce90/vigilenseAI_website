@@ -1131,6 +1131,107 @@
             color: var(--accent);
         }
 
+        /* --- Human-in-the-Loop interstitial --- */
+        .human-loop-interstitial {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 0;
+            position: relative;
+        }
+        .human-loop-ring {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            border: 2px solid rgba(245, 158, 11, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: rgba(245, 158, 11, 0.04);
+            animation: loopPulse 2.5s ease-in-out infinite;
+        }
+        .human-loop-ring::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 1px dashed rgba(245, 158, 11, 0.3);
+            animation: loopSpin 12s linear infinite;
+        }
+        .human-loop-lens {
+            width: 30px;
+            height: 30px;
+        }
+        .human-loop-lens .lens-circle {
+            fill: none;
+            stroke: #f59e0b;
+            stroke-width: 2.5;
+        }
+        .human-loop-lens .lens-handle {
+            stroke: #f59e0b;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+        }
+        .human-loop-lens .lens-eye {
+            fill: none;
+            stroke: #f59e0b;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+        }
+        .human-loop-lens .lens-pupil {
+            fill: #f59e0b;
+        }
+        .human-loop-label {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #f59e0b;
+            text-align: center;
+        }
+        .human-loop-pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            max-width: 380px;
+        }
+        .human-loop-pill {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            padding: 3px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.06);
+            white-space: nowrap;
+        }
+        .human-loop-pill.auto {
+            border-color: rgba(34, 197, 94, 0.4);
+            color: #22c55e;
+            background: rgba(34, 197, 94, 0.06);
+        }
+        @keyframes loopPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.15); }
+            50%       { box-shadow: 0 0 14px 4px rgba(245, 158, 11, 0.16); }
+        }
+        @keyframes loopSpin {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @media (max-width: 768px) {
+            .human-loop-ring { width: 52px; height: 52px; }
+            .human-loop-lens { width: 24px; height: 24px; }
+            .human-loop-label { font-size: 0.56rem; }
+            .human-loop-pills { gap: 4px; max-width: 260px; }
+            .human-loop-pill { font-size: 0.52rem; padding: 2px 8px; }
+        }
+
         /* --- Architecture summary (visible by default) --- */
         .arch-summary {
             text-align: center;
@@ -1227,6 +1328,48 @@
             .arch-summary-flow { flex-direction: column; gap: 12px; }
             .arch-arrow { transform: rotate(90deg); }
             .arch-stage { min-width: 140px; padding: 18px 20px; }
+
+            /* Mobile-optimized architecture diagram */
+            .architecture-workflow-section {
+                padding: 60px 0;
+            }
+            .arch-diagram-collapsible.expanded {
+                max-height: none;       /* allow full height on mobile */
+            }
+            .hero-workflow-flow {
+                margin: 24px 0 40px;
+                width: 100%;
+                max-width: 100%;
+                margin-left: 0;
+                padding: 0 12px;
+                overflow-x: auto;       /* horizontal scroll if needed */
+            }
+            .workflow-flow-container {
+                max-width: 100%;
+                width: 100%;
+                padding: 24px 16px;
+            }
+            .engine-row {
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+            .branch-group {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                min-width: auto;
+                width: 100%;
+                order: 2;
+            }
+            .connector-lines {
+                display: none;          /* hide complex SVG connectors */
+            }
+            .engine-core {
+                order: 1;
+                width: 100%;
+                max-width: 240px;
+                margin: 0 auto;
+            }
         }
 
         /* --- Logo row --- */
@@ -1721,7 +1864,7 @@
                         <div class="dash-metric">
                             <div class="dash-metric-label">Ingestion Cost</div>
                             <div class="dash-metric-value blue">$0</div>
-                            <div class="dash-metric-change">BYODb, zero data movement</div>
+                            <div class="dash-metric-change">BYODb, query in place</div>
                         </div>
                     </div>
 
@@ -1875,22 +2018,22 @@
     <section class="sovereign-section">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Why Different</span>
+                <span class="section-tag">The Vigilense Difference</span>
                 <h2 class="section-title">Three things <span class="navy-mark">no other SOC platform</span> gives you at once.</h2>
             </div>
 
             <div class="sovereign-grid">
+                <div class="sovereign-card">
+                    <h3>Autonomous AI SOC</h3>
+                    <p>An AI-powered analyst that never sleeps and never suffers alert fatigue. It learns from past behaviors, retains organizational context, and works every alert 24/7/365. What used to take your team 4 hours to triage, investigate, and resolve now happens in seconds. MTTR drops from hours to moments so your human analysts focus on high-value threats, not false positives and BAU noise.</p>
+                </div>
                 <div class="sovereign-card">
                     <h3>Your Context: Organizational Learning</h3>
                     <p>Vigilense AI absorbs the tribal knowledge that lives in your analysts' heads: which assets are crown jewels, how your team escalates, what's normal in your environment. The LLM handles strategy. We handle your context.</p>
                 </div>
                 <div class="sovereign-card">
                     <h3>Your Data: BYODb</h3>
-                    <p>Your telemetry stays in your databases. ElasticSearch, Snowflake, BigQuery, S3, we query in place. Zero movement. Zero lock-in. Zero per-GB licensing. Zero rehydration tax. Our detection engine queries your data where it already lives.</p>
-                </div>
-                <div class="sovereign-card">
-                    <h3>Your Privacy: Zero Data Exposure</h3>
-                    <p>No security telemetry leaves your environment for AI processing. We orchestrate detection logic while all AI inference runs within your cloud account. No vendor training on your data. Full control over model spend.</p>
+                    <p>Your telemetry stays in your databases. ElasticSearch, Snowflake, BigQuery, S3, we query in place. Zero lock-in. Zero per-GB licensing. Zero rehydration tax. Our detection engine queries your data where it already lives.</p>
                 </div>
             </div>
 
@@ -1960,8 +2103,8 @@
                 </button>
             </div>
 
-            <!-- FULL DIAGRAM (collapsed by default) -->
-            <div class="arch-diagram-collapsible" id="archDiagramFull">
+            <!-- FULL DIAGRAM (visible by default) -->
+            <div class="arch-diagram-collapsible expanded" id="archDiagramFull">
             <div class="hero-workflow-flow">
                 <div class="workflow-flow-container">
                     <!-- Logo at top left -->
@@ -1997,8 +2140,8 @@
                         <div class="engine-core detection">
                             <div class="engine-num">1</div>
                             <div class="engine-icon-main">DETECT</div>
-                            <h4>DETECTION ENGINE</h4>
-                            <p>AI-Powered Risk Scoring</p>
+                            <h4>Unified Detection Engine</h4>
+                            <p>Correlates signals across all your security data</p>
                         </div>
                         <div class="connector-lines right neural">
                             <svg viewBox="0 0 60 90" preserveAspectRatio="none">
@@ -2056,8 +2199,8 @@
                         <div class="engine-core investigation">
                             <div class="engine-num">2</div>
                             <div class="engine-icon-main">INVESTIGATE</div>
-                            <h4>INVESTIGATION ENGINE</h4>
-                            <p>AI-Powered Agentic Analysis</p>
+                            <h4>Investigation Orchestration Engine</h4>
+                            <p>AI agents that weave context across your security tools</p>
                         </div>
                         <div class="connector-lines right neural">
                             <svg viewBox="0 0 60 90" preserveAspectRatio="none">
@@ -2083,8 +2226,25 @@
                         </div>
                     </div>
 
-                    <div class="flow-connector-vertical">
-                        <div class="flow-line-v"></div>
+                    <!-- Human-in-the-Loop interstitial -->
+                    <div class="human-loop-interstitial">
+                        <div class="flow-line-v" style="height:16px;width:2px;"></div>
+                        <div class="human-loop-ring">
+                            <svg class="human-loop-lens" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+                                <circle class="lens-circle" cx="19" cy="19" r="12" />
+                                <line class="lens-handle" x1="28" y1="28" x2="40" y2="40" />
+                                <path class="lens-eye" d="M11,19 Q19,11 27,19 Q19,27 11,19 Z" />
+                                <circle class="lens-pupil" cx="19" cy="19" r="2.5" />
+                            </svg>
+                        </div>
+                        <span class="human-loop-label">Human Vigilant In Loop</span>
+                        <div class="human-loop-pills">
+                            <span class="human-loop-pill">Full Visibility</span>
+                            <span class="human-loop-pill">Analyst Control</span>
+                            <span class="human-loop-pill">Permission Required</span>
+                            <span class="human-loop-pill auto">Low-Risk Auto-Execute</span>
+                        </div>
+                        <div class="flow-line-v" style="height:16px;width:2px;"></div>
                         <span class="flow-arrow-v">&#x25BC;</span>
                     </div>
 
@@ -2115,8 +2275,8 @@
                         <div class="engine-core resolution">
                             <div class="engine-num">3</div>
                             <div class="engine-icon-main">RESOLVE</div>
-                            <h4>RESOLUTION</h4>
-                            <p>Agentic AI Remediation</p>
+                            <h4>Response Automation Engine</h4>
+                            <p>Guided actions that safely execute remediation across your stack</p>
                         </div>
                         <div class="connector-lines right out neural">
                             <svg viewBox="0 0 60 90" preserveAspectRatio="none">
@@ -2380,6 +2540,25 @@
                 btn.firstChild.textContent = 'View Full Architecture ';
             }
         }
+
+        // Initialize architecture visibility based on viewport
+        document.addEventListener('DOMContentLoaded', function () {
+            var diagram = document.getElementById('archDiagramFull');
+            var btn = document.getElementById('archExpandBtn');
+            if (!diagram || !btn) return;
+
+            if (window.innerWidth < 768) {
+                // Mobile: keep diagram collapsed by default for better UX
+                diagram.classList.remove('expanded');
+                btn.classList.remove('expanded');
+                btn.firstChild.textContent = 'View Full Architecture ';
+            } else {
+                // Desktop/tablet: show diagram by default
+                diagram.classList.add('expanded');
+                btn.classList.add('expanded');
+                btn.firstChild.textContent = 'Hide Full Architecture ';
+            }
+        });
 
         /* =============================================
            DYNAMIC CLI TERMINAL
