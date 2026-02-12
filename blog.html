@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & News - Vigilense AI</title>
+    <meta name="description" content="Technical deep-dives, product updates, and perspectives on the future of security operations from Vigilense AI.">
+    <meta property="og:title" content="Blog & News - Vigilense AI">
+    <meta property="og:description" content="Technical deep-dives, product updates, and perspectives on the future of security operations.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ============================
+           BLOG HERO
+           ============================ */
+        .blog-hero {
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+        .blog-hero .section-tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #00D4AA;
+            border: 1px solid #00D4AA;
+            padding: 6px 16px;
+            border-radius: 2px;
+            margin-bottom: 20px;
+            background: transparent;
+        }
+        .blog-hero h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: #0A1628;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+        }
+        .blog-hero p {
+            font-size: 1.05rem;
+            color: #475569;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ============================
+           CATEGORY FILTERS
+           ============================ */
+        .blog-filters {
+            padding: 32px 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style: none;
+        }
+        .filter-tab {
+            padding: 8px 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #94A3B8;
+            background: transparent;
+            border: 1px solid #E2E8F0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-tab:hover {
+            color: #0A1628;
+            border-color: #0A1628;
+        }
+        .filter-tab.active {
+            color: #FFFFFF;
+            background: #0A1628;
+            border-color: #0A1628;
+        }
+
+        /* ============================
+           BLOG POSTS GRID
+           ============================ */
+        .blog-posts {
+            padding: 60px 0 100px;
+        }
+        .posts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+        @media (min-width: 768px) {
+            .posts-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .posts-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .post-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 28px;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .post-card:hover {
+            border-color: #0A1628;
+            box-shadow: 0 4px 20px rgba(10, 22, 40, 0.08);
+            transform: translateY(-2px);
+        }
+        .post-card.hidden {
+            display: none;
+        }
+        .post-card.page-2 {
+            display: none;
+        }
+        .post-card.page-2.loaded {
+            display: flex;
+        }
+        .post-card.page-2.loaded.hidden {
+            display: none;
+        }
+        .btn-load-more.exhausted {
+            opacity: 0.4;
+            cursor: default;
+            pointer-events: none;
+        }
+        .post-category {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #00D4AA;
+            border: 1px solid #00D4AA;
+            padding: 4px 10px;
+            margin-bottom: 16px;
+            background: rgba(0, 212, 170, 0.06);
+        }
+        .post-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #0A1628;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .post-title a {
+            color: #0A1628;
+            text-decoration: none;
+        }
+        .post-card:hover .post-title a {
+            color: #00D4AA;
+        }
+        .post-excerpt {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .post-meta {
+            display: flex;
+            gap: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #94A3B8;
+            margin-top: auto;
+        }
+
+        /* ============================
+           PAGINATION
+           ============================ */
+        .blog-pagination {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid #E2E8F0;
+        }
+        .btn-load-more {
+            padding: 12px 32px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: transparent;
+            color: #0A1628;
+            border: 1px solid #0A1628;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-load-more:hover {
+            background: #0A1628;
+            color: #FFFFFF;
+        }
+
+        /* ============================
+           RESPONSIVE
+           ============================ */
+        @media (max-width: 768px) {
+            .blog-hero { padding: 120px 0 60px; }
+            .filter-tabs { justify-content: flex-start; }
+        }
+        @media (max-width: 480px) {
+            .post-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <img src="Vigilense Logo.png" alt="Vigilense AI" class="logo-icon">
+                <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html#pillars">Platform</a></li>
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="trust.html">Trust Center</a></li>
+                <li><a href="demo.html" class="btn-nav">Talk to a Human Vigilant</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         BLOG HERO
+         ======================================== -->
+    <section class="blog-hero">
+        <div class="container">
+            <span class="section-tag">Blog & News</span>
+            <h1>From the SOC Floor</h1>
+            <p>Technical deep-dives, product updates, and perspectives on the future of security operations.</p>
+        </div>
+    </section>
+
+    <!-- ========================================
+         CATEGORY FILTERS
+         ======================================== -->
+    <section class="blog-filters">
+        <div class="container">
+            <ul class="filter-tabs">
+                <li><button class="filter-tab active" data-category="all">All</button></li>
+                <li><button class="filter-tab" data-category="product">Product</button></li>
+                <li><button class="filter-tab" data-category="engineering">Engineering</button></li>
+                <li><button class="filter-tab" data-category="industry">Industry</button></li>
+                <li><button class="filter-tab" data-category="company">Company</button></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ========================================
+         BLOG POSTS
+         ======================================== -->
+    <section class="blog-posts">
+        <div class="container">
+            <div class="posts-grid">
+                <!-- Featured Post -->
+                <article class="post-card" data-category="industry">
+                    <span class="post-category">Industry</span>
+                    <h2 class="post-title"><a href="blog-financial-unsustainability.html">The Financial Unsustainability Crisis: Why Your Security Budget Will Not Survive the AI Storm</a></h2>
+                    <p class="post-excerpt">The storm has already made landfall. Industrialized AI in the hands of adversaries has broken the traditional SOC. Legacy SIEMs charge you for every GB ingested and every compute unit used. When your AI analysts increase investigative depth by 50x, your SIEM bill goes vertical.</p>
+                    <div class="post-meta">
+                        <span>Feb 12, 2026</span>
+                        <span>&middot;</span>
+                        <span>12 min read</span>
+                        <span>&middot;</span>
+                        <span>Raj Choudhary</span>
+                    </div>
+                </article>
+
+                <!-- Post 1 -->
+                <article class="post-card" data-category="product">
+                    <span class="post-category">Product</span>
+                    <h2 class="post-title"><a href="blog-post-template.html">Introducing the Sovereign SOC: Why We Built Vigilense AI</a></h2>
+                    <p class="post-excerpt">We built Vigilense AI because traditional SIEMs force you to trade control for capability. The Sovereign SOC gives you both: BYODb architecture that queries your data in place, and an AI analyst that never sleeps.</p>
+                    <div class="post-meta">
+                        <span>Feb 10, 2026</span>
+                        <span>&middot;</span>
+                        <span>6 min read</span>
+                    </div>
+                </article>
+
+                <!-- Post 2 -->
+                <article class="post-card" data-category="engineering">
+                    <span class="post-category">Engineering</span>
+                    <h2 class="post-title"><a href="blog-post-template.html">BYODb Architecture: How We Query Your Data Without Moving It</a></h2>
+                    <p class="post-excerpt">Traditional SIEMs require you to ship all your security data to their infrastructure. Our BYODb architecture flips this model -- your data stays where it is, and we bring the intelligence to you.</p>
+                    <div class="post-meta">
+                        <span>Feb 5, 2026</span>
+                        <span>&middot;</span>
+                        <span>8 min read</span>
+                    </div>
+                </article>
+
+                <!-- Post 3 -->
+                <article class="post-card" data-category="industry">
+                    <span class="post-category">Industry</span>
+                    <h2 class="post-title"><a href="blog-post-template.html">The Ingestion Tax: Why Your SIEM Budget Is Broken</a></h2>
+                    <p class="post-excerpt">You're paying $0.88 for every gigabyte your SIEM looks at. Not analyzes. Not protects. Just indexes. 500GB/day? That's $160K/year to build a search engine over your own data.</p>
+                    <div class="post-meta">
+                        <span>Jan 28, 2026</span>
+                        <span>&middot;</span>
+                        <span>5 min read</span>
+                        <span>&middot;</span>
+                        <span>Zachary Troyer</span>
+                    </div>
+                </article>
+
+                <!-- Post 4 -->
+                <article class="post-card" data-category="product">
+                    <span class="post-category">Product</span>
+                    <h2 class="post-title"><a href="blog-post-template.html">Zero to Detection in 14 Seconds: Inside Our AI SOC Analyst</a></h2>
+                    <p class="post-excerpt">What used to take your team 4 hours to triage, investigate, and resolve now happens in seconds. Here's how our autonomous AI SOC analyst works 24/7/365 without alert fatigue.</p>
+                    <div class="post-meta">
+                        <span>Jan 20, 2026</span>
+                        <span>&middot;</span>
+                        <span>7 min read</span>
+                    </div>
+                </article>
+
+                <!-- Post 5 -->
+                <article class="post-card" data-category="engineering">
+                    <span class="post-category">Engineering</span>
+                    <h2 class="post-title"><a href="blog-post-template.html">Running AI Inference in Your Cloud, Not Ours</a></h2>
+                    <p class="post-excerpt">We orchestrate detection logic while all AI inference runs within your cloud account. No vendor training on your data. Full control over model spend.</p>
+                    <div class="post-meta">
+                        <span>Jan 15, 2026</span>
+                        <span>&middot;</span>
+                        <span>6 min read</span>
+                    </div>
+                </article>
+
+                <!-- Post 6 -->
+                <article class="post-card" data-category="company">
+                    <span class="post-category">Company</span>
+                    <h2 class="post-title"><a href="blog-post-template.html">Why We Chose Sovereign Over Scale</a></h2>
+                    <p class="post-excerpt">Your security should never be someone else's leverage. We built Vigilense AI so you never have to trade control for capability. Here's why sovereignty matters.</p>
+                    <div class="post-meta">
+                        <span>Jan 8, 2026</span>
+                        <span>&middot;</span>
+                        <span>4 min read</span>
+                        <span>&middot;</span>
+                        <span>Zachary Troyer</span>
+                    </div>
+                </article>
+
+                <!-- === PAGE 2 (hidden by default) === -->
+
+                <!-- Post 7 -->
+                <article class="post-card page-2" data-category="engineering">
+                    <span class="post-category">Engineering</span>
+                    <h2 class="post-title"><a href="blog-post-template.html">Alert Fatigue Is a Design Problem, Not a People Problem</a></h2>
+                    <p class="post-excerpt">Most SOCs generate 4,000+ alerts per day. Analysts ignore over 70% of them. The usual fix is hiring more analysts. We think the fix is killing the noise at the detection layer. Here is how our scoring engine separates signal from garbage before a human ever sees it.</p>
+                    <div class="post-meta">
+                        <span>Dec 18, 2025</span>
+                        <span>&middot;</span>
+                        <span>7 min read</span>
+                        <span>&middot;</span>
+                        <span>Raj Choudhary</span>
+                    </div>
+                </article>
+
+                <!-- Post 8 -->
+                <article class="post-card page-2" data-category="industry">
+                    <span class="post-category">Industry</span>
+                    <h2 class="post-title"><a href="blog-post-template.html">The CISO Buying Shift: Why Security Leaders Are Killing Vendor Lock-In</a></h2>
+                    <p class="post-excerpt">We talked to 40+ CISOs in the last six months. The pattern is clear: they are done with per-GB pricing, proprietary data formats, and multi-year contracts that punish growth. The next generation of security buyers wants modular, data-sovereign platforms. Here is what that means for the market.</p>
+                    <div class="post-meta">
+                        <span>Dec 10, 2025</span>
+                        <span>&middot;</span>
+                        <span>6 min read</span>
+                        <span>&middot;</span>
+                        <span>Zachary Troyer</span>
+                    </div>
+                </article>
+
+                <!-- Post 9 -->
+                <article class="post-card page-2" data-category="engineering">
+                    <span class="post-category">Engineering</span>
+                    <h2 class="post-title"><a href="blog-post-template.html">Writing Detection Rules That Actually Work Across Eight Databases</a></h2>
+                    <p class="post-excerpt">Splunk SPL does not translate to Snowflake SQL. Elastic KQL is not BigQuery. When your detection engine has to query eight different backends, you need an abstraction layer that does not lose fidelity. We built one. This post walks through the design tradeoffs.</p>
+                    <div class="post-meta">
+                        <span>Dec 2, 2025</span>
+                        <span>&middot;</span>
+                        <span>9 min read</span>
+                        <span>&middot;</span>
+                        <span>Raj Choudhary</span>
+                    </div>
+                </article>
+
+                <!-- Post 10 -->
+                <article class="post-card page-2" data-category="company">
+                    <span class="post-category">Company</span>
+                    <h2 class="post-title"><a href="blog-post-template.html">Selling to CISOs When You Are Two Founders and a Laptop</a></h2>
+                    <p class="post-excerpt">Enterprise security sales with no brand, no case studies, and no SOC 2 badge. We closed our first three pilots by leading with a guarantee: if we do not cut your MTTR, you pay nothing. That bet changed everything. Here is what we learned about building trust from zero.</p>
+                    <div class="post-meta">
+                        <span>Nov 22, 2025</span>
+                        <span>&middot;</span>
+                        <span>5 min read</span>
+                        <span>&middot;</span>
+                        <span>Zachary Troyer</span>
+                    </div>
+                </article>
+
+                <!-- Post 11 -->
+                <article class="post-card page-2" data-category="product">
+                    <span class="post-category">Product</span>
+                    <h2 class="post-title"><a href="blog-post-template.html">How We Handle Tenant Isolation When Every Customer Brings Their Own Database</a></h2>
+                    <p class="post-excerpt">BYODb means every customer has a different database, different schema, different access pattern. Keeping tenant data completely isolated while running a shared control plane is a hard problem. This post covers our approach to credential vaults, query sandboxing, and network segmentation.</p>
+                    <div class="post-meta">
+                        <span>Nov 14, 2025</span>
+                        <span>&middot;</span>
+                        <span>8 min read</span>
+                        <span>&middot;</span>
+                        <span>Raj Choudhary</span>
+                    </div>
+                </article>
+
+                <!-- Post 12 -->
+                <article class="post-card page-2" data-category="industry">
+                    <span class="post-category">Industry</span>
+                    <h2 class="post-title"><a href="blog-post-template.html">The $4.5M Breach You Already Paid For: Hidden Costs of SIEM Sprawl</a></h2>
+                    <p class="post-excerpt">IBM puts the average breach cost at $4.88M. But most companies are already spending $500K+ per year on SIEM infrastructure that failed to prevent it. We broke down the real cost stack: ingestion, storage, analyst salaries, and the opportunity cost of a team stuck triaging noise instead of hunting threats.</p>
+                    <div class="post-meta">
+                        <span>Nov 5, 2025</span>
+                        <span>&middot;</span>
+                        <span>6 min read</span>
+                        <span>&middot;</span>
+                        <span>Zachary Troyer</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         PAGINATION
+         ======================================== -->
+    <section class="blog-pagination">
+        <div class="container">
+            <button class="btn-load-more">Load More</button>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-brand">
+                        <img src="Vigilense Logo.png" alt="Vigilense AI" class="logo-icon">
+                        <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+                    </a>
+                    <p>The Sovereign SOC</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="index.html#how-it-works">How It Works</a></li>
+                            <li><a href="index.html#pillars">Platform</a></li>
+                            <li><a href="demo.html">Deployment</a></li>
+                            <li><a href="demo.html">Integrations</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="team.html">Team</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="security.html">About & Security</a></li>
+                            <li><a href="trust.html">Trust Center</a></li>
+                            <li><a href="demo.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="blog.html">Blog & News</a></li>
+                            <li><a href="resources/byodb-architecture.html">Documentation</a></li>
+                            <li><a href="resources/byodb-architecture.html">BYODb Guide</a></li>
+                            <li><a href="resources/siem-buyers-guide.html">SIEM Buyer's Guide</a></li>
+                            <li><a href="resources/healthcare-case-study.html">Case Studies</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal & Security</h4>
+                        <ul>
+                            <li><a href="trust.html">Trust Center</a></li>
+                            <li><a href="security.html">Security</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="disclaimer.html">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Vigilense AI. All rights reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="privacy.html">Privacy</a>
+                        <a href="terms.html">Terms</a>
+                        <a href="disclaimer.html">Disclaimer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var filterTabs = document.querySelectorAll('.filter-tab');
+            var activeCategory = 'all';
+
+            // Applies the current filter to all visible (non-paged or loaded) cards
+            function applyFilter() {
+                var allCards = document.querySelectorAll('.post-card');
+                allCards.forEach(function(card) {
+                    var isPage2 = card.classList.contains('page-2');
+                    var isLoaded = card.classList.contains('loaded');
+                    // Skip page-2 cards that have not been loaded yet
+                    if (isPage2 && !isLoaded) return;
+
+                    if (activeCategory === 'all' || card.getAttribute('data-category') === activeCategory) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            }
+
+            // Category filter tabs
+            filterTabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    filterTabs.forEach(function(t) { t.classList.remove('active'); });
+                    this.classList.add('active');
+                    activeCategory = this.getAttribute('data-category');
+                    applyFilter();
+                });
+            });
+
+            // Load More button
+            var loadMoreBtn = document.querySelector('.btn-load-more');
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function() {
+                    var page2Cards = document.querySelectorAll('.post-card.page-2:not(.loaded)');
+                    if (page2Cards.length === 0) return;
+                    page2Cards.forEach(function(card) {
+                        card.classList.add('loaded');
+                    });
+                    applyFilter();
+                    loadMoreBtn.textContent = 'All posts loaded';
+                    loadMoreBtn.classList.add('exhausted');
+                });
+            }
+
+            // Mobile menu
+            var hamburger = document.querySelector('.hamburger');
+            var navMenu = document.querySelector('.nav-menu');
+            if (hamburger) {
+                hamburger.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
