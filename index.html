@@ -462,10 +462,20 @@
             gap: 8px;
         }
 
+        .hero-subline {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--navy);
+            font-weight: 600;
+            margin-top: 20px;
+            letter-spacing: 0.01em;
+            opacity: 0.7;
+        }
+
         .hero-proof {
             font-size: 0.88rem;
             color: var(--text-secondary);
-            margin-top: 16px;
+            margin-top: 10px;
             font-style: italic;
             letter-spacing: 0.01em;
         }
@@ -516,6 +526,17 @@
             font-size: 0.95rem;
             line-height: 1.7;
             margin-bottom: 28px;
+        }
+
+        .product-callout {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            font-style: italic;
+            color: var(--navy);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            padding-left: 14px;
+            border-left: 3px solid var(--navy);
         }
 
         .product-features {
@@ -879,6 +900,32 @@
             letter-spacing: 0.01em;
         }
 
+        .sovereign-problem {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 36px;
+            border-top: 2px solid var(--navy);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .sovereign-problem-title {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--navy);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .sovereign-problem p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
         .sovereign-quote {
             text-align: center;
             font-family: var(--font-mono);
@@ -889,6 +936,97 @@
             padding-top: 32px;
             border-top: 2px solid var(--navy);
             letter-spacing: 0.01em;
+        }
+
+        /* ============================
+           THE RECEIPT CALLOUT
+           ============================ */
+        .receipt-section {
+            padding: 80px 0;
+        }
+
+        .receipt-block {
+            max-width: 640px;
+            margin: 0 auto;
+            background: var(--navy);
+            border-radius: 4px;
+            padding: 48px 44px;
+            color: #FFFFFF;
+        }
+
+        .receipt-title {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 28px;
+        }
+
+        .receipt-line.highlight {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .receipt-line.highlight strong {
+            color: #FFFFFF;
+        }
+
+        .receipt-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .receipt-item.total {
+            color: #FFFFFF;
+            font-weight: 700;
+            margin-top: 6px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .receipt-verdict {
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            color: #ff7b7b;
+            margin-bottom: 8px;
+        }
+
+        .receipt-verdict strong {
+            color: #ff7b7b;
+        }
+
+        .receipt-punchline {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .receipt-punchline strong {
+            color: var(--accent);
+        }
+
+        @media (max-width: 600px) {
+            .receipt-block { padding: 32px 24px; }
         }
 
         /* ============================
@@ -1399,6 +1537,9 @@
             .hero-stats-bar {
                 justify-content: center;
             }
+            .hero-subline {
+                text-align: center;
+            }
             .hero-proof {
                 text-align: center;
             }
@@ -1502,6 +1643,7 @@
                             <span>Human in Loop</span>
                         </div>
                     </div>
+                    <p class="hero-subline">The average enterprise spends more on log ingestion than on the analysts reading them.</p>
                     <p class="hero-proof">In pilot with enterprise security teams across Technology, financial services, healthcare and Government Agencies.</p>
                 </div>
 
@@ -1686,12 +1828,13 @@
                     <span class="section-tag">02</span>
                     <h2 class="section-title">BYODb SIEM</h2>
                     <p class="product-desc">A SIEM that runs on your existing databases. No ingestion pipeline. No vendor lock-in.</p>
+                    <p class="product-callout">Your data is already in Snowflake/Elasticsearch. So why are you paying six figures to copy it somewhere else?</p>
                     <div class="product-features">
                         <div class="feature-item">
                             <span class="feature-marker"></span>
                             <div>
                                 <h4>Query your databases in place</h4>
-                                <p>OpenSearch, Elasticsearch, Snowflake, MS Sentinel, Splunk, Security Lakes. Connected in days, not months.</p>
+                                <p>OpenSearch, Elasticsearch, Snowflake, MS Sentinel, Security Lakes. Connected in days, not months.</p>
                             </div>
                         </div>
                         <div class="feature-item">
@@ -1738,7 +1881,7 @@
                 </div>
                 <div class="sovereign-card">
                     <h3>Your Data: BYODb</h3>
-                    <p>Your telemetry stays in your databases. OpenSearch, Snowflake, BigQuery, S3, Splunk we query in place. Zero movement. Zero lock-in. Zero per-GB licensing.</p>
+                    <p>Your telemetry stays in your databases. ElasticSearch, Snowflake, BigQuery, S3, we query in place. Zero movement. Zero lock-in. Zero per-GB licensing. Zero rehydration tax. Our detection engine queries your data where it already lives.</p>
                 </div>
                 <div class="sovereign-card">
                     <h3>Your Privacy: Zero Data Exposure</h3>
@@ -1746,7 +1889,32 @@
                 </div>
             </div>
 
-            <p class="sovereign-tagline">Stop paying for the privilege of storing your own data. Move your budget from &lsquo;Ingestion&rsquo; to &lsquo;Intelligence&rsquo;.</p>
+            <div class="sovereign-problem">
+                <h3 class="sovereign-problem-title">The Ingestion Tax</h3>
+                <p>You're paying $0.88 for every gigabyte your SIEM looks at. Not analyzes. Not protects. Just indexes. 500GB/day? That's $160K/year to build a search engine over your own data.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         THE RECEIPT — Cost Callout
+         ======================================== -->
+    <section class="receipt-section">
+        <div class="container">
+            <div class="receipt-block">
+                <h3 class="receipt-title">The Receipt</h3>
+                <div class="receipt-body">
+                    <div class="receipt-line highlight">500 GB/day &times; $0.88/GB &times; 365 days = <strong>$160,600</strong> just to ingest.</div>
+                    <div class="receipt-items">
+                        <div class="receipt-item"><span>Infrastructure</span><span>$200K</span></div>
+                        <div class="receipt-item"><span>SIEM license add-ons</span><span>$75K+</span></div>
+                        <div class="receipt-item"><span>Admin salary</span><span>$150K</span></div>
+                        <div class="receipt-item total"><span>Year 1 total</span><span>$585K+</span></div>
+                    </div>
+                    <p class="receipt-verdict">Threats stopped by ingestion: <strong>Zero.</strong></p>
+                    <p class="receipt-punchline">Vigilense queries in place. Ingestion line item: <strong>$0.</strong></p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1855,7 +2023,7 @@
                         </div>
                         <div class="branch-group right">
                             <div class="branch-item in" style="--delay: 0.15s"><span>BigQuery</span></div>
-                            <div class="branch-item in" style="--delay: 0.25s"><span>Splunk</span></div>
+                            <div class="branch-item in" style="--delay: 0.25s"><span>Security Lakes</span></div>
                             <div class="branch-item in" style="--delay: 0.35s"><span>Azure ADX</span></div>
                             <div class="branch-item in" style="--delay: 0.45s"><span>S3</span></div>
                         </div>
@@ -2105,7 +2273,6 @@
                 <span>Elasticsearch</span>
                 <span>Snowflake</span>
                 <span>MS Sentinel</span>
-                <span>Splunk</span>
                 <span>Security Lakes</span>
             </div>
 
