@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - Vigilense AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ============================
+           CAREERS HERO
+           ============================ */
+        .careers-hero {
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .careers-hero .section-tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #00D4AA;
+            border: 1px solid #00D4AA;
+            padding: 6px 16px;
+            border-radius: 2px;
+            margin-bottom: 20px;
+        }
+        .careers-hero h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            color: #0A1628;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+        }
+        .careers-hero p {
+            font-size: 1.05rem;
+            color: #475569;
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        .roles-badge {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #0A1628;
+            background: rgba(10, 22, 40, 0.06);
+            border: 1px solid #E2E8F0;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-top: 20px;
+            letter-spacing: 0.05em;
+        }
+
+        /* ============================
+           WHY VIGILENSE
+           ============================ */
+        .why-section {
+            padding: 60px 0 80px;
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .why-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 4px;
+            padding: 32px 24px;
+            transition: border-color 0.3s;
+        }
+        .why-card:hover {
+            border-color: #0A1628;
+        }
+        .why-card h3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #0A1628;
+            margin-bottom: 10px;
+        }
+        .why-card p {
+            font-size: 0.9rem;
+            color: #475569;
+            line-height: 1.65;
+        }
+
+        @media (max-width: 768px) {
+            .why-grid { grid-template-columns: 1fr; gap: 20px; }
+        }
+
+        /* ============================
+           OPEN ROLES
+           ============================ */
+        .roles-section {
+            padding: 60px 0 100px;
+            background: #F2F5F7;
+            border-top: 1px solid #E2E8F0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        .roles-section .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .roles-section .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 800;
+            color: #0A1628;
+            letter-spacing: -0.02em;
+        }
+
+        .dept-group {
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        .dept-group:last-child { margin-bottom: 0; }
+
+        .dept-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #00D4AA;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #0A1628;
+        }
+
+        .role-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+        .role-card:hover { border-color: #0A1628; }
+
+        .role-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            cursor: pointer;
+            gap: 12px;
+        }
+
+        .role-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .role-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #0A1628;
+        }
+
+        .role-location {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: #475569;
+            background: rgba(10, 22, 40, 0.04);
+            border: 1px solid #E2E8F0;
+            padding: 2px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+        }
+
+        .role-toggle {
+            font-size: 0.7rem;
+            color: #94A3B8;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+        .role-card.expanded .role-toggle {
+            transform: rotate(180deg);
+        }
+
+        .role-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 24px;
+        }
+        .role-card.expanded .role-body {
+            max-height: 400px;
+            padding: 0 24px 24px;
+        }
+
+        .role-desc {
+            font-size: 0.9rem;
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .role-apply {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            background: #0A1628;
+            padding: 10px 24px;
+            border-radius: 2px;
+            text-decoration: none;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .role-apply:hover {
+            background: #0F1E36;
+            box-shadow: 0 4px 16px rgba(10, 22, 40, 0.25);
+            opacity: 1;
+        }
+
+        /* ============================
+           BOTTOM CTA
+           ============================ */
+        .careers-cta {
+            padding: 80px 0;
+            text-align: center;
+        }
+        .careers-cta h2 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            font-weight: 700;
+            color: #0A1628;
+            margin-bottom: 12px;
+        }
+        .careers-cta p {
+            font-size: 0.95rem;
+            color: #475569;
+            margin-bottom: 24px;
+        }
+        .careers-cta-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .careers-cta-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #0A1628;
+            border: 1px solid #0A1628;
+            padding: 10px 24px;
+            border-radius: 2px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .careers-cta-links a:hover {
+            background: #0A1628;
+            color: #FFFFFF;
+            opacity: 1;
+        }
+
+        /* ============================
+           FOOTER OVERRIDES
+           ============================ */
+        .footer {
+            border-top: none;
+            background: #0A1628;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .footer .logo-vigilense { color: #FFFFFF; }
+        .footer .logo-ai { color: #00D4AA; }
+        .footer-brand p { color: rgba(255, 255, 255, 0.5); }
+        .footer-column h4 { color: #FFFFFF; }
+        .footer-column a { color: rgba(255, 255, 255, 0.5); }
+        .footer-column a:hover { color: #00D4AA; }
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-bottom p { color: rgba(255, 255, 255, 0.35); }
+        .footer-legal-links a { color: rgba(255, 255, 255, 0.35); }
+        .footer-legal-links a:hover { color: #00D4AA; }
+
+        /* ============================
+           RESPONSIVE
+           ============================ */
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .hamburger { display: flex; }
+            .nav-menu.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: #0A1628;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 24px;
+                gap: 16px;
+            }
+            .careers-hero { padding: 110px 0 40px; }
+            .footer-content { grid-template-columns: 1fr; gap: 24px; }
+            .footer-links { grid-template-columns: 1fr 1fr; }
+            .footer-bottom-content { flex-direction: column; gap: 12px; text-align: center; }
+            .role-header { padding: 16px 18px; }
+            .role-title { font-size: 0.82rem; }
+        }
+
+        @media (max-width: 480px) {
+            .footer-links { grid-template-columns: 1fr; gap: 24px; }
+            .container { padding: 0 16px; }
+            .role-card.expanded .role-body { padding: 0 18px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <img src="Vigilense Logo.png" alt="Vigilense AI" class="logo-icon">
+                <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html#pillars">Platform</a></li>
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="trust.html">Trust Center</a></li>
+                <li><a href="index.html#contact" class="btn-nav">Talk to a Human Vigilant</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="careers-hero">
+        <div class="container">
+            <span class="section-tag">Careers</span>
+            <h1>Build the SOC That<br>Replaces SIEMs</h1>
+            <p>We're assembling a team of engineers, operators, and closers who believe security data shouldn't come with an ingestion tax.</p>
+            <div class="roles-badge">8 open roles</div>
+        </div>
+    </section>
+
+    <!-- Why Vigilense -->
+    <section class="why-section">
+        <div class="container">
+            <div class="why-grid">
+                <div class="why-card">
+                    <h3>Greenfield Product</h3>
+                    <p>You're not maintaining legacy. You're building from zero on a novel architecture. BYODb, autonomous AI SOC, detection engine. All new.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Real Customers, Real Pilots</h3>
+                    <p>Enterprise security teams are already running Vigilense in production environments. You'll ship to people who care.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Ownership, Not Process</h3>
+                    <p>Small team. Big scope. Ship weekly. No six-month roadmap reviews. No approval chains. You own it, you ship it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Roles -->
+    <section class="roles-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Open Roles</h2>
+            </div>
+
+            <!-- Engineering -->
+            <div class="dept-group">
+                <div class="dept-label">Engineering</div>
+
+                <div class="role-card" onclick="this.classList.toggle('expanded')">
+                    <div class="role-header">
+                        <div class="role-title-group">
+                            <span class="role-title">Senior Product Engineer</span>
+                            <span class="role-location">Remote (US)</span>
+                        </div>
+                        <span class="role-toggle">&#x25BC;</span>
+                    </div>
+                    <div class="role-body">
+                        <p class="role-desc">Build the core detection and investigation engine. You'll work across the full stack from database connectors (OpenSearch, Snowflake, S3) to AI-powered alert triage and remediation workflows. Requires deep backend experience, comfort with distributed systems, and an opinion on how security tooling should work.</p>
+                        <a href="mailto:careers@vigilense.ai?subject=Application: Senior Product Engineer" class="role-apply">Apply Now</a>
+                    </div>
+                </div>
+
+                <div class="role-card" onclick="this.classList.toggle('expanded')">
+                    <div class="role-header">
+                        <div class="role-title-group">
+                            <span class="role-title">Solutions Engineer</span>
+                            <span class="role-location">Remote (US)</span>
+                        </div>
+                        <span class="role-toggle">&#x25BC;</span>
+                    </div>
+                    <div class="role-body">
+                        <p class="role-desc">Own the technical relationship from first demo to production deployment. You'll integrate Vigilense into enterprise environments connecting databases, configuring detection policies, and proving ROI during pilots. Requires hands-on SIEM/SOC experience and the ability to speak both engineer and executive.</p>
+                        <a href="mailto:careers@vigilense.ai?subject=Application: Solutions Engineer" class="role-apply">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Go-to-Market -->
+            <div class="dept-group">
+                <div class="dept-label">Go-to-Market</div>
+
+                <div class="role-card" onclick="this.classList.toggle('expanded')">
+                    <div class="role-header">
+                        <div class="role-title-group">
+                            <span class="role-title">Account Executive, Enterprise</span>
+                            <span class="role-location">Remote (US)</span>
+                        </div>
+                        <span class="role-toggle">&#x25BC;</span>
+                    </div>
+                    <div class="role-body">
+                        <p class="role-desc">Sell the Sovereign SOC to CISOs and security leaders. Full-cycle enterprise sales: prospecting, demo, pilot, close. You're selling a category shift, not a feature upgrade. Requires enterprise security sales experience and comfort selling into complex, multi-stakeholder environments.</p>
+                        <a href="mailto:careers@vigilense.ai?subject=Application: Account Executive, Enterprise" class="role-apply">Apply Now</a>
+                    </div>
+                </div>
+
+                <div class="role-card" onclick="this.classList.toggle('expanded')">
+                    <div class="role-header">
+                        <div class="role-title-group">
+                            <span class="role-title">SDR Lead</span>
+                            <span class="role-location">Remote (US)</span>
+                        </div>
+                        <span class="role-toggle">&#x25BC;</span>
+                    </div>
+                    <div class="role-body">
+                        <p class="role-desc">Build and run outbound pipeline from scratch. You'll own targeting, messaging, and cadence for security leaders at mid-market and enterprise accounts. This is a player-coach role: you prospect while building the playbook for the team behind you.</p>
+                        <a href="mailto:careers@vigilense.ai?subject=Application: SDR Lead" class="role-apply">Apply Now</a>
+                    </div>
+                </div>
+
+                <div class="role-card" onclick="this.classList.toggle('expanded')">
+                    <div class="role-header">
+                        <div class="role-title-group">
+                            <span class="role-title">Head of Marketing</span>
+                            <span class="role-location">Remote (US)</span>
+                        </div>
+                        <span class="role-toggle">&#x25BC;</span>
+                    </div>
+                    <div class="role-body">
+                        <p class="role-desc">Own the full marketing function: positioning, content, demand gen, events, analyst relations. You'll define how Vigilense shows up in the market. Requires experience marketing to security buyers and comfort operating as a one-person team scaling to a function.</p>
+                        <a href="mailto:careers@vigilense.ai?subject=Application: Head of Marketing" class="role-apply">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product & Strategy -->
+            <div class="dept-group">
+                <div class="dept-label">Product &amp; Strategy</div>
+
+                <div class="role-card" onclick="this.classList.toggle('expanded')">
+                    <div class="role-header">
+                        <div class="role-title-group">
+                            <span class="role-title">Head of Product</span>
+                            <span class="role-location">Remote (US)</span>
+                        </div>
+                        <span class="role-toggle">&#x25BC;</span>
+                    </div>
+                    <div class="role-body">
+                        <p class="role-desc">Define what we build and why. You'll translate CISO pain into product roadmap, prioritize across detection, investigation, and response capabilities, and work directly with engineering to ship. Requires deep security domain expertise and experience building B2B security products.</p>
+                        <a href="mailto:careers@vigilense.ai?subject=Application: Head of Product" class="role-apply">Apply Now</a>
+                    </div>
+                </div>
+
+                <div class="role-card" onclick="this.classList.toggle('expanded')">
+                    <div class="role-header">
+                        <div class="role-title-group">
+                            <span class="role-title">Chief of Staff</span>
+                            <span class="role-location">Remote (US)</span>
+                        </div>
+                        <span class="role-toggle">&#x25BC;</span>
+                    </div>
+                    <div class="role-body">
+                        <p class="role-desc">Strategic operations across the company: fundraising support, GTM planning, partnerships, and whatever the founders need executed at high speed. You're the force multiplier. Requires sharp analytical thinking, comfort with ambiguity, and the ability to context-switch across business, product, and operations.</p>
+                        <a href="mailto:careers@vigilense.ai?subject=Application: Chief of Staff" class="role-apply">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Developer Relations -->
+            <div class="dept-group">
+                <div class="dept-label">Developer Relations</div>
+
+                <div class="role-card" onclick="this.classList.toggle('expanded')">
+                    <div class="role-header">
+                        <div class="role-title-group">
+                            <span class="role-title">DevRel &amp; Technical Content Lead</span>
+                            <span class="role-location">Remote (US)</span>
+                        </div>
+                        <span class="role-toggle">&#x25BC;</span>
+                    </div>
+                    <div class="role-body">
+                        <p class="role-desc">Be the voice of Vigilense in the security community. Write technical content (benchmark studies, architecture deep-dives, blog posts), present at conferences (RSA, BSides, BlackHat), and build relationships with practitioners. Requires genuine security expertise, not just content marketing with a technical veneer.</p>
+                        <a href="mailto:careers@vigilense.ai?subject=Application: DevRel %26 Technical Content Lead" class="role-apply">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="careers-cta">
+        <div class="container">
+            <h2>Don't see your role?</h2>
+            <p>We're always looking for exceptional people. Reach out.</p>
+            <div class="careers-cta-links">
+                <a href="mailto:careers@vigilense.ai">careers@vigilense.ai</a>
+                <a href="https://www.linkedin.com/company/vigilense-ai" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-brand">
+                        <img src="Vigilense Logo.png" alt="Vigilense AI" class="logo-icon">
+                        <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+                    </a>
+                    <p>The Sovereign SOC</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="index.html#how-it-works">How It Works</a></li>
+                            <li><a href="index.html#pillars">Platform</a></li>
+                            <li><a href="index.html#contact">Deployment</a></li>
+                            <li><a href="index.html#contact">Integrations</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="team.html">Team</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="security.html">About & Security</a></li>
+                            <li><a href="trust.html">Trust Center</a></li>
+                            <li><a href="index.html#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="resources/byodb-architecture.html">Documentation</a></li>
+                            <li><a href="resources/byodb-architecture.html">BYODb Guide</a></li>
+                            <li><a href="resources/siem-buyers-guide.html">SIEM Buyer's Guide</a></li>
+                            <li><a href="resources/healthcare-case-study.html">Case Studies</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal & Security</h4>
+                        <ul>
+                            <li><a href="trust.html">Trust Center</a></li>
+                            <li><a href="security.html">Security</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="disclaimer.html">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Vigilense AI. All rights reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="privacy.html">Privacy</a>
+                        <a href="terms.html">Terms</a>
+                        <a href="disclaimer.html">Disclaimer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
