@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Demo - Vigilense AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .demo-page-section {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            padding: 80px 0 100px;
+        }
+        .demo-page-section .container {
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+        .demo-page-section .section-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .demo-page-section .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 800;
+            color: #0A1628;
+            margin-bottom: 8px;
+        }
+        .demo-page-section .section-subtitle {
+            font-size: 0.95rem;
+            color: #475569;
+        }
+        .demo-page-section .contact-form-container {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            padding: 36px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <img src="Vigilense Logo.png" alt="Vigilense AI" class="logo-icon">
+                <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html#pillars">Platform</a></li>
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="trust.html">Trust Center</a></li>
+                <li><a href="demo.html" class="btn-nav">Talk to a Human Vigilant</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Full-page form -->
+    <section class="demo-page-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">See It In Action</h2>
+                <p class="section-subtitle">Run a pilot on your infrastructure or book a live demo.</p>
+            </div>
+            <div class="contact-form-container">
+                <form class="contact-form" id="contactForm" action="https://formspree.io/f/mqedeopk" method="POST">
+                    <h3>Request a Demo or Pilot</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Work Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company *</label>
+                        <input type="text" id="company" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobTitle">Job Title</label>
+                        <input type="text" id="jobTitle" name="jobTitle">
+                    </div>
+                    <div class="form-group">
+                        <label for="teamSize">SOC Team Size</label>
+                        <select id="teamSize" name="teamSize">
+                            <option value="">Select...</option>
+                            <option value="1-5">1-5 analysts</option>
+                            <option value="6-15">6-15 analysts</option>
+                            <option value="16-50">16-50 analysts</option>
+                            <option value="50+">50+ analysts</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">What databases and tools are in your stack?</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Tell us about your current infrastructure and challenges..."></textarea>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <label for="consent">I agree to the <a href="privacy.html">Privacy Policy</a> and consent to being contacted about <span class="brand-name"><span class="vigilense">Vigilense</span><span class="ai"> AI</span></span>.</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-large btn-full">Request Demo</button>
+                    <p class="form-note">We respond within 24 hours</p>
+                    <div class="form-trust-badges">
+                        <div class="form-badge">
+                            <span class="badge-icon">[+]</span>
+                            <span>No credit card required</span>
+                        </div>
+                        <div class="form-badge">
+                            <span class="badge-icon">[+]</span>
+                            <span>Risk-free pilot</span>
+                        </div>
+                        <div class="form-badge">
+                            <span class="badge-icon">[+]</span>
+                            <span>Cancel anytime</span>
+                        </div>
+                    </div>
+                    <div class="form-security-badges">
+                        <div class="security-badge">
+                            <span class="shield-icon">[S]</span>
+                            <span>Security-First</span>
+                        </div>
+                        <div class="security-badge">
+                            <span class="shield-icon">[E]</span>
+                            <span>Encrypted</span>
+                        </div>
+                        <div class="security-badge">
+                            <span class="shield-icon">[G]</span>
+                            <span>GDPR</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-brand">
+                        <img src="Vigilense Logo.png" alt="Vigilense AI" class="logo-icon">
+                        <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+                    </a>
+                    <p>The Sovereign SOC</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="index.html#how-it-works">How It Works</a></li>
+                            <li><a href="index.html#pillars">Platform</a></li>
+                            <li><a href="demo.html">Deployment</a></li>
+                            <li><a href="demo.html">Integrations</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="team.html">Team</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="security.html">About & Security</a></li>
+                            <li><a href="trust.html">Trust Center</a></li>
+                            <li><a href="demo.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="resources/byodb-architecture.html">Documentation</a></li>
+                            <li><a href="resources/byodb-architecture.html">BYODb Guide</a></li>
+                            <li><a href="resources/siem-buyers-guide.html">SIEM Buyer's Guide</a></li>
+                            <li><a href="resources/healthcare-case-study.html">Case Studies</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal & Security</h4>
+                        <ul>
+                            <li><a href="trust.html">Trust Center</a></li>
+                            <li><a href="security.html">Security</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="disclaimer.html">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Vigilense AI. All rights reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="privacy.html">Privacy</a>
+                        <a href="terms.html">Terms</a>
+                        <a href="disclaimer.html">Disclaimer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
