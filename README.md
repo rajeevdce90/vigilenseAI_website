@@ -26,6 +26,8 @@ Pure HTML, CSS, and JavaScript. No build process required.
 ├── disclaimer.html             # Disclaimer
 ├── CNAME                       # Custom domain (vigilense.ai)
 ├── Vigilense Logo.png          # Brand logo
+├── images/
+│   └── og-preview.png          # 1200×630 Open Graph / Twitter Card preview image
 └── resources/
     ├── byodb-architecture.html
     ├── byollm-guide.html
@@ -48,3 +50,7 @@ Open `index.html` in a browser. No dependencies or build step needed.
 ## Deployment
 
 Hosted via GitHub Pages with custom domain `vigilense.ai`.
+
+## Link previews (Open Graph / Twitter Cards)
+
+All pages include Open Graph and Twitter Card meta tags for rich previews when sharing links. The default preview image is `images/og-preview.png` (1200×630). Favicon links point to `/favicon.ico`, `/favicon-16x16.png`, `/favicon-32x32.png`, and `/apple-touch-icon.png`; generate these from the Vigilense logo and place them in the site root. After deploy, validate previews with [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/), [Twitter Card Validator](https://cards-dev.twitter.com/validator), or [opengraph.xyz](https://www.opengraph.xyz/).
