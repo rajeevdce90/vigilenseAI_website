@@ -7,7 +7,7 @@
     <meta name="keywords" content="SIEM cost calculator, SOC cost calculator, AI SOC pricing, Splunk pricing comparison, SIEM savings calculator, Vigilense AI pricing, BYODb SIEM cost, SOC cost reduction, human SOC vs AI SOC">
     <link rel="canonical" href="https://vigilense.ai/cost-simulator/">
     <meta property="og:title" content="Cost Simulator | Vigilense AI">
-    <meta property="og:description" content="Calculate your SIEM and SOC savings. Compare legacy costs vs Vigilense AI — SIEM, SOC, or both.">
+    <meta property="og:description" content="Calculate your SIEM and SOC savings. Compare legacy costs vs Vigilense AI - SIEM, SOC, or both.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://vigilense.ai/cost-simulator/">
     <meta property="og:image" content="https://vigilense.ai/og-image.png">
@@ -860,7 +860,7 @@
             <div class="cs-hero-bar">
                 <h1>How Much Could You <span class="accent">Save</span>?</h1>
                 <div class="cs-hero-sep"></div>
-                <p class="cs-hero-desc">Compare your current security costs vs Vigilense AI &mdash; SIEM, SOC, or both.</p>
+                <p class="cs-hero-desc">Compare your current security costs vs Vigilense AI - SIEM, SOC, or both.</p>
             </div>
         </div>
     </section>
@@ -963,7 +963,7 @@
                             </div>
                         </div>
 
-                        <div class="cs-soc-assumptions-title">Vigilense AI SOC &mdash; Human-in-the-Loop Staff</div>
+                        <div class="cs-soc-assumptions-title">Vigilense AI SOC - Human-in-the-Loop Staff</div>
                         <div class="cs-assumptions-grid">
                             <div class="cs-assumption-item">
                                 <label for="csAutoResolve">AI Autonomous Resolution (%)</label>
@@ -1041,7 +1041,7 @@
                             <img src="/vigilense-logo.png?v=2" alt="Vigilense AI">
                             <div>
                                 <div class="cs-panel-name">Vigilense <span class="ai">AI</span></div>
-                                <div class="cs-panel-sub">BYODb &mdash; zero ingestion fees</div>
+                                <div class="cs-panel-sub">BYODb - zero ingestion fees</div>
                             </div>
                         </div>
                         <ul class="cs-line-items" id="csVigLines"></ul>
@@ -1055,7 +1055,7 @@
 
                 <!-- AI Maturity Disclaimer (shown when SOC mode is active) -->
                 <div id="csAiMaturityNote" class="cs-maturity-disclaimer" style="display:none;">
-                    <p><strong>AI Maturity Note:</strong> The savings shown above represent a fully optimized state, typically reached 12&ndash;18 months after deployment. In the initial phase, the AI autonomous resolution rate starts at approximately 30&ndash;40% and gradually increases as the system learns your environment, playbooks are tuned, and trust is established. Early savings will be lower but grow steadily over time.</p>
+                    <p><strong>AI Maturity Note:</strong> The savings shown above represent a fully optimized state, typically reached 12-18 months after deployment. In the initial phase, the AI autonomous resolution rate starts at approximately 30-40% and gradually increases as the system learns your environment, playbooks are tuned, and trust is established. Early savings will be lower but grow steadily over time.</p>
                 </div>
 
                 <!-- Bottom CTA -->
@@ -1075,7 +1075,7 @@
     <section class="cs-bottom-cta">
         <div class="container">
             <h2>Ready to Unlock Your Security Budget?</h2>
-            <p>Talk to our team about a risk-free pilot. No obligation, no upfront cost &mdash; SIEM, SOC, or both.</p>
+            <p>Talk to our team about a risk-free pilot. No obligation, no upfront cost - SIEM, SOC, or both.</p>
             <a href="/demo/" class="btn btn-primary btn-large">Book a Demo &rarr;</a>
         </div>
     </section>
@@ -1592,12 +1592,12 @@
                 leftName = 'Legacy SIEM';
                 leftSub = 'Based on per-GB ingestion pricing';
                 rightName = 'Vigilense <span class="ai">AI</span>';
-                rightSub = 'BYODb \u2014 zero ingestion fees';
+                rightSub = 'BYODb - zero ingestion fees';
                 leftLines = buildSiemLegacyLines(siem);
                 rightLines = buildSiemVigLines(siem);
                 var secBudget = Math.max(500000, siem.legacyTotal * 1.6);
                 leftBudgetText = Math.round((siem.legacyTotal / secBudget) * 100) + '% of security budget consumed by SIEM';
-                rightBudgetText = Math.round((siem.vigTotal / secBudget) * 100) + '% of budget \u2014 the rest goes to real security';
+                rightBudgetText = Math.round((siem.vigTotal / secBudget) * 100) + '% of budget - the rest goes to real security';
 
             } else if (mode === 'soc') {
                 beforeTotal = soc.humanSocTotal;
@@ -1605,16 +1605,16 @@
                 beforeLabel = 'Human SOC';
                 afterLabel = 'AI SOC Analyst';
                 leftName = 'Human SOC';
-                leftSub = soc.totalStaff + ' staff \u2014 ' + soc.coverage + ' coverage';
+                leftSub = soc.totalStaff + ' staff - ' + soc.coverage + ' coverage';
                 rightName = 'Vigilense <span class="ai">AI</span> SOC';
-                rightSub = 'AI triages 100% \u2014 auto-resolves ' + Math.round(soc.autoResolveRate * 100) + '% autonomously';
+                rightSub = 'AI triages 100%, auto-resolves ' + Math.round(soc.autoResolveRate * 100) + '% autonomously';
                 leftLines = buildHumanSocLines(soc);
                 rightLines = buildVigSocLines(soc);
-                leftBudgetText = fmtNum(soc.totalStaff) + ' headcount \u2014 ' + fmtNum(soc.investigatedAlerts) + ' alerts investigated / day (of ' + fmtNum(soc.dailyAlerts) + ')';
-                rightBudgetText = fmtNum(soc.hilHeadcount) + ' staff retained \u2014 AI auto-resolves ' + Math.round(soc.autoResolveRate * 100) + '% of ' + fmtNum(soc.dailyAlerts) + ' alerts/day';
+                leftBudgetText = fmtNum(soc.totalStaff) + ' headcount - ' + fmtNum(soc.investigatedAlerts) + ' alerts investigated / day (of ' + fmtNum(soc.dailyAlerts) + ')';
+                rightBudgetText = fmtNum(soc.hilHeadcount) + ' staff retained - AI auto-resolves ' + Math.round(soc.autoResolveRate * 100) + '% of ' + fmtNum(soc.dailyAlerts) + ' alerts/day';
 
             } else {
-                // BOTH — Sovereign SOC
+                // BOTH - Sovereign SOC
                 var combinedBefore = siem.legacyTotal + soc.humanSocTotal;
                 // Bundle discount: 15% off Vigilense platform costs (not customer-borne costs)
                 var vigPlatformCosts = siem.vigTotal + soc.aiSocPlatform + soc.aiCompute;
@@ -1643,7 +1643,7 @@
             document.getElementById('csSavingsAmount').textContent = fmtCurrency(savings);
             document.getElementById('csSavingsPct').textContent = savingsPct + '% less than ' + beforeLabel + ' per year';
             document.getElementById('csSavingsMsg').textContent =
-                'That\u2019s ' + fmtCurrency(savings) + ' back into threat hunting, red team exercises, and real security improvements \u2014 every single year.';
+                'That\'s ' + fmtCurrency(savings) + ' back into threat hunting, red team exercises, and real security improvements - every single year.';
 
             // Bars
             var maxBarH = 200;
@@ -1706,11 +1706,11 @@
         // -- SIEM: Vigilense panel --
         function buildSiemVigLines(s) {
             var aiFormula = fmtNum(s.rules) + ' rules \u00d7 ~$' + fmtNum(s.avgPerRule) + ' avg/rule/yr';
-            var byodbFormula = '~$' + s.byodbEffective + '/GB/day \u2014 managed cloud platform (avg)';
-            return lineItem('Platform License', fmtCurrency(s.vigPlatform), s.vigTierName + ' tier \u2014 scales with volume') +
+            var byodbFormula = '~$' + s.byodbEffective + '/GB/day - managed cloud platform (avg)';
+            return lineItem('Platform License', fmtCurrency(s.vigPlatform), s.vigTierName + ' tier - scales with volume') +
                 lineItem('AI Detection Engine', fmtCurrency(s.vigAiAnnual), aiFormula) +
                 lineItem('BYODb Infrastructure', fmtCurrency(s.byodbCost), byodbFormula) +
-                lineItem('Support & Ops', fmtCurrency(s.vigSupport), 'AI handles 90% of ops \u2014 minimal staff needed');
+                lineItem('Support & Ops', fmtCurrency(s.vigSupport), 'AI handles 90% of ops - minimal staff needed');
         }
 
         // -- SOC: Human panel --
@@ -1728,11 +1728,11 @@
         // -- SOC: Vigilense AI SOC panel --
         function buildVigSocLines(s) {
             var autoResolvePct = Math.round(s.autoResolveRate * 100);
-            var lines = lineItem('AI SOC Platform', fmtCurrency(s.aiSocPlatform), s.aiSocTier + ' tier \u2014 ' + fmtNum(s.dailyAlerts) + ' alerts/day') +
+            var lines = lineItem('AI SOC Platform', fmtCurrency(s.aiSocPlatform), s.aiSocTier + ' tier - ' + fmtNum(s.dailyAlerts) + ' alerts/day') +
                 lineItem('AI Investigation Compute', fmtCurrency(s.aiCompute), fmtNum(s.annualInvestigations) + ' investigations/yr \u00d7 ~$' + s.blendedRate + ' avg');
 
             if (s.reviewerCount > 0) {
-                lines += lineItem('SOC Reviewers (24/7 shifts)', fmtCurrency(s.reviewerCost), s.reviewerCount + ' reviewer' + (s.reviewerCount > 1 ? 's' : '') + ' \u2014 ' + fmtNum(s.dailyEscalated) + ' escalated alerts/day (' + (100 - autoResolvePct) + '%)');
+                lines += lineItem('SOC Reviewers (24/7 shifts)', fmtCurrency(s.reviewerCost), s.reviewerCount + ' reviewer' + (s.reviewerCount > 1 ? 's' : '') + ' - ' + fmtNum(s.dailyEscalated) + ' escalated alerts/day (' + (100 - autoResolvePct) + '%)');
             }
             if (s.detEngCount > 0) {
                 lines += lineItem('Detection Engineering', fmtCurrency(s.detEngCost), s.detEngCount + ' Detection Engineer' + (s.detEngCount > 1 ? 's' : '') + ' (tuning & config)');
