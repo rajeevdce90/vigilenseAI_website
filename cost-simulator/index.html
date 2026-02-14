@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Calculate your SIEM savings with Vigilense AI. Compare Splunk costs vs BYODb architecture. See how much budget you can unlock for real security.">
-    <meta name="keywords" content="SIEM cost calculator, Splunk pricing comparison, SIEM savings calculator, Vigilense AI pricing, BYODb SIEM cost, SOC cost reduction">
+    <meta name="description" content="Calculate your SIEM and SOC savings with Vigilense AI. Compare legacy SIEM + human SOC costs vs BYODb SIEM + AI SOC Analyst. See how much budget you can unlock.">
+    <meta name="keywords" content="SIEM cost calculator, SOC cost calculator, AI SOC pricing, Splunk pricing comparison, SIEM savings calculator, Vigilense AI pricing, BYODb SIEM cost, SOC cost reduction, human SOC vs AI SOC">
     <link rel="canonical" href="https://vigilense.ai/cost-simulator/">
-    <meta property="og:title" content="SIEM Cost Simulator | Vigilense AI">
-    <meta property="og:description" content="Calculate your SIEM savings. Compare Splunk costs vs Vigilense AI BYODb architecture. See how much budget you can unlock.">
+    <meta property="og:title" content="Cost Simulator | Vigilense AI">
+    <meta property="og:description" content="Calculate your SIEM and SOC savings. Compare legacy costs vs Vigilense AI — SIEM, SOC, or both.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://vigilense.ai/cost-simulator/">
     <meta property="og:image" content="https://vigilense.ai/og-image.png">
@@ -17,8 +17,8 @@
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="Vigilense AI">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SIEM Cost Simulator | Vigilense AI">
-    <meta name="twitter:description" content="Calculate your SIEM savings. Compare Splunk vs Vigilense AI.">
+    <meta name="twitter:title" content="Cost Simulator | Vigilense AI">
+    <meta name="twitter:description" content="Calculate your SIEM and SOC savings. Compare legacy costs vs Vigilense AI.">
     <meta name="twitter:image" content="https://vigilense.ai/og-image.png">
     <meta name="twitter:image:alt" content="Vigilense AI - The Sovereign SOC. BYODb SIEM + Autonomous AI SOC Analyst.">
     <!-- Favicon -->
@@ -27,7 +27,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="manifest" href="/site.webmanifest" />
-    <title>SIEM Cost Simulator | Vigilense AI</title>
+    <title>Cost Simulator | Vigilense AI</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/theme.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -512,6 +512,225 @@
             font-size: 1.05rem;
         }
 
+        /* --- Results: Section Dividers & Subtotals --- */
+        .cs-section-divider {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 12px 0 6px;
+            margin-top: 4px;
+            border: none;
+            list-style: none;
+            display: block;
+        }
+        .cs-panel-splunk .cs-section-divider { color: rgba(255,68,68,0.6); }
+        .cs-panel-vig .cs-section-divider { color: rgba(0,212,170,0.6); }
+        .cs-subtotal-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 6px 0;
+            border-top: 1px dashed rgba(255,255,255,0.06);
+            margin-top: 2px;
+        }
+        .cs-subtotal-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.45);
+            font-style: italic;
+        }
+        .cs-subtotal-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.7);
+        }
+        .cs-bundle-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 8px 12px;
+            margin: 8px 0;
+            background: rgba(0,212,170,0.06);
+            border: 1px solid rgba(0,212,170,0.15);
+            border-radius: 6px;
+        }
+        .cs-bundle-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #00D4AA;
+            font-weight: 600;
+        }
+        .cs-bundle-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #00D4AA;
+        }
+        .cs-eliminated-note {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.58rem;
+            color: rgba(0,212,170,0.5);
+            margin-top: 10px;
+            line-height: 1.6;
+            padding: 8px 10px;
+            background: rgba(0,212,170,0.03);
+            border-radius: 6px;
+            border: 1px solid rgba(0,212,170,0.06);
+        }
+
+        /* --- Product Selector --- */
+        .cs-product-selector {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            margin-bottom: 28px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 10px;
+            padding: 4px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .cs-product-pill {
+            flex: 1;
+            padding: 11px 16px;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: rgba(255,255,255,0.5);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+        }
+        .cs-product-pill:hover {
+            color: rgba(255,255,255,0.8);
+            background: rgba(255,255,255,0.04);
+        }
+        .cs-product-pill.active {
+            background: #00D4AA;
+            color: #0A1628;
+            box-shadow: 0 2px 12px rgba(0, 212, 170, 0.3);
+        }
+
+        /* --- Section Toggle --- */
+        .cs-section-hidden { display: none !important; }
+
+        /* --- SOC Input Section --- */
+        .cs-soc-section {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            margin-top: 20px;
+        }
+        .cs-soc-section .cs-input-label {
+            margin-bottom: 14px;
+        }
+        .cs-soc-slider-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 14px;
+        }
+        .cs-soc-slider-row input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 8px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+        }
+        .cs-soc-slider-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px; height: 22px; border-radius: 50%;
+            background: #00D4AA; cursor: pointer;
+            box-shadow: 0 0 12px rgba(0, 212, 170, 0.4);
+            border: 2px solid #0A1120;
+        }
+        .cs-soc-slider-row input[type="range"]::-moz-range-thumb {
+            width: 22px; height: 22px; border-radius: 50%;
+            background: #00D4AA; cursor: pointer;
+            box-shadow: 0 0 12px rgba(0, 212, 170, 0.4);
+            border: 2px solid #0A1120;
+        }
+        .cs-alert-input {
+            width: 110px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #00D4AA;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .cs-alert-input:focus { border-color: #00D4AA; }
+        .cs-alert-unit {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #00D4AA;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .cs-coverage-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+        .cs-coverage-row label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+        }
+        .cs-coverage-select {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #00D4AA;
+            font-weight: 600;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 8px;
+            padding: 10px 12px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2300D4AA'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 28px;
+        }
+        .cs-coverage-select:focus { border-color: #00D4AA; }
+        .cs-coverage-select option { background: #111827; color: #fff; }
+
+        /* SOC Assumptions */
+        .cs-soc-assumptions {
+            padding: 16px 0 0;
+        }
+        .cs-soc-assumptions-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.45);
+            margin: 12px 0 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
         /* --- Responsive --- */
         @media (max-width: 768px) {
             .cs-hero { padding: 90px 0 16px; }
@@ -530,6 +749,12 @@
             .cs-bar-compare { gap: 24px; }
             .cs-bar { width: 60px; }
             .cs-savings-banner { padding: 24px 16px; }
+            .cs-product-selector { flex-wrap: wrap; gap: 4px; }
+            .cs-product-pill { font-size: 0.72rem; padding: 9px 10px; }
+            .cs-soc-slider-row { flex-wrap: wrap; gap: 12px; }
+            .cs-soc-slider-row input[type="range"] { width: 100%; flex: none; }
+            .cs-coverage-row { flex-wrap: wrap; gap: 8px; }
+            .cs-soc-assumptions .cs-assumptions-grid { grid-template-columns: 1fr; }
         }
     </style>
 
@@ -537,8 +762,8 @@
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "SIEM Cost Simulator",
-        "description": "Calculate your SIEM savings by comparing legacy SIEM costs vs Vigilense AI BYODb architecture.",
+        "name": "Cost Simulator",
+        "description": "Calculate your SIEM and SOC savings by comparing legacy costs vs Vigilense AI BYODb SIEM + AI SOC Analyst.",
         "url": "https://vigilense.ai/cost-simulator/",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Web",
@@ -616,7 +841,7 @@
             <div class="cs-hero-bar">
                 <h1>How Much Could You <span class="accent">Save</span>?</h1>
                 <div class="cs-hero-sep"></div>
-                <p class="cs-hero-desc">Compare legacy SIEM costs vs Vigilense AI &mdash; transparent math, no gimmicks.</p>
+                <p class="cs-hero-desc">Compare your current security costs vs Vigilense AI &mdash; SIEM, SOC, or both.</p>
             </div>
         </div>
     </section>
@@ -625,33 +850,120 @@
         <div class="cs-card">
             <!-- Input Section -->
             <div class="cs-input-section">
-                <label class="cs-input-label">How much data does your SIEM ingest per day?</label>
 
-                <div class="cs-slider-row">
-                    <input type="range" id="csSlider" min="0" max="100" value="5" step="1">
-                    <input type="number" id="csVolume" class="cs-volume-input" value="500" min="1" step="1">
-                    <select id="csUnit" class="cs-volume-unit-select">
-                        <option value="GB" selected>GB / day</option>
-                        <option value="TB">TB / day</option>
-                    </select>
+                <!-- Product Selector -->
+                <div class="cs-product-selector">
+                    <button class="cs-product-pill active" data-mode="siem">BYODb SIEM</button>
+                    <button class="cs-product-pill" data-mode="soc">AI SOC Analyst</button>
+                    <button class="cs-product-pill" data-mode="both">Sovereign SOC (Both)</button>
                 </div>
 
-                <!-- Assumptions -->
-                <div class="cs-assumptions-panel">
-                    <div class="cs-assumptions-grid">
-                        <div class="cs-assumption-item">
-                            <label for="csRate">Legacy SIEM Rate ($/GB/year)</label>
-                            <input type="number" id="csRate" value="1200" step="50">
-                        </div>
-                        <div class="cs-assumption-item">
-                            <label for="csRules">Detection Rules</label>
-                            <input type="number" id="csRules" value="50" step="5">
-                        </div>
+                <!-- ── SIEM Inputs ── -->
+                <div id="csSiemSection">
+                    <label class="cs-input-label">How much data does your SIEM ingest per day?</label>
+
+                    <div class="cs-slider-row">
+                        <input type="range" id="csSlider" min="0" max="100" value="5" step="1">
+                        <input type="number" id="csVolume" class="cs-volume-input" value="500" min="1" step="1">
+                        <select id="csUnit" class="cs-volume-unit-select">
+                            <option value="GB" selected>GB / day</option>
+                            <option value="TB">TB / day</option>
+                        </select>
                     </div>
+
+                    <!-- SIEM Assumptions -->
+                    <div class="cs-assumptions-panel">
+                        <div class="cs-assumptions-grid">
+                            <div class="cs-assumption-item">
+                                <label for="csRate">Legacy SIEM Rate ($/GB/year)</label>
+                                <input type="number" id="csRate" value="1200" step="50">
+                            </div>
+                            <div class="cs-assumption-item">
+                                <label for="csRules">Detection Rules</label>
+                                <input type="number" id="csRules" value="50" step="5">
+                            </div>
+                        </div>
                         <p class="cs-assumption-note">Defaults based on published SIEM term-license pricing with enterprise volume discounts. Adjust to match your actual contract rates.</p>
+                    </div>
                 </div>
 
-                <button class="cs-calc-btn" id="csCalcBtn">Calculate Savings</button>
+                <!-- ── AI SOC Inputs ── -->
+                <div id="csSocSection" class="cs-soc-section cs-section-hidden">
+                    <label class="cs-input-label">How many security alerts does your SOC handle per day?</label>
+
+                    <div class="cs-soc-slider-row">
+                        <input type="range" id="csAlertSlider" min="0" max="40" value="4" step="1">
+                        <input type="number" id="csAlertVolume" class="cs-alert-input" value="500" min="50" step="50">
+                        <span class="cs-alert-unit">alerts / day</span>
+                    </div>
+
+                    <div class="cs-coverage-row">
+                        <label for="csCoverage">SOC Coverage Model</label>
+                        <select id="csCoverage" class="cs-coverage-select">
+                            <option value="24/7" selected>24 / 7 / 365</option>
+                            <option value="16/5">16 hrs / 5 days</option>
+                            <option value="8/5">8 hrs / 5 days</option>
+                        </select>
+                    </div>
+
+                    <!-- SOC Assumptions -->
+                    <div class="cs-soc-assumptions">
+                        <div class="cs-soc-assumptions-title">Human SOC Assumptions</div>
+                        <div class="cs-assumptions-grid">
+                            <div class="cs-assumption-item">
+                                <label for="csL1Salary">Avg L1 Analyst Salary</label>
+                                <input type="number" id="csL1Salary" value="75000" step="5000">
+                            </div>
+                            <div class="cs-assumption-item">
+                                <label for="csAlertsPerAnalyst">Alerts / Analyst / Shift</label>
+                                <input type="number" id="csAlertsPerAnalyst" value="30" step="5">
+                            </div>
+                            <div class="cs-assumption-item">
+                                <label for="csInvestigationRate">Investigation Rate (%)</label>
+                                <input type="number" id="csInvestigationRate" value="40" step="5" min="5" max="100">
+                            </div>
+                            <div class="cs-assumption-item">
+                                <label for="csBenefits">Benefits & Overhead (%)</label>
+                                <input type="number" id="csBenefits" value="35" step="5">
+                            </div>
+                            <div class="cs-assumption-item">
+                                <label for="csTurnover">Annual Turnover (%)</label>
+                                <input type="number" id="csTurnover" value="25" step="5">
+                            </div>
+                            <div class="cs-assumption-item">
+                                <label for="csRecruitCost">Recruiting Cost / Hire</label>
+                                <input type="number" id="csRecruitCost" value="20000" step="5000">
+                            </div>
+                            <div class="cs-assumption-item">
+                                <label for="csSoarTooling">SOAR & Tooling ($/yr)</label>
+                                <input type="number" id="csSoarTooling" value="150000" step="10000">
+                            </div>
+                            <div class="cs-assumption-item">
+                                <label for="csTrainingCost">Training / Analyst / yr</label>
+                                <input type="number" id="csTrainingCost" value="8000" step="1000">
+                            </div>
+                        </div>
+
+                        <div class="cs-soc-assumptions-title">Vigilense AI SOC &mdash; Human-in-the-Loop Staff</div>
+                        <div class="cs-assumptions-grid">
+                            <div class="cs-assumption-item">
+                                <label for="csSrEngSalary">Sr. Security Engineer Salary</label>
+                                <input type="number" id="csSrEngSalary" value="130000" step="5000">
+                            </div>
+                            <div class="cs-assumption-item">
+                                <label for="csDetEngSalary">Detection Engineer Salary</label>
+                                <input type="number" id="csDetEngSalary" value="120000" step="5000">
+                            </div>
+                            <div class="cs-assumption-item">
+                                <label for="csIrLeadSalary">IR Lead Salary</label>
+                                <input type="number" id="csIrLeadSalary" value="150000" step="5000">
+                            </div>
+                        </div>
+                        <p class="cs-assumption-note">Even with AI SOC, customers retain senior engineers for escalation review &amp; action approval (human-in-the-loop), detection tuning, and incident response. AI handles 100% of triage and investigation autonomously.</p>
+                    </div>
+                </div>
+
+                <button class="cs-calc-btn" id="csCalcBtn">Calculate SIEM Savings</button>
             </div>
 
             <!-- Results (hidden until calculated) -->
@@ -731,7 +1043,7 @@
     <section class="cs-bottom-cta">
         <div class="container">
             <h2>Ready to Unlock Your Security Budget?</h2>
-            <p>Talk to our team about a risk-free pilot. No obligation, no upfront cost, no per-GB fees.</p>
+            <p>Talk to our team about a risk-free pilot. No obligation, no upfront cost &mdash; SIEM, SOC, or both.</p>
             <a href="/demo/" class="btn btn-primary btn-large">Book a Demo &rarr;</a>
         </div>
     </section>
@@ -813,7 +1125,9 @@
     <script src="/script.js"></script>
     <script>
     (function() {
-        // ── DOM refs ──
+        // ══════════════════════════════════════════════════
+        // DOM REFS
+        // ══════════════════════════════════════════════════
         var slider = document.getElementById('csSlider');
         var volumeInput = document.getElementById('csVolume');
         var unitSelect = document.getElementById('csUnit');
@@ -821,52 +1135,93 @@
         var rulesInput = document.getElementById('csRules');
         var calcBtn = document.getElementById('csCalcBtn');
         var results = document.getElementById('csResults');
-        // card header removed
+        var siemSection = document.getElementById('csSiemSection');
+        var socSection = document.getElementById('csSocSection');
+        var alertSlider = document.getElementById('csAlertSlider');
+        var alertInput = document.getElementById('csAlertVolume');
+        var coverageSelect = document.getElementById('csCoverage');
+        var pills = document.querySelectorAll('.cs-product-pill');
 
-        // ── Slider step table ──
-        // Steps: 100-1000 GB in 100 GB increments,
-        //         1-10 TB in 500 GB increments,
-        //         10-100 TB in 5 TB increments,
-        //         100-1000 TB in 50 TB increments
+        // SOC assumption inputs
+        var inL1Salary = document.getElementById('csL1Salary');
+        var inAlertsPerAnalyst = document.getElementById('csAlertsPerAnalyst');
+        var inInvestRate = document.getElementById('csInvestigationRate');
+        var inBenefits = document.getElementById('csBenefits');
+        var inTurnover = document.getElementById('csTurnover');
+        var inRecruitCost = document.getElementById('csRecruitCost');
+        var inSoarTooling = document.getElementById('csSoarTooling');
+        var inTrainingCost = document.getElementById('csTrainingCost');
+        var inSrEngSalary = document.getElementById('csSrEngSalary');
+        var inDetEngSalary = document.getElementById('csDetEngSalary');
+        var inIrLeadSalary = document.getElementById('csIrLeadSalary');
+
+        // ══════════════════════════════════════════════════
+        // MODE MANAGEMENT
+        // ══════════════════════════════════════════════════
+        var currentMode = 'siem';
+
+        function setMode(mode) {
+            currentMode = mode;
+            pills.forEach(function(p) {
+                p.classList.toggle('active', p.getAttribute('data-mode') === mode);
+            });
+            // Show/hide sections
+            if (mode === 'siem') {
+                siemSection.classList.remove('cs-section-hidden');
+                socSection.classList.add('cs-section-hidden');
+                calcBtn.textContent = 'Calculate SIEM Savings';
+            } else if (mode === 'soc') {
+                siemSection.classList.add('cs-section-hidden');
+                socSection.classList.remove('cs-section-hidden');
+                calcBtn.textContent = 'Calculate SOC Savings';
+            } else {
+                siemSection.classList.remove('cs-section-hidden');
+                socSection.classList.remove('cs-section-hidden');
+                calcBtn.textContent = 'Calculate Total Savings';
+            }
+            // Hide stale results
+            results.style.display = 'none';
+            results.classList.remove('visible');
+        }
+
+        pills.forEach(function(p) {
+            p.addEventListener('click', function() {
+                setMode(p.getAttribute('data-mode'));
+            });
+        });
+
+        // ══════════════════════════════════════════════════
+        // SIEM VOLUME SLIDER (existing logic)
+        // ══════════════════════════════════════════════════
         var sliderSteps = [];
         var i;
-        for (i = 100; i <= 1000; i += 100) sliderSteps.push(i);         // 100..1000 GB
-        for (i = 1500; i <= 10000; i += 500) sliderSteps.push(i);       // 1.5..10 TB
-        for (i = 15000; i <= 100000; i += 5000) sliderSteps.push(i);    // 15..100 TB
-        for (i = 150000; i <= 1000000; i += 50000) sliderSteps.push(i); // 150..1000 TB
+        for (i = 100; i <= 1000; i += 100) sliderSteps.push(i);
+        for (i = 1500; i <= 10000; i += 500) sliderSteps.push(i);
+        for (i = 15000; i <= 100000; i += 5000) sliderSteps.push(i);
+        for (i = 150000; i <= 1000000; i += 50000) sliderSteps.push(i);
 
         slider.min = 0;
         slider.max = sliderSteps.length - 1;
         slider.step = 1;
-        slider.value = 4; // default = 500 GB (index 4)
+        slider.value = 4;
 
         function sliderToGB() {
             var idx = parseInt(slider.value) || 0;
             idx = Math.max(0, Math.min(idx, sliderSteps.length - 1));
             return sliderSteps[idx];
         }
-
         function gbToSlider(gb) {
-            // Find closest step index
-            var bestIdx = 0;
-            var bestDist = Math.abs(sliderSteps[0] - gb);
+            var bestIdx = 0, bestDist = Math.abs(sliderSteps[0] - gb);
             for (var j = 1; j < sliderSteps.length; j++) {
                 var d = Math.abs(sliderSteps[j] - gb);
                 if (d < bestDist) { bestDist = d; bestIdx = j; }
             }
             return bestIdx;
         }
-
-        // ── Get volume in GB (always returns GB) ──
         function getVolumeGB() {
             var raw = parseFloat(volumeInput.value) || 0;
-            if (unitSelect.value === 'TB') {
-                return Math.round(raw * 1000);
-            }
-            return Math.round(raw);
+            return unitSelect.value === 'TB' ? Math.round(raw * 1000) : Math.round(raw);
         }
-
-        // ── Set the input + unit from GB value ──
         function setVolumeFromGB(gb) {
             if (unitSelect.value === 'TB') {
                 var tb = gb / 1000;
@@ -876,260 +1231,392 @@
             }
         }
 
-        // ── Sync slider -> input ──
         slider.addEventListener('input', function() {
             var gb = sliderToGB();
             setVolumeFromGB(gb);
-            updateDefaults(gb);
+            updateSiemDefaults(gb);
         });
-
-        // ── Sync input -> slider (live) ──
         volumeInput.addEventListener('input', function() {
             var gb = getVolumeGB();
             if (gb > 0) {
                 slider.value = gbToSlider(Math.min(gb, 1000000));
-                updateDefaults(gb);
+                updateSiemDefaults(gb);
             }
         });
-
-        // ── Unit dropdown changed ──
         unitSelect.addEventListener('change', function() {
-            // Convert current value to the new unit
             var currentRaw = parseFloat(volumeInput.value) || 0;
             if (unitSelect.value === 'TB') {
-                // Was GB, now TB
-                volumeInput.value = currentRaw >= 1000 ? (currentRaw / 1000) : currentRaw / 1000;
                 var tb = currentRaw / 1000;
                 volumeInput.value = tb % 1 === 0 ? tb.toFixed(0) : tb.toFixed(1);
                 volumeInput.step = 0.1;
             } else {
-                // Was TB, now GB
-                var gb = Math.round(currentRaw * 1000);
-                volumeInput.value = gb;
+                volumeInput.value = Math.round(currentRaw * 1000);
                 volumeInput.step = 1;
             }
             var gbNow = getVolumeGB();
             slider.value = gbToSlider(Math.min(gbNow, 1000000));
-            updateDefaults(gbNow);
+            updateSiemDefaults(gbNow);
         });
 
-        function updateDefaults(gb) {
+        function updateSiemDefaults(gb) {
             if (gb === undefined) gb = getVolumeGB() || 500;
-            // Legacy SIEM effective $/GB/yr rate with realistic enterprise volume discounts
-            // Small orgs: ~$1500-1800, mid: ~$800-1200, large negotiate: 10TB ~$550
-            // 50TB+ enterprise agreements bring effective rate to $350/GB floor
             var rate;
-            if (gb <= 500) {
-                rate = 1800 - (gb * 0.6);              // 1800 -> 1500
-            } else if (gb <= 2000) {
-                rate = 1500 - ((gb - 500) * 0.3);      // 1500 -> 1050
-            } else if (gb <= 10000) {
-                rate = 1050 - ((gb - 2000) * 0.0625);  // 1050 -> 550
-            } else if (gb <= 50000) {
-                rate = 550 - ((gb - 10000) * 0.005);   // 550 -> 350
-            } else {
-                rate = 350;                             // enterprise agreement floor
-            }
-            rate = Math.max(350, Math.round(rate));
-            rateInput.value = rate;
-            // Detection rules: ~1 per 10 GB, min 10, max 2000
-            var rules = Math.max(10, Math.min(2000, Math.round(gb / 10)));
-            rulesInput.value = rules;
+            if (gb <= 500) rate = 1800 - (gb * 0.6);
+            else if (gb <= 2000) rate = 1500 - ((gb - 500) * 0.3);
+            else if (gb <= 10000) rate = 1050 - ((gb - 2000) * 0.0625);
+            else if (gb <= 50000) rate = 550 - ((gb - 10000) * 0.005);
+            else rate = 350;
+            rateInput.value = Math.max(350, Math.round(rate));
+            rulesInput.value = Math.max(10, Math.min(2000, Math.round(gb / 10)));
         }
 
-        // ── Calculate ──
-        calcBtn.addEventListener('click', function() { runCalculation(); });
-        volumeInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') runCalculation();
+        // ══════════════════════════════════════════════════
+        // ALERT VOLUME SLIDER (SOC)
+        // ══════════════════════════════════════════════════
+        var alertSteps = [];
+        for (i = 100; i <= 1000; i += 100) alertSteps.push(i);
+        for (i = 1500; i <= 5000; i += 500) alertSteps.push(i);
+        for (i = 6000; i <= 10000; i += 1000) alertSteps.push(i);
+        for (i = 15000; i <= 50000; i += 5000) alertSteps.push(i);
+        for (i = 60000; i <= 100000; i += 10000) alertSteps.push(i);
+
+        alertSlider.min = 0;
+        alertSlider.max = alertSteps.length - 1;
+        alertSlider.step = 1;
+        alertSlider.value = 4; // 500 alerts default
+
+        function alertSliderToVal() {
+            var idx = parseInt(alertSlider.value) || 0;
+            idx = Math.max(0, Math.min(idx, alertSteps.length - 1));
+            return alertSteps[idx];
+        }
+        function valToAlertSlider(v) {
+            var bestIdx = 0, bestDist = Math.abs(alertSteps[0] - v);
+            for (var j = 1; j < alertSteps.length; j++) {
+                var d = Math.abs(alertSteps[j] - v);
+                if (d < bestDist) { bestDist = d; bestIdx = j; }
+            }
+            return bestIdx;
+        }
+
+        alertSlider.addEventListener('input', function() {
+            alertInput.value = alertSliderToVal();
+        });
+        alertInput.addEventListener('input', function() {
+            var v = parseInt(alertInput.value) || 100;
+            alertSlider.value = valToAlertSlider(Math.min(v, 100000));
         });
 
+        // ══════════════════════════════════════════════════
+        // CALCULATE BUTTON
+        // ══════════════════════════════════════════════════
+        calcBtn.addEventListener('click', function() { runCalculation(); });
+        volumeInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') runCalculation(); });
+        alertInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') runCalculation(); });
+
         function runCalculation() {
+            var siemData = null;
+            var socData = null;
+
+            if (currentMode === 'siem' || currentMode === 'both') {
+                siemData = calcSiem();
+            }
+            if (currentMode === 'soc' || currentMode === 'both') {
+                socData = calcSoc();
+            }
+
+            updateResultsUI(currentMode, siemData, socData);
+        }
+
+        // ══════════════════════════════════════════════════
+        // SIEM CALCULATION (existing logic, refactored)
+        // ══════════════════════════════════════════════════
+        function calcSiem() {
             var vol = getVolumeGB();
             if (vol < 100) vol = 100;
             var rate = parseInt(rateInput.value) || 1200;
             var rules = parseInt(rulesInput.value) || Math.round(vol / 10);
 
-            // ══════════════════════════════════════════
-            // LEGACY SIEM — Total Cost of Ownership
-            // ══════════════════════════════════════════
-
-            // License: vol × rate, with enterprise agreement caps at high volume
+            // Legacy SIEM
             var legacyLicense = vol * rate;
             var maxLicense = Infinity;
-            if (vol > 300000) {
-                maxLicense = 55000000;      // 300TB+: ~$55M enterprise unlimited
-            } else if (vol > 80000) {
-                maxLicense = 30000000;      // 80-300TB: ~$30M enterprise agreement
-            }
+            if (vol > 300000) maxLicense = 55000000;
+            else if (vol > 80000) maxLicense = 30000000;
             var licenseCapped = legacyLicense > maxLicense;
             legacyLicense = Math.min(legacyLicense, maxLicense);
 
-            // Infrastructure: 25% of license (compute, storage, networking, DR)
-            // Capped at $10M for very large deployments
             var legacyInfra = Math.min(Math.round(legacyLicense * 0.25), 10000000);
-
-            // Admin staff: ~1 per 350 GB/day, min 1, caps at 25
-            // Includes Splunk admins, content engineers, SOC analysts managing SIEM
             var legacyAdmins = Math.min(25, Math.max(1, Math.ceil(vol / 350)));
             var legacyAdminCost = legacyAdmins * 140000;
             var legacyTotal = legacyLicense + legacyInfra + legacyAdminCost;
 
-            // Security budget estimate
-            var secBudget = Math.max(500000, legacyTotal * 1.6);
-            var legacyBudgetPct = Math.round((legacyTotal / secBudget) * 100);
-
-            // ══════════════════════════════════════════
-            // VIGILENSE AI — SaaS Platform Pricing
-            // ══════════════════════════════════════════
-            // Vigilense is a for-profit SaaS company. Pricing reflects:
-            // - Real R&D, cloud infrastructure, and GTM costs
-            // - Target 70-80% gross margins (standard B2B SaaS)
-            // - Competitive vs legacy but priced for sustainable growth
-
-            // Platform license: base + tiered per-GB rate (Vigilense's core revenue)
+            // Vigilense SIEM
             var vigPlatform, vigTierName;
-            if (vol <= 500) {
-                vigPlatform = 60000 + vol * 280;             // $60K-$200K
-                vigTierName = 'Starter';
-            } else if (vol <= 2000) {
-                vigPlatform = 200000 + (vol - 500) * 200;    // $200K-$500K
-                vigTierName = 'Growth';
-            } else if (vol <= 10000) {
-                vigPlatform = 500000 + (vol - 2000) * 120;   // $500K-$1.46M
-                vigTierName = 'Business';
-            } else if (vol <= 50000) {
-                vigPlatform = 1460000 + (vol - 10000) * 70;  // $1.46M-$4.26M
-                vigTierName = 'Enterprise';
-            } else if (vol <= 200000) {
-                vigPlatform = 4260000 + (vol - 50000) * 35;  // $4.26M-$9.51M
-                vigTierName = 'Enterprise+';
-            } else {
-                vigPlatform = 9510000 + (vol - 200000) * 12; // $9.51M+
-                vigTierName = 'Scale';
-            }
+            if (vol <= 500) { vigPlatform = 60000 + vol * 280; vigTierName = 'Starter'; }
+            else if (vol <= 2000) { vigPlatform = 200000 + (vol - 500) * 200; vigTierName = 'Growth'; }
+            else if (vol <= 10000) { vigPlatform = 500000 + (vol - 2000) * 120; vigTierName = 'Business'; }
+            else if (vol <= 50000) { vigPlatform = 1460000 + (vol - 10000) * 70; vigTierName = 'Enterprise'; }
+            else if (vol <= 200000) { vigPlatform = 4260000 + (vol - 50000) * 35; vigTierName = 'Enterprise+'; }
+            else { vigPlatform = 9510000 + (vol - 200000) * 12; vigTierName = 'Scale'; }
 
-            // AI Detection Engine: tiered per-rule annual pricing
-            // Covers LLM inference, AI compute, model updates
-            // Higher tiers get volume discounts (real cost ~$200-600/rule,
-            // priced with margin for Vigilense profitability)
-            var vigAiAnnual = 0;
-            var remainRules = rules;
-            // First 100 rules: $2,500/rule/yr
-            if (remainRules > 0) {
-                var t1 = Math.min(remainRules, 100);
-                vigAiAnnual += t1 * 2500;
-                remainRules -= t1;
-            }
-            // 101-500 rules: $1,500/rule/yr
-            if (remainRules > 0) {
-                var t2 = Math.min(remainRules, 400);
-                vigAiAnnual += t2 * 1500;
-                remainRules -= t2;
-            }
-            // 501-1000 rules: $1,000/rule/yr
-            if (remainRules > 0) {
-                var t3 = Math.min(remainRules, 500);
-                vigAiAnnual += t3 * 1000;
-                remainRules -= t3;
-            }
-            // 1001+ rules: $600/rule/yr
-            if (remainRules > 0) {
-                vigAiAnnual += remainRules * 600;
-            }
+            var vigAiAnnual = 0, remainRules = rules;
+            if (remainRules > 0) { var t1 = Math.min(remainRules, 100); vigAiAnnual += t1 * 2500; remainRules -= t1; }
+            if (remainRules > 0) { var t2 = Math.min(remainRules, 400); vigAiAnnual += t2 * 1500; remainRules -= t2; }
+            if (remainRules > 0) { var t3 = Math.min(remainRules, 500); vigAiAnnual += t3 * 1000; remainRules -= t3; }
+            if (remainRules > 0) { vigAiAnnual += remainRules * 600; }
 
-            // Support & Operations: customer's minimal staff
             var vigSupport;
-            if (vol <= 500) {
-                vigSupport = 12000;
-            } else if (vol <= 2000) {
-                vigSupport = 24000;
-            } else if (vol <= 10000) {
-                vigSupport = 60000;
-            } else if (vol <= 50000) {
-                vigSupport = 120000;
-            } else if (vol <= 200000) {
-                vigSupport = 240000;
-            } else {
-                vigSupport = 360000;
-            }
+            if (vol <= 500) vigSupport = 12000;
+            else if (vol <= 2000) vigSupport = 24000;
+            else if (vol <= 10000) vigSupport = 60000;
+            else if (vol <= 50000) vigSupport = 120000;
+            else if (vol <= 200000) vigSupport = 240000;
+            else vigSupport = 360000;
 
-            // BYODb Infrastructure: customer's cloud storage + query compute
-            // (S3+Athena, ClickHouse, Elasticsearch, etc.)
-            // Commodity pricing — this is what the customer already pays their cloud provider
-            var byodbCost = 0;
-            var bRemain = vol;
-            var b1 = Math.min(bRemain, 1000);
-            byodbCost += b1 * 0.10 * 365;
-            bRemain -= b1;
-            if (bRemain > 0) {
-                var b2 = Math.min(bRemain, 9000);
-                byodbCost += b2 * 0.05 * 365;
-                bRemain -= b2;
-            }
-            if (bRemain > 0) {
-                var b3 = Math.min(bRemain, 90000);
-                byodbCost += b3 * 0.02 * 365;
-                bRemain -= b3;
-            }
-            if (bRemain > 0) {
-                byodbCost += bRemain * 0.005 * 365;
-            }
+            var byodbCost = 0, bRemain = vol;
+            var b1 = Math.min(bRemain, 1000); byodbCost += b1 * 0.10 * 365; bRemain -= b1;
+            if (bRemain > 0) { var b2 = Math.min(bRemain, 9000); byodbCost += b2 * 0.05 * 365; bRemain -= b2; }
+            if (bRemain > 0) { var b3 = Math.min(bRemain, 90000); byodbCost += b3 * 0.02 * 365; bRemain -= b3; }
+            if (bRemain > 0) { byodbCost += bRemain * 0.005 * 365; }
             byodbCost = Math.round(byodbCost);
 
             var vigTotal = vigPlatform + vigAiAnnual + vigSupport + byodbCost;
-            var vigBudgetPct = Math.round((vigTotal / secBudget) * 100);
-
-            // ── Savings ──
-            var savings = legacyTotal - vigTotal;
-            var savingsPct = Math.round((savings / legacyTotal) * 100);
-
-            // ── Volume display string ──
             var volStr = vol >= 1000 ? (vol / 1000) + ' TB' : vol + ' GB';
+            var avgPerRule = rules > 0 ? Math.round(vigAiAnnual / rules) : 0;
+            var byodbEffective = (byodbCost / vol / 365).toFixed(3);
 
-            // ── Update UI ──
+            return {
+                legacyTotal: legacyTotal, vigTotal: vigTotal,
+                legacyLicense: legacyLicense, licenseCapped: licenseCapped,
+                legacyInfra: legacyInfra, legacyAdmins: legacyAdmins,
+                legacyAdminCost: legacyAdminCost,
+                vigPlatform: vigPlatform, vigTierName: vigTierName,
+                vigAiAnnual: vigAiAnnual, vigSupport: vigSupport,
+                byodbCost: byodbCost, byodbEffective: byodbEffective,
+                vol: vol, rate: rate, rules: rules, volStr: volStr,
+                avgPerRule: avgPerRule
+            };
+        }
+
+        // ══════════════════════════════════════════════════
+        // SOC CALCULATION (new)
+        // ══════════════════════════════════════════════════
+        function calcSoc() {
+            var dailyAlerts = parseInt(alertInput.value) || 500;
+            if (dailyAlerts < 50) dailyAlerts = 50;
+            var coverage = coverageSelect.value;
+            var l1Salary = parseInt(inL1Salary.value) || 75000;
+            var alertsPerAnalyst = parseInt(inAlertsPerAnalyst.value) || 30;
+            var investRate = (parseInt(inInvestRate.value) || 40) / 100;
+            var benefitsMult = 1 + (parseInt(inBenefits.value) || 35) / 100;
+            var turnoverRate = (parseInt(inTurnover.value) || 25) / 100;
+            var recruitCost = parseInt(inRecruitCost.value) || 20000;
+            var soarTooling = parseInt(inSoarTooling.value) || 150000;
+            var trainingCost = parseInt(inTrainingCost.value) || 8000;
+            var srEngSalary = parseInt(inSrEngSalary.value) || 130000;
+            var detEngSalary = parseInt(inDetEngSalary.value) || 120000;
+            var irLeadSalary = parseInt(inIrLeadSalary.value) || 150000;
+
+            // ── Human SOC Cost ──
+            var investigatedAlerts = Math.round(dailyAlerts * investRate);
+            var shifts, fteMult, shiftPremium;
+            if (coverage === '24/7') { shifts = 3; fteMult = 4.7; shiftPremium = 1.10; }
+            else if (coverage === '16/5') { shifts = 2; fteMult = 2.3; shiftPremium = 1.05; }
+            else { shifts = 1; fteMult = 1.15; shiftPremium = 1.0; }
+
+            var alertsPerShift = Math.ceil(investigatedAlerts / shifts);
+            var seatsPerShift = Math.max(1, Math.ceil(alertsPerShift / alertsPerAnalyst));
+            var l1Count = Math.min(200, Math.max(2, Math.ceil(seatsPerShift * fteMult)));
+            var l2Count = Math.max(1, Math.ceil(l1Count * 0.25));
+            var l3Count = Math.max(1, Math.ceil(l1Count * 0.125));
+            var l2Salary = Math.round(l1Salary * 1.40);
+            var l3Salary = Math.round(l1Salary * 1.85);
+            var mgrSalary = Math.round(l1Salary * 2.10);
+            var totalAnalysts = l1Count + l2Count + l3Count;
+            var mgrCount = Math.max(1, Math.ceil(totalAnalysts / 12));
+            var totalStaff = totalAnalysts + mgrCount;
+
+            var l1Cost = Math.round(l1Count * l1Salary * benefitsMult * shiftPremium);
+            var l2Cost = Math.round(l2Count * l2Salary * benefitsMult * shiftPremium);
+            var l3Cost = Math.round(l3Count * l3Salary * benefitsMult);
+            var mgrCost = Math.round(mgrCount * mgrSalary * benefitsMult);
+            var staffCost = l1Cost + l2Cost + l3Cost + mgrCost;
+
+            var turnoverCostTotal = Math.round(totalStaff * turnoverRate * recruitCost);
+            var trainingTotal = totalStaff * trainingCost;
+            var threatIntel = 50000;
+            var toolingTotal = soarTooling + threatIntel;
+
+            var humanSocTotal = staffCost + turnoverCostTotal + trainingTotal + toolingTotal;
+
+            // ── Vigilense AI SOC Cost ──
+            var annualInvestigations = dailyAlerts * 365;
+
+            // AI SOC Platform License (tiered by daily alert volume)
+            var aiSocPlatform, aiSocTier;
+            if (dailyAlerts <= 1000) { aiSocPlatform = 60000; aiSocTier = 'Starter'; }
+            else if (dailyAlerts <= 5000) { aiSocPlatform = 120000; aiSocTier = 'Professional'; }
+            else if (dailyAlerts <= 15000) { aiSocPlatform = 240000; aiSocTier = 'Business'; }
+            else if (dailyAlerts <= 50000) { aiSocPlatform = 420000; aiSocTier = 'Enterprise'; }
+            else { aiSocPlatform = 600000; aiSocTier = 'Scale'; }
+
+            // AI Investigation Compute (per-investigation, tiered)
+            // Covers LLM inference, enrichment across 50+ sources, correlation
+            var aiCompute = 0, compRemain = annualInvestigations;
+            var c1 = Math.min(compRemain, 250000);
+            aiCompute += c1 * 2.00; compRemain -= c1;
+            if (compRemain > 0) {
+                var c2 = Math.min(compRemain, 750000);
+                aiCompute += c2 * 1.20; compRemain -= c2;
+            }
+            if (compRemain > 0) {
+                var c3 = Math.min(compRemain, 4000000);
+                aiCompute += c3 * 0.70; compRemain -= c3;
+            }
+            if (compRemain > 0) {
+                aiCompute += compRemain * 0.35;
+            }
+            aiCompute = Math.round(aiCompute);
+            var blendedRate = annualInvestigations > 0 ? (aiCompute / annualInvestigations).toFixed(2) : '0.00';
+
+            // Human-in-the-Loop Staff (customer retains)
+            // Senior Security Engineers: escalation review, action approval
+            // Detection Engineer: rule tuning, autonomy configuration
+            // IR Lead: P1/P2 incident response
+            var srEngCount, detEngCount, irLeadCount;
+            if (dailyAlerts <= 1000) { srEngCount = 1; detEngCount = 0; irLeadCount = 0; }
+            else if (dailyAlerts <= 5000) { srEngCount = 1; detEngCount = 1; irLeadCount = 0; }
+            else if (dailyAlerts <= 15000) { srEngCount = 2; detEngCount = 1; irLeadCount = 0; }
+            else if (dailyAlerts <= 50000) { srEngCount = 3; detEngCount = 1; irLeadCount = 1; }
+            else { srEngCount = 5; detEngCount = 2; irLeadCount = 1; }
+
+            var srEngCost = Math.round(srEngCount * srEngSalary * benefitsMult);
+            var detEngCost = Math.round(detEngCount * detEngSalary * benefitsMult);
+            var irLeadCost = Math.round(irLeadCount * irLeadSalary * benefitsMult);
+            var hilStaffTotal = srEngCost + detEngCost + irLeadCost;
+            var hilHeadcount = srEngCount + detEngCount + irLeadCount;
+
+            var vigSocTotal = aiSocPlatform + aiCompute + hilStaffTotal;
+
+            return {
+                humanSocTotal: humanSocTotal, vigSocTotal: vigSocTotal,
+                dailyAlerts: dailyAlerts, coverage: coverage,
+                investigatedAlerts: investigatedAlerts,
+                l1Count: l1Count, l2Count: l2Count, l3Count: l3Count,
+                mgrCount: mgrCount, totalStaff: totalStaff,
+                l1Cost: l1Cost, l2Cost: l2Cost, l3Cost: l3Cost, mgrCost: mgrCost,
+                staffCost: staffCost,
+                turnoverCostTotal: turnoverCostTotal, trainingTotal: trainingTotal,
+                toolingTotal: toolingTotal, threatIntel: threatIntel,
+                soarTooling: soarTooling,
+                aiSocPlatform: aiSocPlatform, aiSocTier: aiSocTier,
+                aiCompute: aiCompute, blendedRate: blendedRate,
+                annualInvestigations: annualInvestigations,
+                srEngCount: srEngCount, detEngCount: detEngCount,
+                irLeadCount: irLeadCount,
+                srEngCost: srEngCost, detEngCost: detEngCost, irLeadCost: irLeadCost,
+                hilStaffTotal: hilStaffTotal, hilHeadcount: hilHeadcount,
+                shiftPremium: shiftPremium, benefitsMult: benefitsMult,
+                l1Salary: parseInt(inL1Salary.value) || 75000
+            };
+        }
+
+        // ══════════════════════════════════════════════════
+        // UPDATE RESULTS UI
+        // ══════════════════════════════════════════════════
+        function updateResultsUI(mode, siem, soc) {
+            var beforeTotal, afterTotal, beforeLabel, afterLabel;
+            var leftName, leftSub, rightName, rightSub;
+            var leftLines, rightLines;
+            var leftBudgetText, rightBudgetText;
+
+            if (mode === 'siem') {
+                beforeTotal = siem.legacyTotal;
+                afterTotal = siem.vigTotal;
+                beforeLabel = 'Legacy SIEM';
+                afterLabel = 'Vigilense AI';
+                leftName = 'Legacy SIEM';
+                leftSub = 'Based on per-GB ingestion pricing';
+                rightName = 'Vigilense <span class="ai">AI</span>';
+                rightSub = 'BYODb \u2014 zero ingestion fees';
+                leftLines = buildSiemLegacyLines(siem);
+                rightLines = buildSiemVigLines(siem);
+                var secBudget = Math.max(500000, siem.legacyTotal * 1.6);
+                leftBudgetText = Math.round((siem.legacyTotal / secBudget) * 100) + '% of security budget consumed by SIEM';
+                rightBudgetText = Math.round((siem.vigTotal / secBudget) * 100) + '% of budget \u2014 the rest goes to real security';
+
+            } else if (mode === 'soc') {
+                beforeTotal = soc.humanSocTotal;
+                afterTotal = soc.vigSocTotal;
+                beforeLabel = 'Human SOC';
+                afterLabel = 'AI SOC Analyst';
+                leftName = 'Human SOC';
+                leftSub = soc.totalStaff + ' staff \u2014 ' + soc.coverage + ' coverage';
+                rightName = 'Vigilense <span class="ai">AI</span> SOC';
+                rightSub = 'AI investigates 100% of alerts autonomously';
+                leftLines = buildHumanSocLines(soc);
+                rightLines = buildVigSocLines(soc);
+                leftBudgetText = fmtNum(soc.totalStaff) + ' headcount \u2014 ' + fmtNum(soc.investigatedAlerts) + ' alerts investigated / day (of ' + fmtNum(soc.dailyAlerts) + ')';
+                rightBudgetText = fmtNum(soc.hilHeadcount) + ' staff retained \u2014 AI handles ' + fmtNum(soc.dailyAlerts) + ' alerts / day (100%)';
+
+            } else {
+                // BOTH — Sovereign SOC
+                var combinedBefore = siem.legacyTotal + soc.humanSocTotal;
+                // Bundle discount: 15% off Vigilense platform costs (not customer-borne costs)
+                var vigPlatformCosts = siem.vigTotal + soc.aiSocPlatform + soc.aiCompute;
+                var bundleDiscount = Math.round(vigPlatformCosts * 0.15);
+                var combinedAfter = siem.vigTotal + soc.vigSocTotal - bundleDiscount;
+
+                beforeTotal = combinedBefore;
+                afterTotal = combinedAfter;
+                beforeLabel = 'Current State';
+                afterLabel = 'Vigilense Sovereign SOC';
+                leftName = 'Current State';
+                leftSub = 'Legacy SIEM + Human SOC operations';
+                rightName = 'Vigilense <span class="ai">Sovereign SOC</span>';
+                rightSub = 'BYODb SIEM + AI SOC Analyst (bundled)';
+
+                leftLines = buildCombinedLeftLines(siem, soc);
+                rightLines = buildCombinedRightLines(siem, soc, bundleDiscount);
+                leftBudgetText = 'Legacy SIEM: ' + fmtCurrency(siem.legacyTotal) + ' + Human SOC: ' + fmtCurrency(soc.humanSocTotal);
+                rightBudgetText = '15% Sovereign SOC bundle discount applied';
+            }
+
+            var savings = beforeTotal - afterTotal;
+            var savingsPct = beforeTotal > 0 ? Math.round((savings / beforeTotal) * 100) : 0;
 
             // Savings banner
             document.getElementById('csSavingsAmount').textContent = fmtCurrency(savings);
-            document.getElementById('csSavingsPct').textContent = savingsPct + '% less than Legacy SIEM per year';
+            document.getElementById('csSavingsPct').textContent = savingsPct + '% less than ' + beforeLabel + ' per year';
             document.getElementById('csSavingsMsg').textContent =
                 'That\u2019s ' + fmtCurrency(savings) + ' back into threat hunting, red team exercises, and real security improvements \u2014 every single year.';
 
             // Bars
             var maxBarH = 200;
-            var legacyBarH = maxBarH;
-            var vigBarH = Math.max(8, Math.round((vigTotal / legacyTotal) * maxBarH));
-            document.getElementById('csBarSplunk').style.height = legacyBarH + 'px';
+            var vigBarH = Math.max(8, Math.round((afterTotal / beforeTotal) * maxBarH));
+            document.getElementById('csBarSplunk').style.height = maxBarH + 'px';
             document.getElementById('csBarVig').style.height = vigBarH + 'px';
-            document.getElementById('csBarSplunkAmt').textContent = fmtCurrency(legacyTotal);
-            document.getElementById('csBarVigAmt').textContent = fmtCurrency(vigTotal);
+            document.getElementById('csBarSplunkAmt').textContent = fmtCurrency(beforeTotal);
+            document.getElementById('csBarVigAmt').textContent = fmtCurrency(afterTotal);
+            // Update bar labels
+            document.querySelectorAll('.cs-bar-col')[0].querySelector('.cs-bar-label').textContent = beforeLabel;
+            document.querySelectorAll('.cs-bar-col')[1].querySelector('.cs-bar-label').textContent = afterLabel;
 
-            // Legacy SIEM line items
-            var legacyLines = document.getElementById('csSplunkLines');
-            var licenseNote = volStr + ' \u00d7 $' + fmtNum(rate) + '/GB/yr';
-            if (licenseCapped) {
-                licenseNote = 'Enterprise agreement (negotiated cap)';
-            }
-            legacyLines.innerHTML =
-                lineItem('Annual License', fmtCurrency(legacyLicense), licenseNote) +
-                lineItem('Infrastructure (25%)', fmtCurrency(legacyInfra), 'Hardware, storage, compute, networking, DR') +
-                lineItem('Admin Staff', fmtCurrency(legacyAdminCost), legacyAdmins + ' admin' + (legacyAdmins > 1 ? 's' : '') + ' \u00d7 $140K/yr');
-            document.getElementById('csSplunkTotal').textContent = fmtCurrency(legacyTotal);
-            document.getElementById('csSplunkBudget').textContent = legacyBudgetPct + '% of security budget consumed by SIEM';
+            // Left panel
+            var leftPanel = document.querySelector('.cs-panel-splunk');
+            leftPanel.querySelector('.cs-panel-name').innerHTML = leftName;
+            leftPanel.querySelector('.cs-panel-sub').textContent = leftSub;
+            document.getElementById('csSplunkLines').innerHTML = leftLines;
+            document.getElementById('csSplunkTotal').textContent = fmtCurrency(beforeTotal);
+            document.getElementById('csSplunkBudget').textContent = leftBudgetText;
 
-            // Vigilense line items
-            var vigLines = document.getElementById('csVigLines');
-            var avgPerRule = rules > 0 ? Math.round(vigAiAnnual / rules) : 0;
-            var aiFormula = fmtNum(rules) + ' rules \u00d7 ~$' + fmtNum(avgPerRule) + ' avg/rule/yr';
-            // Effective blended BYODb rate for display
-            var byodbEffective = (byodbCost / vol / 365).toFixed(3);
-            var byodbFormula = '~$' + byodbEffective + '/GB/day \u2014 commodity cloud rates';
-            vigLines.innerHTML =
-                lineItem('Platform License', fmtCurrency(vigPlatform), vigTierName + ' tier \u2014 scales with volume') +
-                lineItem('AI Detection Engine', fmtCurrency(vigAiAnnual), aiFormula) +
-                lineItem('BYODb Infrastructure', fmtCurrency(byodbCost), byodbFormula) +
-                lineItem('Support & Ops', fmtCurrency(vigSupport), 'AI handles 90% of ops \u2014 minimal staff needed');
-            document.getElementById('csVigTotal').textContent = fmtCurrency(vigTotal);
-            document.getElementById('csVigBudget').textContent = vigBudgetPct + '% of budget \u2014 the rest goes to real security';
+            // Right panel
+            var rightPanel = document.querySelector('.cs-panel-vig');
+            rightPanel.querySelector('.cs-panel-name').innerHTML = rightName;
+            rightPanel.querySelector('.cs-panel-sub').textContent = rightSub;
+            document.getElementById('csVigLines').innerHTML = rightLines;
+            document.getElementById('csVigTotal').textContent = fmtCurrency(afterTotal);
+            document.getElementById('csVigBudget').textContent = rightBudgetText;
 
             // Show results
             results.style.display = 'block';
@@ -1143,36 +1630,112 @@
             }, 200);
         }
 
-        // ── Helpers ──
+        // ══════════════════════════════════════════════════
+        // LINE ITEM BUILDERS
+        // ══════════════════════════════════════════════════
+
+        // -- SIEM: Legacy panel --
+        function buildSiemLegacyLines(s) {
+            var licenseNote = s.volStr + ' \u00d7 $' + fmtNum(s.rate) + '/GB/yr';
+            if (s.licenseCapped) licenseNote = 'Enterprise agreement (negotiated cap)';
+            return lineItem('Annual License', fmtCurrency(s.legacyLicense), licenseNote) +
+                lineItem('Infrastructure (25%)', fmtCurrency(s.legacyInfra), 'Hardware, storage, compute, networking, DR') +
+                lineItem('Admin Staff', fmtCurrency(s.legacyAdminCost), s.legacyAdmins + ' admin' + (s.legacyAdmins > 1 ? 's' : '') + ' \u00d7 $140K/yr');
+        }
+
+        // -- SIEM: Vigilense panel --
+        function buildSiemVigLines(s) {
+            var aiFormula = fmtNum(s.rules) + ' rules \u00d7 ~$' + fmtNum(s.avgPerRule) + ' avg/rule/yr';
+            var byodbFormula = '~$' + s.byodbEffective + '/GB/day \u2014 commodity cloud rates';
+            return lineItem('Platform License', fmtCurrency(s.vigPlatform), s.vigTierName + ' tier \u2014 scales with volume') +
+                lineItem('AI Detection Engine', fmtCurrency(s.vigAiAnnual), aiFormula) +
+                lineItem('BYODb Infrastructure', fmtCurrency(s.byodbCost), byodbFormula) +
+                lineItem('Support & Ops', fmtCurrency(s.vigSupport), 'AI handles 90% of ops \u2014 minimal staff needed');
+        }
+
+        // -- SOC: Human panel --
+        function buildHumanSocLines(s) {
+            var sp = s.shiftPremium > 1 ? ' (incl. shift premium)' : '';
+            return lineItem('Tier 1 Analysts (Triage)', fmtCurrency(s.l1Cost), s.l1Count + ' FTEs \u00d7 $' + fmtNum(s.l1Salary) + '/yr fully loaded' + sp) +
+                lineItem('Tier 2 Analysts (Investigation)', fmtCurrency(s.l2Cost), s.l2Count + ' FTEs \u00d7 $' + fmtNum(Math.round(s.l1Salary * 1.4)) + '/yr fully loaded' + sp) +
+                lineItem('Tier 3 / Threat Hunters', fmtCurrency(s.l3Cost), s.l3Count + ' FTEs \u00d7 $' + fmtNum(Math.round(s.l1Salary * 1.85)) + '/yr fully loaded') +
+                lineItem('SOC Management', fmtCurrency(s.mgrCost), s.mgrCount + ' manager' + (s.mgrCount > 1 ? 's' : '') + ' \u00d7 $' + fmtNum(Math.round(s.l1Salary * 2.1)) + '/yr') +
+                lineItem('SOAR & Tooling', fmtCurrency(s.toolingTotal), 'SOAR $' + fmtNum(s.soarTooling) + ' + Threat Intel $' + fmtNum(s.threatIntel)) +
+                lineItem('Training & Certs', fmtCurrency(s.trainingTotal), s.totalStaff + ' staff \u00d7 $' + fmtNum(parseInt(inTrainingCost.value) || 8000) + '/yr') +
+                lineItem('Turnover & Recruiting', fmtCurrency(s.turnoverCostTotal), Math.round(s.totalStaff * (parseInt(inTurnover.value) || 25) / 100) + ' departures/yr \u00d7 $' + fmtNum(parseInt(inRecruitCost.value) || 20000));
+        }
+
+        // -- SOC: Vigilense AI SOC panel --
+        function buildVigSocLines(s) {
+            var lines = lineItem('AI SOC Platform', fmtCurrency(s.aiSocPlatform), s.aiSocTier + ' tier \u2014 ' + fmtNum(s.dailyAlerts) + ' alerts/day') +
+                lineItem('AI Investigation Compute', fmtCurrency(s.aiCompute), fmtNum(s.annualInvestigations) + ' investigations/yr \u00d7 ~$' + s.blendedRate + ' avg');
+
+            if (s.srEngCount > 0) {
+                lines += lineItem('Escalation & Approval Staff', fmtCurrency(s.srEngCost), s.srEngCount + ' Sr. Security Engineer' + (s.srEngCount > 1 ? 's' : '') + ' (human-in-the-loop)');
+            }
+            if (s.detEngCount > 0) {
+                lines += lineItem('Detection Engineering', fmtCurrency(s.detEngCost), s.detEngCount + ' Detection Engineer' + (s.detEngCount > 1 ? 's' : '') + ' (tuning & config)');
+            }
+            if (s.irLeadCount > 0) {
+                lines += lineItem('Incident Response Lead', fmtCurrency(s.irLeadCost), s.irLeadCount + ' IR Lead (P1/P2 response)');
+            }
+
+            return lines;
+        }
+
+        // -- BOTH: Combined left panel (Current State) --
+        function buildCombinedLeftLines(siem, soc) {
+            var html = sectionDivider('Legacy SIEM');
+            html += buildSiemLegacyLines(siem);
+            html += subtotalRow('SIEM Subtotal', fmtCurrency(siem.legacyTotal));
+            html += sectionDivider('Human SOC Operations');
+            html += buildHumanSocLines(soc);
+            html += subtotalRow('SOC Subtotal', fmtCurrency(soc.humanSocTotal));
+            return html;
+        }
+
+        // -- BOTH: Combined right panel (Vigilense Sovereign SOC) --
+        function buildCombinedRightLines(siem, soc, bundleDiscount) {
+            var html = sectionDivider('BYODb SIEM');
+            html += buildSiemVigLines(siem);
+            html += subtotalRow('SIEM Subtotal', fmtCurrency(siem.vigTotal));
+            html += sectionDivider('AI SOC Analyst');
+            html += buildVigSocLines(soc);
+            html += subtotalRow('AI SOC Subtotal', fmtCurrency(soc.vigSocTotal));
+            html += bundleLine('Sovereign SOC Bundle (\u221215%)', '\u2212' + fmtCurrency(bundleDiscount));
+            return html;
+        }
+
+        // ══════════════════════════════════════════════════
+        // HELPERS
+        // ══════════════════════════════════════════════════
         function fmtCurrency(n) {
             if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
             if (n >= 1000) return '$' + Math.round(n / 1000).toLocaleString() + 'K';
             return '$' + n.toLocaleString();
         }
-
-        function fmtNum(n) {
-            return n.toLocaleString();
-        }
+        function fmtNum(n) { return n.toLocaleString(); }
 
         function lineItem(label, value, formula) {
-            return '<li class="cs-line-item">' +
-                '<div><span class="cs-line-label">' + label + '</span>' +
-                '<span class="cs-line-formula">' + formula + '</span></div>' +
-                '<span class="cs-line-value">' + value + '</span></li>';
+            return '<li class="cs-line-item"><div><span class="cs-line-label">' + label + '</span><span class="cs-line-formula">' + formula + '</span></div><span class="cs-line-value">' + value + '</span></li>';
+        }
+        function sectionDivider(title) {
+            return '<li class="cs-section-divider">' + title + '</li>';
+        }
+        function subtotalRow(label, value) {
+            return '<li class="cs-subtotal-row"><span class="cs-subtotal-label">' + label + '</span><span class="cs-subtotal-value">' + value + '</span></li>';
+        }
+        function bundleLine(label, value) {
+            return '<li class="cs-bundle-line"><span class="cs-bundle-label">' + label + '</span><span class="cs-bundle-value">' + value + '</span></li>';
         }
 
-        function lineItemZero(label, value, formula) {
-            return '<li class="cs-line-item">' +
-                '<div><span class="cs-line-label">' + label + '</span>' +
-                '<span class="cs-line-formula">' + formula + '</span></div>' +
-                '<span class="cs-line-value zero">' + value + '</span></li>';
-        }
-
-        // Initialize defaults for 500 GB
+        // ── Initialize ──
         volumeInput.value = 500;
         unitSelect.value = 'GB';
-        updateDefaults(500);
+        updateSiemDefaults(500);
         slider.value = gbToSlider(500);
+        alertInput.value = 500;
+        alertSlider.value = valToAlertSlider(500);
     })();
     </script>
 </body>

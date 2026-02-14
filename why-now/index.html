@@ -563,7 +563,7 @@
                                 <span class="sim-shared-metric-val" id="metricQueries">1x</span>
                             </div>
                             <div class="sim-shared-metric">
-                                <span class="sim-shared-metric-label">Volume/Day</span>
+                                <span class="sim-shared-metric-label">Total Queries/Day</span>
                                 <span class="sim-shared-metric-val" id="metricVolume">-</span>
                             </div>
                         </div>
@@ -1042,32 +1042,34 @@
 
             function fmtVol(n) {
                 if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
-                if (n >= 1000) return Math.round(n/1000) + 'K';
+                if (n >= 1000) return n.toLocaleString();
                 return n.toString();
             }
 
-            // Base: 500 GB/day deployment.
+            // Query volume: ~500 queries/day baseline, scaling to ~10K as agents multiply.
             // Legacy TCO = $750K license + $187.5K infra + $280K admin = $1.22M.
             // Vigilense = $200K platform + $100K AI + $18K BYODb + $12K support = $330K.
             // As AI agents scale, query load multiplies → legacy costs skyrocket.
             // Vigilense stays flat (BYODb = commodity cloud, no query tax).
             var steps = [
-                { agents: 1,  qm: '1x',  vol: 30000,   cost: 1218000, budget: 63,  barH: 18, vc: 330000,  vb: 17, vBarH: 5 },
-                { agents: 2,  qm: '1x',  vol: 35000,   cost: 1280000, budget: 66,  barH: 20, vc: 332000,  vb: 17, vBarH: 5 },
-                { agents: 4,  qm: '2x',  vol: 50000,   cost: 1400000, budget: 72,  barH: 25, vc: 335000,  vb: 17, vBarH: 5 },
-                { agents: 6,  qm: '2x',  vol: 65000,   cost: 1520000, budget: 78,  barH: 30, vc: 337000,  vb: 17, vBarH: 5 },
-                { agents: 8,  qm: '3x',  vol: 85000,   cost: 1680000, budget: 86,  barH: 35, vc: 340000,  vb: 17, vBarH: 5 },
-                { agents: 12, qm: '3x',  vol: 110000,  cost: 1900000, budget: 98,  barH: 42, vc: 343000,  vb: 18, vBarH: 6 },
-                { agents: 16, qm: '4x',  vol: 140000,  cost: 2150000, budget: 110, barH: 48, vc: 345000,  vb: 18, vBarH: 6 },
-                { agents: 20, qm: '5x',  vol: 175000,  cost: 2450000, budget: 126, barH: 55, vc: 348000,  vb: 18, vBarH: 6 },
-                { agents: 24, qm: '5x',  vol: 200000,  cost: 2650000, budget: 136, barH: 60, vc: 350000,  vb: 18, vBarH: 6 },
-                { agents: 32, qm: '6x',  vol: 260000,  cost: 3000000, budget: 154, barH: 68, vc: 352000,  vb: 18, vBarH: 6 },
-                { agents: 40, qm: '7x',  vol: 320000,  cost: 3300000, budget: 170, barH: 74, vc: 355000,  vb: 18, vBarH: 6 },
-                { agents: 48, qm: '7x',  vol: 370000,  cost: 3550000, budget: 182, barH: 80, vc: 357000,  vb: 18, vBarH: 7 },
-                { agents: 56, qm: '8x',  vol: 420000,  cost: 3750000, budget: 193, barH: 84, vc: 360000,  vb: 18, vBarH: 7 },
-                { agents: 64, qm: '8x',  vol: 470000,  cost: 3950000, budget: 203, barH: 88, vc: 362000,  vb: 19, vBarH: 7 },
-                { agents: 72, qm: '9x',  vol: 520000,  cost: 4100000, budget: 211, barH: 92, vc: 365000,  vb: 19, vBarH: 7 },
-                { agents: 80, qm: '10x', vol: 580000,  cost: 4350000, budget: 224, barH: 98, vc: 368000,  vb: 19, vBarH: 7 }
+                { agents: 1,  qm: '1x',  vol: 500,   cost: 1218000, budget: 63,  barH: 18, vc: 330000,  vb: 17, vBarH: 5 },
+                { agents: 2,  qm: '1x',  vol: 600,   cost: 1280000, budget: 66,  barH: 20, vc: 332000,  vb: 17, vBarH: 5 },
+                { agents: 4,  qm: '2x',  vol: 900,   cost: 1400000, budget: 72,  barH: 25, vc: 335000,  vb: 17, vBarH: 5 },
+                { agents: 6,  qm: '2x',  vol: 1200,  cost: 1520000, budget: 78,  barH: 30, vc: 337000,  vb: 17, vBarH: 5 },
+                { agents: 8,  qm: '3x',  vol: 1600,  cost: 1680000, budget: 86,  barH: 35, vc: 340000,  vb: 17, vBarH: 5 },
+                { agents: 12, qm: '3x',  vol: 2100,  cost: 1900000, budget: 98,  barH: 42, vc: 343000,  vb: 18, vBarH: 6 },
+                { agents: 16, qm: '4x',  vol: 2800,  cost: 2150000, budget: 110, barH: 48, vc: 345000,  vb: 18, vBarH: 6 },
+                { agents: 20, qm: '5x',  vol: 3500,  cost: 2450000, budget: 126, barH: 55, vc: 348000,  vb: 18, vBarH: 6 },
+                { agents: 24, qm: '5x',  vol: 4000,  cost: 2650000, budget: 136, barH: 60, vc: 350000,  vb: 18, vBarH: 6 },
+                { agents: 32, qm: '6x',  vol: 5000,  cost: 3000000, budget: 154, barH: 68, vc: 352000,  vb: 18, vBarH: 6 },
+                { agents: 40, qm: '7x',  vol: 5800,  cost: 3300000, budget: 170, barH: 74, vc: 355000,  vb: 18, vBarH: 6 },
+                { agents: 48, qm: '7x',  vol: 6500,  cost: 3550000, budget: 182, barH: 80, vc: 357000,  vb: 18, vBarH: 7 },
+                { agents: 56, qm: '8x',  vol: 7200,  cost: 3750000, budget: 193, barH: 84, vc: 360000,  vb: 18, vBarH: 7 },
+                { agents: 64, qm: '8x',  vol: 7800,  cost: 3950000, budget: 203, barH: 88, vc: 362000,  vb: 19, vBarH: 7 },
+                { agents: 72, qm: '9x',  vol: 8500,  cost: 4100000, budget: 211, barH: 92, vc: 365000,  vb: 19, vBarH: 7 },
+                { agents: 80, qm: '10x', vol: 9000,  cost: 4350000, budget: 224, barH: 92, vc: 368000,  vb: 19, vBarH: 7 },
+                { agents: 90, qm: '10x', vol: 9500,  cost: 4650000, budget: 239, barH: 96, vc: 370000,  vb: 19, vBarH: 7 },
+                { agents: 100, qm: '10x', vol: 10000, cost: 4900000, budget: 252, barH: 100, vc: 372000, vb: 19, vBarH: 7 }
             ];
 
             var stepIdx = 0;
@@ -1138,7 +1140,7 @@
                 // Shared metrics
                 mAgents.textContent = s.agents;
                 mQueries.textContent = s.qm;
-                mVolume.textContent = fmtVol(s.vol) + '/day';
+                mVolume.textContent = fmtVol(s.vol);
                 if (s.cost >= 2000000) mVolume.classList.add('danger');
 
                 // Legacy panel
@@ -1183,7 +1185,7 @@
                     vigVerdict.style.opacity = '1';
                 }, 600);
                 setTimeout(function() {
-                    verdict.innerHTML = '<p>Same 80 AI agents. 30K to 580K queries/day.<br><span class="red">$4.35M and 224% of budget gone</span> on legacy vs <span class="green">$368K and 19% with Vigilense AI</span>.<br>12x savings. Your budget goes to security, not ingestion.</p>';
+                    verdict.innerHTML = '<p>Same 80 AI agents. Up to 10K total queries/day.<br><span class="red">$4.35M and 224% of budget gone</span> on legacy vs <span class="green">$368K and 19% with Vigilense AI</span>.<br>12x savings. Your budget goes to security, not ingestion.</p>';
                 }, 800);
 
                 // 10 second pause, then restart loop
