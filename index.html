@@ -2003,6 +2003,26 @@
            RESPONSIVE
            ============================ */
         @media (max-width: 1024px) {
+            /* Collapse nav to hamburger on tablets */
+            .nav-menu { display: none; }
+            .hamburger { display: flex; }
+            .nav-menu.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: var(--navy);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 24px;
+                gap: 16px;
+                z-index: 999;
+            }
+            .dropdown-menu { display: none; }
+            .nav-menu.active .dropdown-menu { position: static; display: block; border: none; box-shadow: none; background: transparent; padding: 4px 0 4px 16px; min-width: auto; }
+            .nav-menu.active .dropdown-menu a { padding: 6px 12px; font-size: 0.85rem; }
+
             .hero-split {
                 grid-template-columns: 1fr;
                 gap: 48px;
@@ -2043,24 +2063,12 @@
         }
 
         @media (max-width: 768px) {
-            .nav-menu { display: none; }
-            .hamburger { display: flex; }
-            .nav-menu.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 64px;
-                left: 0;
-                right: 0;
-                background: var(--navy);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                padding: 24px;
-                gap: 16px;
-                z-index: 999;
-            }
-            .dropdown-menu { display: none; }
-            .nav-menu.active .dropdown-menu { position: static; display: block; border: none; box-shadow: none; background: transparent; padding: 4px 0 4px 16px; min-width: auto; }
-            .nav-menu.active .dropdown-menu a { padding: 6px 12px; font-size: 0.8rem; }
+            .navbar { padding: 12px 0; }
+            .logo-icon { width: 30px; height: 30px; }
+            .logo-text { font-size: 1rem; }
+            .nav-menu.active { top: 56px; padding: 20px 16px; gap: 14px; max-height: calc(100vh - 56px); overflow-y: auto; }
+            .nav-menu.active > li > a { font-size: 0.95rem; padding: 8px 0; }
+            .nav-menu.active .cta-nav a { text-align: center; display: block; padding: 12px 20px !important; margin-top: 8px; }
             .sovereign-grid { grid-template-columns: 1fr; }
             .guarantee-items { grid-template-columns: 1fr; }
             .hero-stats-bar { flex-direction: column; gap: 12px; align-items: center; }
