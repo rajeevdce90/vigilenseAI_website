@@ -450,6 +450,25 @@
         .cs-bar-col:first-child .cs-bar-amount { color: #FF4444; }
         .cs-bar-col:last-child .cs-bar-amount { color: #00D4AA; }
 
+        /* AI Maturity Disclaimer */
+        .cs-maturity-disclaimer {
+            margin: 20px 24px 0;
+            padding: 16px 20px;
+            background: rgba(255, 180, 50, 0.08);
+            border: 1px solid rgba(255, 180, 50, 0.25);
+            border-radius: 8px;
+        }
+        .cs-maturity-disclaimer p {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.82rem;
+            line-height: 1.55;
+            color: rgba(255,255,255,0.75);
+            margin: 0;
+        }
+        .cs-maturity-disclaimer strong {
+            color: #FFB432;
+        }
+
         /* Bottom verdict + CTA */
         .cs-verdict {
             text-align: center;
@@ -947,8 +966,16 @@
                         <div class="cs-soc-assumptions-title">Vigilense AI SOC &mdash; Human-in-the-Loop Staff</div>
                         <div class="cs-assumptions-grid">
                             <div class="cs-assumption-item">
-                                <label for="csSrEngSalary">Sr. Security Engineer Salary</label>
-                                <input type="number" id="csSrEngSalary" value="130000" step="5000">
+                                <label for="csAutoResolve">AI Autonomous Resolution (%)</label>
+                                <input type="number" id="csAutoResolve" value="75" step="5" min="20" max="95">
+                            </div>
+                            <div class="cs-assumption-item">
+                                <label for="csReviewRate">AI-Prepared Reviews / Analyst / Shift</label>
+                                <input type="number" id="csReviewRate" value="80" step="10" min="20">
+                            </div>
+                            <div class="cs-assumption-item">
+                                <label for="csReviewerSalary">SOC Reviewer Salary (L2-level)</label>
+                                <input type="number" id="csReviewerSalary" value="95000" step="5000">
                             </div>
                             <div class="cs-assumption-item">
                                 <label for="csDetEngSalary">Detection Engineer Salary</label>
@@ -959,7 +986,7 @@
                                 <input type="number" id="csIrLeadSalary" value="150000" step="5000">
                             </div>
                         </div>
-                        <p class="cs-assumption-note">Even with AI SOC, customers retain senior engineers for escalation review &amp; action approval (human-in-the-loop), detection tuning, and incident response. AI handles 100% of triage and investigation autonomously.</p>
+                        <p class="cs-assumption-note">AI triages and investigates 100% of alerts. Autonomous resolution rate reflects the % resolved without human involvement. Remaining alerts are escalated with AI-prepared investigation packages for human review. SOC reviewers still provide 24/7 shift coverage for escalated alerts.</p>
                     </div>
                 </div>
 
@@ -1024,6 +1051,11 @@
                         </div>
                         <div class="cs-panel-budget" id="csVigBudget"></div>
                     </div>
+                </div>
+
+                <!-- AI Maturity Disclaimer (shown when SOC mode is active) -->
+                <div id="csAiMaturityNote" class="cs-maturity-disclaimer" style="display:none;">
+                    <p><strong>AI Maturity Note:</strong> The savings shown above represent a fully optimized state, typically reached 12&ndash;18 months after deployment. In the initial phase, the AI autonomous resolution rate starts at approximately 30&ndash;40% and gradually increases as the system learns your environment, playbooks are tuned, and trust is established. Early savings will be lower but grow steadily over time.</p>
                 </div>
 
                 <!-- Bottom CTA -->
@@ -1151,7 +1183,9 @@
         var inRecruitCost = document.getElementById('csRecruitCost');
         var inSoarTooling = document.getElementById('csSoarTooling');
         var inTrainingCost = document.getElementById('csTrainingCost');
-        var inSrEngSalary = document.getElementById('csSrEngSalary');
+        var inAutoResolve = document.getElementById('csAutoResolve');
+        var inReviewRate = document.getElementById('csReviewRate');
+        var inReviewerSalary = document.getElementById('csReviewerSalary');
         var inDetEngSalary = document.getElementById('csDetEngSalary');
         var inIrLeadSalary = document.getElementById('csIrLeadSalary');
 
@@ -1373,11 +1407,15 @@
             else if (vol <= 200000) vigSupport = 240000;
             else vigSupport = 360000;
 
+            // BYODb Infrastructure: managed cloud platform costs
+            // Blended average of Elastic Cloud, Snowflake, AWS OpenSearch
+            // Rates match real-world managed-service pricing for security query workloads
             var byodbCost = 0, bRemain = vol;
-            var b1 = Math.min(bRemain, 1000); byodbCost += b1 * 0.10 * 365; bRemain -= b1;
-            if (bRemain > 0) { var b2 = Math.min(bRemain, 9000); byodbCost += b2 * 0.05 * 365; bRemain -= b2; }
-            if (bRemain > 0) { var b3 = Math.min(bRemain, 90000); byodbCost += b3 * 0.02 * 365; bRemain -= b3; }
-            if (bRemain > 0) { byodbCost += bRemain * 0.005 * 365; }
+            var b1 = Math.min(bRemain, 500); byodbCost += b1 * 0.30 * 365; bRemain -= b1;
+            if (bRemain > 0) { var b2 = Math.min(bRemain, 1500); byodbCost += b2 * 0.20 * 365; bRemain -= b2; }
+            if (bRemain > 0) { var b3 = Math.min(bRemain, 8000); byodbCost += b3 * 0.12 * 365; bRemain -= b3; }
+            if (bRemain > 0) { var b4 = Math.min(bRemain, 90000); byodbCost += b4 * 0.08 * 365; bRemain -= b4; }
+            if (bRemain > 0) { byodbCost += bRemain * 0.05 * 365; }
             byodbCost = Math.round(byodbCost);
 
             var vigTotal = vigPlatform + vigAiAnnual + vigSupport + byodbCost;
@@ -1413,7 +1451,9 @@
             var recruitCost = parseInt(inRecruitCost.value) || 20000;
             var soarTooling = parseInt(inSoarTooling.value) || 150000;
             var trainingCost = parseInt(inTrainingCost.value) || 8000;
-            var srEngSalary = parseInt(inSrEngSalary.value) || 130000;
+            var autoResolveRate = Math.min(95, Math.max(20, parseInt(inAutoResolve.value) || 75)) / 100;
+            var reviewsPerShift = parseInt(inReviewRate.value) || 80;
+            var reviewerSalary = parseInt(inReviewerSalary.value) || 95000;
             var detEngSalary = parseInt(inDetEngSalary.value) || 120000;
             var irLeadSalary = parseInt(inIrLeadSalary.value) || 150000;
 
@@ -1479,22 +1519,34 @@
             aiCompute = Math.round(aiCompute);
             var blendedRate = annualInvestigations > 0 ? (aiCompute / annualInvestigations).toFixed(2) : '0.00';
 
-            // Human-in-the-Loop Staff (customer retains)
-            // Senior Security Engineers: escalation review, action approval
-            // Detection Engineer: rule tuning, autonomy configuration
-            // IR Lead: P1/P2 incident response
-            var srEngCount, detEngCount, irLeadCount;
-            if (dailyAlerts <= 1000) { srEngCount = 1; detEngCount = 0; irLeadCount = 0; }
-            else if (dailyAlerts <= 5000) { srEngCount = 1; detEngCount = 1; irLeadCount = 0; }
-            else if (dailyAlerts <= 15000) { srEngCount = 2; detEngCount = 1; irLeadCount = 0; }
-            else if (dailyAlerts <= 50000) { srEngCount = 3; detEngCount = 1; irLeadCount = 1; }
-            else { srEngCount = 5; detEngCount = 2; irLeadCount = 1; }
+            // Human-in-the-Loop Staffing (customer retains)
+            // AI triages + investigates 100% of alerts, but only a % are
+            // resolved fully autonomously. The rest are escalated to SOC Reviewers.
+            var dailyEscalated = Math.round(dailyAlerts * (1 - autoResolveRate));
 
-            var srEngCost = Math.round(srEngCount * srEngSalary * benefitsMult);
+            // SOC Reviewers: L2-level analysts who review AI-prepared investigation
+            // packages for escalated alerts. Shift model mirrors SOC coverage.
+            var reviewerPerShift = Math.max(1, Math.ceil(dailyEscalated / reviewsPerShift));
+            var reviewerCount = Math.ceil(reviewerPerShift * fteMult);
+            var reviewerCost = Math.round(reviewerCount * reviewerSalary * benefitsMult * shiftPremium);
+
+            // Detection Engineers: rule tuning, autonomy configuration
+            var detEngCount;
+            if (dailyAlerts <= 2000) detEngCount = 1;
+            else if (dailyAlerts <= 10000) detEngCount = 1;
+            else if (dailyAlerts <= 30000) detEngCount = 2;
+            else detEngCount = 3;
             var detEngCost = Math.round(detEngCount * detEngSalary * benefitsMult);
+
+            // IR Lead: P1/P2 incident response oversight
+            var irLeadCount;
+            if (dailyAlerts <= 5000) irLeadCount = 0;
+            else if (dailyAlerts <= 30000) irLeadCount = 1;
+            else irLeadCount = 2;
             var irLeadCost = Math.round(irLeadCount * irLeadSalary * benefitsMult);
-            var hilStaffTotal = srEngCost + detEngCost + irLeadCost;
-            var hilHeadcount = srEngCount + detEngCount + irLeadCount;
+
+            var hilStaffTotal = reviewerCost + detEngCost + irLeadCost;
+            var hilHeadcount = reviewerCount + detEngCount + irLeadCount;
 
             var vigSocTotal = aiSocPlatform + aiCompute + hilStaffTotal;
 
@@ -1512,9 +1564,11 @@
                 aiSocPlatform: aiSocPlatform, aiSocTier: aiSocTier,
                 aiCompute: aiCompute, blendedRate: blendedRate,
                 annualInvestigations: annualInvestigations,
-                srEngCount: srEngCount, detEngCount: detEngCount,
-                irLeadCount: irLeadCount,
-                srEngCost: srEngCost, detEngCost: detEngCost, irLeadCost: irLeadCost,
+                autoResolveRate: autoResolveRate,
+                dailyEscalated: dailyEscalated,
+                reviewerCount: reviewerCount, reviewerCost: reviewerCost,
+                detEngCount: detEngCount, irLeadCount: irLeadCount,
+                detEngCost: detEngCost, irLeadCost: irLeadCost,
                 hilStaffTotal: hilStaffTotal, hilHeadcount: hilHeadcount,
                 shiftPremium: shiftPremium, benefitsMult: benefitsMult,
                 l1Salary: parseInt(inL1Salary.value) || 75000
@@ -1553,11 +1607,11 @@
                 leftName = 'Human SOC';
                 leftSub = soc.totalStaff + ' staff \u2014 ' + soc.coverage + ' coverage';
                 rightName = 'Vigilense <span class="ai">AI</span> SOC';
-                rightSub = 'AI investigates 100% of alerts autonomously';
+                rightSub = 'AI triages 100% \u2014 auto-resolves ' + Math.round(soc.autoResolveRate * 100) + '% autonomously';
                 leftLines = buildHumanSocLines(soc);
                 rightLines = buildVigSocLines(soc);
                 leftBudgetText = fmtNum(soc.totalStaff) + ' headcount \u2014 ' + fmtNum(soc.investigatedAlerts) + ' alerts investigated / day (of ' + fmtNum(soc.dailyAlerts) + ')';
-                rightBudgetText = fmtNum(soc.hilHeadcount) + ' staff retained \u2014 AI handles ' + fmtNum(soc.dailyAlerts) + ' alerts / day (100%)';
+                rightBudgetText = fmtNum(soc.hilHeadcount) + ' staff retained \u2014 AI auto-resolves ' + Math.round(soc.autoResolveRate * 100) + '% of ' + fmtNum(soc.dailyAlerts) + ' alerts/day';
 
             } else {
                 // BOTH — Sovereign SOC
@@ -1618,6 +1672,12 @@
             document.getElementById('csVigTotal').textContent = fmtCurrency(afterTotal);
             document.getElementById('csVigBudget').textContent = rightBudgetText;
 
+            // Show/hide AI maturity disclaimer (visible in SOC and Both modes)
+            var disclaimerEl = document.getElementById('csAiMaturityNote');
+            if (disclaimerEl) {
+                disclaimerEl.style.display = (mode === 'soc' || mode === 'both') ? 'block' : 'none';
+            }
+
             // Show results
             results.style.display = 'block';
             requestAnimationFrame(function() {
@@ -1646,7 +1706,7 @@
         // -- SIEM: Vigilense panel --
         function buildSiemVigLines(s) {
             var aiFormula = fmtNum(s.rules) + ' rules \u00d7 ~$' + fmtNum(s.avgPerRule) + ' avg/rule/yr';
-            var byodbFormula = '~$' + s.byodbEffective + '/GB/day \u2014 commodity cloud rates';
+            var byodbFormula = '~$' + s.byodbEffective + '/GB/day \u2014 managed cloud platform (avg)';
             return lineItem('Platform License', fmtCurrency(s.vigPlatform), s.vigTierName + ' tier \u2014 scales with volume') +
                 lineItem('AI Detection Engine', fmtCurrency(s.vigAiAnnual), aiFormula) +
                 lineItem('BYODb Infrastructure', fmtCurrency(s.byodbCost), byodbFormula) +
@@ -1667,11 +1727,12 @@
 
         // -- SOC: Vigilense AI SOC panel --
         function buildVigSocLines(s) {
+            var autoResolvePct = Math.round(s.autoResolveRate * 100);
             var lines = lineItem('AI SOC Platform', fmtCurrency(s.aiSocPlatform), s.aiSocTier + ' tier \u2014 ' + fmtNum(s.dailyAlerts) + ' alerts/day') +
                 lineItem('AI Investigation Compute', fmtCurrency(s.aiCompute), fmtNum(s.annualInvestigations) + ' investigations/yr \u00d7 ~$' + s.blendedRate + ' avg');
 
-            if (s.srEngCount > 0) {
-                lines += lineItem('Escalation & Approval Staff', fmtCurrency(s.srEngCost), s.srEngCount + ' Sr. Security Engineer' + (s.srEngCount > 1 ? 's' : '') + ' (human-in-the-loop)');
+            if (s.reviewerCount > 0) {
+                lines += lineItem('SOC Reviewers (24/7 shifts)', fmtCurrency(s.reviewerCost), s.reviewerCount + ' reviewer' + (s.reviewerCount > 1 ? 's' : '') + ' \u2014 ' + fmtNum(s.dailyEscalated) + ' escalated alerts/day (' + (100 - autoResolvePct) + '%)');
             }
             if (s.detEngCount > 0) {
                 lines += lineItem('Detection Engineering', fmtCurrency(s.detEngCost), s.detEngCount + ' Detection Engineer' + (s.detEngCount > 1 ? 's' : '') + ' (tuning & config)');
