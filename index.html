@@ -29,6 +29,7 @@
     <link rel="manifest" href="/site.webmanifest" />
     <title>Vigilense AI - The Sovereign SOC</title>
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/theme.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -2365,7 +2366,8 @@
         {"@type": "Question", "name": "How long does deployment take?", "acceptedAnswer": {"@type": "Answer", "text": "Vigilense AI connects to your existing databases and security tools in days, not months. We deploy at no cost and you don't pay until we deliver measurable results."}},
         {"@type": "Question", "name": "What databases does Vigilense AI support?", "acceptedAnswer": {"@type": "Answer", "text": "OpenSearch, Elasticsearch, Snowflake, Microsoft Sentinel, AWS Security Lake, S3, BigQuery, Databricks, and more."}},
         {"@type": "Question", "name": "How much does Vigilense AI cost?", "acceptedAnswer": {"@type": "Answer", "text": "Outcome-first, usage-based pricing. Zero per-GB ingestion fees. Risk-free pilot - you don't pay until we prove value. Post-pilot, pricing scales with usage, not data volume."}},
-        {"@type": "Question", "name": "How is Vigilense AI different from Splunk or Microsoft Sentinel?", "acceptedAnswer": {"@type": "Answer", "text": "Unlike Splunk and Sentinel, Vigilense AI queries your databases in place with zero ingestion fees. No data movement, no vendor lock-in. Plus an autonomous AI SOC Analyst that investigates and resolves threats in seconds."}}
+        {"@type": "Question", "name": "How is Vigilense AI different from Splunk or Microsoft Sentinel?", "acceptedAnswer": {"@type": "Answer", "text": "Unlike Splunk and Sentinel, Vigilense AI queries your databases in place with zero ingestion fees. No data movement, no vendor lock-in. Plus an autonomous AI SOC Analyst that investigates and resolves threats in seconds."}},
+        {"@type": "Question", "name": "How does Vigilense AI compare to Splunk or Microsoft Sentinel?", "acceptedAnswer": {"@type": "Answer", "text": "Unlike Splunk, QRadar, or Microsoft Sentinel, Vigilense AI queries your existing databases in place with zero per-GB ingestion fees. Our AI SOC Analyst autonomously investigates and resolves alerts, turning your SOC from a cost center into a force multiplier. Most enterprises see 50-70% cost reduction compared to traditional SIEMs."}}
       ]
     }
     </script>
@@ -2436,7 +2438,7 @@
                 <!-- Left column: text content -->
                 <div class="hero-text">
                     <h1 class="hero-headline">The Sovereign<br><span class="accent">SOC</span></h1>
-                    <h2 class="hero-subhead"><span class="navy-mark">BYODb SIEM</span> Detects on your databases.<br><span class="navy-mark">AI SOC</span> Investigates and resolves autonomously.</h2>
+                    <h2 class="hero-subhead"><span class="navy-mark">BYODb SIEM</span> <span style="font-size:0.7em;opacity:0.7;">(Bring Your Own Database)</span> Detects on your databases.<br><span class="navy-mark">AI SOC</span> Investigates and resolves autonomously.</h2>
                     <div class="hero-cta">
                         <a href="/demo/" class="btn btn-primary btn-large">Book a Demo</a>
                     </div>
@@ -2455,6 +2457,7 @@
                         </div>
                     </div>
                     <p class="hero-subline">The average enterprise spends more on log ingestion than on the analysts reading them.</p>
+                    <p class="hero-subline" style="font-size: 0.8rem; opacity: 0.6; margin-top: 8px;">The global SIEM market is projected to exceed $28B by 2028. Most of that spend is wasted on log ingestion.</p>
                     <a href="/why-now/" class="hero-why-link">Why the SOC must change →</a>
                 </div>
 
@@ -2753,7 +2756,7 @@
                 </div>
                 <div class="sovereign-card">
                     <h3>Your Data: BYODb</h3>
-                    <p>Your telemetry stays in your databases. ElasticSearch, Snowflake, BigQuery, S3, we query in place. Zero lock-in. Zero per-GB licensing. Zero rehydration tax. Our detection engine queries your data where it already lives.</p>
+                    <p>Your telemetry stays in your databases. Elasticsearch, Snowflake, BigQuery, S3, we query in place. Zero lock-in. Zero per-GB licensing. Zero rehydration tax. Our detection engine queries your data where it already lives.</p>
                 </div>
             </div>
 
@@ -2974,7 +2977,7 @@
                                 <circle class="lens-pupil" cx="19" cy="19" r="2.5" />
                             </svg>
                         </div>
-                        <span class="human-loop-label">Human Vigilant In Loop</span>
+                        <span class="human-loop-label">Human-in-the-Loop</span>
                         <div class="human-loop-pills">
                             <span class="human-loop-pill">Full Visibility</span>
                             <span class="human-loop-pill">Analyst Control</span>
@@ -3276,6 +3279,10 @@
                 <details class="faq-item">
                     <summary>How is Vigilense AI different from Splunk or Microsoft Sentinel?</summary>
                     <div class="faq-answer">Unlike Splunk and Sentinel, Vigilense AI queries your databases in place with zero ingestion fees. No data movement, no vendor lock-in. Plus an autonomous AI SOC Analyst that investigates and resolves threats in seconds - not a dashboard that requires a team of analysts to operate.</div>
+                </details>
+                <details class="faq-item">
+                    <summary>How does Vigilense AI compare to Splunk or Microsoft Sentinel?</summary>
+                    <div class="faq-answer">Unlike Splunk, QRadar, or Microsoft Sentinel, Vigilense AI queries your existing databases in place with zero per-GB ingestion fees. Our <a href="/platform/ai-soc-analyst/" style="color: var(--accent);">AI SOC Analyst</a> autonomously investigates and resolves alerts, turning your SOC from a cost center into a force multiplier. Most enterprises see 50-70% cost reduction compared to traditional SIEMs.</div>
                 </details>
             </div>
         </div>

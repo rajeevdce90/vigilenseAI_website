@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Page Not Found - Vigilense AI</title>
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--bg-primary, #000);
+        }
+        .error-content {
+            max-width: 560px;
+        }
+        .error-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8rem;
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--accent, #22d3ee) 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+        .error-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary, #fff);
+            margin-bottom: 16px;
+        }
+        .error-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary, #94a3b8);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        .error-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+        .error-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent, #22d3ee);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        .error-links a:hover {
+            opacity: 0.8;
+        }
+        .error-home-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--accent, #22d3ee);
+            color: #0A1628;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: opacity 0.3s ease;
+            margin-bottom: 24px;
+        }
+        .error-home-btn:hover {
+            opacity: 0.9;
+        }
+        .error-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 48px;
+        }
+        .error-brand img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            border-radius: 50%;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+        }
+        .error-brand span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary, #fff);
+        }
+    </style>
+</head>
+<body>
+    <div class="error-page">
+        <div class="error-content">
+            <a href="/" class="error-brand">
+                <img src="/vigilense-logo.png?v=2" alt="Vigilense AI">
+                <span>Vigilense AI</span>
+            </a>
+            <div class="error-code">404</div>
+            <h1 class="error-title">Page Not Found</h1>
+            <p class="error-desc">The page you're looking for doesn't exist or has been moved. Let's get you back on track.</p>
+            <a href="/" class="error-home-btn">Back to Homepage</a>
+            <div class="error-links">
+                <a href="/platform/ai-soc-analyst/">AI SOC Analyst →</a>
+                <a href="/platform/byodb-siem/">BYODb SIEM →</a>
+                <a href="/demo/">Book a Demo →</a>
+                <a href="/blog/">Read Our Blog →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
