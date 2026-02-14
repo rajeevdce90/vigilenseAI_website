@@ -275,18 +275,19 @@
             box-shadow: 0 4px 16px rgba(0, 212, 170, 0.3);
         }
 
-        /* Social Proof & Metrics */
-        .social-proof {
-            padding: 40px 0;
+        /* Social Proof (inside hero) */
+        .hero-social-proof {
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-color);
         }
         .social-proof-label {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
             margin-bottom: 16px;
         }
         .industry-badges {
@@ -297,43 +298,13 @@
         }
         .industry-badges span {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             padding: 6px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid var(--border-color);
             border-radius: 20px;
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--navy);
+            font-weight: 600;
         }
-        .metrics-bar {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0;
-            padding: 48px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        .metric {
-            text-align: center;
-            padding: 16px;
-            border-right: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        .metric:last-child { border-right: none; }
-        .metric-value {
-            display: block;
-            font-family: 'Syne', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--accent);
-            letter-spacing: -1px;
-        }
-        .metric-label {
-            display: block;
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: rgba(255, 255, 255, 0.45);
-            margin-top: 8px;
-        }
-
         /* BYO-LLM Section */
         .byollm-section {
             padding: 80px 0;
@@ -348,13 +319,13 @@
             font-family: 'Syne', sans-serif;
             font-size: clamp(1.6rem, 3vw, 2.2rem);
             font-weight: 700;
-            color: #FFFFFF;
+            color: var(--navy);
             margin-bottom: 20px;
         }
         .byollm-content p {
             font-size: 1.05rem;
             line-height: 1.7;
-            color: rgba(255, 255, 255, 0.65);
+            color: var(--text-secondary);
             margin-bottom: 24px;
         }
         .byollm-providers {
@@ -390,8 +361,7 @@
            ============================ */
         .hero {
             position: relative;
-            padding: 116px 0 100px;
-            min-height: 100vh;
+            padding: 100px 0 48px;
             display: flex;
             align-items: center;
             overflow: hidden;
@@ -432,7 +402,7 @@
         .hero-split {
             display: grid;
             grid-template-columns: 1.22fr 1fr;
-            gap: 48px;
+            gap: 40px;
             align-items: center;
         }
 
@@ -751,8 +721,7 @@
            PRODUCT DASHBOARD PREVIEW
            ============================ */
         .dashboard-preview {
-            padding: 0 0 80px;
-            margin-top: -40px;
+            padding: 40px 0 80px;
             position: relative;
             z-index: 2;
         }
@@ -1201,6 +1170,7 @@
 
         /* --- Workflow diagram: dark island for contrast --- */
         .architecture-workflow-section .workflow-flow-container {
+            position: relative;
             background: var(--navy);
             border: 1px solid rgba(0, 212, 170, 0.15);
             box-shadow: 0 20px 60px rgba(10, 22, 40, 0.35);
@@ -1413,8 +1383,8 @@
         .arch-stage-num {
             width: 28px;
             height: 28px;
-            background: var(--navy);
-            color: #FFFFFF;
+            background: var(--accent);
+            color: var(--navy);
             border-radius: 50%;
             font-family: var(--font-mono);
             font-size: 0.8rem;
@@ -1874,8 +1844,6 @@
             .dropdown-menu { display: none; }
             .nav-menu.active .dropdown-menu { position: static; display: block; border: none; box-shadow: none; background: transparent; padding: 4px 0 4px 16px; min-width: auto; }
             .nav-menu.active .dropdown-menu a { padding: 6px 12px; font-size: 0.8rem; }
-            .metrics-bar { grid-template-columns: repeat(2, 1fr); }
-            .metric { border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
             .sovereign-grid { grid-template-columns: 1fr; }
             .guarantee-items { grid-template-columns: 1fr; }
             .hero-stats-bar { flex-direction: column; gap: 12px; align-items: center; }
@@ -1883,7 +1851,8 @@
             .footer-links { grid-template-columns: 1fr 1fr; }
             .footer-bottom-content { flex-direction: column; gap: 12px; text-align: center; }
             .terminal-body { height: 280px; padding: 16px 18px; font-size: 0.68rem; }
-            .hero { padding: 100px 0 60px; min-height: auto; }
+            .hero { padding: 90px 0 40px; min-height: auto; }
+            .hero-social-proof { margin-top: 32px; padding-top: 24px; }
             .hero-headline { font-size: clamp(1.8rem, 8vw, 3rem); }
             .hero-subhead { font-size: clamp(0.85rem, 3vw, 1.2rem); }
         }
@@ -2126,7 +2095,6 @@
                         </div>
                     </div>
                     <p class="hero-subline">The average enterprise spends more on log ingestion than on the analysts reading them.</p>
-                    <p class="hero-proof">In pilot with enterprise security teams across Technology, financial services, healthcare and Government Agencies.</p>
                 </div>
 
                 <!-- Right column: terminal -->
@@ -2146,44 +2114,16 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- ========================================
-         SOCIAL PROOF
-         ======================================== -->
-    <section class="social-proof">
-        <div class="container">
-            <p class="social-proof-label">In pilot with enterprise security teams across</p>
-            <div class="industry-badges">
-                <span>Technology</span>
-                <span>Financial Services</span>
-                <span>Healthcare</span>
-                <span>Government</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========================================
-         METRICS BAR
-         ======================================== -->
-    <section class="metrics-bar">
-        <div class="container" style="display: contents;">
-            <div class="metric">
-                <span class="metric-value">14s</span>
-                <span class="metric-label">Mean Time to Resolve</span>
-            </div>
-            <div class="metric">
-                <span class="metric-value">94.2%</span>
-                <span class="metric-label">Auto-Resolved by AI</span>
-            </div>
-            <div class="metric">
-                <span class="metric-value">$0</span>
-                <span class="metric-label">Ingestion Cost</span>
-            </div>
-            <div class="metric">
-                <span class="metric-value">50+</span>
-                <span class="metric-label">Enrichment Sources</span>
+            <!-- Social proof inside hero, below the split -->
+            <div class="hero-social-proof">
+                <p class="social-proof-label">In pilot with enterprise security teams across</p>
+                <div class="industry-badges">
+                    <span>Technology</span>
+                    <span>Financial Services</span>
+                    <span>Healthcare</span>
+                    <span>Government</span>
+                </div>
             </div>
         </div>
     </section>
