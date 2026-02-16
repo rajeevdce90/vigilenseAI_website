@@ -2329,8 +2329,8 @@ ul {
     .nav-menu.active > li > a {
         text-align: left;
     }
-    /* Dropdown parent arrow indicator */
-    .nav-menu.active > li > a[href="#"]::after {
+    /* Dropdown parent arrow indicator (any <li> containing a .dropdown-menu) */
+    .nav-menu.active > li:has(.dropdown-menu) > a::after {
         content: '+';
         float: right;
         font-weight: 400;
@@ -2338,7 +2338,7 @@ ul {
         font-size: 1.1rem;
         line-height: 1;
     }
-    .nav-menu.active > li.mobile-dropdown-open > a[href="#"]::after {
+    .nav-menu.active > li.mobile-dropdown-open:has(.dropdown-menu) > a::after {
         content: '−';
     }
     /* CTA button in mobile menu */

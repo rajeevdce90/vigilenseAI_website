@@ -116,8 +116,9 @@ if (hamburger && navMenu) {
     var allLinks = navMenu.querySelectorAll('a');
     for (var i = 0; i < allLinks.length; i++) {
         (function(link) {
-            // Skip dropdown triggers (links with href="#" that have a sibling .dropdown-menu)
-            if (link.getAttribute('href') === '#' && link.parentElement.querySelector('.dropdown-menu')) {
+            // Skip ALL dropdown trigger links (top-level <a> inside an <li> that has a .dropdown-menu)
+            var parentLi = link.closest('li');
+            if (parentLi && parentLi.parentElement === navMenu && parentLi.querySelector('.dropdown-menu')) {
                 return;
             }
             link.addEventListener('click', function() {

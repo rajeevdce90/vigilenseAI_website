@@ -307,11 +307,17 @@
         }
 
         /* Savings banner */
+        /* Side-by-side savings + bar chart layout */
+        .cs-savings-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(0,212,170,0.08) 0%, rgba(0,212,170,0.02) 100%);
+            border-bottom: 1px solid rgba(0,212,170,0.15);
+        }
         .cs-savings-banner {
             text-align: center;
             padding: 32px 24px;
-            background: linear-gradient(135deg, rgba(0,212,170,0.08) 0%, rgba(0,212,170,0.02) 100%);
-            border-bottom: 1px solid rgba(0,212,170,0.15);
         }
         .cs-savings-label {
             font-family: 'JetBrains Mono', monospace;
@@ -348,7 +354,7 @@
             font-family: 'Outfit', sans-serif;
             font-size: 0.92rem;
             color: rgba(255,255,255,0.7);
-            max-width: 560px;
+            max-width: 480px;
             margin: 0 auto;
             line-height: 1.5;
         }
@@ -478,7 +484,7 @@
             justify-content: center;
             gap: 40px;
             padding: 28px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            border-left: 1px solid rgba(255,255,255,0.06);
         }
         .cs-bar-col {
             display: flex;
@@ -698,6 +704,14 @@
         }
         .cs-product-pill.active .cs-brand-v,
         .cs-product-pill.active .cs-brand-p { color: #0A1628; }
+        .cs-pill-logo {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 4px;
+            border-radius: 50%;
+            object-fit: contain;
+        }
 
         /* --- Section Toggle --- */
         .cs-section-hidden { display: none !important; }
@@ -912,7 +926,7 @@
             background: rgba(0,212,170,0.12);
         }
         /* Branded product names */
-        .cs-brand-v { color: #00D4AA; }
+        .cs-brand-v { color: #fff; }
         .cs-brand-p { color: #33E0BB; }
         /* Vigilense white in chart titles and result panels */
         .cs-chart-title .cs-brand-v,
@@ -949,7 +963,8 @@
             .cs-assumptions-grid { grid-template-columns: 1fr; }
             .cs-comparison { grid-template-columns: 1fr; }
             .cs-panel-splunk { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
-            .cs-bar-compare { gap: 24px; }
+            .cs-savings-row { grid-template-columns: 1fr; }
+            .cs-bar-compare { gap: 24px; border-left: none; border-top: 1px solid rgba(255,255,255,0.06); }
             .cs-bar { width: 80px; }
             .cs-savings-banner { padding: 24px 16px; }
             .cs-product-selector { flex-wrap: wrap; gap: 4px; }
@@ -1065,9 +1080,9 @@
 
                 <!-- Product Selector -->
                 <div class="cs-product-selector">
-                    <button class="cs-product-pill active" data-mode="both" title="Full stack: BYODb SIEM + AI SOC Analyst bundled together with 15% discount"><span class="cs-brand-v">Vigilense</span> <span class="cs-brand-p">SOVEREIGN SOC</span></button>
-                    <button class="cs-product-pill" data-mode="soc" title="AI-powered autonomous SOC analyst - triages, investigates, and resolves security incidents 24/7"><span class="cs-brand-v">Vigilense</span> <span class="cs-brand-p">AI SOC</span></button>
-                    <button class="cs-product-pill" data-mode="siem" title="Bring Your Own Database SIEM - your data stays in your cloud, zero ingestion tax"><span class="cs-brand-v">Vigilense</span> <span class="cs-brand-p">BYODb SIEM</span></button>
+                    <button class="cs-product-pill active" data-mode="both" title="Full stack: BYODb SIEM + AI SOC Analyst bundled together with 15% discount"><img src="/vigilense-logo.png?v=2" alt="" class="cs-pill-logo"><span class="cs-brand-v">Vigilense</span> <span class="cs-brand-p">SOVEREIGN SOC</span></button>
+                    <button class="cs-product-pill" data-mode="soc" title="AI-powered autonomous SOC analyst - triages, investigates, and resolves security incidents 24/7"><img src="/vigilense-logo.png?v=2" alt="" class="cs-pill-logo"><span class="cs-brand-v">Vigilense</span> <span class="cs-brand-p">AI SOC</span></button>
+                    <button class="cs-product-pill" data-mode="siem" title="Bring Your Own Database SIEM - your data stays in your cloud, zero ingestion tax"><img src="/vigilense-logo.png?v=2" alt="" class="cs-pill-logo"><span class="cs-brand-v">Vigilense</span> <span class="cs-brand-p">BYODb SIEM</span></button>
                 </div>
 
                 <!--  --  SIEM Inputs  --  -->
@@ -1195,25 +1210,25 @@
 
             <!-- Results (hidden until calculated) -->
             <div class="cs-results" id="csResults">
-                <!-- Savings banner -->
-                <div class="cs-savings-banner">
-                    <div class="cs-savings-label">Estimated Annual Savings</div>
-                    <div class="cs-savings-amount" id="csSavingsAmount">$0</div>
-                    <div class="cs-savings-pct" id="csSavingsPct">saved per year vs Legacy SIEM</div>
-                    <p class="cs-savings-msg" id="csSavingsMsg">That's budget you can redirect into threat hunting, red team exercises, and actual security improvements.</p>
-                </div>
-
-                <!-- Bar comparison -->
-                <div class="cs-bar-compare">
-                    <div class="cs-bar-col">
-                        <div class="cs-bar-amount" id="csBarSplunkAmt">$0</div>
-                        <div class="cs-bar cs-bar-splunk" id="csBarSplunk" style="height: 0px;"></div>
-                        <div class="cs-bar-label">Legacy SIEM</div>
+                <!-- Savings + Bar comparison side by side -->
+                <div class="cs-savings-row">
+                    <div class="cs-savings-banner">
+                        <div class="cs-savings-label">Estimated Annual Savings</div>
+                        <div class="cs-savings-amount" id="csSavingsAmount">$0</div>
+                        <div class="cs-savings-pct" id="csSavingsPct">saved per year vs Legacy SIEM</div>
+                        <p class="cs-savings-msg" id="csSavingsMsg">That's budget you can redirect into threat hunting, red team exercises, and actual security improvements.</p>
                     </div>
-                    <div class="cs-bar-col">
-                        <div class="cs-bar-amount" id="csBarVigAmt">$0</div>
-                        <div class="cs-bar cs-bar-vig" id="csBarVig" style="height: 0px;"></div>
-                        <div class="cs-bar-label">Vigilense <span style="color:#00D4AA">AI</span></div>
+                    <div class="cs-bar-compare">
+                        <div class="cs-bar-col">
+                            <div class="cs-bar-amount" id="csBarSplunkAmt">$0</div>
+                            <div class="cs-bar cs-bar-splunk" id="csBarSplunk" style="height: 0px;"></div>
+                            <div class="cs-bar-label">Legacy SIEM</div>
+                        </div>
+                        <div class="cs-bar-col">
+                            <div class="cs-bar-amount" id="csBarVigAmt">$0</div>
+                            <div class="cs-bar cs-bar-vig" id="csBarVig" style="height: 0px;"></div>
+                            <div class="cs-bar-label">Vigilense <span style="color:#00D4AA">AI</span></div>
+                        </div>
                     </div>
                 </div>
 
@@ -2050,21 +2065,16 @@
             });
             if (_isInitialLoad) {
                 // On page load, land on the savings number in the center of the viewport.
-                // The calculate button should be visible at the top, bar chart below.
                 _isInitialLoad = false;
                 setTimeout(function() {
-                    var savingsBanner = document.querySelector('.cs-savings-banner');
-                    if (savingsBanner) {
-                        var rect = savingsBanner.getBoundingClientRect();
-                        var bannerCenter = rect.top + window.pageYOffset + (rect.height / 2);
+                    var savingsRow = document.querySelector('.cs-savings-row');
+                    if (savingsRow) {
+                        var rect = savingsRow.getBoundingClientRect();
+                        var rowCenter = rect.top + window.pageYOffset + (rect.height / 2);
                         var viewportCenter = window.innerHeight / 2;
-                        window.scrollTo({ top: bannerCenter - viewportCenter + 80, behavior: 'auto' });
+                        window.scrollTo({ top: rowCenter - viewportCenter - 10, behavior: 'auto' });
                     }
                 }, 150);
-            } else {
-                setTimeout(function() {
-                    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 200);
             }
         }
 

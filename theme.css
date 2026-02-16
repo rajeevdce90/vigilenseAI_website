@@ -319,12 +319,15 @@ code, pre {
     }
     .nav-menu.active .dropdown-menu {
         position: static;
-        display: block;
+        display: none;
         border: none;
         box-shadow: none;
         background: transparent;
         padding: 4px 0 4px 16px;
         min-width: auto;
+    }
+    .nav-menu.active .dropdown-menu.mobile-open {
+        display: block;
     }
     .nav-menu.active .dropdown-menu a {
         padding: 6px 12px;
