@@ -2376,46 +2376,12 @@
 
             var vigSocTotal = socPlat.annual + aiCompute + hilStaffTotal;
 
-            // COGS computation for AI SOC (Vigilense-borne costs only)
-            //
-            // Platform COGS = FIXED infrastructure (not per-alert)
-            //   Servers, RAG pipeline, model hosting, SOAR orchestration,
-            //   monitoring. Marginal cost per additional alert is negligible
-            //   (routing/dispatch). Scales by tier, not by alert count.
-            var platformCOGS = dailyAlerts <= 1000  ? 40000
-                : dailyAlerts <= 5000  ? 65000
-                : dailyAlerts <= 15000 ? 100000
-                : dailyAlerts <= 50000 ? 150000
-                : 200000;
-
-            // Investigation COGS: per-case LLM + tool costs
-            //   At low volume: full weighted avg from complexity model
-            //     Light 50%Ã—$0.20 + Medium 35%Ã—$1.00 + Heavy 15%Ã—$5.00 = $1.20
-            //   At scale: caching, pattern recognition, and negotiated
-            //   model rates dramatically reduce per-case cost:
-            //     - Cached alert patterns handle ~60% of light cases ($0.05)
-            //     - Similar incident grouping reduces medium re-analysis ($0.40)
-            //     - Better models + enterprise LLM pricing for heavy ($2.00)
-            //     - Weighted at scale: ~$0.30/investigation
-            var investCOGSPerCase = annualInvestigations <= 250000  ? 0.80
-                : annualInvestigations <= 1000000 ? 0.55
-                : annualInvestigations <= 5000000 ? 0.40
-                : 0.30;
-            var investigationCOGS = Math.round(annualInvestigations * investCOGSPerCase);
-
-            var totalCOGS = platformCOGS + investigationCOGS;
-            var vigilenseRevenue = socPlat.annual + aiCompute;
-            var vigilenseProfit = vigilenseRevenue - totalCOGS;
-
             return {
                 humanSocTotal: humanSocTotal,
                 vigSocTotal: vigSocTotal,
                 aiSocPlatform: socPlat.annual,
                 aiCompute: aiCompute,
-                hilStaffTotal: hilStaffTotal,
-                totalCOGS: totalCOGS,
-                vigilenseRevenue: vigilenseRevenue,
-                vigilenseProfit: vigilenseProfit
+                hilStaffTotal: hilStaffTotal
             };
         }
 
