@@ -153,6 +153,26 @@
         .post-card.page-2.loaded.hidden {
             display: none;
         }
+        .blog-pinned { margin-bottom: 48px; }
+        .blog-pinned-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #00D4AA;
+            margin-bottom: 20px;
+        }
+        .blog-more-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #94A3B8;
+            margin-bottom: 20px;
+            margin-top: 40px;
+        }
         .btn-load-more.exhausted {
             opacity: 0.4;
             cursor: default;
@@ -272,7 +292,13 @@
                         <li><a href="/security/">Security & Trust</a></li>
                     </ul>
                 </li>
-                <li><a href="/pricing/">Pricing</a></li>
+                <li>
+                    <a href="/pricing/">Pricing</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/pricing/">Pricing Overview</a></li>
+                        <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 600;">Savings Calculator</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="#">Resources</a>
                     <ul class="dropdown-menu">
@@ -292,7 +318,6 @@
                         <li><a href="/security/">Security</a></li>
                     </ul>
                 </li>
-                <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 700;">Cost Simulator</a></li>
                 <li class="cta-nav"><a href="/demo/">Book a Demo</a></li>
             </ul>
             <div class="hamburger">
@@ -334,34 +359,77 @@
          ======================================== -->
     <section class="blog-posts">
         <div class="container">
-            <div class="posts-grid">
-                <!-- Featured Post -->
-                <article class="post-card" data-category="industry">
-                    <span class="post-category">Industry</span>
-                    <h2 class="post-title"><a href="/blog/financial-unsustainability/">The Financial Unsustainability Crisis: Why Your Security Budget Will Not Survive the AI Storm</a></h2>
-                    <p class="post-excerpt">The storm has already made landfall. Industrialized AI in the hands of adversaries has broken the traditional SOC. Legacy SIEMs charge you for every GB ingested and every compute unit used. When your AI analysts increase investigative depth by 50x, your SIEM bill goes vertical.</p>
+            <!-- Top 3: always shown first (Product, VS, Customers) -->
+            <div class="blog-pinned">
+                <h2 class="blog-pinned-title">Essential reading</h2>
+                <div class="posts-grid">
+                    <article class="post-card pinned" data-category="industry">
+                        <span class="post-category">Industry</span>
+                        <h2 class="post-title"><a href="/blog/financial-unsustainability/">The Financial Unsustainability Crisis: Why Your Security Budget Will Not Survive the AI Storm</a></h2>
+                        <p class="post-excerpt">The storm has already made landfall. Industrialized AI in the hands of adversaries has broken the traditional SOC. Legacy SIEMs charge you for every GB ingested and every compute unit used. When your AI analysts increase investigative depth by 50x, your SIEM bill goes vertical.</p>
+                        <div class="post-meta">
+                            <span>Feb 12, 2026</span>
+                            <span>&middot;</span>
+                            <span>12 min read</span>
+                            <span>&middot;</span>
+                            <span>Raj Choudhary</span>
+                        </div>
+                    </article>
+                    <article class="post-card pinned" data-category="product">
+                        <span class="post-category">Product</span>
+                        <h2 class="post-title"><a href="/blog/sovereign-soc/">Introducing the Sovereign SOC: Why We Built Vigilense AI</a></h2>
+                        <p class="post-excerpt">We built Vigilense AI because traditional SIEMs force you to trade control for capability. The Sovereign SOC gives you both: BYODb architecture that queries your data in place, and an AI analyst that never sleeps.</p>
+                        <div class="post-meta">
+                            <span>Feb 10, 2026</span>
+                            <span>&middot;</span>
+                            <span>6 min read</span>
+                        </div>
+                    </article>
+                    <article class="post-card pinned" data-category="industry">
+                        <span class="post-category">Industry</span>
+                        <h2 class="post-title"><a href="/blog/ingestion-tax/">The Ingestion Tax: Why Your SIEM Budget Is Broken</a></h2>
+                        <p class="post-excerpt">You're paying $0.88 for every gigabyte your SIEM looks at. Not analyzes. Not protects. Just indexes. 500GB/day? That's $160K/year to build a search engine over your own data.</p>
+                        <div class="post-meta">
+                            <span>Jan 28, 2026</span>
+                            <span>&middot;</span>
+                            <span>5 min read</span>
+                            <span>&middot;</span>
+                            <span>Zachary Troyer</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Rest of posts: order changes as new blogs are added -->
+            <h2 class="blog-more-title">More from the blog</h2>
+            <div class="posts-grid posts-grid-more">
+                <!-- Adaptive Threat Fusion -->
+                <article class="post-card" data-category="product">
+                    <span class="post-category">Product</span>
+                    <h2 class="post-title"><a href="/blog/adaptive-threat-fusion/">Legacy RBA Is Dead. Adaptive Threat Fusion Is What Comes Next.</a></h2>
+                    <p class="post-excerpt">Why the industry's gold standard for alert management is creating the blind spots attackers exploit, and how AI-native threat fusion eliminates them without dropping a single alert.</p>
                     <div class="post-meta">
-                        <span>Feb 12, 2026</span>
+                        <span>Feb 2026</span>
                         <span>&middot;</span>
-                        <span>12 min read</span>
+                        <span>18 min read</span>
                         <span>&middot;</span>
                         <span>Raj Choudhary</span>
                     </div>
                 </article>
-
-                <!-- Post 1 -->
-                <article class="post-card" data-category="product">
-                    <span class="post-category">Product</span>
-                    <h2 class="post-title"><a href="/blog/sovereign-soc/">Introducing the Sovereign SOC: Why We Built Vigilense AI</a></h2>
-                    <p class="post-excerpt">We built Vigilense AI because traditional SIEMs force you to trade control for capability. The Sovereign SOC gives you both: BYODb architecture that queries your data in place, and an AI analyst that never sleeps.</p>
+                <!-- Pricing Transparency -->
+                <article class="post-card" data-category="company">
+                    <span class="post-category">Company</span>
+                    <h2 class="post-title"><a href="/blog/pricing-transparency/">Why We Built a Public Savings Calculator and Put Our Pricing in the Open</a></h2>
+                    <p class="post-excerpt">Legacy SIEM vendors hide behind custom quotes and opaque pricing. We built a public savings calculator anyone can use, no sales call required. Here is why transparency matters and what the numbers reveal.</p>
                     <div class="post-meta">
-                        <span>Feb 10, 2026</span>
+                        <span>Feb 15, 2026</span>
                         <span>&middot;</span>
-                        <span>6 min read</span>
+                        <span>7 min read</span>
+                        <span>&middot;</span>
+                        <span>Zachary Troyer</span>
                     </div>
                 </article>
-
-                <!-- Post 2 -->
+                <!-- BYODb Architecture -->
                 <article class="post-card" data-category="engineering">
                     <span class="post-category">Engineering</span>
                     <h2 class="post-title"><a href="/blog/byodb-architecture/">BYODb Architecture: How We Query Your Data Without Moving It</a></h2>
@@ -370,20 +438,6 @@
                         <span>Feb 5, 2026</span>
                         <span>&middot;</span>
                         <span>8 min read</span>
-                    </div>
-                </article>
-
-                <!-- Post 3 -->
-                <article class="post-card" data-category="industry">
-                    <span class="post-category">Industry</span>
-                    <h2 class="post-title"><a href="/blog/ingestion-tax/">The Ingestion Tax: Why Your SIEM Budget Is Broken</a></h2>
-                    <p class="post-excerpt">You're paying $0.88 for every gigabyte your SIEM looks at. Not analyzes. Not protects. Just indexes. 500GB/day? That's $160K/year to build a search engine over your own data.</p>
-                    <div class="post-meta">
-                        <span>Jan 28, 2026</span>
-                        <span>&middot;</span>
-                        <span>5 min read</span>
-                        <span>&middot;</span>
-                        <span>Zachary Troyer</span>
                     </div>
                 </article>
 

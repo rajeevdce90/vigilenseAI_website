@@ -60,7 +60,13 @@
                         <li><a href="/security/">Security & Trust</a></li>
                     </ul>
                 </li>
-                <li><a href="/pricing/">Pricing</a></li>
+                <li>
+                    <a href="/pricing/">Pricing</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/pricing/">Pricing Overview</a></li>
+                        <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 600;">Savings Calculator</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="#">Resources</a>
                     <ul class="dropdown-menu">
@@ -80,7 +86,6 @@
                         <li><a href="/security/">Security</a></li>
                     </ul>
                 </li>
-                <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 700;">Cost Simulator</a></li>
                 <li class="cta-nav"><a href="/demo/">Book a Demo</a></li>
             </ul>
         </div>
@@ -90,7 +95,7 @@
     <section class="legal-section">
         <div class="container">
             <div class="legal-header">
-                <span class="section-tag">🔒 Security</span>
+                <span class="section-tag"> Security</span>
                 <h1>Tenant Separation Technical Brief</h1>
                 <p class="legal-updated">How Vigilense AI implements cryptographic tenant isolation in multi-tenant deployments</p>
             </div>
@@ -103,27 +108,27 @@
                 
                 <div class="security-grid">
                     <div class="security-item">
-                        <h3>1️⃣ Identity Layer</h3>
+                        <h3>Identity Layer</h3>
                         <p>Every request is authenticated and authorized with tenant context. No operation can proceed without verified tenant identity.</p>
                     </div>
                     <div class="security-item">
-                        <h3>2️⃣ Application Layer</h3>
+                        <h3>Application Layer</h3>
                         <p>Tenant IDs are injected into every query, API call, and operation. Application logic enforces tenant boundaries.</p>
                     </div>
                     <div class="security-item">
-                        <h3>3️⃣ Data Layer</h3>
+                        <h3>Data Layer</h3>
                         <p>Row-level security, separate schemas, or dedicated databases depending on isolation requirements.</p>
                     </div>
                     <div class="security-item">
-                        <h3>4️⃣ Encryption Layer</h3>
+                        <h3>Encryption Layer</h3>
                         <p>Per-tenant encryption keys ensure that even database administrators cannot access other tenants' data.</p>
                     </div>
                     <div class="security-item">
-                        <h3>5️⃣ Network Layer</h3>
+                        <h3>Network Layer</h3>
                         <p>Network security groups and policies prevent cross-tenant network access.</p>
                     </div>
                     <div class="security-item">
-                        <h3>6️⃣ Compute Layer</h3>
+                        <h3>Compute Layer</h3>
                         <p>Processing isolation ensures one tenant's workloads cannot impact or access another's.</p>
                     </div>
                 </div>
@@ -186,15 +191,15 @@
 
                 <div class="security-grid">
                     <div class="security-item">
-                        <h3>🔹 Row-Level (Standard)</h3>
+                        <h3>Row-Level (Standard)</h3>
                         <p>Shared tables with tenant ID columns. Row-level security policies enforce access. Most cost-effective.</p>
                     </div>
                     <div class="security-item">
-                        <h3>🔷 Schema-Level (Enhanced)</h3>
+                        <h3>Schema-Level (Enhanced)</h3>
                         <p>Separate database schemas per tenant. Stronger isolation with moderate overhead.</p>
                     </div>
                     <div class="security-item">
-                        <h3>🔶 Database-Level (Maximum)</h3>
+                        <h3>Database-Level (Maximum)</h3>
                         <p>Dedicated database instances per tenant. Maximum isolation for high-security requirements.</p>
                     </div>
                 </div>

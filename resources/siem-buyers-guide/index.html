@@ -75,7 +75,13 @@
                         <li><a href="/security/">Security & Trust</a></li>
                     </ul>
                 </li>
-                <li><a href="/pricing/">Pricing</a></li>
+                <li>
+                    <a href="/pricing/">Pricing</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/pricing/">Pricing Overview</a></li>
+                        <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 600;">Savings Calculator</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="#">Resources</a>
                     <ul class="dropdown-menu">
@@ -95,7 +101,6 @@
                         <li><a href="/security/">Security</a></li>
                     </ul>
                 </li>
-                <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 700;">Cost Simulator</a></li>
                 <li class="cta-nav"><a href="/demo/">Book a Demo</a></li>
             </ul>
             <div class="hamburger"><span></span><span></span><span></span></div>
@@ -106,7 +111,7 @@
     <section class="legal-section">
         <div class="container">
             <div class="legal-header">
-                <span class="section-tag">📘 Guide</span>
+                <span class="section-tag"> Guide</span>
                 <h1>SIEM Buyer's Guide 2026</h1>
                 <p class="legal-updated">Everything you need to know about evaluating and selecting a modern SIEM</p>
             </div>
@@ -114,29 +119,29 @@
                 <h2>Executive Summary</h2>
                 <p>Legacy SIEMs are being replaced by <a href="/resources/what-is-ai-soc-analyst/">AI-native</a> platforms that deliver autonomous security operations. This guide will help you evaluate SIEM solutions and make the right choice for your organization.</p>
                 <p>The SIEM market is at a critical inflection point. Gartner estimates that over 60% of enterprises are actively evaluating SIEM replacements, driven by unsustainable costs, overwhelming alert volumes, and an acute shortage of security analysts. Legacy platforms built around log collection and static correlation rules can no longer keep pace with modern threat landscapes, where attackers leverage automation and AI to move faster than human-led SOC teams can respond.</p>
-                <p>At the same time, per-GB pricing models have created a perverse dynamic: the more visibility you need, the more you pay, leading organizations to make dangerous trade-offs between security coverage and budget. Buyers in 2026 should prioritize platforms that decouple cost from data volume, offer autonomous investigation and response, and allow organizations to maintain sovereignty over their own data — what we call the <a href="/resources/what-is-sovereign-soc/">Sovereign SOC</a> model.</p>
+                <p>At the same time, per-GB pricing models have created a perverse dynamic: the more visibility you need, the more you pay, leading organizations to make dangerous trade-offs between security coverage and budget. Buyers in 2026 should prioritize platforms that decouple cost from data volume, offer autonomous investigation and response, and allow organizations to maintain sovereignty over their own data - what we call the <a href="/resources/what-is-sovereign-soc/">Sovereign SOC</a> model.</p>
 
                 <h2>The Evolution of SIEM</h2>
                 <h3>First Generation: Log Management (2000s)</h3>
                 <p>Early SIEMs were essentially log aggregators with basic search capabilities. They collected logs from firewalls, servers, and applications, providing a centralized view but requiring significant manual effort to derive insights.</p>
-                <p>Products like ArcSight, LogRhythm, and early Splunk deployments defined this era. While they solved the problem of centralized log storage, they offered minimal analytics — security teams spent most of their time writing regex queries and manually correlating events across disparate data sources. Detection was reactive, not proactive, and the sheer volume of raw logs often made finding threats like searching for a needle in a haystack.</p>
+                <p>Products like ArcSight, LogRhythm, and early Splunk deployments defined this era. While they solved the problem of centralized log storage, they offered minimal analytics - security teams spent most of their time writing regex queries and manually correlating events across disparate data sources. Detection was reactive, not proactive, and the sheer volume of raw logs often made finding threats like searching for a needle in a haystack.</p>
 
                 <h3>Second Generation: Correlation & Rules (2010s)</h3>
                 <p>The second generation introduced correlation engines and rule-based detection. Analysts could create rules to identify known attack patterns. However, these systems struggled with alert fatigue, false positives, and couldn't adapt to new threats without manual rule creation.</p>
-                <p>Platforms like Splunk Enterprise Security, IBM QRadar, and Microsoft Sentinel improved on first-generation tools by adding correlation rules, dashboards, and threat intelligence feeds. But the fundamental architecture remained the same: ingest everything, write rules to find bad things. As organizations scaled to terabytes of daily log data, costs spiraled — Splunk's per-GB pricing model became infamous for "Splunk tax" budget overruns. Meanwhile, SOC analysts were buried under thousands of daily alerts, with false positive rates often exceeding 90%, leading to burnout, missed threats, and dangerously long dwell times.</p>
+                <p>Platforms like Splunk Enterprise Security, IBM QRadar, and Microsoft Sentinel improved on first-generation tools by adding correlation rules, dashboards, and threat intelligence feeds. But the fundamental architecture remained the same: ingest everything, write rules to find bad things. As organizations scaled to terabytes of daily log data, costs spiraled - Splunk's per-GB pricing model became infamous for "Splunk tax" budget overruns. Meanwhile, SOC analysts were buried under thousands of daily alerts, with false positive rates often exceeding 90%, leading to burnout, missed threats, and dangerously long dwell times.</p>
 
                 <h3>Third Generation: AI-Native SIEM (2020s)</h3>
                 <p>Modern <a href="/resources/what-is-ai-soc-analyst/">AI-native SIEMs</a> use machine learning for detection, investigation, and response. They adapt to new threats automatically, reduce false positives, and can operate autonomously, turning the SOC from a cost center into a force multiplier.</p>
-                <p>This generation represents a fundamental architectural shift, not just a feature upgrade. Instead of relying on static rules written by human analysts, AI-native platforms continuously learn from organizational behavior patterns, global threat intelligence, and attack telemetry to detect novel threats in real time. The best third-generation SIEMs also rethink the data model entirely — adopting <a href="/resources/what-is-byodb-siem/">Bring Your Own Database (BYODb)</a> architectures that eliminate ingestion fees and let organizations query data where it already lives. When combined with autonomous investigation and response, these platforms can resolve the vast majority of alerts without human intervention, freeing analysts to focus on strategic threat hunting and risk reduction.</p>
+                <p>This generation represents a fundamental architectural shift, not just a feature upgrade. Instead of relying on static rules written by human analysts, AI-native platforms continuously learn from organizational behavior patterns, global threat intelligence, and attack telemetry to detect novel threats in real time. The best third-generation SIEMs also rethink the data model entirely - adopting <a href="/resources/what-is-byodb-siem/">Bring Your Own Database (BYODb)</a> architectures that eliminate ingestion fees and let organizations query data where it already lives. When combined with autonomous investigation and response, these platforms can resolve the vast majority of alerts without human intervention, freeing analysts to focus on strategic threat hunting and risk reduction.</p>
 
                 <h2>Architecture Models</h2>
-                <p>One of the most important — and most overlooked — decisions when selecting a SIEM is the underlying data architecture. How a SIEM ingests, stores, and queries your security telemetry has a direct impact on cost, performance, data sovereignty, and long-term vendor lock-in.</p>
+                <p>One of the most important - and most overlooked - decisions when selecting a SIEM is the underlying data architecture. How a SIEM ingests, stores, and queries your security telemetry has a direct impact on cost, performance, data sovereignty, and long-term vendor lock-in.</p>
 
                 <h3>Ingest-First (Traditional)</h3>
-                <p>In the traditional model, all security data is copied from its source and ingested into the SIEM vendor's infrastructure — whether that's a proprietary cloud or an on-premise appliance. Platforms like Splunk, IBM QRadar, and Microsoft Sentinel follow this approach. While it provides fast query performance on pre-indexed data, the cost implications are severe: you pay per gigabyte ingested, which means that expanding visibility (adding new log sources, increasing retention, or onboarding cloud workloads) directly increases your SIEM bill. This creates a misaligned incentive where security teams are forced to choose between comprehensive coverage and staying within budget.</p>
+                <p>In the traditional model, all security data is copied from its source and ingested into the SIEM vendor's infrastructure - whether that's a proprietary cloud or an on-premise appliance. Platforms like Splunk, IBM QRadar, and Microsoft Sentinel follow this approach. While it provides fast query performance on pre-indexed data, the cost implications are severe: you pay per gigabyte ingested, which means that expanding visibility (adding new log sources, increasing retention, or onboarding cloud workloads) directly increases your SIEM bill. This creates a misaligned incentive where security teams are forced to choose between comprehensive coverage and staying within budget.</p>
 
                 <h3>Query-in-Place (BYODb)</h3>
-                <p>The <a href="/resources/what-is-byodb-siem/">Bring Your Own Database (BYODb)</a> model represents a fundamental departure from the ingest-first approach. Instead of copying data to the vendor, the SIEM queries your security data where it already lives — in your own data lake, cloud storage, or existing databases. This eliminates ingestion fees entirely, preserves full data sovereignty, and removes the painful trade-off between visibility and cost. Organizations can monitor everything without worrying about per-GB charges, and they maintain complete control over their data retention, residency, and access policies. Vigilense AI is built on this architecture from the ground up.</p>
+                <p>The <a href="/resources/what-is-byodb-siem/">Bring Your Own Database (BYODb)</a> model represents a fundamental departure from the ingest-first approach. Instead of copying data to the vendor, the SIEM queries your security data where it already lives - in your own data lake, cloud storage, or existing databases. This eliminates ingestion fees entirely, preserves full data sovereignty, and removes the painful trade-off between visibility and cost. Organizations can monitor everything without worrying about per-GB charges, and they maintain complete control over their data retention, residency, and access policies. Vigilense AI is built on this architecture from the ground up.</p>
 
                 <h3>Hybrid</h3>
                 <p>Some vendors offer a hybrid approach, allowing certain high-priority data to be ingested for real-time correlation while querying lower-priority or high-volume data in place. This can be a reasonable intermediate step for organizations transitioning from legacy SIEMs, but buyers should carefully evaluate which data tiers are subject to ingestion charges and whether the hybrid model introduces complexity in detection coverage or query consistency.</p>
@@ -145,7 +150,7 @@
                 
                 <div class="security-grid">
                     <div class="security-item">
-                        <h3>🔍 Detection Capabilities</h3>
+                        <h3>Detection Capabilities</h3>
                         <ul>
                             <li>AI/ML-based anomaly detection</li>
                             <li>Behavioral analysis</li>
@@ -155,7 +160,7 @@
                         </ul>
                     </div>
                     <div class="security-item">
-                        <h3>🤖 Automation Level</h3>
+                        <h3>Automation Level</h3>
                         <ul>
                             <li>Automated triage & investigation</li>
                             <li>Autonomous response capabilities</li>
@@ -165,7 +170,7 @@
                         </ul>
                     </div>
                     <div class="security-item">
-                        <h3>📊 Data Architecture</h3>
+                        <h3>Data Architecture</h3>
                         <ul>
                             <li>Data storage requirements</li>
                             <li><a href="/resources/what-is-byodb-siem/" style="color: inherit; text-decoration: underline;">BYODb</a> capabilities</li>
@@ -175,7 +180,7 @@
                         </ul>
                     </div>
                     <div class="security-item">
-                        <h3>🔗 Integration Ecosystem</h3>
+                        <h3>Integration Ecosystem</h3>
                         <ul>
                             <li>Pre-built integrations</li>
                             <li>API availability</li>
@@ -197,8 +202,8 @@
                     <li><strong>Maintenance:</strong> Ongoing tuning and rule management</li>
                     <li><strong>Hidden Costs:</strong> Professional services, premium support, add-on features</li>
                 </ul>
-                <p>Perhaps the most insidious issue with traditional SIEM pricing is that per-GB models create fundamentally misaligned incentives between the vendor and the buyer. The more data you ingest — which means the more complete your security visibility — the more you pay. This leads to a dangerous pattern where organizations deliberately exclude log sources, reduce retention windows, or downsample data to control costs, all of which create blind spots that attackers can exploit. Your SIEM vendor should never be the reason you have less visibility into your environment.</p>
-                <p>When calculating true TCO, also factor in the cost of analyst time spent on manual triage, investigation, and response. A platform that autonomously resolves 95% of alerts can reduce the effective headcount needed to operate a SOC by 3-5 analysts — a savings of $300K-$750K per year in fully loaded compensation alone. Use our <a href="/cost-simulator/">cost simulator</a> to estimate your SIEM spend.</p>
+                <p>Perhaps the most insidious issue with traditional SIEM pricing is that per-GB models create fundamentally misaligned incentives between the vendor and the buyer. The more data you ingest - which means the more complete your security visibility - the more you pay. This leads to a dangerous pattern where organizations deliberately exclude log sources, reduce retention windows, or downsample data to control costs, all of which create blind spots that attackers can exploit. Your SIEM vendor should never be the reason you have less visibility into your environment.</p>
+                <p>When calculating true TCO, also factor in the cost of analyst time spent on manual triage, investigation, and response. A platform that autonomously resolves 95% of alerts can reduce the effective headcount needed to operate a SOC by 3-5 analysts - a savings of $300K-$750K per year in fully loaded compensation alone. Use our <a href="/cost-simulator/">cost simulator</a> to estimate your SIEM spend.</p>
 
                 <h2>Questions to Ask Vendors</h2>
                 <ol>
@@ -216,28 +221,28 @@
 
                 <h2>Red Flags to Watch For</h2>
                 <ul>
-                    <li>❌ Pricing that penalizes data growth</li>
-                    <li>❌ Mandatory data storage in vendor infrastructure</li>
-                    <li>❌ Long deployment timelines (months, not days)</li>
-                    <li>❌ Heavy reliance on professional services</li>
-                    <li>❌ Limited or no autonomous capabilities</li>
-                    <li>❌ Lack of transparency on AI/ML methods</li>
-                    <li>❌ Vendor lock-in through proprietary formats</li>
+                    <li>- Pricing that penalizes data growth</li>
+                    <li>- Mandatory data storage in vendor infrastructure</li>
+                    <li>- Long deployment timelines (months, not days)</li>
+                    <li>- Heavy reliance on professional services</li>
+                    <li>- Limited or no autonomous capabilities</li>
+                    <li>- Lack of transparency on AI/ML methods</li>
+                    <li>- Vendor lock-in through proprietary formats</li>
                 </ul>
 
                 <h2>The Vigilense AI Difference</h2>
-                <p><span class="brand-name"><span class="vigilense">Vigilense</span><span class="ai"> AI</span></span> was built from the ground up to address the limitations of legacy SIEMs. We deliver the <a href="/resources/what-is-sovereign-soc/">Sovereign SOC</a> — a fully autonomous security operations platform that puts you in control of your data while eliminating the manual toil that buries SOC teams:</p>
+                <p>Vigilense AI was built from the ground up to address the limitations of legacy SIEMs. We deliver the <a href="/resources/what-is-sovereign-soc/">Sovereign SOC</a> - a fully autonomous security operations platform that puts you in control of your data while eliminating the manual toil that buries SOC teams:</p>
                 <ul>
-                    <li><strong><a href="/resources/what-is-ai-soc-analyst/">AI-Native Architecture</a>:</strong> Not bolted-on AI, but AI at the core — our <a href="/resources/what-is-ai-soc-analyst/">AI SOC Analyst</a> handles detection, investigation, and response as an integrated autonomous workflow</li>
-                    <li><strong><a href="/resources/what-is-byodb-siem/">BYODb</a>:</strong> Your data stays in your infrastructure — zero ingestion fees, full data sovereignty, and no vendor lock-in</li>
+                    <li><strong><a href="/resources/what-is-ai-soc-analyst/">AI-Native Architecture</a>:</strong> Not bolted-on AI, but AI at the core - our <a href="/resources/what-is-ai-soc-analyst/">AI SOC Analyst</a> handles detection, investigation, and response as an integrated autonomous workflow</li>
+                    <li><strong><a href="/resources/what-is-byodb-siem/">BYODb</a>:</strong> Your data stays in your infrastructure - zero ingestion fees, full data sovereignty, and no vendor lock-in</li>
                     <li><strong>Autonomous Operations:</strong> 95%+ of alerts resolved autonomously, with full audit trails and human-in-the-loop escalation for critical decisions</li>
-                    <li><strong>Zero Data Lock-in:</strong> No proprietary formats or vendor dependency — your data remains in standard formats you own</li>
-                    <li><strong>Rapid Deployment:</strong> Connected in days, not months — we prove value before you pay</li>
+                    <li><strong>Zero Data Lock-in:</strong> No proprietary formats or vendor dependency - your data remains in standard formats you own</li>
+                    <li><strong>Rapid Deployment:</strong> Connected in days, not months - we prove value before you pay</li>
                 </ul>
                 <p>Vigilense AI is deployed with healthcare organizations, financial services firms, and technology companies that demand both comprehensive security coverage and complete data sovereignty. See how a healthcare system saved $2.1M annually in our <a href="/resources/healthcare-case-study/">case study</a>.</p>
 
                 <h2>Next Steps</h2>
-                <p>Ready to see how <span class="brand-name"><span class="vigilense">Vigilense</span><span class="ai"> AI</span></span> compares? <a href="/demo/">Request a demo</a> and see autonomous SIEM in action.</p>
+                <p>Ready to see how Vigilense AI compares? <a href="/demo/">Request a demo</a> and see autonomous SIEM in action.</p>
             </div>
         </div>
     </section>

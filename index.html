@@ -2158,7 +2158,7 @@
            ADDITIONAL RESPONSIVE FIXES
            ============================ */
 
-        /* ── TABLET (769px - 1024px) ── */
+        /*  --  TABLET (769px - 1024px)  --  */
         @media (max-width: 1024px) and (min-width: 769px) {
             /* Sovereign grid: 2 columns on tablet */
             .sovereign-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
@@ -2195,7 +2195,7 @@
             .arch-stage { min-width: 140px; padding: 20px 22px; }
         }
 
-        /* ── MOBILE ADDITIONS (768px and below) ── */
+        /*  --  MOBILE ADDITIONS (768px and below)  --  */
         @media (max-width: 768px) {
             /* Section padding reductions */
             .sovereign-section { padding: 60px 0; }
@@ -2237,7 +2237,7 @@
             .arch-stage { padding: 18px 16px; min-width: 120px; }
         }
 
-        /* ── SMALL MOBILE (480px and below) ── */
+        /*  --  SMALL MOBILE (480px and below)  --  */
         @media (max-width: 480px) {
             /* Further section padding */
             .sovereign-section { padding: 48px 0; }
@@ -2356,7 +2356,7 @@
         {"@type": "Question", "name": "How does the AI SOC Analyst work?", "acceptedAnswer": {"@type": "Answer", "text": "The AI SOC Analyst enriches alerts across 50+ sources, correlates signals, and delivers verdicts in seconds. It auto-resolves false positives, creates tickets, and escalates real threats with full audit trails and human-in-the-loop controls."}},
         {"@type": "Question", "name": "How long does deployment take?", "acceptedAnswer": {"@type": "Answer", "text": "Vigilense AI connects to your existing databases and security tools in days, not months. We deploy at no cost and you don't pay until we deliver measurable results."}},
         {"@type": "Question", "name": "What databases does Vigilense AI support?", "acceptedAnswer": {"@type": "Answer", "text": "OpenSearch, Elasticsearch, Snowflake, Microsoft Sentinel, AWS Security Lake, S3, BigQuery, Databricks, and more."}},
-        {"@type": "Question", "name": "How much does Vigilense AI cost?", "acceptedAnswer": {"@type": "Answer", "text": "Outcome-first, usage-based pricing. Zero per-GB ingestion fees. Risk-free pilot - you don't pay until we prove value. Post-pilot, pricing scales with usage, not data volume."}},
+        {"@type": "Question", "name": "How much does Vigilense AI cost?", "acceptedAnswer": {"@type": "Answer", "text": "Outcome-first, usage-based pricing. Zero per-GB ingestion fees. Risk-free pilot - you don't pay until we prove value. Post-pilot, pricing scales with usage, not data volume. Use our Cost Simulator to estimate savings for your environment."}},
         {"@type": "Question", "name": "How is Vigilense AI different from Splunk or Microsoft Sentinel?", "acceptedAnswer": {"@type": "Answer", "text": "Unlike Splunk and Sentinel, Vigilense AI queries your databases in place with zero ingestion fees. No data movement, no vendor lock-in. Plus an autonomous AI SOC Analyst that investigates and resolves threats in seconds."}},
         {"@type": "Question", "name": "How does Vigilense AI compare to Splunk or Microsoft Sentinel?", "acceptedAnswer": {"@type": "Answer", "text": "Unlike Splunk, QRadar, or Microsoft Sentinel, Vigilense AI queries your existing databases in place with zero per-GB ingestion fees. Our AI SOC Analyst autonomously investigates and resolves alerts, turning your SOC from a cost center into a force multiplier. Most enterprises see 50-70% cost reduction compared to traditional SIEMs."}}
       ]
@@ -2385,7 +2385,13 @@
                         <li><a href="/security/">Security & Trust</a></li>
                     </ul>
                 </li>
-                <li><a href="/pricing/">Pricing</a></li>
+                <li>
+                    <a href="/pricing/">Pricing</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/pricing/">Pricing Overview</a></li>
+                        <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 600;">Savings Calculator</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="#">Resources</a>
                     <ul class="dropdown-menu">
@@ -2405,7 +2411,6 @@
                         <li><a href="/security/">Security</a></li>
                     </ul>
                 </li>
-                <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 700;">Cost Simulator</a></li>
                 <li class="cta-nav"><a href="/demo/">Book a Demo</a></li>
             </ul>
             <div class="hamburger">
@@ -2604,7 +2609,7 @@
             <div class="products-grid">
                 <!-- AI SOC Analyst -->
                 <div class="product-card">
-                    <span class="section-tag">01</span>
+                    <span class="section-tag">1</span>
                     <h2 class="section-title"><a href="/platform/ai-soc-analyst/" style="color: inherit; text-decoration: none;">AI SOC Analyst</a></h2>
                     <p class="product-desc">An autonomous analyst that investigates, triages, and resolves threats alongside your team.</p>
                     <div class="product-features">
@@ -2642,7 +2647,7 @@
 
                 <!-- BYODb SIEM -->
                 <div class="product-card">
-                    <span class="section-tag">02</span>
+                    <span class="section-tag">2</span>
                     <h2 class="section-title"><a href="/platform/byodb-siem/" style="color: inherit; text-decoration: none;">BYODb SIEM</a></h2>
                     <p class="product-desc">A SIEM that runs on your existing databases. No ingestion pipeline. No vendor lock-in.</p>
                     <div class="product-features">
@@ -2785,13 +2790,13 @@
 
             <!-- SOLUTION -->
             <div class="receipt-solution">
-                <h3>With Vigilense AI, the ingestion line item is <span style="color: var(--accent);">$0</span>.</h3>
+                <h3>With <span style="font-family:'Syne',sans-serif; font-weight:700;"><span style="color:var(--navy);">Vigilense</span><span style="color:#00D4AA;"> AI</span></span>, the ingestion line item is <span style="color: var(--accent);">$0</span>.</h3>
                 <p>We query your databases in place - Snowflake, Elasticsearch, OpenSearch, S3, and more. No data movement. No per-GB fees. Your budget shifts from ingestion to intelligence.</p>
             </div>
 
             <!-- CTA -->
             <div class="receipt-cta">
-                <a href="/demo/" class="btn btn-primary btn-large">See How Much You'd Save →</a>
+                <a href="/cost-simulator/" class="btn btn-primary btn-large">See How Much You'd Save →</a>
             </div>
 
         </div>

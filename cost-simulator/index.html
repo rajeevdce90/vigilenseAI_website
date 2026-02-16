@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Calculate your SIEM and SOC savings with Vigilense AI. Compare legacy SIEM + human SOC costs vs BYODb SIEM + AI SOC Analyst. See how much budget you can unlock.">
     <meta name="keywords" content="SIEM cost calculator, SOC cost calculator, AI SOC pricing, Splunk pricing comparison, SIEM savings calculator, Vigilense AI pricing, BYODb SIEM cost, SOC cost reduction, human SOC vs AI SOC">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://vigilense.ai/cost-simulator/">
     <meta property="og:title" content="Cost Simulator | Vigilense AI">
     <meta property="og:description" content="Calculate your SIEM and SOC savings. Compare legacy costs vs Vigilense AI - SIEM, SOC, or both.">
@@ -13,14 +14,14 @@
     <meta property="og:image" content="https://vigilense.ai/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Vigilense AI - The Sovereign SOC. BYODb SIEM + Autonomous AI SOC Analyst.">
+    <meta property="og:image:alt" content="Vigilense AI - The SOVEREIGN SOC. BYODb SIEM + Autonomous AI SOC Analyst.">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="Vigilense AI">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Cost Simulator | Vigilense AI">
     <meta name="twitter:description" content="Calculate your SIEM and SOC savings. Compare legacy costs vs Vigilense AI.">
     <meta name="twitter:image" content="https://vigilense.ai/og-image.png">
-    <meta name="twitter:image:alt" content="Vigilense AI - The Sovereign SOC. BYODb SIEM + Autonomous AI SOC Analyst.">
+    <meta name="twitter:image:alt" content="Vigilense AI - The SOVEREIGN SOC. BYODb SIEM + Autonomous AI SOC Analyst.">
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -30,14 +31,15 @@
     <title>Cost Simulator | Vigilense AI</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/theme.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        /* ═══════════════════════════════════════════
+        /* -------------------------------------------
            COST SIMULATOR PAGE
-        ═══════════════════════════════════════════ */
+        ------------------------------------------- */
 
         /* --- Hero --- */
         .cs-hero {
@@ -71,6 +73,31 @@
             font-size: 0.88rem;
             color: rgba(255,255,255,0.55);
             margin: 0;
+        }
+        .cs-hero-trust {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        .cs-hero-trust span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: #0A1628;
+            letter-spacing: 0.04em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .cs-hero-trust span::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(0,212,170,0.5);
         }
         /* --- Calculator Card (full width) --- */
         .cs-card-wrap {
@@ -198,7 +225,8 @@
             letter-spacing: 0.06em;
             margin-bottom: 6px;
         }
-        .cs-assumption-item input {
+        .cs-assumption-item input,
+        .cs-assumption-item select {
             width: 100%;
             background: rgba(255,255,255,0.06);
             border: 1px solid rgba(255,255,255,0.12);
@@ -210,10 +238,34 @@
             color: #fff;
             outline: none;
         }
-        .cs-assumption-item input:focus { border-color: #00D4AA; }
+        .cs-assumption-item input:focus,
+        .cs-assumption-item select:focus { border-color: #00D4AA; outline: none; }
+        .cs-assumption-item select {
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2300D4AA'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 28px;
+        }
+        .cs-assumption-item select option,
+        .cs-assumption-item select optgroup {
+            background: #111827;
+            color: #fff;
+        }
+        .cs-assumption-item select optgroup {
+            font-weight: 700;
+            font-style: normal;
+            color: #00D4AA;
+        }
+        .cs-assumption-item--full {
+            grid-column: 1 / -1;
+            margin-top: 4px;
+        }
         .cs-assumption-note {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.62rem;
+            font-size: 0.68rem;
             color: rgba(255,255,255,0.6);
             margin-top: 10px;
             line-height: 1.5;
@@ -280,11 +332,17 @@
             line-height: 1.1;
         }
         .cs-savings-pct {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 700;
             color: #00D4AA;
-            margin-bottom: 10px;
+            background: rgba(0,212,170,0.12);
+            border: 1px solid rgba(0,212,170,0.25);
+            border-radius: 20px;
+            padding: 6px 20px;
+            margin-bottom: 14px;
+            letter-spacing: 0.02em;
         }
         .cs-savings-msg {
             font-family: 'Outfit', sans-serif;
@@ -303,6 +361,8 @@
         }
         .cs-panel {
             padding: 24px;
+            display: flex;
+            flex-direction: column;
         }
         .cs-panel-splunk {
             border-right: 1px solid rgba(255,255,255,0.06);
@@ -326,7 +386,6 @@
             font-family: 'Outfit', sans-serif;
             font-size: 1.05rem;
             font-weight: 700;
-            text-transform: uppercase;
             letter-spacing: 0.06em;
         }
         .cs-panel-splunk .cs-panel-name { color: #FF4444; }
@@ -334,7 +393,7 @@
         .cs-panel-vig .cs-panel-name .ai { color: #00D4AA; }
         .cs-panel-sub {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.62rem;
+            font-size: 0.68rem;
             color: rgba(255,255,255,0.55);
             margin-top: 2px;
         }
@@ -355,33 +414,33 @@
         .cs-line-item:last-child { border-bottom: none; }
         .cs-line-label {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
+            font-size: 0.78rem;
             color: rgba(255,255,255,0.6);
         }
         .cs-line-value {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: rgba(255,255,255,0.85);
         }
         .cs-line-formula {
             display: block;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.58rem;
+            font-size: 0.64rem;
             color: rgba(255,255,255,0.45);
             margin-top: 2px;
         }
         .cs-line-value.zero { color: #00D4AA; font-weight: 700; }
         .cs-line-value.red { color: #FF4444; }
 
-        /* Panel total */
+        /* Panel total — pinned to bottom so both panels align */
         .cs-panel-total {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            padding: 12px 0 0;
+            margin-top: auto;
+            padding: 16px 0 0;
             border-top: 1px solid rgba(255,255,255,0.08);
-            margin-top: 4px;
         }
         .cs-total-label {
             font-family: 'JetBrains Mono', monospace;
@@ -428,7 +487,7 @@
             gap: 8px;
         }
         .cs-bar {
-            width: 80px;
+            width: 110px;
             border-radius: 6px 6px 0 0;
             transition: height 1.2s cubic-bezier(0.25,0.46,0.45,0.94);
             min-height: 4px;
@@ -450,23 +509,25 @@
         .cs-bar-col:first-child .cs-bar-amount { color: #FF4444; }
         .cs-bar-col:last-child .cs-bar-amount { color: #00D4AA; }
 
-        /* AI Maturity Disclaimer */
+        /* AI Maturity Note (subtle info style) */
         .cs-maturity-disclaimer {
             margin: 20px 24px 0;
-            padding: 16px 20px;
-            background: rgba(255, 180, 50, 0.08);
-            border: 1px solid rgba(255, 180, 50, 0.25);
+            padding: 14px 18px;
+            background: rgba(74, 144, 217, 0.06);
+            border: 1px solid rgba(74, 144, 217, 0.15);
             border-radius: 8px;
+            border-left: 3px solid rgba(74, 144, 217, 0.4);
         }
         .cs-maturity-disclaimer p {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             line-height: 1.55;
-            color: rgba(255,255,255,0.75);
+            color: rgba(255,255,255,0.6);
             margin: 0;
         }
         .cs-maturity-disclaimer strong {
-            color: #FFB432;
+            color: rgba(74, 144, 217, 0.85);
+            font-weight: 600;
         }
 
         /* Bottom verdict + CTA */
@@ -603,6 +664,7 @@
         /* --- Product Selector --- */
         .cs-product-selector {
             display: flex;
+            align-items: center;
             justify-content: center;
             gap: 4px;
             margin-bottom: 28px;
@@ -634,6 +696,8 @@
             color: #0A1628;
             box-shadow: 0 2px 12px rgba(0, 212, 170, 0.3);
         }
+        .cs-product-pill.active .cs-brand-v,
+        .cs-product-pill.active .cs-brand-p { color: #0A1628; }
 
         /* --- Section Toggle --- */
         .cs-section-hidden { display: none !important; }
@@ -738,6 +802,41 @@
         .cs-soc-assumptions {
             padding: 16px 0 0;
         }
+        /* Single expand/collapse toggle button */
+        .cs-expand-all-btn {
+            margin-left: auto;
+            padding: 6px 14px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 6px;
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.5);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+            white-space: nowrap;
+        }
+        .cs-expand-all-btn:hover {
+            color: #00D4AA;
+            border-color: rgba(0,212,170,0.3);
+            background: rgba(0,212,170,0.06);
+        }
+        .cs-expand-all-btn.active {
+            color: #00D4AA;
+            border-color: rgba(0,212,170,0.35);
+            background: rgba(0,212,170,0.08);
+        }
+        /* Hidden advanced sections revealed by the toggle */
+        .cs-advanced-section {
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.02);
+            margin-top: 12px;
+            padding: 16px;
+        }
         .cs-soc-assumptions-title {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.65rem;
@@ -751,6 +850,91 @@
         }
 
         /* --- Responsive --- */
+        /* --- Cost Trend Chart --- */
+        .cs-chart-section {
+            margin: 0 0 48px;
+            padding: 28px 24px;
+            background: #0F1115;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            color: #fff;
+        }
+        .cs-chart-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0 0 4px;
+            letter-spacing: 0.03em;
+        }
+        .cs-chart-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: rgba(255,255,255,0.4);
+            margin: 0 0 20px;
+            letter-spacing: 0.04em;
+        }
+        .cs-chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .cs-chart-header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .cs-log-toggle {
+            flex-shrink: 0;
+            padding: 5px 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 6px;
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.5);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .cs-log-toggle:hover {
+            border-color: rgba(0,212,170,0.4);
+            color: rgba(255,255,255,0.7);
+            background: rgba(0,212,170,0.06);
+        }
+        .cs-log-toggle.active {
+            border-color: #00D4AA;
+            color: #00D4AA;
+            background: rgba(0,212,170,0.12);
+        }
+        /* Branded product names */
+        .cs-brand-v { color: #00D4AA; }
+        .cs-brand-p { color: #33E0BB; }
+        /* Vigilense white in chart titles and result panels */
+        .cs-chart-title .cs-brand-v,
+        .cs-panel-name .cs-brand-v { color: #fff; }
+        .cs-brand-logo {
+            width: 18px;
+            height: 18px;
+            vertical-align: middle;
+            margin-right: 4px;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+        .cs-chart-canvas-wrap {
+            position: relative;
+            width: 100%;
+            height: 380px;
+        }
+        .cs-chart-canvas-wrap canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
         @media (max-width: 768px) {
             .cs-hero { padding: 90px 0 16px; }
             .cs-hero-bar { gap: 8px; }
@@ -766,7 +950,7 @@
             .cs-comparison { grid-template-columns: 1fr; }
             .cs-panel-splunk { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
             .cs-bar-compare { gap: 24px; }
-            .cs-bar { width: 60px; }
+            .cs-bar { width: 80px; }
             .cs-savings-banner { padding: 24px 16px; }
             .cs-product-selector { flex-wrap: wrap; gap: 4px; }
             .cs-product-pill { font-size: 0.72rem; padding: 9px 10px; }
@@ -821,13 +1005,19 @@
                         <li><a href="/security/">Security & Trust</a></li>
                     </ul>
                 </li>
-                <li><a href="/pricing/">Pricing</a></li>
+                <li>
+                    <a href="/pricing/">Pricing</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/pricing/">Pricing Overview</a></li>
+                        <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 600;">Savings Calculator</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="#">Resources</a>
                     <ul class="dropdown-menu">
                         <li><a href="/blog/">Blog</a></li>
                         <li><a href="/resources/what-is-byodb-siem/">What is BYODb SIEM?</a></li>
-                        <li><a href="/resources/what-is-sovereign-soc/">What is a Sovereign SOC?</a></li>
+                        <li><a href="/resources/what-is-sovereign-soc/">What is a SOVEREIGN SOC?</a></li>
                         <li><a href="/resources/what-is-ai-soc-analyst/">What is an AI SOC Analyst?</a></li>
                         <li><a href="/resources/siem-buyers-guide/">SIEM Buyer's Guide</a></li>
                         <li><a href="/resources/healthcare-case-study/">Case Studies</a></li>
@@ -841,7 +1031,6 @@
                         <li><a href="/security/">Security</a></li>
                     </ul>
                 </li>
-                <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 700;">Cost Simulator</a></li>
                 <li class="cta-nav"><a href="/demo/">Book a Demo</a></li>
             </ul>
             <div class="hamburger">
@@ -860,7 +1049,11 @@
             <div class="cs-hero-bar">
                 <h1>How Much Could You <span class="accent">Save</span>?</h1>
                 <div class="cs-hero-sep"></div>
-                <p class="cs-hero-desc">Compare your current security costs vs Vigilense AI - SIEM, SOC, or both.</p>
+                <p class="cs-hero-desc">Compare your current security costs vs Vigilense <span style="color:#00D4AA">AI</span> - SIEM, SOC, or both.</p>
+            </div>
+            <div class="cs-hero-trust">
+                <span>Zero ingestion tax</span>
+                <span>No vendor lock-in</span>
             </div>
         </div>
     </section>
@@ -872,12 +1065,12 @@
 
                 <!-- Product Selector -->
                 <div class="cs-product-selector">
-                    <button class="cs-product-pill active" data-mode="siem">BYODb SIEM</button>
-                    <button class="cs-product-pill" data-mode="soc">AI SOC Analyst</button>
-                    <button class="cs-product-pill" data-mode="both">Sovereign SOC (Both)</button>
+                    <button class="cs-product-pill active" data-mode="both" title="Full stack: BYODb SIEM + AI SOC Analyst bundled together with 15% discount"><span class="cs-brand-v">Vigilense</span> <span class="cs-brand-p">SOVEREIGN SOC</span></button>
+                    <button class="cs-product-pill" data-mode="soc" title="AI-powered autonomous SOC analyst - triages, investigates, and resolves security incidents 24/7"><span class="cs-brand-v">Vigilense</span> <span class="cs-brand-p">AI SOC</span></button>
+                    <button class="cs-product-pill" data-mode="siem" title="Bring Your Own Database SIEM - your data stays in your cloud, zero ingestion tax"><span class="cs-brand-v">Vigilense</span> <span class="cs-brand-p">BYODb SIEM</span></button>
                 </div>
 
-                <!-- ── SIEM Inputs ── -->
+                <!--  --  SIEM Inputs  --  -->
                 <div id="csSiemSection">
                     <label class="cs-input-label">How much data does your SIEM ingest per day?</label>
 
@@ -890,52 +1083,55 @@
                         </select>
                     </div>
 
-                    <!-- SIEM Assumptions -->
-                    <div class="cs-assumptions-panel">
+                    <!-- SIEM Assumptions (hidden by default, toggled by single expand button) -->
+                    <div class="cs-advanced-section" style="display:none">
                         <div class="cs-assumptions-grid">
                             <div class="cs-assumption-item">
                                 <label for="csRate">Legacy SIEM Rate ($/GB/year)</label>
-                                <input type="number" id="csRate" value="1200" step="50">
+                                <input type="number" id="csRate" value="1200" step="50" min="50" max="5000">
                             </div>
                             <div class="cs-assumption-item">
-                                <label for="csRules">Detection Rules</label>
-                                <input type="number" id="csRules" value="50" step="5">
+                                <label for="csRules" id="csRulesLabel">Active Detection Rules (100-5,000)</label>
+                                <input type="number" id="csRules" value="200" min="100" max="5000" step="10">
+                            </div>
+                            <div class="cs-assumption-item cs-assumption-item--full">
+                                <label for="csByodbProvider">BYODb Backend - Your Data, Your Database</label>
+                                <select id="csByodbProvider"></select>
                             </div>
                         </div>
-                        <p class="cs-assumption-note">Defaults based on published SIEM term-license pricing with enterprise volume discounts. Adjust to match your actual contract rates.</p>
+                        <p class="cs-assumption-note">Defaults based on published SIEM term-license list pricing. Most enterprises negotiate 30-50% below list - enter your actual contract rate for a personalized estimate. BYODb rates are estimates based on published cloud pricing; actual costs vary by region, commitment discounts, and query patterns.</p>
                     </div>
                 </div>
 
-                <!-- ── AI SOC Inputs ── -->
-                <div id="csSocSection" class="cs-soc-section cs-section-hidden">
-                    <label class="cs-input-label">How many security alerts does your SOC handle per day?</label>
+                <!--  --  AI SOC Inputs  --  -->
+                <div id="csSocSection" class="cs-soc-section">
+                    <label class="cs-input-label">How many security investigations does your SOC handle per day?</label>
 
                     <div class="cs-soc-slider-row">
                         <input type="range" id="csAlertSlider" min="0" max="40" value="4" step="1">
-                        <input type="number" id="csAlertVolume" class="cs-alert-input" value="500" min="50" step="50">
-                        <span class="cs-alert-unit">alerts / day</span>
+                        <input type="number" id="csAlertVolume" class="cs-alert-input" value="100" min="50" max="10000" step="50">
+                        <span class="cs-alert-unit">investigations / day</span>
                     </div>
 
-                    <div class="cs-coverage-row">
-                        <label for="csCoverage">SOC Coverage Model</label>
-                        <select id="csCoverage" class="cs-coverage-select">
-                            <option value="24/7" selected>24 / 7 / 365</option>
-                            <option value="16/5">16 hrs / 5 days</option>
-                            <option value="8/5">8 hrs / 5 days</option>
-                        </select>
-                    </div>
-
-                    <!-- SOC Assumptions -->
-                    <div class="cs-soc-assumptions">
+                    <!-- SOC Assumptions (hidden by default, toggled by single expand button) -->
+                    <div class="cs-advanced-section" style="display:none">
+                        <div class="cs-coverage-row" style="margin-bottom:16px">
+                            <label for="csCoverage">SOC Coverage Model</label>
+                            <select id="csCoverage" class="cs-coverage-select">
+                                <option value="24/7" selected>24 / 7 / 365</option>
+                                <option value="16/5">16 hrs / 5 days</option>
+                                <option value="8/5">8 hrs / 5 days</option>
+                            </select>
+                        </div>
                         <div class="cs-soc-assumptions-title">Human SOC Assumptions</div>
                         <div class="cs-assumptions-grid">
                             <div class="cs-assumption-item">
                                 <label for="csL1Salary">Avg L1 Analyst Salary</label>
-                                <input type="number" id="csL1Salary" value="75000" step="5000">
+                                <input type="number" id="csL1Salary" value="75000" step="5000" min="30000" max="250000">
                             </div>
                             <div class="cs-assumption-item">
-                                <label for="csAlertsPerAnalyst">Alerts / Analyst / Shift</label>
-                                <input type="number" id="csAlertsPerAnalyst" value="30" step="5">
+                                <label for="csAlertsPerAnalyst">Investigations / Analyst / Shift</label>
+                                <input type="number" id="csAlertsPerAnalyst" value="30" step="5" min="5" max="200">
                             </div>
                             <div class="cs-assumption-item">
                                 <label for="csInvestigationRate">Investigation Rate (%)</label>
@@ -943,54 +1139,58 @@
                             </div>
                             <div class="cs-assumption-item">
                                 <label for="csBenefits">Benefits & Overhead (%)</label>
-                                <input type="number" id="csBenefits" value="35" step="5">
+                                <input type="number" id="csBenefits" value="35" step="5" min="0" max="100">
                             </div>
                             <div class="cs-assumption-item">
                                 <label for="csTurnover">Annual Turnover (%)</label>
-                                <input type="number" id="csTurnover" value="25" step="5">
+                                <input type="number" id="csTurnover" value="25" step="5" min="0" max="100">
                             </div>
                             <div class="cs-assumption-item">
                                 <label for="csRecruitCost">Recruiting Cost / Hire</label>
-                                <input type="number" id="csRecruitCost" value="20000" step="5000">
+                                <input type="number" id="csRecruitCost" value="20000" step="5000" min="0" max="100000">
                             </div>
                             <div class="cs-assumption-item">
                                 <label for="csSoarTooling">SOAR & Tooling ($/yr)</label>
-                                <input type="number" id="csSoarTooling" value="150000" step="10000">
+                                <input type="number" id="csSoarTooling" value="150000" step="10000" min="0" max="1000000">
                             </div>
                             <div class="cs-assumption-item">
                                 <label for="csTrainingCost">Training / Analyst / yr</label>
-                                <input type="number" id="csTrainingCost" value="8000" step="1000">
+                                <input type="number" id="csTrainingCost" value="8000" step="1000" min="0" max="50000">
                             </div>
                         </div>
 
-                        <div class="cs-soc-assumptions-title">Vigilense AI SOC - Human-in-the-Loop Staff</div>
+                        <div class="cs-soc-assumptions-title">Vigilense <span style="color:#00D4AA">AI</span> SOC - Human-in-the-Loop Staff</div>
                         <div class="cs-assumptions-grid">
                             <div class="cs-assumption-item">
                                 <label for="csAutoResolve">AI Autonomous Resolution (%)</label>
                                 <input type="number" id="csAutoResolve" value="75" step="5" min="20" max="95">
                             </div>
                             <div class="cs-assumption-item">
-                                <label for="csReviewRate">AI-Prepared Reviews / Analyst / Shift</label>
-                                <input type="number" id="csReviewRate" value="80" step="10" min="20">
+                                <label for="csReviewRate">AI-Prepared Investigations / Analyst / Shift</label>
+                                <input type="number" id="csReviewRate" value="80" step="10" min="20" max="500">
                             </div>
                             <div class="cs-assumption-item">
                                 <label for="csReviewerSalary">SOC Reviewer Salary (L2-level)</label>
-                                <input type="number" id="csReviewerSalary" value="95000" step="5000">
+                                <input type="number" id="csReviewerSalary" value="95000" step="5000" min="30000" max="300000">
                             </div>
                             <div class="cs-assumption-item">
                                 <label for="csDetEngSalary">Detection Engineer Salary</label>
-                                <input type="number" id="csDetEngSalary" value="120000" step="5000">
+                                <input type="number" id="csDetEngSalary" value="120000" step="5000" min="50000" max="350000">
                             </div>
                             <div class="cs-assumption-item">
                                 <label for="csIrLeadSalary">IR Lead Salary</label>
-                                <input type="number" id="csIrLeadSalary" value="150000" step="5000">
+                                <input type="number" id="csIrLeadSalary" value="150000" step="5000" min="50000" max="400000">
                             </div>
                         </div>
-                        <p class="cs-assumption-note">AI triages and investigates 100% of alerts. Autonomous resolution rate reflects the % resolved without human involvement. Remaining alerts are escalated with AI-prepared investigation packages for human review. SOC reviewers still provide 24/7 shift coverage for escalated alerts.</p>
+                        <p class="cs-assumption-note">AI triages and investigates 100% of cases. Autonomous resolution rate reflects the % resolved without human involvement. Remaining investigations are escalated with AI-prepared packages for human review. SOC reviewers still provide 24/7 shift coverage for escalated investigations.</p>
                     </div>
                 </div>
 
-                <button class="cs-calc-btn" id="csCalcBtn">Calculate SIEM Savings</button>
+                <div style="text-align:center; margin: 10px 0 4px;">
+                    <button class="cs-expand-all-btn" id="csExpandAll" title="Show or hide advanced options">&#9662; Advanced</button>
+                </div>
+
+                <button class="cs-calc-btn" id="csCalcBtn">Calculate Vigilense SOVEREIGN SOC Savings</button>
             </div>
 
             <!-- Results (hidden until calculated) -->
@@ -1013,49 +1213,56 @@
                     <div class="cs-bar-col">
                         <div class="cs-bar-amount" id="csBarVigAmt">$0</div>
                         <div class="cs-bar cs-bar-vig" id="csBarVig" style="height: 0px;"></div>
-                        <div class="cs-bar-label">Vigilense AI</div>
+                        <div class="cs-bar-label">Vigilense <span style="color:#00D4AA">AI</span></div>
                     </div>
                 </div>
 
-                <!-- Two-column breakdown -->
-                <div class="cs-comparison">
-                    <!-- Legacy SIEM panel -->
-                    <div class="cs-panel cs-panel-splunk">
-                        <div class="cs-panel-header">
-                            <div>
-                                <div class="cs-panel-name">Legacy SIEM</div>
-                                <div class="cs-panel-sub">Based on per-GB ingestion pricing</div>
-                            </div>
-                        </div>
-                        <ul class="cs-line-items" id="csSplunkLines"></ul>
-                        <div class="cs-panel-total">
-                            <span class="cs-total-label">Total / Year</span>
-                            <span class="cs-total-value" id="csSplunkTotal">$0</span>
-                        </div>
-                        <div class="cs-panel-budget" id="csSplunkBudget"></div>
-                    </div>
-
-                    <!-- Vigilense panel -->
-                    <div class="cs-panel cs-panel-vig">
-                        <div class="cs-panel-header">
-                            <img src="/vigilense-logo.png?v=2" alt="Vigilense AI">
-                            <div>
-                                <div class="cs-panel-name">Vigilense <span class="ai">AI</span></div>
-                                <div class="cs-panel-sub">BYODb - zero ingestion fees</div>
-                            </div>
-                        </div>
-                        <ul class="cs-line-items" id="csVigLines"></ul>
-                        <div class="cs-panel-total">
-                            <span class="cs-total-label">Total / Year</span>
-                            <span class="cs-total-value" id="csVigTotal">$0</span>
-                        </div>
-                        <div class="cs-panel-budget" id="csVigBudget"></div>
-                    </div>
+                <!-- Cost Breakdown toggle button -->
+                <div style="text-align:center; margin: 16px 0 0;">
+                    <button class="cs-expand-all-btn" id="csBreakdownToggle" title="Show detailed cost breakdown">&#9662; Detailed Cost Breakdown</button>
                 </div>
 
-                <!-- AI Maturity Disclaimer (shown when SOC mode is active) -->
-                <div id="csAiMaturityNote" class="cs-maturity-disclaimer" style="display:none;">
-                    <p><strong>AI Maturity Note:</strong> The savings shown above represent a fully optimized state, typically reached 12-18 months after deployment. In the initial phase, the AI autonomous resolution rate starts at approximately 30-40% and gradually increases as the system learns your environment, playbooks are tuned, and trust is established. Early savings will be lower but grow steadily over time.</p>
+                <!-- Two-column breakdown (hidden by default, own toggle) -->
+                <div class="cs-breakdown-section" id="csBreakdownWrap" style="display:none">
+                        <div class="cs-comparison">
+                            <!-- Legacy SIEM panel -->
+                            <div class="cs-panel cs-panel-splunk">
+                                <div class="cs-panel-header">
+                                    <div>
+                                        <div class="cs-panel-name">Legacy SIEM</div>
+                                        <div class="cs-panel-sub">Based on per-GB ingestion pricing</div>
+                                    </div>
+                                </div>
+                                <ul class="cs-line-items" id="csSplunkLines"></ul>
+                                <div class="cs-panel-total">
+                                    <span class="cs-total-label">Total / Year</span>
+                                    <span class="cs-total-value" id="csSplunkTotal">$0</span>
+                                </div>
+                                <div class="cs-panel-budget" id="csSplunkBudget"></div>
+                            </div>
+
+                            <!-- Vigilense panel -->
+                            <div class="cs-panel cs-panel-vig">
+                                <div class="cs-panel-header">
+                                    <div>
+                                        <div class="cs-panel-name"><img src="/vigilense-logo.png?v=2" alt="" class="cs-brand-logo"> Vigilense <span class="ai">AI</span></div>
+                                        <div class="cs-panel-sub">Usage-based - pay for work, not data</div>
+                                    </div>
+                                </div>
+                                <ul class="cs-line-items" id="csVigLines"></ul>
+                                <div class="cs-panel-total">
+                                    <span class="cs-total-label">Total / Year</span>
+                                    <span class="cs-total-value" id="csVigTotal">$0</span>
+                                </div>
+                                <div class="cs-panel-budget" id="csVigBudget"></div>
+                            </div>
+                        </div>
+
+                        <!-- AI Maturity Disclaimer (shown when SOC mode is active) -->
+                        <div id="csAiMaturityNote" class="cs-maturity-disclaimer" style="display:none;">
+                            <p><strong>AI Maturity Note:</strong> The savings shown above represent a fully optimized state, typically reached 12-18 months after deployment. In the initial phase, the AI autonomous resolution rate starts at approximately 30-40% and gradually increases as the system learns your environment, playbooks are tuned, and trust is established. Early savings will be lower but grow steadily over time.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Bottom CTA -->
@@ -1068,6 +1275,66 @@
             </div>
         </div><!-- end cs-card -->
     </div><!-- end cs-card-wrap -->
+
+    <!-- Sovereign SOC Trend Chart (Combined SIEM + SOC) -->
+    <div class="container">
+        <div class="cs-chart-section" id="csSovChartWrap">
+            <div class="cs-chart-header">
+                <div>
+                    <h3 class="cs-chart-title"><img src="/vigilense-logo.png?v=2" alt="" class="cs-brand-logo"><span class="cs-brand-v">Vigilense</span> <span class="cs-brand-p">SOVEREIGN SOC</span> Vs <span style="color:#FF4444">Legacy SIEM</span></h3>
+                    <p class="cs-chart-subtitle">SIEM + SOC combined &middot; Volume &amp; alerts scale together &middot; 15% bundle discount &middot; Y-axis = $/year</p>
+                </div>
+                <div class="cs-chart-header-right">
+                    <button class="cs-log-toggle" id="csSovLogToggle" title="Switch between linear and logarithmic scale">
+                        <span class="cs-log-toggle-label">LOG</span>
+                    </button>
+                </div>
+            </div>
+            <div class="cs-chart-canvas-wrap">
+                <canvas id="csSovTrendChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI SOC Analyst Trend Chart -->
+    <div class="container">
+        <div class="cs-chart-section" id="csSocChartWrap">
+            <div class="cs-chart-header">
+                <div>
+                    <h3 class="cs-chart-title"><img src="/vigilense-logo.png?v=2" alt="" class="cs-brand-logo"><span class="cs-brand-v">Vigilense</span> <span class="cs-brand-p">AI SOC Analyst</span> Vs <span style="color:#FF4444">Legacy SOC</span></h3>
+                    <p class="cs-chart-subtitle">Annual cost by daily investigations &middot; 24/7 coverage &middot; Static defaults &middot; Y-axis = $/year</p>
+                </div>
+                <div class="cs-chart-header-right">
+                    <button class="cs-log-toggle" id="csSocLogToggle" title="Switch between linear and logarithmic scale">
+                        <span class="cs-log-toggle-label">LOG</span>
+                    </button>
+                </div>
+            </div>
+            <div class="cs-chart-canvas-wrap">
+                <canvas id="csSocTrendChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- BYODb SIEM Cost Trend Chart -->
+    <div class="container">
+        <div class="cs-chart-section" id="csTrendChartWrap">
+            <div class="cs-chart-header">
+                <div>
+                    <h3 class="cs-chart-title"><img src="/vigilense-logo.png?v=2" alt="" class="cs-brand-logo"><span class="cs-brand-v">Vigilense</span> <span class="cs-brand-p">BYODb SIEM</span> Vs <span style="color:#FF4444">Legacy SIEM</span></h3>
+                    <p class="cs-chart-subtitle">Annual cost by daily data volume &middot; Detection rules scale with volume &middot; Y-axis = $/year</p>
+                </div>
+                <div class="cs-chart-header-right">
+                    <button class="cs-log-toggle" id="csLogToggle" title="Switch between linear and logarithmic scale">
+                        <span class="cs-log-toggle-label">LOG</span>
+                    </button>
+                </div>
+            </div>
+            <div class="cs-chart-canvas-wrap">
+                <canvas id="csTrendChart"></canvas>
+            </div>
+        </div>
+    </div>
 
     <!-- ========================================
          BOTTOM CTA
@@ -1091,7 +1358,7 @@
                         <img src="/vigilense-logo.png?v=2" alt="Vigilense AI" class="logo-icon" loading="lazy">
                         <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
                     </a>
-                    <p>The Sovereign SOC</p>
+                    <p>The SOVEREIGN SOC</p>
                 </div>
                 <div class="footer-links">
                     <div class="footer-column">
@@ -1120,7 +1387,7 @@
                             <li><a href="/why-now/">Why Now</a></li>
                             <li><a href="/blog/">Blog & News</a></li>
                             <li><a href="/resources/what-is-byodb-siem/">What is BYODb SIEM?</a></li>
-                            <li><a href="/resources/what-is-sovereign-soc/">What is a Sovereign SOC?</a></li>
+                            <li><a href="/resources/what-is-sovereign-soc/">What is a SOVEREIGN SOC?</a></li>
                             <li><a href="/resources/what-is-ai-soc-analyst/">What is an AI SOC Analyst?</a></li>
                             <li><a href="/resources/siem-buyers-guide/">SIEM Buyer's Guide</a></li>
                         </ul>
@@ -1139,7 +1406,7 @@
             </div>
             <div class="footer-bottom">
                 <div class="footer-bottom-content">
-                    <p>&copy; 2026 Vigilense AI. All rights reserved.</p>
+                    <p>&copy; 2026 Vigilense <span style="color:#00D4AA">AI</span>. All rights reserved.</p>
                     <div class="footer-legal-links">
                         <a href="/privacy/">Privacy</a>
                         <a href="/terms/">Terms</a>
@@ -1151,20 +1418,26 @@
         </div>
     </footer>
 
+
     <!-- ========================================
          SCRIPTS
          ======================================== -->
     <script src="/script.js"></script>
+    <script src="/pricing-config.js"></script>
     <script>
     (function() {
-        // ══════════════════════════════════════════════════
+        var P = window.VIGILENSE_PRICING;
+        var PH = P.helpers;
+
+        // --------------------------------------------------
         // DOM REFS
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
         var slider = document.getElementById('csSlider');
         var volumeInput = document.getElementById('csVolume');
         var unitSelect = document.getElementById('csUnit');
         var rateInput = document.getElementById('csRate');
         var rulesInput = document.getElementById('csRules');
+        var byodbSelect = document.getElementById('csByodbProvider');
         var calcBtn = document.getElementById('csCalcBtn');
         var results = document.getElementById('csResults');
         var siemSection = document.getElementById('csSiemSection');
@@ -1173,6 +1446,9 @@
         var alertInput = document.getElementById('csAlertVolume');
         var coverageSelect = document.getElementById('csCoverage');
         var pills = document.querySelectorAll('.cs-product-pill');
+        var chartSiem = document.getElementById('csTrendChartWrap');
+        var chartSoc = document.getElementById('csSocChartWrap');
+        var chartSov = document.getElementById('csSovChartWrap');
 
         // SOC assumption inputs
         var inL1Salary = document.getElementById('csL1Salary');
@@ -1189,10 +1465,38 @@
         var inDetEngSalary = document.getElementById('csDetEngSalary');
         var inIrLeadSalary = document.getElementById('csIrLeadSalary');
 
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
+        // SINGLE EXPAND / COLLAPSE TOGGLE
+        // --------------------------------------------------
+        var expandBtn = document.getElementById('csExpandAll');
+        var advancedExpanded = false;
+        var advancedSections = document.querySelectorAll('.cs-advanced-section');
+
+        expandBtn.addEventListener('click', function() {
+            advancedExpanded = !advancedExpanded;
+            advancedSections.forEach(function(s) {
+                s.style.display = advancedExpanded ? '' : 'none';
+            });
+            expandBtn.innerHTML = advancedExpanded ? '&#9652; Advanced' : '&#9662; Advanced';
+            expandBtn.classList.toggle('active', advancedExpanded);
+        });
+
+        // Breakdown toggle (separate from Advanced)
+        var breakdownBtn = document.getElementById('csBreakdownToggle');
+        var breakdownWrap = document.getElementById('csBreakdownWrap');
+        var breakdownExpanded = false;
+
+        breakdownBtn.addEventListener('click', function() {
+            breakdownExpanded = !breakdownExpanded;
+            breakdownWrap.style.display = breakdownExpanded ? '' : 'none';
+            breakdownBtn.innerHTML = breakdownExpanded ? '&#9652; Detailed Cost Breakdown' : '&#9662; Detailed Cost Breakdown';
+            breakdownBtn.classList.toggle('active', breakdownExpanded);
+        });
+
+        // --------------------------------------------------
         // MODE MANAGEMENT
-        // ══════════════════════════════════════════════════
-        var currentMode = 'siem';
+        // --------------------------------------------------
+        var currentMode = 'both';
 
         function setMode(mode) {
             currentMode = mode;
@@ -1203,19 +1507,22 @@
             if (mode === 'siem') {
                 siemSection.classList.remove('cs-section-hidden');
                 socSection.classList.add('cs-section-hidden');
-                calcBtn.textContent = 'Calculate SIEM Savings';
+                calcBtn.innerHTML = 'Calculate Vigilense BYODb SIEM Savings';
             } else if (mode === 'soc') {
                 siemSection.classList.add('cs-section-hidden');
                 socSection.classList.remove('cs-section-hidden');
-                calcBtn.textContent = 'Calculate SOC Savings';
+                calcBtn.innerHTML = 'Calculate Vigilense <span style="color:#0A1628">AI</span> SOC Savings';
             } else {
                 siemSection.classList.remove('cs-section-hidden');
                 socSection.classList.remove('cs-section-hidden');
-                calcBtn.textContent = 'Calculate Total Savings';
+                calcBtn.innerHTML = 'Calculate Vigilense SOVEREIGN SOC Savings';
             }
-            // Hide stale results
-            results.style.display = 'none';
-            results.classList.remove('visible');
+            // Show only the relevant chart(s) for this mode
+            chartSov.style.display  = (mode === 'both') ? '' : 'none';
+            chartSoc.style.display  = (mode === 'soc'  || mode === 'both') ? '' : 'none';
+            chartSiem.style.display = (mode === 'siem' || mode === 'both') ? '' : 'none';
+            // Auto-recalculate when switching modes
+            runCalculation();
         }
 
         pills.forEach(function(p) {
@@ -1224,39 +1531,99 @@
             });
         });
 
-        // ══════════════════════════════════════════════════
-        // SIEM VOLUME SLIDER (existing logic)
-        // ══════════════════════════════════════════════════
-        var sliderSteps = [];
-        var i;
-        for (i = 100; i <= 1000; i += 100) sliderSteps.push(i);
-        for (i = 1500; i <= 10000; i += 500) sliderSteps.push(i);
-        for (i = 15000; i <= 100000; i += 5000) sliderSteps.push(i);
-        for (i = 150000; i <= 1000000; i += 50000) sliderSteps.push(i);
+        // --------------------------------------------------
+        // POPULATE BYODb PROVIDER DROPDOWN
+        // --------------------------------------------------
+        (function populateByodbDropdown() {
+            var providers = P.byodbProviders;
+            var categories = {};
+            var key;
+            for (key in providers) {
+                if (!providers.hasOwnProperty(key)) continue;
+                var cat = providers[key].category;
+                if (!categories[cat]) categories[cat] = [];
+                categories[cat].push({ key: key, label: providers[key].label });
+            }
+            for (var catName in categories) {
+                if (!categories.hasOwnProperty(catName)) continue;
+                var group = document.createElement('optgroup');
+                group.label = catName;
+                categories[catName].forEach(function(p) {
+                    var opt = document.createElement('option');
+                    opt.value = p.key;
+                    opt.textContent = p.label;
+                    if (p.key === P.byodbDefault) opt.selected = true;
+                    group.appendChild(opt);
+                });
+                byodbSelect.appendChild(group);
+            }
+        })();
 
-        slider.min = 0;
-        slider.max = sliderSteps.length - 1;
-        slider.step = 1;
-        slider.value = 4;
+        // --------------------------------------------------
+        // SIEM VOLUME SLIDER — separate GB and TB scales
+        // --------------------------------------------------
+
+        // GB scale: 1 GB → 2,000 GB (fine-grained at small volumes)
+        var gbSteps = [1, 2, 5, 10, 15, 20, 30, 50, 75];
+        var i;
+        for (i = 100; i <= 1000; i += 100) gbSteps.push(i);
+        for (i = 1200; i <= 2000; i += 200) gbSteps.push(i);
+
+        // TB scale: 1 TB → 1,000 TB (stored as GB internally)
+        var tbSteps = [];
+        for (i = 1; i <= 10; i += 1)    tbSteps.push(i * 1000);    // 1-10 TB by 1
+        for (i = 15; i <= 50; i += 5)   tbSteps.push(i * 1000);    // 15-50 TB by 5
+        for (i = 60; i <= 100; i += 10)  tbSteps.push(i * 1000);   // 60-100 TB by 10
+        for (i = 150; i <= 500; i += 50) tbSteps.push(i * 1000);   // 150-500 TB by 50
+        for (i = 600; i <= 1000; i += 100) tbSteps.push(i * 1000); // 600-1000 TB by 100
+
+        // Return the active step array based on the current unit
+        function activeSteps() {
+            return unitSelect.value === 'TB' ? tbSteps : gbSteps;
+        }
+
+        function initSlider() {
+            var steps = activeSteps();
+            slider.min = 0;
+            slider.max = steps.length - 1;
+            slider.step = 1;
+        }
 
         function sliderToGB() {
+            var steps = activeSteps();
             var idx = parseInt(slider.value) || 0;
-            idx = Math.max(0, Math.min(idx, sliderSteps.length - 1));
-            return sliderSteps[idx];
+            idx = Math.max(0, Math.min(idx, steps.length - 1));
+            return steps[idx];
         }
+
         function gbToSlider(gb) {
-            var bestIdx = 0, bestDist = Math.abs(sliderSteps[0] - gb);
-            for (var j = 1; j < sliderSteps.length; j++) {
-                var d = Math.abs(sliderSteps[j] - gb);
+            var steps = activeSteps();
+            var bestIdx = 0, bestDist = Math.abs(steps[0] - gb);
+            for (var j = 1; j < steps.length; j++) {
+                var d = Math.abs(steps[j] - gb);
                 if (d < bestDist) { bestDist = d; bestIdx = j; }
             }
             return bestIdx;
         }
+
         function getVolumeGB() {
             var raw = parseFloat(volumeInput.value) || 0;
-            return unitSelect.value === 'TB' ? Math.round(raw * 1000) : Math.round(raw);
+            var gb = unitSelect.value === 'TB' ? Math.round(raw * 1000) : Math.round(raw);
+            var steps = activeSteps();
+            var maxGB = steps[steps.length - 1];
+            var minGB = steps[0];
+            if (gb > maxGB) gb = maxGB;
+            if (gb < minGB) gb = minGB;
+            return gb;
         }
+
         function setVolumeFromGB(gb) {
+            // Clamp to active scale range
+            var steps = activeSteps();
+            var maxGB = steps[steps.length - 1];
+            var minGB = steps[0];
+            if (gb > maxGB) gb = maxGB;
+            if (gb < minGB) gb = minGB;
             if (unitSelect.value === 'TB') {
                 var tb = gb / 1000;
                 volumeInput.value = tb % 1 === 0 ? tb.toFixed(0) : tb.toFixed(1);
@@ -1265,59 +1632,95 @@
             }
         }
 
+        // Initialise with GB mode
+        initSlider();
+        slider.value = gbToSlider(500);
+
         slider.addEventListener('input', function() {
             var gb = sliderToGB();
             setVolumeFromGB(gb);
             updateSiemDefaults(gb);
         });
+
         volumeInput.addEventListener('input', function() {
             var gb = getVolumeGB();
             if (gb > 0) {
-                slider.value = gbToSlider(Math.min(gb, 1000000));
+                slider.value = gbToSlider(gb);
                 updateSiemDefaults(gb);
             }
         });
-        unitSelect.addEventListener('change', function() {
-            var currentRaw = parseFloat(volumeInput.value) || 0;
-            if (unitSelect.value === 'TB') {
-                var tb = currentRaw / 1000;
-                volumeInput.value = tb % 1 === 0 ? tb.toFixed(0) : tb.toFixed(1);
-                volumeInput.step = 0.1;
-            } else {
-                volumeInput.value = Math.round(currentRaw * 1000);
-                volumeInput.step = 1;
-            }
-            var gbNow = getVolumeGB();
-            slider.value = gbToSlider(Math.min(gbNow, 1000000));
-            updateSiemDefaults(gbNow);
+
+        // Clamp to valid range when the user finishes typing / leaves the field
+        volumeInput.addEventListener('change', function() {
+            var gb = getVolumeGB();
+            setVolumeFromGB(gb);
+            slider.value = gbToSlider(gb);
+            updateSiemDefaults(gb);
         });
+
+        unitSelect.addEventListener('change', function() {
+            // Capture current value in GB before switching
+            var currentGB = getVolumeGB();
+
+            // Rebuild slider for the new unit's step array
+            initSlider();
+
+            // Update the text input display
+            if (unitSelect.value === 'TB') {
+                volumeInput.step = 0.1;
+                // If current GB < 1000 (1 TB), snap to 1 TB minimum
+                if (currentGB < 1000) currentGB = 1000;
+            } else {
+                volumeInput.step = 1;
+                // If current GB > 2000, snap to 2000 GB maximum
+                if (currentGB > 2000) currentGB = 2000;
+            }
+
+            setVolumeFromGB(currentGB);
+            slider.value = gbToSlider(currentGB);
+            updateSiemDefaults(currentGB);
+        });
+
+        // Max detection rules scales with volume — a 1 GB deployment
+        // doesn't have thousands of rules, an enterprise at 10 TB does.
+        function maxRulesForVolume(gb) {
+            if (gb <= 10)   return 100;
+            if (gb <= 50)   return 250;
+            if (gb <= 200)  return 500;
+            if (gb <= 1000) return 1500;
+            if (gb <= 5000) return 3000;
+            return 5000;
+        }
 
         function updateSiemDefaults(gb) {
             if (gb === undefined) gb = getVolumeGB() || 500;
-            var rate;
-            if (gb <= 500) rate = 1800 - (gb * 0.6);
-            else if (gb <= 2000) rate = 1500 - ((gb - 500) * 0.3);
-            else if (gb <= 10000) rate = 1050 - ((gb - 2000) * 0.0625);
-            else if (gb <= 50000) rate = 550 - ((gb - 10000) * 0.005);
-            else rate = 350;
-            rateInput.value = Math.max(350, Math.round(rate));
-            rulesInput.value = Math.max(10, Math.min(2000, Math.round(gb / 10)));
+            rateInput.value = PH.legacyRate(gb);
+
+            // Update rules max based on volume, clamp if current value exceeds it
+            var maxR = maxRulesForVolume(gb);
+            rulesInput.max = maxR;
+            if (parseInt(rulesInput.value) > maxR) rulesInput.value = maxR;
+            var rulesLabel = document.getElementById('csRulesLabel');
+            if (rulesLabel) rulesLabel.textContent = 'Active Detection Rules (100\u2013' + maxR.toLocaleString() + ')';
+
+            // Default rules: scale proportionally, capped by volume-appropriate max
+            var suggested = Math.max(100, Math.min(maxR, Math.round(200 * (gb / 500))));
+            rulesInput.value = suggested;
         }
 
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
         // ALERT VOLUME SLIDER (SOC)
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
         var alertSteps = [];
-        for (i = 100; i <= 1000; i += 100) alertSteps.push(i);
+        for (i = 50; i <= 500; i += 50) alertSteps.push(i);
+        for (i = 600; i <= 1000; i += 100) alertSteps.push(i);
         for (i = 1500; i <= 5000; i += 500) alertSteps.push(i);
         for (i = 6000; i <= 10000; i += 1000) alertSteps.push(i);
-        for (i = 15000; i <= 50000; i += 5000) alertSteps.push(i);
-        for (i = 60000; i <= 100000; i += 10000) alertSteps.push(i);
 
         alertSlider.min = 0;
         alertSlider.max = alertSteps.length - 1;
         alertSlider.step = 1;
-        alertSlider.value = 4; // 500 alerts default
+        alertSlider.value = 0; // 100 alerts default
 
         function alertSliderToVal() {
             var idx = parseInt(alertSlider.value) || 0;
@@ -1337,18 +1740,42 @@
             alertInput.value = alertSliderToVal();
         });
         alertInput.addEventListener('input', function() {
-            var v = parseInt(alertInput.value) || 100;
-            alertSlider.value = valToAlertSlider(Math.min(v, 100000));
+            var v = Math.max(50, Math.min(10000, parseInt(alertInput.value) || 100));
+            alertSlider.value = valToAlertSlider(v);
+        });
+        alertInput.addEventListener('change', function() {
+            var v = Math.max(50, Math.min(10000, parseInt(alertInput.value) || 100));
+            alertInput.value = v;
+            alertSlider.value = valToAlertSlider(v);
         });
 
-        // ══════════════════════════════════════════════════
+        // Global clamper: enforce min/max on every number input on blur
+        document.querySelectorAll('.cs-calculator input[type="number"]').forEach(function(el) {
+            el.addEventListener('change', function() {
+                var val = parseFloat(el.value);
+                if (isNaN(val)) { el.value = el.defaultValue; return; }
+                if (el.min !== '' && val < parseFloat(el.min)) el.value = el.min;
+                if (el.max !== '' && val > parseFloat(el.max)) el.value = el.max;
+            });
+        });
+
+        // --------------------------------------------------
         // CALCULATE BUTTON
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
         calcBtn.addEventListener('click', function() { runCalculation(); });
         volumeInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') runCalculation(); });
         alertInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') runCalculation(); });
 
+        var _isInitialLoad = true;
         function runCalculation() {
+            // Force-clamp all number inputs before calculating
+            document.querySelectorAll('.cs-calculator input[type="number"]').forEach(function(el) {
+                var val = parseFloat(el.value);
+                if (isNaN(val)) { el.value = el.defaultValue; return; }
+                if (el.min !== '' && val < parseFloat(el.min)) el.value = el.min;
+                if (el.max !== '' && val > parseFloat(el.max)) el.value = el.max;
+            });
+
             var siemData = null;
             var socData = null;
 
@@ -1362,116 +1789,80 @@
             updateResultsUI(currentMode, siemData, socData);
         }
 
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
         // SIEM CALCULATION (existing logic, refactored)
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
         function calcSiem() {
             var vol = getVolumeGB();
-            if (vol < 100) vol = 100;
-            var rate = parseInt(rateInput.value) || 1200;
-            var rules = parseInt(rulesInput.value) || Math.round(vol / 10);
+            if (vol < 1) vol = 1;
+            setVolumeFromGB(vol);
+            slider.value = gbToSlider(vol);
 
-            // Legacy SIEM
-            var legacyLicense = vol * rate;
-            var maxLicense = Infinity;
-            if (vol > 300000) maxLicense = 55000000;
-            else if (vol > 80000) maxLicense = 30000000;
-            var licenseCapped = legacyLicense > maxLicense;
-            legacyLicense = Math.min(legacyLicense, maxLicense);
+            var rate = Math.max(50, Math.min(5000, parseInt(rateInput.value) || 1200));
+            rateInput.value = rate;
 
-            var legacyInfra = Math.min(Math.round(legacyLicense * 0.25), 10000000);
-            var legacyAdmins = Math.min(25, Math.max(1, Math.ceil(vol / 350)));
-            var legacyAdminCost = legacyAdmins * 140000;
-            var legacyTotal = legacyLicense + legacyInfra + legacyAdminCost;
+            var maxR = maxRulesForVolume(vol);
+            var rules = Math.max(100, Math.min(maxR, parseInt(rulesInput.value) || 200));
+            rulesInput.value = rules;
 
-            // Vigilense SIEM
-            var vigPlatform, vigTierName;
-            if (vol <= 500) { vigPlatform = 60000 + vol * 280; vigTierName = 'Starter'; }
-            else if (vol <= 2000) { vigPlatform = 200000 + (vol - 500) * 200; vigTierName = 'Growth'; }
-            else if (vol <= 10000) { vigPlatform = 500000 + (vol - 2000) * 120; vigTierName = 'Business'; }
-            else if (vol <= 50000) { vigPlatform = 1460000 + (vol - 10000) * 70; vigTierName = 'Enterprise'; }
-            else if (vol <= 200000) { vigPlatform = 4260000 + (vol - 50000) * 35; vigTierName = 'Enterprise+'; }
-            else { vigPlatform = 9510000 + (vol - 200000) * 12; vigTierName = 'Scale'; }
+            // Legacy SIEM — delegate to central pricing helper
+            var leg = PH.legacyScenario(vol, rate, rules);
 
-            var vigAiAnnual = 0, remainRules = rules;
-            if (remainRules > 0) { var t1 = Math.min(remainRules, 100); vigAiAnnual += t1 * 2500; remainRules -= t1; }
-            if (remainRules > 0) { var t2 = Math.min(remainRules, 400); vigAiAnnual += t2 * 1500; remainRules -= t2; }
-            if (remainRules > 0) { var t3 = Math.min(remainRules, 500); vigAiAnnual += t3 * 1000; remainRules -= t3; }
-            if (remainRules > 0) { vigAiAnnual += remainRules * 600; }
-
-            var vigSupport;
-            if (vol <= 500) vigSupport = 12000;
-            else if (vol <= 2000) vigSupport = 24000;
-            else if (vol <= 10000) vigSupport = 60000;
-            else if (vol <= 50000) vigSupport = 120000;
-            else if (vol <= 200000) vigSupport = 240000;
-            else vigSupport = 360000;
-
-            // BYODb Infrastructure: managed cloud platform costs
-            // Blended average of Elastic Cloud, Snowflake, AWS OpenSearch
-            // Rates match real-world managed-service pricing for security query workloads
-            var byodbCost = 0, bRemain = vol;
-            var b1 = Math.min(bRemain, 500); byodbCost += b1 * 0.30 * 365; bRemain -= b1;
-            if (bRemain > 0) { var b2 = Math.min(bRemain, 1500); byodbCost += b2 * 0.20 * 365; bRemain -= b2; }
-            if (bRemain > 0) { var b3 = Math.min(bRemain, 8000); byodbCost += b3 * 0.12 * 365; bRemain -= b3; }
-            if (bRemain > 0) { var b4 = Math.min(bRemain, 90000); byodbCost += b4 * 0.08 * 365; bRemain -= b4; }
-            if (bRemain > 0) { byodbCost += bRemain * 0.05 * 365; }
-            byodbCost = Math.round(byodbCost);
-
-            var vigTotal = vigPlatform + vigAiAnnual + vigSupport + byodbCost;
+            // Vigilense SIEM — usage-based workload model
+            var byodbProvider = byodbSelect.value || P.byodbDefault;
+            var vig = PH.vigilenseSiemCost(vol, rules, byodbProvider);
             var volStr = vol >= 1000 ? (vol / 1000) + ' TB' : vol + ' GB';
-            var avgPerRule = rules > 0 ? Math.round(vigAiAnnual / rules) : 0;
-            var byodbEffective = (byodbCost / vol / 365).toFixed(3);
 
             return {
-                legacyTotal: legacyTotal, vigTotal: vigTotal,
-                legacyLicense: legacyLicense, licenseCapped: licenseCapped,
-                legacyInfra: legacyInfra, legacyAdmins: legacyAdmins,
-                legacyAdminCost: legacyAdminCost,
-                vigPlatform: vigPlatform, vigTierName: vigTierName,
-                vigAiAnnual: vigAiAnnual, vigSupport: vigSupport,
-                byodbCost: byodbCost, byodbEffective: byodbEffective,
-                vol: vol, rate: rate, rules: rules, volStr: volStr,
-                avgPerRule: avgPerRule
+                legacyTotal: leg.total,
+                legacyLicense: leg.license, licenseCapped: leg.licenseCapped,
+                legacyInfra: leg.infra, legacyAdmins: leg.admins,
+                legacyAdminCost: leg.adminCost,
+                legacyDetCompute: leg.detCompute,
+                legacyTrainingPS: leg.trainingPS,
+                vig: vig,
+                vigTotal: vig.total,
+                vol: vol, rate: leg.rate, rules: rules, volStr: volStr
             };
         }
 
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
         // SOC CALCULATION (new)
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
         function calcSoc() {
+            var SD = P.socDefaults;
             var dailyAlerts = parseInt(alertInput.value) || 500;
             if (dailyAlerts < 50) dailyAlerts = 50;
             var coverage = coverageSelect.value;
-            var l1Salary = parseInt(inL1Salary.value) || 75000;
-            var alertsPerAnalyst = parseInt(inAlertsPerAnalyst.value) || 30;
-            var investRate = (parseInt(inInvestRate.value) || 40) / 100;
-            var benefitsMult = 1 + (parseInt(inBenefits.value) || 35) / 100;
-            var turnoverRate = (parseInt(inTurnover.value) || 25) / 100;
-            var recruitCost = parseInt(inRecruitCost.value) || 20000;
-            var soarTooling = parseInt(inSoarTooling.value) || 150000;
-            var trainingCost = parseInt(inTrainingCost.value) || 8000;
-            var autoResolveRate = Math.min(95, Math.max(20, parseInt(inAutoResolve.value) || 75)) / 100;
-            var reviewsPerShift = parseInt(inReviewRate.value) || 80;
-            var reviewerSalary = parseInt(inReviewerSalary.value) || 95000;
-            var detEngSalary = parseInt(inDetEngSalary.value) || 120000;
-            var irLeadSalary = parseInt(inIrLeadSalary.value) || 150000;
+            var l1Salary = parseInt(inL1Salary.value) || SD.l1Salary;
+            var alertsPerAnalyst = parseInt(inAlertsPerAnalyst.value) || SD.alertsPerAnalyst;
+            var investRate = (parseInt(inInvestRate.value) || SD.investigationRate) / 100;
+            var benefitsMult = 1 + (parseInt(inBenefits.value) || SD.benefitsPct) / 100;
+            var turnoverRate = (parseInt(inTurnover.value) || SD.turnoverPct) / 100;
+            var recruitCost = parseInt(inRecruitCost.value) || SD.recruitCost;
+            var soarTooling = parseInt(inSoarTooling.value) || SD.soarTooling;
+            var trainingCost = parseInt(inTrainingCost.value) || SD.trainingCost;
+            var autoResolveRate = Math.min(95, Math.max(20, parseInt(inAutoResolve.value) || SD.autoResolveRate)) / 100;
+            var reviewsPerShift = parseInt(inReviewRate.value) || SD.reviewRate;
+            var reviewerSalary = parseInt(inReviewerSalary.value) || SD.reviewerSalary;
+            var detEngSalary = parseInt(inDetEngSalary.value) || SD.detEngSalary;
+            var irLeadSalary = parseInt(inIrLeadSalary.value) || SD.irLeadSalary;
 
-            // ── Human SOC Cost ──
+            //  --  Human SOC Cost — shift model from central config  -- 
             var investigatedAlerts = Math.round(dailyAlerts * investRate);
-            var shifts, fteMult, shiftPremium;
-            if (coverage === '24/7') { shifts = 3; fteMult = 4.7; shiftPremium = 1.10; }
-            else if (coverage === '16/5') { shifts = 2; fteMult = 2.3; shiftPremium = 1.05; }
-            else { shifts = 1; fteMult = 1.15; shiftPremium = 1.0; }
+            var shiftModel = P.shifts[coverage] || P.shifts['8/5'];
+            var shifts = shiftModel.count;
+            var fteMult = shiftModel.fteMult;
+            var shiftPremium = shiftModel.premium;
 
             var alertsPerShift = Math.ceil(investigatedAlerts / shifts);
             var seatsPerShift = Math.max(1, Math.ceil(alertsPerShift / alertsPerAnalyst));
-            var l1Count = Math.min(200, Math.max(2, Math.ceil(seatsPerShift * fteMult)));
+            var l1Count = Math.max(2, Math.ceil(seatsPerShift * fteMult));
             var l2Count = Math.max(1, Math.ceil(l1Count * 0.25));
             var l3Count = Math.max(1, Math.ceil(l1Count * 0.125));
-            var l2Salary = Math.round(l1Salary * 1.40);
-            var l3Salary = Math.round(l1Salary * 1.85);
-            var mgrSalary = Math.round(l1Salary * 2.10);
+            var l2Salary = Math.round(l1Salary * SD.l2Multiplier);
+            var l3Salary = Math.round(l1Salary * SD.l3Multiplier);
+            var mgrSalary = Math.round(l1Salary * SD.mgrMultiplier);
             var totalAnalysts = l1Count + l2Count + l3Count;
             var mgrCount = Math.max(1, Math.ceil(totalAnalysts / 12));
             var totalStaff = totalAnalysts + mgrCount;
@@ -1484,65 +1875,37 @@
 
             var turnoverCostTotal = Math.round(totalStaff * turnoverRate * recruitCost);
             var trainingTotal = totalStaff * trainingCost;
-            var threatIntel = 50000;
+            var threatIntel = SD.threatIntel;
             var toolingTotal = soarTooling + threatIntel;
 
             var humanSocTotal = staffCost + turnoverCostTotal + trainingTotal + toolingTotal;
 
-            // ── Vigilense AI SOC Cost ──
+            //  --  Vigilense AI SOC Cost — tiers from central config  -- 
             var annualInvestigations = dailyAlerts * 365;
 
-            // AI SOC Platform License (tiered by daily alert volume)
-            var aiSocPlatform, aiSocTier;
-            if (dailyAlerts <= 1000) { aiSocPlatform = 60000; aiSocTier = 'Starter'; }
-            else if (dailyAlerts <= 5000) { aiSocPlatform = 120000; aiSocTier = 'Professional'; }
-            else if (dailyAlerts <= 15000) { aiSocPlatform = 240000; aiSocTier = 'Business'; }
-            else if (dailyAlerts <= 50000) { aiSocPlatform = 420000; aiSocTier = 'Enterprise'; }
-            else { aiSocPlatform = 600000; aiSocTier = 'Scale'; }
+            // AI SOC Platform License
+            var socPlatformResult = PH.aiSocPlatformCost(dailyAlerts);
+            var aiSocPlatform = socPlatformResult.annual;
+            var aiSocTier = socPlatformResult.tier;
 
-            // AI Investigation Compute (per-investigation, tiered)
-            // Covers LLM inference, enrichment across 50+ sources, correlation
-            var aiCompute = 0, compRemain = annualInvestigations;
-            var c1 = Math.min(compRemain, 250000);
-            aiCompute += c1 * 2.00; compRemain -= c1;
-            if (compRemain > 0) {
-                var c2 = Math.min(compRemain, 750000);
-                aiCompute += c2 * 1.20; compRemain -= c2;
-            }
-            if (compRemain > 0) {
-                var c3 = Math.min(compRemain, 4000000);
-                aiCompute += c3 * 0.70; compRemain -= c3;
-            }
-            if (compRemain > 0) {
-                aiCompute += compRemain * 0.35;
-            }
-            aiCompute = Math.round(aiCompute);
+            // AI Investigation Compute
+            var aiCompute = PH.aiComputeCost(annualInvestigations);
             var blendedRate = annualInvestigations > 0 ? (aiCompute / annualInvestigations).toFixed(2) : '0.00';
 
             // Human-in-the-Loop Staffing (customer retains)
-            // AI triages + investigates 100% of alerts, but only a % are
-            // resolved fully autonomously. The rest are escalated to SOC Reviewers.
             var dailyEscalated = Math.round(dailyAlerts * (1 - autoResolveRate));
 
-            // SOC Reviewers: L2-level analysts who review AI-prepared investigation
-            // packages for escalated alerts. Shift model mirrors SOC coverage.
+            // SOC Reviewers
             var reviewerPerShift = Math.max(1, Math.ceil(dailyEscalated / reviewsPerShift));
             var reviewerCount = Math.ceil(reviewerPerShift * fteMult);
             var reviewerCost = Math.round(reviewerCount * reviewerSalary * benefitsMult * shiftPremium);
 
-            // Detection Engineers: rule tuning, autonomy configuration
-            var detEngCount;
-            if (dailyAlerts <= 2000) detEngCount = 1;
-            else if (dailyAlerts <= 10000) detEngCount = 1;
-            else if (dailyAlerts <= 30000) detEngCount = 2;
-            else detEngCount = 3;
+            // Detection Engineers — headcount from central config tiers
+            var detEngCount = PH.detEngCount(dailyAlerts);
             var detEngCost = Math.round(detEngCount * detEngSalary * benefitsMult);
 
-            // IR Lead: P1/P2 incident response oversight
-            var irLeadCount;
-            if (dailyAlerts <= 5000) irLeadCount = 0;
-            else if (dailyAlerts <= 30000) irLeadCount = 1;
-            else irLeadCount = 2;
+            // IR Lead — headcount from central config tiers
+            var irLeadCount = PH.irLeadCount(dailyAlerts);
             var irLeadCost = Math.round(irLeadCount * irLeadSalary * benefitsMult);
 
             var hilStaffTotal = reviewerCost + detEngCost + irLeadCost;
@@ -1571,13 +1934,13 @@
                 detEngCost: detEngCost, irLeadCost: irLeadCost,
                 hilStaffTotal: hilStaffTotal, hilHeadcount: hilHeadcount,
                 shiftPremium: shiftPremium, benefitsMult: benefitsMult,
-                l1Salary: parseInt(inL1Salary.value) || 75000
+                l1Salary: parseInt(inL1Salary.value) || SD.l1Salary
             };
         }
 
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
         // UPDATE RESULTS UI
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
         function updateResultsUI(mode, siem, soc) {
             var beforeTotal, afterTotal, beforeLabel, afterLabel;
             var leftName, leftSub, rightName, rightSub;
@@ -1588,11 +1951,11 @@
                 beforeTotal = siem.legacyTotal;
                 afterTotal = siem.vigTotal;
                 beforeLabel = 'Legacy SIEM';
-                afterLabel = 'Vigilense AI';
+                afterLabel = 'Vigilense <span style="color:#00D4AA">AI</span>';
                 leftName = 'Legacy SIEM';
                 leftSub = 'Based on per-GB ingestion pricing';
-                rightName = 'Vigilense <span class="ai">AI</span>';
-                rightSub = 'BYODb - zero ingestion fees';
+                rightName = '<img src="/vigilense-logo.png?v=2" alt="" class="cs-brand-logo"> <span style="color:#fff">Vigilense</span> <span style="color:#00D4AA">BYODb SIEM</span>';
+                rightSub = 'Usage-based - pay for work, not data';
                 leftLines = buildSiemLegacyLines(siem);
                 rightLines = buildSiemVigLines(siem);
                 var secBudget = Math.max(500000, siem.legacyTotal * 1.6);
@@ -1603,37 +1966,37 @@
                 beforeTotal = soc.humanSocTotal;
                 afterTotal = soc.vigSocTotal;
                 beforeLabel = 'Human SOC';
-                afterLabel = 'AI SOC Analyst';
+                afterLabel = '<span style="color:#00D4AA">AI</span> SOC Analyst';
                 leftName = 'Human SOC';
                 leftSub = soc.totalStaff + ' staff - ' + soc.coverage + ' coverage';
-                rightName = 'Vigilense <span class="ai">AI</span> SOC';
+                rightName = '<img src="/vigilense-logo.png?v=2" alt="" class="cs-brand-logo"> <span style="color:#fff">Vigilense</span> <span style="color:#00D4AA">AI SOC</span>';
                 rightSub = 'AI triages 100%, auto-resolves ' + Math.round(soc.autoResolveRate * 100) + '% autonomously';
                 leftLines = buildHumanSocLines(soc);
                 rightLines = buildVigSocLines(soc);
-                leftBudgetText = fmtNum(soc.totalStaff) + ' headcount - ' + fmtNum(soc.investigatedAlerts) + ' alerts investigated / day (of ' + fmtNum(soc.dailyAlerts) + ')';
-                rightBudgetText = fmtNum(soc.hilHeadcount) + ' staff retained - AI auto-resolves ' + Math.round(soc.autoResolveRate * 100) + '% of ' + fmtNum(soc.dailyAlerts) + ' alerts/day';
+                leftBudgetText = fmtNum(soc.totalStaff) + ' headcount - ' + fmtNum(soc.investigatedAlerts) + ' investigations / day (of ' + fmtNum(soc.dailyAlerts) + ')';
+                rightBudgetText = fmtNum(soc.hilHeadcount) + ' staff retained - AI auto-resolves ' + Math.round(soc.autoResolveRate * 100) + '% of ' + fmtNum(soc.dailyAlerts) + ' investigations/day';
 
             } else {
                 // BOTH - Sovereign SOC
                 var combinedBefore = siem.legacyTotal + soc.humanSocTotal;
-                // Bundle discount: 15% off Vigilense platform costs (not customer-borne costs)
-                var vigPlatformCosts = siem.vigTotal + soc.aiSocPlatform + soc.aiCompute;
-                var bundleDiscount = Math.round(vigPlatformCosts * 0.15);
-                var combinedAfter = siem.vigTotal + soc.vigSocTotal - bundleDiscount;
+                // Bundle discount from central config (not customer-borne costs)
+                var vigPlatformCosts = siem.vig.total + soc.aiSocPlatform + soc.aiCompute;
+                var bundleDiscount = Math.round(vigPlatformCosts * P.bundleDiscount);
+                var combinedAfter = siem.vig.total + soc.vigSocTotal - bundleDiscount;
 
                 beforeTotal = combinedBefore;
                 afterTotal = combinedAfter;
                 beforeLabel = 'Current State';
-                afterLabel = 'Vigilense Sovereign SOC';
+                afterLabel = 'Vigilense SOVEREIGN SOC';
                 leftName = 'Current State';
                 leftSub = 'Legacy SIEM + Human SOC operations';
-                rightName = 'Vigilense <span class="ai">Sovereign SOC</span>';
-                rightSub = 'BYODb SIEM + AI SOC Analyst (bundled)';
+                rightName = '<img src="/vigilense-logo.png?v=2" alt="" class="cs-brand-logo"> <span style="color:#fff">Vigilense</span> <span style="color:#00D4AA">SOVEREIGN SOC</span>';
+                rightSub = 'Usage-based SIEM + AI SOC Analyst (bundled)';
 
                 leftLines = buildCombinedLeftLines(siem, soc);
                 rightLines = buildCombinedRightLines(siem, soc, bundleDiscount);
                 leftBudgetText = 'Legacy SIEM: ' + fmtCurrency(siem.legacyTotal) + ' + Human SOC: ' + fmtCurrency(soc.humanSocTotal);
-                rightBudgetText = '15% Sovereign SOC bundle discount applied';
+                rightBudgetText = '15% SOVEREIGN SOC bundle discount applied';
             }
 
             var savings = beforeTotal - afterTotal;
@@ -1654,7 +2017,7 @@
             document.getElementById('csBarVigAmt').textContent = fmtCurrency(afterTotal);
             // Update bar labels
             document.querySelectorAll('.cs-bar-col')[0].querySelector('.cs-bar-label').textContent = beforeLabel;
-            document.querySelectorAll('.cs-bar-col')[1].querySelector('.cs-bar-label').textContent = afterLabel;
+            document.querySelectorAll('.cs-bar-col')[1].querySelector('.cs-bar-label').innerHTML = afterLabel;
 
             // Left panel
             var leftPanel = document.querySelector('.cs-panel-splunk');
@@ -1685,54 +2048,86 @@
                     results.classList.add('visible');
                 });
             });
-            setTimeout(function() {
-                results.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 200);
+            if (_isInitialLoad) {
+                // On page load, land on the savings number in the center of the viewport.
+                // The calculate button should be visible at the top, bar chart below.
+                _isInitialLoad = false;
+                setTimeout(function() {
+                    var savingsBanner = document.querySelector('.cs-savings-banner');
+                    if (savingsBanner) {
+                        var rect = savingsBanner.getBoundingClientRect();
+                        var bannerCenter = rect.top + window.pageYOffset + (rect.height / 2);
+                        var viewportCenter = window.innerHeight / 2;
+                        window.scrollTo({ top: bannerCenter - viewportCenter + 80, behavior: 'auto' });
+                    }
+                }, 150);
+            } else {
+                setTimeout(function() {
+                    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 200);
+            }
         }
 
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
         // LINE ITEM BUILDERS
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
 
         // -- SIEM: Legacy panel --
         function buildSiemLegacyLines(s) {
             var licenseNote = s.volStr + ' \u00d7 $' + fmtNum(s.rate) + '/GB/yr';
             if (s.licenseCapped) licenseNote = 'Enterprise agreement (negotiated cap)';
-            return lineItem('Annual License', fmtCurrency(s.legacyLicense), licenseNote) +
-                lineItem('Infrastructure (25%)', fmtCurrency(s.legacyInfra), 'Hardware, storage, compute, networking, DR') +
-                lineItem('Admin Staff', fmtCurrency(s.legacyAdminCost), s.legacyAdmins + ' admin' + (s.legacyAdmins > 1 ? 's' : '') + ' \u00d7 $140K/yr');
+            var adminLabel = s.legacyAdmins < 1
+                ? (s.legacyAdmins + ' FTE (part-time)')
+                : (s.legacyAdmins + ' admin' + (s.legacyAdmins > 1 ? 's' : ''));
+            return lineItem('Software License (Ingestion Tax)', fmtCurrency(s.legacyLicense), licenseNote) +
+                lineItem('Infrastructure & Forwarders', fmtCurrency(s.legacyInfra), 'Indexer clusters, search heads, forwarder compute, storage, DR (' + Math.round(PH.infraPct(s.vol) * 100) + '% of license)') +
+                lineItem('Detection Compute (Search Heads / SVCs)', fmtCurrency(s.legacyDetCompute), 'Scheduled searches, real-time correlation, dashboards') +
+                lineItem('System Maintenance Staff', fmtCurrency(s.legacyAdminCost), adminLabel + ' \u00d7 $' + (P.legacy.admin.salary / 1000) + 'K/yr - sharding, indexing, forwarder mgmt, patching') +
+                lineItem('Training & Professional Services', fmtCurrency(s.legacyTrainingPS), 'SPL training, certifications, Splunk PS hours');
         }
 
-        // -- SIEM: Vigilense panel --
+        // -- SIEM: Vigilense panel (detection platform — lean model) --
         function buildSiemVigLines(s) {
-            var aiFormula = fmtNum(s.rules) + ' rules \u00d7 ~$' + fmtNum(s.avgPerRule) + ' avg/rule/yr';
-            var byodbFormula = '~$' + s.byodbEffective + '/GB/day - managed cloud platform (avg)';
-            return lineItem('Platform License', fmtCurrency(s.vigPlatform), s.vigTierName + ' tier - scales with volume') +
-                lineItem('AI Detection Engine', fmtCurrency(s.vigAiAnnual), aiFormula) +
-                lineItem('BYODb Infrastructure', fmtCurrency(s.byodbCost), byodbFormula) +
-                lineItem('Support & Ops', fmtCurrency(s.vigSupport), 'AI handles 90% of ops - minimal staff needed');
+            var v = s.vig;
+            var w = v.workload;
+            var byodbFormula = '~$' + v.byodbEffective + '/GB/day via ' + (v.byodbProviderLabel || 'managed cloud');
+
+            //  --  Simplified 3-category receipt  -- 
+
+            // 1. "Vigilense Platform" — clean description, no internal margin details
+            var platDetails = v.platformTier + ' tier - detection, enrichment, AI consolidation, dashboards, support';
+            platDetails += ' (' + fmtNum(w.annualQueries) + ' queries/yr)';
+
+            // 2. "Data Infrastructure (BYODb)" = storage + ingestion pipeline (pass-through)
+            var byodbNote = 'Storage ' + fmtCurrency(v.byodbStorage) + ' + ingestion pipeline ' + fmtCurrency(v.dataIngestion) + ' - ' + byodbFormula;
+
+            // 3. "Platform Governance" = customer admin overhead
+
+            return lineItem('Vigilense Platform (' + v.platformTier + ')', fmtCurrency(v.vigilensePlatformCost), platDetails) +
+                lineItem('Data Infrastructure (BYODb)', fmtCurrency(v.byodbCost), byodbNote + ' - paid to your cloud provider, not Vigilense') +
+                lineItem('Platform Governance', fmtCurrency(v.adminCost), v.adminDesc + ' - SSO, access reviews, policy config');
         }
 
         // -- SOC: Human panel --
         function buildHumanSocLines(s) {
             var sp = s.shiftPremium > 1 ? ' (incl. shift premium)' : '';
             return lineItem('Tier 1 Analysts (Triage)', fmtCurrency(s.l1Cost), s.l1Count + ' FTEs \u00d7 $' + fmtNum(s.l1Salary) + '/yr fully loaded' + sp) +
-                lineItem('Tier 2 Analysts (Investigation)', fmtCurrency(s.l2Cost), s.l2Count + ' FTEs \u00d7 $' + fmtNum(Math.round(s.l1Salary * 1.4)) + '/yr fully loaded' + sp) +
-                lineItem('Tier 3 / Threat Hunters', fmtCurrency(s.l3Cost), s.l3Count + ' FTEs \u00d7 $' + fmtNum(Math.round(s.l1Salary * 1.85)) + '/yr fully loaded') +
-                lineItem('SOC Management', fmtCurrency(s.mgrCost), s.mgrCount + ' manager' + (s.mgrCount > 1 ? 's' : '') + ' \u00d7 $' + fmtNum(Math.round(s.l1Salary * 2.1)) + '/yr') +
+                lineItem('Tier 2 Analysts (Investigation)', fmtCurrency(s.l2Cost), s.l2Count + ' FTEs \u00d7 $' + fmtNum(Math.round(s.l1Salary * P.socDefaults.l2Multiplier)) + '/yr fully loaded' + sp) +
+                lineItem('Tier 3 / Threat Hunters', fmtCurrency(s.l3Cost), s.l3Count + ' FTEs \u00d7 $' + fmtNum(Math.round(s.l1Salary * P.socDefaults.l3Multiplier)) + '/yr fully loaded') +
+                lineItem('SOC Management', fmtCurrency(s.mgrCost), s.mgrCount + ' manager' + (s.mgrCount > 1 ? 's' : '') + ' \u00d7 $' + fmtNum(Math.round(s.l1Salary * P.socDefaults.mgrMultiplier)) + '/yr') +
                 lineItem('SOAR & Tooling', fmtCurrency(s.toolingTotal), 'SOAR $' + fmtNum(s.soarTooling) + ' + Threat Intel $' + fmtNum(s.threatIntel)) +
-                lineItem('Training & Certs', fmtCurrency(s.trainingTotal), s.totalStaff + ' staff \u00d7 $' + fmtNum(parseInt(inTrainingCost.value) || 8000) + '/yr') +
-                lineItem('Turnover & Recruiting', fmtCurrency(s.turnoverCostTotal), Math.round(s.totalStaff * (parseInt(inTurnover.value) || 25) / 100) + ' departures/yr \u00d7 $' + fmtNum(parseInt(inRecruitCost.value) || 20000));
+                lineItem('Training & Certs', fmtCurrency(s.trainingTotal), s.totalStaff + ' staff \u00d7 $' + fmtNum(parseInt(inTrainingCost.value) || P.socDefaults.trainingCost) + '/yr') +
+                lineItem('Turnover & Recruiting', fmtCurrency(s.turnoverCostTotal), Math.round(s.totalStaff * (parseInt(inTurnover.value) || P.socDefaults.turnoverPct) / 100) + ' departures/yr \u00d7 $' + fmtNum(parseInt(inRecruitCost.value) || P.socDefaults.recruitCost));
         }
 
         // -- SOC: Vigilense AI SOC panel --
         function buildVigSocLines(s) {
             var autoResolvePct = Math.round(s.autoResolveRate * 100);
-            var lines = lineItem('AI SOC Platform', fmtCurrency(s.aiSocPlatform), s.aiSocTier + ' tier - ' + fmtNum(s.dailyAlerts) + ' alerts/day') +
+            var lines = lineItem('AI SOC Platform', fmtCurrency(s.aiSocPlatform), s.aiSocTier + ' tier - ' + fmtNum(s.dailyAlerts) + ' investigations/day') +
                 lineItem('AI Investigation Compute', fmtCurrency(s.aiCompute), fmtNum(s.annualInvestigations) + ' investigations/yr \u00d7 ~$' + s.blendedRate + ' avg');
 
             if (s.reviewerCount > 0) {
-                lines += lineItem('SOC Reviewers (24/7 shifts)', fmtCurrency(s.reviewerCost), s.reviewerCount + ' reviewer' + (s.reviewerCount > 1 ? 's' : '') + ' - ' + fmtNum(s.dailyEscalated) + ' escalated alerts/day (' + (100 - autoResolvePct) + '%)');
+                lines += lineItem('SOC Reviewers (24/7 shifts)', fmtCurrency(s.reviewerCost), s.reviewerCount + ' reviewer' + (s.reviewerCount > 1 ? 's' : '') + ' - ' + fmtNum(s.dailyEscalated) + ' escalated investigations/day (' + (100 - autoResolvePct) + '%)');
             }
             if (s.detEngCount > 0) {
                 lines += lineItem('Detection Engineering', fmtCurrency(s.detEngCost), s.detEngCount + ' Detection Engineer' + (s.detEngCount > 1 ? 's' : '') + ' (tuning & config)');
@@ -1759,17 +2154,17 @@
         function buildCombinedRightLines(siem, soc, bundleDiscount) {
             var html = sectionDivider('BYODb SIEM');
             html += buildSiemVigLines(siem);
-            html += subtotalRow('SIEM Subtotal', fmtCurrency(siem.vigTotal));
+            html += subtotalRow('SIEM Subtotal', fmtCurrency(siem.vig.total));
             html += sectionDivider('AI SOC Analyst');
             html += buildVigSocLines(soc);
             html += subtotalRow('AI SOC Subtotal', fmtCurrency(soc.vigSocTotal));
-            html += bundleLine('Sovereign SOC Bundle (\u221215%)', '\u2212' + fmtCurrency(bundleDiscount));
+            html += bundleLine('SOVEREIGN SOC Bundle (\u2212' + Math.round(P.bundleDiscount * 100) + '%)', '\u2212' + fmtCurrency(bundleDiscount));
             return html;
         }
 
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
         // HELPERS
-        // ══════════════════════════════════════════════════
+        // --------------------------------------------------
         function fmtCurrency(n) {
             if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
             if (n >= 1000) return '$' + Math.round(n / 1000).toLocaleString() + 'K';
@@ -1790,13 +2185,645 @@
             return '<li class="cs-bundle-line"><span class="cs-bundle-label">' + label + '</span><span class="cs-bundle-value">' + value + '</span></li>';
         }
 
-        // ── Initialize ──
+        // --------------------------------------------------
+        // COST TREND CHART (Legacy vs Vigilense, 1 GB — 10 TB)
+        // --------------------------------------------------
+        var trendChart = null;
+        var useLogScale = false;
+
+        var logToggleBtn = document.getElementById('csLogToggle');
+        logToggleBtn.addEventListener('click', function() {
+            useLogScale = !useLogScale;
+            logToggleBtn.classList.toggle('active', useLogScale);
+            renderTrendChart();
+        });
+
+        function renderTrendChart() {
+
+            var volumes = [1, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000];
+            var labels = volumes.map(function(v) { return v >= 1000 ? (v/1000) + ' TB' : v + ' GB'; });
+
+            var legacyData = [], vigTotalData = [];
+
+            volumes.forEach(function(vol) {
+                var rules = Math.max(100, Math.min(maxRulesForVolume(vol), Math.round(200 * (vol / 500))));
+                var leg = PH.legacyScenario(vol, null, rules);
+                var vig = PH.vigilenseSiemCost(vol, rules);
+
+                legacyData.push(Math.round(leg.total / 1000));
+                vigTotalData.push(Math.round(vig.total / 1000));
+            });
+
+            var ctx = document.getElementById('csTrendChart').getContext('2d');
+
+            if (trendChart) trendChart.destroy();
+
+            trendChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Legacy SIEM (Total)',
+                            data: legacyData,
+                            borderColor: '#FF4444',
+                            backgroundColor: 'rgba(255,68,68,0.08)',
+                            borderWidth: 2.5,
+                            fill: false,
+                            tension: 0.3,
+                            pointRadius: 3,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Vigilense (Total)',
+                            data: vigTotalData,
+                            borderColor: '#00D4AA',
+                            backgroundColor: 'rgba(0,212,170,0.08)',
+                            borderWidth: 2.5,
+                            fill: false,
+                            tension: 0.3,
+                            pointRadius: 3,
+                            pointHoverRadius: 6
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(255,255,255,0.7)',
+                                font: { family: "'JetBrains Mono', monospace", size: 11 },
+                                padding: 16,
+                                usePointStyle: true,
+                                pointStyleWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15,17,21,0.95)',
+                            titleColor: '#fff',
+                            bodyColor: 'rgba(255,255,255,0.8)',
+                            titleFont: { family: "'Outfit', sans-serif", weight: '600', size: 13 },
+                            bodyFont: { family: "'JetBrains Mono', monospace", size: 11 },
+                            padding: 14,
+                            borderColor: 'rgba(255,255,255,0.1)',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(ctx) {
+                                    var v = ctx.parsed.y;
+                                    var label = ctx.dataset.label || '';
+                                    if (v >= 1000) return ' ' + label + ':  $' + (v/1000).toFixed(1) + 'M';
+                                    return ' ' + label + ':  $' + v + 'K';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: 'rgba(255,255,255,0.5)',
+                                font: { family: "'JetBrains Mono', monospace", size: 10 }
+                            },
+                            grid: { color: 'rgba(255,255,255,0.04)' }
+                        },
+                        y: {
+                            type: useLogScale ? 'logarithmic' : 'linear',
+                            position: 'left',
+                            ticks: {
+                                color: 'rgba(255,255,255,0.5)',
+                                font: { family: "'JetBrains Mono', monospace", size: 10 },
+                                callback: function(v) {
+                                    if (useLogScale) {
+                                        var nice = [1,2,5,10,20,50,100,200,500,1000,2000,5000,10000];
+                                        if (nice.indexOf(v) === -1) return '';
+                                    }
+                                    if (v >= 1000) return '$' + (v/1000).toFixed(0) + 'M';
+                                    return '$' + v + 'K';
+                                }
+                            },
+                            grid: { color: 'rgba(255,255,255,0.04)' },
+                            beginAtZero: !useLogScale
+                        }
+                    }
+                }
+            });
+        }
+
+        // --------------------------------------------------
+        // AI SOC TREND CHART (Human SOC vs AI SOC, 50 — 10K investigations/day)
+        // --------------------------------------------------
+        var socTrendChart = null;
+        var useSocLogScale = false;
+
+        var socLogBtn = document.getElementById('csSocLogToggle');
+        socLogBtn.addEventListener('click', function() {
+            useSocLogScale = !useSocLogScale;
+            socLogBtn.classList.toggle('active', useSocLogScale);
+            renderSocTrendChart();
+        });
+
+        function staticSocCost(dailyAlerts, autoResolveOverride) {
+            var SD = P.socDefaults;
+            var investRate = SD.investigationRate / 100;
+            var benefitsMult = 1 + SD.benefitsPct / 100;
+            var turnoverRate = SD.turnoverPct / 100;
+            var autoResolveRate = (autoResolveOverride !== undefined ? autoResolveOverride : SD.autoResolveRate) / 100;
+            var shiftModel = P.shifts['24/7'];
+            var shifts = shiftModel.count;
+            var fteMult = shiftModel.fteMult;
+            var shiftPremium = shiftModel.premium;
+
+            var investigatedAlerts = Math.round(dailyAlerts * investRate);
+            var alertsPerShift = Math.ceil(investigatedAlerts / shifts);
+            var seatsPerShift = Math.max(1, Math.ceil(alertsPerShift / SD.alertsPerAnalyst));
+            var l1Count = Math.max(2, Math.ceil(seatsPerShift * fteMult));
+            var l2Count = Math.max(1, Math.ceil(l1Count * 0.25));
+            var l3Count = Math.max(1, Math.ceil(l1Count * 0.125));
+            var totalAnalysts = l1Count + l2Count + l3Count;
+            var mgrCount = Math.max(1, Math.ceil(totalAnalysts / 12));
+            var totalStaff = totalAnalysts + mgrCount;
+
+            var l1Cost = Math.round(l1Count * SD.l1Salary * benefitsMult * shiftPremium);
+            var l2Cost = Math.round(l2Count * Math.round(SD.l1Salary * SD.l2Multiplier) * benefitsMult * shiftPremium);
+            var l3Cost = Math.round(l3Count * Math.round(SD.l1Salary * SD.l3Multiplier) * benefitsMult);
+            var mgrCost = Math.round(mgrCount * Math.round(SD.l1Salary * SD.mgrMultiplier) * benefitsMult);
+            var staffCost = l1Cost + l2Cost + l3Cost + mgrCost;
+
+            var turnoverCostTotal = Math.round(totalStaff * turnoverRate * SD.recruitCost);
+            var trainingTotal = totalStaff * SD.trainingCost;
+            var toolingTotal = SD.soarTooling + SD.threatIntel;
+            var humanSocTotal = staffCost + turnoverCostTotal + trainingTotal + toolingTotal;
+
+            var annualInvestigations = dailyAlerts * 365;
+            var socPlat = PH.aiSocPlatformCost(dailyAlerts);
+            var aiCompute = PH.aiComputeCost(annualInvestigations);
+
+            var dailyEscalated = Math.round(dailyAlerts * (1 - autoResolveRate));
+            var reviewerPerShift = Math.max(1, Math.ceil(dailyEscalated / SD.reviewRate));
+            var reviewerCount = Math.ceil(reviewerPerShift * fteMult);
+            var reviewerCost = Math.round(reviewerCount * SD.reviewerSalary * benefitsMult * shiftPremium);
+            var detEngCount = PH.detEngCount(dailyAlerts);
+            var detEngCost = Math.round(detEngCount * SD.detEngSalary * benefitsMult);
+            var irLeadCount = PH.irLeadCount(dailyAlerts);
+            var irLeadCost = Math.round(irLeadCount * SD.irLeadSalary * benefitsMult);
+            var hilStaffTotal = reviewerCost + detEngCost + irLeadCost;
+
+            var vigSocTotal = socPlat.annual + aiCompute + hilStaffTotal;
+
+            // COGS computation for AI SOC (Vigilense-borne costs only)
+            //
+            // Platform COGS = FIXED infrastructure (not per-alert)
+            //   Servers, RAG pipeline, model hosting, SOAR orchestration,
+            //   monitoring. Marginal cost per additional alert is negligible
+            //   (routing/dispatch). Scales by tier, not by alert count.
+            var platformCOGS = dailyAlerts <= 1000  ? 40000
+                : dailyAlerts <= 5000  ? 65000
+                : dailyAlerts <= 15000 ? 100000
+                : dailyAlerts <= 50000 ? 150000
+                : 200000;
+
+            // Investigation COGS: per-case LLM + tool costs
+            //   At low volume: full weighted avg from complexity model
+            //     Light 50%Ã—$0.20 + Medium 35%Ã—$1.00 + Heavy 15%Ã—$5.00 = $1.20
+            //   At scale: caching, pattern recognition, and negotiated
+            //   model rates dramatically reduce per-case cost:
+            //     - Cached alert patterns handle ~60% of light cases ($0.05)
+            //     - Similar incident grouping reduces medium re-analysis ($0.40)
+            //     - Better models + enterprise LLM pricing for heavy ($2.00)
+            //     - Weighted at scale: ~$0.30/investigation
+            var investCOGSPerCase = annualInvestigations <= 250000  ? 0.80
+                : annualInvestigations <= 1000000 ? 0.55
+                : annualInvestigations <= 5000000 ? 0.40
+                : 0.30;
+            var investigationCOGS = Math.round(annualInvestigations * investCOGSPerCase);
+
+            var totalCOGS = platformCOGS + investigationCOGS;
+            var vigilenseRevenue = socPlat.annual + aiCompute;
+            var vigilenseProfit = vigilenseRevenue - totalCOGS;
+
+            return {
+                humanSocTotal: humanSocTotal,
+                vigSocTotal: vigSocTotal,
+                aiSocPlatform: socPlat.annual,
+                aiCompute: aiCompute,
+                hilStaffTotal: hilStaffTotal,
+                totalCOGS: totalCOGS,
+                vigilenseRevenue: vigilenseRevenue,
+                vigilenseProfit: vigilenseProfit
+            };
+        }
+
+        function renderSocTrendChart() {
+            var investLevels = [100, 250, 500, 1000, 2000, 3000, 5000, 7500, 10000];
+            var investRate = P.socDefaults.investigationRate / 100;
+            var labels = investLevels.map(function(inv) {
+                return inv >= 1000 ? (inv/1000) + 'K' : inv + '';
+            });
+
+            var humanData = [], vigData = [], aiComputeData = [], hilData = [];
+            var vigLowAutoData = [], vigHighAutoData = [];
+
+            investLevels.forEach(function(inv) {
+                var alerts = Math.round(inv / investRate);
+                var s = staticSocCost(alerts);
+                var sLow  = staticSocCost(alerts, 60);
+                var sHigh = staticSocCost(alerts, 90);
+                humanData.push(Math.round(s.humanSocTotal / 1000));
+                vigData.push(Math.round(s.vigSocTotal / 1000));
+                vigLowAutoData.push(Math.round(sLow.vigSocTotal / 1000));
+                vigHighAutoData.push(Math.round(sHigh.vigSocTotal / 1000));
+                aiComputeData.push(Math.round(s.aiCompute / 1000));
+                hilData.push(Math.round(s.hilStaffTotal / 1000));
+            });
+
+            var ctx = document.getElementById('csSocTrendChart').getContext('2d');
+            if (socTrendChart) socTrendChart.destroy();
+
+            socTrendChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Human SOC (Total)',
+                            data: humanData,
+                            borderColor: '#FF4444',
+                            backgroundColor: 'rgba(255,68,68,0.08)',
+                            borderWidth: 2.5,
+                            fill: false,
+                            tension: 0.3,
+                            pointRadius: 3,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Vigilense AI SOC (Total)',
+                            data: vigData,
+                            borderColor: '#00D4AA',
+                            backgroundColor: 'rgba(0,212,170,0.08)',
+                            borderWidth: 2.5,
+                            fill: false,
+                            tension: 0.3,
+                            pointRadius: 3,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'AI SOC - Low Automation (60%)',
+                            data: vigLowAutoData,
+                            borderColor: 'rgba(0,212,170,0.45)',
+                            backgroundColor: 'rgba(0,212,170,0.12)',
+                            borderWidth: 1,
+                            borderDash: [4, 4],
+                            fill: '+1',
+                            tension: 0.3,
+                            pointRadius: 0,
+                            pointHoverRadius: 4
+                        },
+                        {
+                            label: 'AI SOC - High Automation (90%)',
+                            data: vigHighAutoData,
+                            borderColor: 'rgba(0,212,170,0.45)',
+                            backgroundColor: 'rgba(0,212,170,0.12)',
+                            borderWidth: 1,
+                            borderDash: [4, 4],
+                            fill: false,
+                            tension: 0.3,
+                            pointRadius: 0,
+                            pointHoverRadius: 4
+                        },
+                        {
+                            label: 'AI Investigation Compute',
+                            data: aiComputeData,
+                            borderColor: '#4A90D9',
+                            backgroundColor: 'rgba(74,144,217,0.06)',
+                            borderWidth: 1.5,
+                            borderDash: [6, 3],
+                            fill: false,
+                            tension: 0.3,
+                            pointRadius: 2,
+                            pointHoverRadius: 5
+                        },
+                        {
+                            label: 'Human-in-the-Loop Staff',
+                            data: hilData,
+                            borderColor: '#FFA726',
+                            backgroundColor: 'rgba(255,167,38,0.06)',
+                            borderWidth: 1.5,
+                            borderDash: [4, 4],
+                            fill: false,
+                            tension: 0.3,
+                            pointRadius: 2,
+                            pointHoverRadius: 5
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(255,255,255,0.7)',
+                                font: { family: "'JetBrains Mono', monospace", size: 11 },
+                                padding: 16, usePointStyle: true, pointStyleWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15,17,21,0.95)',
+                            titleColor: '#fff',
+                            bodyColor: 'rgba(255,255,255,0.8)',
+                            titleFont: { family: "'Outfit', sans-serif", weight: '600', size: 13 },
+                            bodyFont: { family: "'JetBrains Mono', monospace", size: 11 },
+                            padding: 14,
+                            borderColor: 'rgba(255,255,255,0.1)',
+                            borderWidth: 1,
+                            callbacks: {
+                                title: function(items) { return items[0].label + ' investigations/day'; },
+                                label: function(ctx) {
+                                    var v = ctx.parsed.y;
+                                    var label = ctx.dataset.label || '';
+                                    if (v >= 1000) return ' ' + label + ':  $' + (v/1000).toFixed(1) + 'M';
+                                    if (v < 0) return ' ' + label + ':  -$' + Math.abs(v) + 'K';
+                                    return ' ' + label + ':  $' + v + 'K';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Investigations / Day', color: 'rgba(255,255,255,0.4)', font: { family: "'JetBrains Mono', monospace", size: 10 } },
+                            ticks: { color: 'rgba(255,255,255,0.5)', font: { family: "'JetBrains Mono', monospace", size: 10 } },
+                            grid: { color: 'rgba(255,255,255,0.04)' }
+                        },
+                        y: {
+                            type: useSocLogScale ? 'logarithmic' : 'linear',
+                            position: 'left',
+                            ticks: {
+                                color: 'rgba(255,255,255,0.5)',
+                                font: { family: "'JetBrains Mono', monospace", size: 10 },
+                                callback: function(v) {
+                                    if (useSocLogScale) {
+                                        var nice = [10,20,50,100,200,500,1000,2000,5000,10000,20000,50000];
+                                        if (nice.indexOf(v) === -1) return '';
+                                    }
+                                    if (v >= 1000) return '$' + (v/1000).toFixed(0) + 'M';
+                                    return '$' + v + 'K';
+                                }
+                            },
+                            grid: { color: 'rgba(255,255,255,0.04)' },
+                            beginAtZero: !useSocLogScale
+                        }
+                    }
+                }
+            });
+        }
+
+        // --------------------------------------------------
+        // SOVEREIGN SOC TREND CHART (Combined SIEM + SOC)
+        // --------------------------------------------------
+        var sovTrendChart = null;
+        var useSovLogScale = false;
+
+        var sovLogBtn = document.getElementById('csSovLogToggle');
+        sovLogBtn.addEventListener('click', function() {
+            useSovLogScale = !useSovLogScale;
+            sovLogBtn.classList.toggle('active', useSovLogScale);
+            renderSovereignTrendChart();
+        });
+
+        function renderSovereignTrendChart() {
+            var scales = [
+                { gb: 1,     alerts: 100 },
+                { gb: 5,     alerts: 120 },
+                { gb: 10,    alerts: 150 },
+                { gb: 20,    alerts: 225 },
+                { gb: 50,    alerts: 225 },
+                { gb: 100,   alerts: 350 },
+                { gb: 200,   alerts: 450 },
+                { gb: 500,   alerts: 1000 },
+                { gb: 1000,  alerts: 1500 },
+                { gb: 2000,  alerts: 2500 },
+                { gb: 5000,  alerts: 3800 },
+                { gb: 10000, alerts: 5000 }
+            ];
+
+            var labels = scales.map(function(s) {
+                var volLabel = s.gb >= 1000 ? (s.gb/1000) + ' TB' : s.gb + ' GB';
+                return volLabel + ' / ' + s.alerts + ' inv';
+            });
+
+            var legacyData = [], vigData = [], savingsPctData = [];
+            var vigLowAutoData = [], vigHighAutoData = [];
+
+            scales.forEach(function(s) {
+                var rules = Math.max(100, Math.min(maxRulesForVolume(s.gb), Math.round(200 * (s.gb / 500))));
+                var siem = PH.legacyScenario(s.gb, null, rules);
+                var vig = PH.vigilenseSiemCost(s.gb, rules);
+                var soc = staticSocCost(s.alerts);
+                var socLow  = staticSocCost(s.alerts, 60);
+                var socHigh = staticSocCost(s.alerts, 90);
+
+                var legacyTotal = siem.total + soc.humanSocTotal;
+
+                var vigPlatformCosts = vig.total + soc.aiSocPlatform + soc.aiCompute;
+                var bundleDiscount = Math.round(vigPlatformCosts * P.bundleDiscount);
+                var vigTotal = vig.total + soc.vigSocTotal - bundleDiscount;
+
+                var vigPlatLow = vig.total + socLow.aiSocPlatform + socLow.aiCompute;
+                var vigTotalLow = vig.total + socLow.vigSocTotal - Math.round(vigPlatLow * P.bundleDiscount);
+
+                var vigPlatHigh = vig.total + socHigh.aiSocPlatform + socHigh.aiCompute;
+                var vigTotalHigh = vig.total + socHigh.vigSocTotal - Math.round(vigPlatHigh * P.bundleDiscount);
+
+                legacyData.push(Math.round(legacyTotal / 1000));
+                vigData.push(Math.round(vigTotal / 1000));
+                vigLowAutoData.push(Math.round(vigTotalLow / 1000));
+                vigHighAutoData.push(Math.round(vigTotalHigh / 1000));
+
+                var pctSaved = legacyTotal > 0 ? Math.round((legacyTotal - vigTotal) / legacyTotal * 100) : 0;
+                savingsPctData.push(pctSaved);
+            });
+
+            var ctx = document.getElementById('csSovTrendChart').getContext('2d');
+            if (sovTrendChart) sovTrendChart.destroy();
+
+            sovTrendChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Legacy Stack (SIEM + Human SOC)',
+                            data: legacyData,
+                            borderColor: '#FF4444',
+                            backgroundColor: 'rgba(255,68,68,0.08)',
+                            borderWidth: 2.5,
+                            fill: false,
+                            tension: 0.3,
+                            pointRadius: 3,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Vigilense SOVEREIGN SOC (bundled)',
+                            data: vigData,
+                            borderColor: '#00D4AA',
+                            backgroundColor: 'rgba(0,212,170,0.08)',
+                            borderWidth: 2.5,
+                            fill: false,
+                            tension: 0.3,
+                            pointRadius: 3,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'SOVEREIGN - Low Automation (60%)',
+                            data: vigLowAutoData,
+                            borderColor: 'rgba(0,212,170,0.45)',
+                            backgroundColor: 'rgba(0,212,170,0.12)',
+                            borderWidth: 1,
+                            borderDash: [4, 4],
+                            fill: '+1',
+                            tension: 0.3,
+                            pointRadius: 0,
+                            pointHoverRadius: 4
+                        },
+                        {
+                            label: 'SOVEREIGN - High Automation (90%)',
+                            data: vigHighAutoData,
+                            borderColor: 'rgba(0,212,170,0.45)',
+                            backgroundColor: 'rgba(0,212,170,0.12)',
+                            borderWidth: 1,
+                            borderDash: [4, 4],
+                            fill: false,
+                            tension: 0.3,
+                            pointRadius: 0,
+                            pointHoverRadius: 4
+                        },
+                        {
+                            label: 'Savings %',
+                            data: savingsPctData,
+                            borderColor: '#66BB6A',
+                            backgroundColor: 'rgba(102,187,106,0.08)',
+                            borderWidth: 2,
+                            borderDash: [6, 3],
+                            fill: false,
+                            tension: 0.3,
+                            pointRadius: 3,
+                            pointHoverRadius: 6,
+                            pointStyle: 'triangle',
+                            yAxisID: 'y2'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(255,255,255,0.7)',
+                                font: { family: "'JetBrains Mono', monospace", size: 11 },
+                                padding: 16, usePointStyle: true, pointStyleWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15,17,21,0.95)',
+                            titleColor: '#fff',
+                            bodyColor: 'rgba(255,255,255,0.8)',
+                            titleFont: { family: "'Outfit', sans-serif", weight: '600', size: 13 },
+                            bodyFont: { family: "'JetBrains Mono', monospace", size: 11 },
+                            padding: 14,
+                            borderColor: 'rgba(255,255,255,0.1)',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(ctx) {
+                                    var v = ctx.parsed.y;
+                                    var label = ctx.dataset.label || '';
+                                    if (ctx.dataset.yAxisID === 'y2') return ' ' + label + ':  ' + v + '%';
+                                    if (v >= 1000) return ' ' + label + ':  $' + (v/1000).toFixed(1) + 'M';
+                                    if (v < 0) return ' ' + label + ':  -$' + Math.abs(v) + 'K';
+                                    return ' ' + label + ':  $' + v + 'K';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: 'rgba(255,255,255,0.5)',
+                                font: { family: "'JetBrains Mono', monospace", size: 9 },
+                                maxRotation: 45,
+                                minRotation: 25
+                            },
+                            grid: { color: 'rgba(255,255,255,0.04)' }
+                        },
+                        y: {
+                            type: useSovLogScale ? 'logarithmic' : 'linear',
+                            position: 'left',
+                            ticks: {
+                                color: 'rgba(255,255,255,0.5)',
+                                font: { family: "'JetBrains Mono', monospace", size: 10 },
+                                callback: function(v) {
+                                    if (useSovLogScale) {
+                                        var nice = [10,20,50,100,200,500,1000,2000,5000,10000,20000,50000];
+                                        if (nice.indexOf(v) === -1) return '';
+                                    }
+                                    if (v >= 1000) return '$' + (v/1000).toFixed(0) + 'M';
+                                    return '$' + v + 'K';
+                                }
+                            },
+                            grid: { color: 'rgba(255,255,255,0.04)' },
+                            beginAtZero: !useSovLogScale
+                        },
+                        y2: {
+                            display: false,
+                            type: 'linear',
+                            position: 'right',
+                            min: 0,
+                            max: 100,
+                            ticks: {
+                                color: 'rgba(255,255,255,0.5)',
+                                font: { family: "'JetBrains Mono', monospace", size: 10 },
+                                callback: function(v) { return v + '%'; },
+                                stepSize: 10
+                            },
+                            grid: { drawOnChartArea: false },
+                            title: {
+                                display: true,
+                                text: 'Savings %',
+                                color: 'rgba(255,255,255,0.5)',
+                                font: { family: "'JetBrains Mono', monospace", size: 11, weight: '600' }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        //  --  Initialize  -- 
         volumeInput.value = 500;
         unitSelect.value = 'GB';
         updateSiemDefaults(500);
         slider.value = gbToSlider(500);
-        alertInput.value = 500;
-        alertSlider.value = valToAlertSlider(500);
+        alertInput.value = 100;
+        alertSlider.value = valToAlertSlider(100);
+        renderTrendChart();
+        renderSocTrendChart();
+        renderSovereignTrendChart();
+
+        // Initial chart visibility — default mode is 'both' (all three charts visible)
+
+        // Auto-calculate on page load so visitors immediately see savings
+        runCalculation();
+
     })();
     </script>
 </body>

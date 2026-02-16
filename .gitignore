@@ -10,6 +10,19 @@ desktop.ini
 *.swo
 *~
 
+# Private internal pages (never deploy)
+cost-simulator/private/
+
+# Dependencies
+node_modules/
+package-lock.json
+package.json
+
+# Test / temp scripts
+test-*.js
+fix-*.js
+fix-*.ps1
+
 # Optional
 *.log
 .env

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Vigilense AI" />
+    <meta property="og:title" content="Legacy RBA Is Dead. Adaptive Threat Fusion Is What Comes Next." />
+    <meta property="og:description" content="Why the industry's gold standard for alert management is creating the blind spots attackers exploit, and how AI-native threat fusion eliminates them without dropping a single alert." />
+    <meta property="og:url" content="https://vigilense.ai/blog/adaptive-threat-fusion/" />
+    <meta property="og:image" content="https://vigilense.ai/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Vigilense AI - The Sovereign SOC. Adaptive Threat Fusion." />
+    <meta property="og:locale" content="en_US" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Legacy RBA Is Dead. Adaptive Threat Fusion Is What Comes Next." />
+    <meta name="twitter:description" content="Why RBA creates blind spots attackers exploit, and how AI-native threat fusion eliminates them without dropping a single alert." />
+    <meta name="twitter:image" content="https://vigilense.ai/og-image.png" />
+    <meta name="twitter:image:alt" content="Vigilense AI - Adaptive Threat Fusion" />
+    <!-- Standard -->
+    <meta name="description" content="Why the industry's gold standard for alert management is creating the blind spots attackers exploit, and how AI-native threat fusion eliminates them without dropping a single alert." />
+    <meta name="author" content="Raj Choudhary" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://vigilense.ai/blog/adaptive-threat-fusion/" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>Legacy RBA Is Dead. Adaptive Threat Fusion Is What Comes Next. - Vigilense AI Blog</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .blog-post { padding: 140px 0 100px; }
+        .post-content { max-width: 720px; margin: 0 auto; }
+        .back-link {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #94A3B8;
+            margin-bottom: 32px; transition: color 0.2s; text-decoration: none;
+        }
+        .back-link:hover { color: #0A1628; }
+        .post-banner {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 700;
+            letter-spacing: 0.06em; color: #0A1628;
+        }
+        .post-banner .logo-icon {
+            width: 28px; height: 28px; border-radius: 50%; object-fit: contain; flex-shrink: 0;
+        }
+        .post-banner .v { color: #0A1628; }
+        .post-banner .ai { color: #00D4AA; }
+        .post-banner .pipe { color: #94A3B8; margin: 0 6px; }
+        .post-banner .sov { color: #00D4AA; text-transform: uppercase; letter-spacing: 0.08em; }
+        .post-header h1 {
+            font-family: 'JetBrains Mono', monospace; font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800; color: #0A1628; margin-bottom: 16px; letter-spacing: -0.03em; line-height: 1.15;
+        }
+        .post-subtitle {
+            font-family: 'Outfit', sans-serif; font-size: 1.15rem; line-height: 1.6; color: #475569;
+            margin-bottom: 24px;
+        }
+        .post-published {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #94A3B8;
+            margin-bottom: 32px;
+        }
+        .post-divider { height: 1px; background: #E2E8F0; margin: 40px 0; border: none; }
+        .post-body {
+            font-family: 'Outfit', sans-serif; font-size: 1.1rem; line-height: 1.8; color: #475569;
+        }
+        .post-body p { margin-bottom: 24px; }
+        .post-body h2 {
+            font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; font-weight: 700;
+            color: #0A1628; margin-top: 48px; margin-bottom: 24px;
+        }
+        .post-body h3 {
+            font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 700;
+            color: #0A1628; margin-top: 36px; margin-bottom: 20px;
+        }
+        .post-body ul, .post-body ol { margin: 24px 0; padding-left: 32px; }
+        .post-body li { margin-bottom: 12px; color: #475569; }
+        .post-body a { color: #00B892; text-decoration: underline; }
+        .post-body a:hover { color: #00D4AA; }
+        .post-body strong { color: #0A1628; }
+        .post-body table {
+            width: 100%; border-collapse: collapse; margin: 32px 0;
+            font-size: 0.95rem;
+        }
+        .post-body th, .post-body td {
+            border: 1px solid #E2E8F0; padding: 12px 14px; text-align: left;
+        }
+        .post-body th {
+            font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #0A1628;
+            background: #F8FAFC;
+        }
+        .post-body td { color: #475569; }
+        .post-body tr:nth-child(even) td { background: #F8FAFC; }
+        .post-cta {
+            margin-top: 64px; padding: 32px; background: #FFFFFF;
+            border: 1px solid #E2E8F0; border-radius: 8px; text-align: center;
+        }
+        .post-cta h3 {
+            font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; color: #0A1628; margin-bottom: 16px;
+        }
+        .post-cta .btn {
+            display: inline-block; padding: 12px 28px; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem; font-weight: 700; background: #0A1628; color: #FFFFFF;
+            border: none; border-radius: 4px; cursor: pointer; transition: all 0.2s; text-decoration: none; margin: 0 8px;
+        }
+        .post-cta .btn:hover { background: #0F1E36; box-shadow: 0 4px 20px rgba(10, 22, 40, 0.3); }
+        .post-cta .btn-secondary { background: transparent; color: #0A1628; border: 2px solid #0A1628; }
+        .post-cta .btn-secondary:hover { background: #0A1628; color: #FFFFFF; }
+        .author-card {
+            margin-top: 48px; padding: 24px; background: #FFFFFF; border: 1px solid #E2E8F0;
+            border-radius: 8px; display: flex; gap: 20px; align-items: center;
+        }
+        .author-avatar {
+            width: 64px; height: 64px; border-radius: 50%; background: #0A1628;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 700; color: #FFFFFF; flex-shrink: 0;
+        }
+        .author-info h4 { font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: #0A1628; margin-bottom: 4px; }
+        .author-info .author-title { font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: #94A3B8; margin-bottom: 8px; }
+        .author-info .author-bio { font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: #475569; line-height: 1.6; }
+        @media (max-width: 768px) {
+            .blog-post { padding: 120px 0 60px; }
+            .post-content { max-width: 100%; }
+            .post-body { font-size: 1rem; }
+            .post-body h2 { font-size: 1.5rem; }
+            .post-body h3 { font-size: 1.2rem; }
+            .post-body table { font-size: 0.8rem; }
+            .post-body th, .post-body td { padding: 8px 10px; }
+            .author-card { flex-direction: column; text-align: center; }
+        }
+    </style>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Organization","name":"Vigilense AI","url":"https://vigilense.ai","logo":"https://vigilense.ai/vigilense-logo.png"}
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Legacy RBA Is Dead. Adaptive Threat Fusion Is What Comes Next.",
+      "description": "Why the industry's gold standard for alert management is creating the blind spots attackers exploit, and how AI-native threat fusion eliminates them.",
+      "datePublished": "2026-02-01",
+      "url": "https://vigilense.ai/blog/adaptive-threat-fusion/",
+      "image": "https://vigilense.ai/og-image.png",
+      "author": { "@type": "Person", "name": "Raj Choudhary" },
+      "publisher": { "@type": "Organization", "name": "Vigilense AI", "url": "https://vigilense.ai", "logo": { "@type": "ImageObject", "url": "https://vigilense.ai/vigilense-logo.png" } }
+    }
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="nav-brand">
+                <img src="/vigilense-logo.png?v=2" alt="Vigilense AI - Autonomous Vigilance for Security Teams" class="logo-icon">
+                <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="/why-now/" style="color: #FF6B6B; font-weight: 700;">Why Now</a></li>
+                <li>
+                    <a href="#">Platform</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/platform/ai-soc-analyst/">AI SOC Analyst</a></li>
+                        <li><a href="/platform/byodb-siem/">BYODb SIEM</a></li>
+                        <li><a href="/platform/integrations/">Integrations</a></li>
+                        <li><a href="/#how-it-works">How It Works</a></li>
+                        <li><a href="/security/">Security & Trust</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/pricing/">Pricing</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/pricing/">Pricing Overview</a></li>
+                        <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 600;">Savings Calculator</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Resources</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/resources/what-is-byodb-siem/">What is BYODb SIEM?</a></li>
+                        <li><a href="/resources/what-is-sovereign-soc/">What is a Sovereign SOC?</a></li>
+                        <li><a href="/resources/what-is-ai-soc-analyst/">What is an AI SOC Analyst?</a></li>
+                        <li><a href="/resources/siem-buyers-guide/">SIEM Buyer's Guide</a></li>
+                        <li><a href="/resources/healthcare-case-study/">Case Studies</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Company</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/team/">Team</a></li>
+                        <li><a href="/careers/">Careers</a></li>
+                        <li><a href="/security/">Security</a></li>
+                    </ul>
+                </li>
+                <li class="cta-nav"><a href="/demo/">Book a Demo</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <article class="blog-post">
+        <div class="container">
+            <div class="post-content">
+                <a href="/blog/" class="back-link"><span>&larr;</span><span>Back to Blog</span></a>
+
+                <div class="post-banner">
+                    <img src="/vigilense-logo.png?v=2" alt="" class="logo-icon">
+                    <span class="v">Vigilense</span><span class="ai"> AI</span> <span class="pipe">|</span> <span class="sov">THE SOVEREIGN SOC</span>
+                </div>
+
+                <header class="post-header">
+                    <h1>Legacy RBA Is Dead.<br>Adaptive Threat Fusion Is What Comes Next.</h1>
+                    <p class="post-subtitle">Why the industry's "gold standard" for alert management is creating the blind spots attackers exploit, and how AI-native threat fusion eliminates them without dropping a single alert.</p>
+                    <p class="post-published">Published by Vigilense AI &nbsp;|&nbsp; February 2026</p>
+                </header>
+
+                <hr class="post-divider">
+
+                <div class="post-body">
+
+                    <h2>The Uncomfortable Truth About Your SOC</h2>
+                    <p>For years, the cybersecurity industry has relied on Risk-Based Alerting as the "gold standard" for reducing alert fatigue. The promise was simple: assign risk points to events, and only alert the analyst when a user or asset crosses a specific threshold.</p>
+                    <p><strong>The RBA era is over.</strong></p>
+                    <p>The average enterprise SOC processes thousands of alerts per day. Analyst teams are expected to triage, investigate, and respond to each one. They cannot. So the industry invented a workaround: score every alert, set a threshold, and suppress anything below the line. The theory was that low-risk alerts are noise and can be safely ignored.</p>
+                    <p>The theory was wrong. By relying on static math to filter out noise, legacy SIEMs have created what we call the "Silent Breach" - a massive gap where sophisticated, low-and-slow attacks thrive undetected. The threshold-based approach has become a gift to modern adversaries.</p>
+                    <p>Waiting for a threshold to trip is a death sentence when attackers can blend into your baseline activity by design.</p>
+
+                    <h2>The Threshold Trap: Five Fatal Flaws of Legacy RBA</h2>
+                    <p>Risk-Based Alerting, as implemented by legacy or even some Modern SIEM platforms like Splunk, Exabeam, LogRhythm, and QRadar, operates on what we call the "Leaky Sieve" philosophy. It assumes that low-severity alerts are just noise until they pile up. If an attacker performs three or four low-risk actions - browsing a sensitive SharePoint folder, creating a suspicious API token, modifying a minor permissions policy - they stay below the threshold. These events are essentially dropped or buried. They never fuse into a single story because they never hit the magic number.</p>
+                    <p>This approach solved a real problem when it was introduced. SOC teams in the 2015 to 2020 era were drowning in undifferentiated alerts. RBA gave them a mechanism to focus. For its time, it was a meaningful improvement. But the threat landscape has changed, and RBA has not evolved with it.</p>
+
+                    <h3>1. Static Scoring in a Dynamic Threat Environment</h3>
+                    <p>RBA scores are assigned by detection engineers during rule creation. A brute-force authentication alert might be scored at 30 points. A suspicious DNS query at 10. A failed MFA challenge at 15. These scores are static. They do not change based on what else is happening in the environment, who the user is, what time it is, or whether the same pattern has been seen across other entities.</p>
+                    <p>Modern attackers exploit this rigidity. A coordinated campaign that generates dozens of individually low-scored alerts across multiple entities will never cross the threshold on any single entity. The attack is invisible to RBA by design.</p>
+
+                    <h3>2. Entity-Centric Aggregation Misses Cross-Entity Campaigns</h3>
+                    <p>Legacy RBA aggregates risk per user or per host. This makes it blind to lateral movement patterns where the attacker touches many entities lightly rather than one entity heavily. A threat actor who compromises five service accounts, each generating alerts scored below the threshold, will never trigger a notable event. The attack surface is distributed, but the scoring model is siloed.</p>
+
+                    <h3>3. Threshold Tuning Is a Losing Game</h3>
+                    <p>Every SOC that deploys RBA enters a perpetual tuning cycle. Set the threshold too low and the alert volume problem returns. Set it too high and real threats are suppressed. There is no stable equilibrium because the right threshold changes with the environment, the threat landscape, and the attacker's tactics.</p>
+                    <p>Most SOC teams err on the side of higher thresholds because the cost of alert fatigue is immediate and visible, while the cost of a missed threat is delayed and invisible. This creates a systematic bias toward suppression. That is exactly what adversaries are counting on.</p>
+
+                    <h3>4. No Semantic Understanding of Alert Relationships</h3>
+                    <p>RBA treats every alert as an independent data point with a numerical score. It has no understanding of what the alert actually describes, how it relates to other alerts, or whether a group of seemingly unrelated alerts are stages of the same attack. A DNS query to a known-bad domain, a failed login from an unusual location, and an anomalous data transfer may each score below the threshold individually. But together they describe a textbook command-and-control exfiltration chain. RBA cannot see this because it does not understand language, context, or narrative.</p>
+
+                    <h3>5. Suppressed Alerts Are Gone Forever</h3>
+                    <p>This is the most dangerous flaw. When RBA suppresses an alert, that alert is not stored in a lower-priority queue for later review. It is effectively discarded. During incident response, when investigators need to reconstruct the full timeline of an attack, the earliest indicators have been suppressed by RBA. The forensic trail has gaps precisely where it matters most: at the beginning, when the attacker was establishing their foothold.</p>
+                    <p>Dropping low-severity alerts is exactly what attackers want you to do. Every suppressed alert is a free pass. Every raised threshold is more room to operate. The security industry has spent a decade optimizing for analyst comfort while handing adversaries the playbook to evade detection.</p>
+                    <p><strong>The alerts RBA suppresses are not noise. They are the earliest evidence of the threats that matter most.</strong></p>
+
+                    <h2>Introducing Adaptive Threat Fusion</h2>
+                    <p>Vigilense AI is retiring the concept of RBA. In its place, we are introducing <strong>Adaptive Threat Fusion (ATF)</strong> - a modern, AI-native framework that does not just group alerts but actively analyzes every single one, including low-severity signals that legacy systems discard, and synthesizes them into Forensic Narratives.</p>
+                    <p>ATF was built on a fundamentally different premise than Risk-Based Alerting: no alert should ever be dropped. Every alert, critical or informational, should be AI-analyzed, correlated, and presented in context.</p>
+                    <p>We do not believe in dropping a low-severity alert. Because that is exactly what attackers want us to do. They design their campaigns to generate low-severity signals. They test against detection thresholds. They know the math. ATF breaks that math by refusing to play the threshold game entirely.</p>
+                    <p>The goal is threefold: optimize investigations so analysts spend time on decisions instead of data assembly, compress the time from alert to verdict from hours down to seconds, and catch attack campaigns in their tracks before they reach their objective.</p>
+
+                    <h2>How ATF Works: Three Stages of Intelligence</h2>
+
+                    <h3>Stage 1: AI-Powered Multi-Dimensional Analysis</h3>
+                    <p>Instead of arbitrary risk scores, ATF uses density-based clustering algorithms combined with AI to analyze alerts across a configurable lookback window. Every alert that enters the system is transformed into a rich, multi-dimensional feature vector that captures far more than a simple risk score:</p>
+                    <ul>
+                        <li><strong>Time Proximity</strong> - normalized temporal positioning within the analysis window, capturing when the alert occurred relative to all other activity.</li>
+                        <li><strong>Severity Classification</strong> - scaled across all severity levels from critical down to informational, preserving the detection engineer's original severity judgment without making it the sole decision factor.</li>
+                        <li><strong>Tactical Category</strong> - mapped threat categories that distinguish between threat types, enabling the system to recognize when alerts of similar tactical nature are converging.</li>
+                        <li><strong>AI-Powered Semantic Understanding</strong> - transformer-based language models generate dense embeddings of each alert's name and description, enabling the system to understand what alerts actually mean, not just their metadata. An alert about "suspicious outbound connection to rare external IP" and one about "anomaly detected in egress traffic" are recognized as semantically related, even with zero keyword overlap.</li>
+                    </ul>
+                    <p>This allows ATF to identify "shapes" in the data. If five informational events occur in a specific pattern across your data lake, ATF fuses them instantly, regardless of their individual risk score. Alerts that are close together across multiple dimensions are grouped into clusters. Each cluster represents a coherent threat narrative.</p>
+                    <p>When triage context is available, ATF extends the analysis to include playbook signatures, data source fingerprints, investigation step patterns, and entity relationships across users, IP addresses, hosts, accounts, and roles. This creates an even richer representation that captures not just what the alert says but how it connects to your operational reality.</p>
+
+                    <h3>Stage 2: The No-Drop Policy - AI Investigates Every Alert</h3>
+                    <p>Legacy RBA filters out noise to save money on ingestion and analyst time. Because Vigilense AI is built on a <a href="/resources/what-is-byodb-siem/">BYODb (Bring Your Own Database)</a> architecture, we do not charge an Ingestion Tax. We query 100% of your signals in place, across OpenSearch, Snowflake, BigQuery, Splunk, S3, and more, without moving a byte.</p>
+                    <p>But the No-Drop Policy is not just about retention. It is about active AI analysis of every alert, regardless of severity. Every informational alert, every low-severity event, every signal that a legacy SIEM would score at 5 points and suppress. ATF's AI engine examines it, understands its context, and determines whether it belongs to a broader campaign.</p>
+                    <p>Alerts that cluster together are fused into Forensic Narratives. Alerts that do not fit any cluster are not discarded. They are flagged as anomalies and actively interrogated by the AI: is this outlier the first step of an attack chain we have not seen before? Does it correlate with anything across other entities or time windows?</p>
+                    <p>In ATF, being an outlier makes an alert more interesting, not less. A low-severity alert that RBA would suppress might be the earliest indicator of a campaign that has not yet generated enough activity to cluster. ATF's AI catches it anyway. Because catching campaigns in their tracks, before they reach their objective, is the entire point.</p>
+
+                    <h3>Stage 3: Intelligent Synthesis - AI-Generated Forensic Narratives</h3>
+                    <p>Once a cluster is identified, ATF does not hand the analyst a list of alerts. It uses AI to generate a human-readable Forensic Narrative. The AI analyzes the full context of every alert in the cluster, including triage signatures, IPs, hostnames, evidence keys, and entity relationships, and produces:</p>
+                    <ul>
+                        <li>A threat name that describes the consolidated concern in plain language.</li>
+                        <li>A narrative description that explains what happened, why it matters, and how the constituent alerts relate to each other.</li>
+                        <li>A severity rating derived from the highest-severity alert in the cluster, ensuring no critical signal is diluted by lower-severity neighbors.</li>
+                    </ul>
+                    <p>The result is a single, actionable item that an analyst can review in seconds, with full drill-down capability into every constituent alert. Every alert is accounted for. Nothing was dropped. The analyst's job shifts from assembling data to making decisions.</p>
+                    <p>This is the core of what ATF optimizes: the investigation itself. Legacy tools force analysts to manually stitch together evidence across siloed tools, spending hours on correlation before they can even begin to understand what happened. ATF delivers the completed analysis. The investigation is done before the analyst touches it.</p>
+                    <p>ATF does not reduce alert volume by deleting alerts. It optimizes investigations by turning raw signals into finished intelligence, and catches campaigns in their tracks before they reach their objective.</p>
+
+                    <h2>From Hours to Seconds</h2>
+                    <p>The operational impact of moving from RBA to ATF is not a minor efficiency gain. It is a fundamental shift in how SOC teams spend their time.</p>
+                    <p>Under legacy RBA, an analyst receives a notable event that crossed the threshold. They must then manually correlate the contributing alerts, pivot across multiple tools and data sources, enrich with threat intelligence, determine scope, and write up their findings. For complex investigations, this process takes hours.</p>
+                    <p>Under ATF, the analyst receives a pre-built Forensic Narrative with every contributing alert, including low-severity signals that RBA would have suppressed, already AI-analyzed, correlated, enriched, and explained. The severity is assigned. The entities are mapped. The attack chain is visible. The analyst's job shifts from "figure out what happened" to "confirm and respond." What used to take hours now takes seconds.</p>
+                    <p>More importantly, ATF catches campaigns in progress. Because the AI analyzes every alert regardless of severity and actively looks for patterns across entities and time, it identifies coordinated attacks while they are still unfolding, not after the damage is done.</p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Dimension</th>
+                                <th>Legacy RBA</th>
+                                <th>Vigilense ATF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Core Logic</td><td>Static thresholds (points)</td><td>AI-powered dynamic fusion (vectors)</td></tr>
+                            <tr><td>Data Handling</td><td>Drops "low risk" data to save cost</td><td>No data dropped; 79% lower TCO via BYODb</td></tr>
+                            <tr><td>Alert Relationships</td><td>None - each alert scored independently</td><td>AI-analyzed semantic + temporal + categorical correlation</td></tr>
+                            <tr><td>Cross-Entity Visibility</td><td>Per-entity aggregation only</td><td>Cross-entity AI analysis across all dimensions</td></tr>
+                            <tr><td>AI Involvement</td><td>None - deterministic rules</td><td>AI analyzes every alert + generates narratives</td></tr>
+                            <tr><td>Alert Volume</td><td>Reduced, but misses "low &amp; slow" attacks</td><td>Consolidated into high-fidelity Triage Bundles</td></tr>
+                            <tr><td>Analyst Output</td><td>Notable events; manual correlation required</td><td>AI-generated Forensic Narratives</td></tr>
+                            <tr><td>Outlier Treatment</td><td>Suppressed as low-risk</td><td>AI-analyzed as potential campaign indicators</td></tr>
+                            <tr><td>Tuning Burden</td><td>Constant threshold recalibration</td><td>Self-adjusting parameters</td></tr>
+                            <tr><td>Forensic Completeness</td><td>Gaps from suppressed early indicators</td><td>Full timeline preserved for every incident</td></tr>
+                            <tr><td>Time to Verdict</td><td>Hours per notable event</td><td>Seconds to resolved verdict</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>ATF in Action: The Silent Breach Scenario</h2>
+                    <p>Consider a scenario that plays out daily in enterprise SOCs. An attacker gains initial access through a phishing email that delivers a low-severity payload. The endpoint detection system fires an alert scored at 15 points. The attacker uses the compromised account to browse a sensitive SharePoint folder (10 points), create a suspicious API token (10 points), and modify a minor permissions policy (10 points). They perform reconnaissance against Active Directory, generating two identity alerts at 10 points each. Finally, they begin staging data for exfiltration, generating a network anomaly alert scored at 10 points.</p>
+                    <p>Total activity: seven alerts across three entities. Maximum per-entity score: 35 points. Typical RBA threshold: 50 to 75 points.</p>
+                    <p><strong>Under Legacy RBA:</strong> The individual entity scores never cross the threshold. No notable event is generated. The SOC sees nothing. Seven alerts are suppressed. The attacker has days or weeks to operate. This is the Silent Breach.</p>
+                    <p><strong>Under Vigilense ATF:</strong> All seven alerts are ingested and AI-analyzed, including the 10-point events that RBA would have suppressed. The AI engine recognizes that phishing delivery, SharePoint enumeration, API token creation, permission changes, AD reconnaissance, and data staging are phases of the same campaign. It clusters them based on temporal proximity, semantic similarity, and tactical category. The AI then generates a Forensic Narrative titled "Multi-stage intrusion: credential compromise to data staging across User-X, Host-Y, and ServiceAccount-Z" with a critical severity rating. The campaign is caught in its tracks. The analyst sees one consolidated item, understands the full attack chain, and responds in seconds.</p>
+                    <p>The difference is not marginal. It is the difference between detecting a breach in progress and discovering it in a post-mortem three months later.</p>
+
+                    <h2>Why This Matters Now</h2>
+                    <p>Three converging forces make legacy alert triage untenable in 2026 and beyond.</p>
+
+                    <h3>Adversaries Are Engineering Around Risk Scores</h3>
+                    <p>Modern threat actors understand how SIEM platforms score alerts. Red team frameworks and adversary emulation tools routinely test detection coverage by generating activity below common RBA thresholds. The concept of "living off the land" is specifically designed to produce low-severity, individually benign-looking events. Attackers now engineer their campaigns to fly under RBA thresholds by default. RBA's scoring model is no longer a defense. It is a published specification that attackers build around.</p>
+
+                    <h3>The SIEM Renewal Cliff</h3>
+                    <p>The SIEM market is facing a renewal cliff in 2025 and 2026. As enterprises move to security data lakes and BYODb architectures, the need for ingestion-based risk scoring is vanishing. Organizations that locked into three-year Splunk or Exabeam contracts are now re-evaluating whether paying per gigabyte for the privilege of having their alerts suppressed makes any strategic sense. The economics of RBA - pay more to ingest, then throw away what you ingested - are collapsing.</p>
+
+                    <h3>Regulatory Pressure on Alert Retention</h3>
+                    <p>Financial services regulators, HIPAA enforcement, and emerging SEC cyber disclosure rules increasingly require organizations to demonstrate that they reviewed and acted on security alerts. Suppressing alerts through RBA creates a compliance gap. If a regulator asks why a specific alert was not investigated, "our SIEM automatically suppressed it because the risk score was below our threshold" is not an answer that inspires confidence. ATF preserves a complete audit trail because every alert is accounted for within a Forensic Narrative.</p>
+
+                    <h2>ATF and the Sovereign SOC</h2>
+                    <p>Adaptive Threat Fusion is not a standalone feature. It is the intelligence core of the <a href="/resources/what-is-sovereign-soc/">Vigilense AI Sovereign SOC</a> platform, and it benefits from architectural choices that legacy SIEM vendors cannot replicate.</p>
+
+                    <h3>BYODb: Your Data Stays In Place</h3>
+                    <p>ATF runs directly on your existing databases. Alert data is not ingested into a proprietary data store. It is queried in place, clustered in place, and enriched in place. This means ATF has access to the full breadth of your telemetry without the cost or latency of data movement. Legacy SIEM vendors charge per gigabyte of ingestion, which creates a perverse incentive to limit the data available for correlation. ATF eliminates this constraint entirely, achieving 79% lower total cost of ownership compared to traditional SIEM deployments.</p>
+
+                    <h3>Organizational Context: The Learning SOC</h3>
+                    <p>ATF absorbs the tribal knowledge that exists in your SOC: which assets are crown jewels, how your team defines escalation criteria, what is normal in your environment. This context is embedded into the analysis and narrative generation process, making ATF's output increasingly aligned with your organization's specific risk posture over time. This is not possible with RBA, where scoring is defined once and manually maintained.</p>
+
+                    <h2>What Changes for Your SOC</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Before ATF</th>
+                                <th>After ATF</th>
+                                <th>Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Thousands of raw alerts per day</td><td>Consolidated Forensic Narratives</td><td>Dramatic reduction in triage volume</td></tr>
+                            <tr><td>Hours per investigation</td><td>Seconds to resolved verdict</td><td>Radically faster time to verdict</td></tr>
+                            <tr><td>Low-severity alerts suppressed</td><td>Every alert AI-analyzed and contextualized</td><td>Zero blind spots from suppression</td></tr>
+                            <tr><td>Weekly RBA threshold tuning</td><td>Self-adjusting parameters</td><td>Engineering hours reclaimed</td></tr>
+                            <tr><td>Forensic gaps during IR</td><td>Complete alert timeline for every incident</td><td>Faster, more accurate investigations</td></tr>
+                            <tr><td>Per-GB ingestion cost</td><td>BYODb - zero ingestion fees</td><td>79% lower total cost of ownership</td></tr>
+                            <tr><td>Compliance risk from suppressed alerts</td><td>Full audit trail with AI documentation</td><td>Regulatory confidence</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>Don't Manage Noise. Fuse Intelligence.</h2>
+                    <p>Risk-Based Alerting was the right answer for a previous era. It addressed a real problem with the tools available at the time. But attackers got smarter, AI got better, and the core assumption of RBA, that some alerts can safely be ignored, has been proven dangerous.</p>
+                    <p>Dropping low-severity alerts is not a strategy. It is a concession to attackers. Every suppressed alert is a blind spot. Every raised threshold is more room for adversaries to operate. ATF eliminates this tradeoff entirely by using AI to analyze every signal, fuse related alerts into Forensic Narratives, and catch campaigns in their tracks.</p>
+                    <p>The SIEM renewal cliff is here. The question for security leaders is no longer whether to evolve beyond RBA. It is whether you can afford the blind spots that come with waiting.</p>
+                    <p><strong>RBA drops alerts. ATF fuses them. Your adversaries are counting on you to keep dropping.</strong></p>
+                    <p>Adaptive Threat Fusion is more than a feature. It is the core of the Sovereign SOC. It ensures that your security team is not just watching a dashboard. They are seeing the whole story.</p>
+
+                </div>
+
+                <hr class="post-divider">
+
+                <div class="post-cta">
+                    <h3>See Adaptive Threat Fusion in Action</h3>
+                    <p style="margin-bottom: 20px;">Request an architecture blueprint or schedule a risk-free pilot deployment at <a href="https://vigilense.ai" style="color: #00D4AA;">vigilense.ai</a></p>
+                    <a href="/demo/" class="btn">Book a Demo</a>
+                    <a href="/cost-simulator/" class="btn btn-secondary">Savings Calculator</a>
+                </div>
+
+                <div class="author-card">
+                    <div class="author-avatar">R</div>
+                    <div class="author-info">
+                        <h4>Raj Choudhary</h4>
+                        <div class="author-title">Vigilense AI</div>
+                        <div class="author-bio">Author of this post on Adaptive Threat Fusion and the future of alert management in the Sovereign SOC.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/" class="nav-brand">
+                        <img src="/vigilense-logo.png?v=2" alt="Vigilense AI" class="logo-icon" loading="lazy">
+                        <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+                    </a>
+                    <p>The Sovereign SOC</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="/platform/ai-soc-analyst/">AI SOC Analyst</a></li>
+                            <li><a href="/platform/byodb-siem/">BYODb SIEM</a></li>
+                            <li><a href="/platform/integrations/">Integrations</a></li>
+                            <li><a href="/pricing/">Pricing</a></li>
+                            <li><a href="/#how-it-works">How It Works</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="/team/">Team</a></li>
+                            <li><a href="/careers/">Careers</a></li>
+                            <li><a href="/security/">About &amp; Security</a></li>
+                            <li><a href="/trust/">Trust Center</a></li>
+                            <li><a href="/demo/">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="/why-now/">Why Now</a></li>
+                            <li><a href="/blog/">Blog &amp; News</a></li>
+                            <li><a href="/resources/what-is-byodb-siem/">What is BYODb SIEM?</a></li>
+                            <li><a href="/resources/what-is-sovereign-soc/">What is a Sovereign SOC?</a></li>
+                            <li><a href="/resources/what-is-ai-soc-analyst/">What is an AI SOC Analyst?</a></li>
+                            <li><a href="/resources/siem-buyers-guide/">SIEM Buyer's Guide</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal &amp; Security</h4>
+                        <ul>
+                            <li><a href="/trust/">Trust Center</a></li>
+                            <li><a href="/security/">Security</a></li>
+                            <li><a href="/privacy/">Privacy Policy</a></li>
+                            <li><a href="/terms/">Terms of Service</a></li>
+                            <li><a href="/disclaimer/">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>General: <a href="mailto:hello@vigilense.ai">hello@vigilense.ai</a> &nbsp;|&nbsp; Sales: <a href="mailto:sales@vigilense.ai">sales@vigilense.ai</a> &nbsp;|&nbsp; Support: <a href="mailto:support@vigilense.ai">support@vigilense.ai</a></p>
+                    <p>&copy; 2026 Vigilense AI. All rights reserved. Adaptive Threat Fusion is a trademark of Vigilense AI.</p>
+                    <div class="footer-legal-links">
+                        <a href="/privacy/">Privacy</a>
+                        <a href="/terms/">Terms</a>
+                        <a href="/disclaimer/">Disclaimer</a>
+                    </div>
+                </div>
+                <p class="footer-tagline">Autonomous vigilance for modern security teams.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navMenu = document.querySelector('.nav-menu');
+            if (hamburger) hamburger.addEventListener('click', function() { navMenu.classList.toggle('active'); });
+        });
+    </script>
+</body>
+</html>

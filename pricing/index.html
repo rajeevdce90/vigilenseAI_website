@@ -30,18 +30,27 @@
     <title>Pricing - Outcome-First, Usage-Based | Vigilense AI</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/theme.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         .pricing-hero {
-            padding: 160px 0 80px;
+            padding: 140px 0 60px;
             background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-            text-align: center;
+        }
+        .pricing-hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 48px;
+            align-items: center;
+        }
+        .pricing-hero-text {
+            text-align: left;
         }
         .pricing-hero h1 {
             font-family: 'Syne', sans-serif;
-            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
             font-weight: 700;
             color: var(--text-primary);
             margin-top: 16px;
@@ -49,10 +58,39 @@
             letter-spacing: -1px;
         }
         .pricing-hero p {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+        .pricing-hero-chart {
+            background: #0F1115;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            padding: 20px 16px;
+        }
+        
+        .pricing-hero-cta {
+            margin-top: 28px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .pricing-hero-cta .btn { font-size: 0.95rem; }
+        .pricing-hero-cta-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+        @media (max-width: 900px) {
+            .pricing-hero-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .pricing-hero-text { text-align: center; }
+            .pricing-hero-cta { justify-content: center; }
         }
         .pricing-value {
             padding: 80px 0;
@@ -261,6 +299,9 @@
             .value-grid { grid-template-columns: 1fr; }
             .included-grid { grid-template-columns: 1fr; }
             .pricing-hero { padding: 120px 0 60px; }
+            .pricing-hero-grid { grid-template-columns: 1fr; gap: 32px; }
+            .pricing-hero-text { text-align: center; }
+            .pricing-hero-cta { justify-content: center; }
         }
     </style>
     <script type="application/ld+json">
@@ -270,7 +311,7 @@
       "mainEntity": [
         {"@type": "Question", "name": "Is there really no upfront cost?", "acceptedAnswer": {"@type": "Answer", "text": "Correct. We deploy the full Sovereign SOC platform - BYODb SIEM and AI SOC Analyst - at our expense during the pilot. You pay nothing until we demonstrate measurable results."}},
         {"@type": "Question", "name": "What happens after the pilot?", "acceptedAnswer": {"@type": "Answer", "text": "After the pilot, we review results together. If the outcomes meet your expectations, we move to a subscription. If not, you walk away with zero obligation. No lock-in, no penalties."}},
-        {"@type": "Question", "name": "How is Vigilense AI pricing structured?", "acceptedAnswer": {"@type": "Answer", "text": "Pricing starts with outcomes: you don't pay until the pilot proves value. Post-pilot, pricing is usage-based - tied to alerts investigated and threats resolved, not data volume. Zero per-GB ingestion fees. Contact sales@vigilense.ai for a custom quote."}},
+        {"@type": "Question", "name": "How is Vigilense AI pricing structured?", "acceptedAnswer": {"@type": "Answer", "text": "Pricing starts with outcomes: you don't pay until the pilot proves value. Post-pilot, pricing is usage-based - a platform subscription that scales with your security workload (investigations handled, detections running), not your raw data volume. Zero per-GB ingestion fees. Use our Cost Simulator to estimate savings, or contact sales@vigilense.ai for a custom quote."}},
         {"@type": "Question", "name": "Are there any hidden fees?", "acceptedAnswer": {"@type": "Answer", "text": "No. There are no ingestion fees, no data transfer fees, no storage surcharges, and no surprise overages. Your data stays in your databases - we never move or copy it."}},
         {"@type": "Question", "name": "How long is the Vigilense AI pilot?", "acceptedAnswer": {"@type": "Answer", "text": "Typical pilots run 2-4 weeks, enough time to connect your databases, deploy the AI analyst, and measure results. Deployment itself takes days, not months."}},
         {"@type": "Question", "name": "Can I cancel anytime?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. There are no long-term commitments. You can cancel at any time with no penalties."}}
@@ -304,7 +345,13 @@
                         <li><a href="/security/">Security & Trust</a></li>
                     </ul>
                 </li>
-                <li><a href="/pricing/">Pricing</a></li>
+                <li>
+                    <a href="/pricing/">Pricing</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/pricing/">Pricing Overview</a></li>
+                        <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 600;">Savings Calculator</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="#">Resources</a>
                     <ul class="dropdown-menu">
@@ -324,7 +371,6 @@
                         <li><a href="/security/">Security</a></li>
                     </ul>
                 </li>
-                <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 700;">Cost Simulator</a></li>
                 <li class="cta-nav"><a href="/demo/">Book a Demo</a></li>
             </ul>
             <div class="hamburger">
@@ -338,9 +384,29 @@
     <!-- Hero -->
     <section class="pricing-hero">
         <div class="container">
-            <span class="section-tag">Pricing</span>
-            <h1>Outcome-First, Usage-Based Pricing</h1>
-            <p>No per-GB ingestion costs. No upfront commitment. We deploy at our expense and you don't pay until we deliver measurable security outcomes. After the pilot, pricing scales with your usage - not your data volume.</p>
+            <div class="pricing-hero-grid">
+                <div class="pricing-hero-text">
+                    <span class="section-tag">Pricing</span>
+                    <h1>Outcome-First, Usage-Based Pricing</h1>
+                    <p>No per-GB ingestion costs. No upfront commitment. We deploy at our expense and you don't pay until we deliver measurable security outcomes.</p>
+                    <div class="pricing-hero-cta">
+                        <a href="/cost-simulator/" class="btn btn-primary btn-large">Run Your Own Numbers</a>
+                        <a href="/demo/" class="btn btn-secondary btn-large">Book a Demo</a>
+                    </div>
+                    <p class="pricing-hero-cta-sub" style="margin-top: 12px;">Interactive savings calculator - no signup required</p>
+                </div>
+                <div class="pricing-hero-chart">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 4px;">
+                        <div>
+                            <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; margin: 0 0 4px; letter-spacing: 0.03em;"><img src="/vigilense-logo.png?v=2" alt="" style="width:18px; height:18px; vertical-align:middle; margin-right:4px; border-radius:50%; object-fit:contain;"><span style="color:#fff">Vigilense</span> <span style="color:#33E0BB">SOVEREIGN SOC</span> Vs <span style="color:#FF4444">Legacy SIEM</span></h3>
+                            <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: rgba(255,255,255,0.4); margin: 0 0 16px; letter-spacing: 0.04em;">SIEM + SOC combined &middot; Volume &amp; alerts scale together &middot; Y-axis = $/year</p>
+                        </div>
+                    </div>
+                    <div style="position: relative; width: 100%; height: 320px;">
+                        <canvas id="pricingSovChart" style="width:100%!important; height:100%!important;"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -354,12 +420,12 @@
                     <p>We query your databases in place. No data movement means no per-GB ingestion costs - ever. Your log volume doesn't affect your bill.</p>
                 </div>
                 <div class="value-card">
-                    <div class="value-icon">[→]</div>
+                    <div class="value-icon">[+]</div>
                     <h3>Risk-Free Pilot</h3>
                     <p>We deploy the Sovereign SOC at no cost. You don't pay a cent until we prove measurable value - reduced MTTR, fewer false positives, real threats resolved.</p>
                 </div>
                 <div class="value-card">
-                    <div class="value-icon">[✓]</div>
+                    <div class="value-icon">[+]</div>
                     <h3>Outcome + Usage-Based</h3>
                     <p>Pricing starts with proven outcomes during a risk-free pilot. Post-pilot, it scales with your usage - alerts investigated, threats resolved - never with data volume.</p>
                 </div>
@@ -445,6 +511,9 @@
                     <p><strong>24/7 Support</strong><span>Technical support available around the clock during and after the pilot.</span></p>
                 </div>
             </div>
+            <div style="text-align: center; margin-top: 36px;">
+                <a href="/cost-simulator/" style="color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; font-weight: 600; text-decoration: underline; text-underline-offset: 4px;">See how the numbers break down in our Cost Simulator →</a>
+            </div>
         </div>
     </section>
 
@@ -463,7 +532,7 @@
                 </details>
                 <details class="pricing-faq-item">
                     <summary>How is pricing structured?</summary>
-                    <div class="faq-answer">Pricing starts with outcomes: you don't pay until the pilot proves value. Post-pilot, pricing is usage-based - tied to alerts investigated and threats resolved, not data volume. Zero per-GB ingestion fees. Contact <a href="mailto:sales@vigilense.ai" style="color: var(--accent);">sales@vigilense.ai</a> for a custom quote tailored to your environment.</div>
+                    <div class="faq-answer">Pricing starts with outcomes: you don't pay until the pilot proves value. Post-pilot, pricing is usage-based - a platform subscription that scales with your security workload (investigations handled, detections running), not your raw data volume. Zero per-GB ingestion fees. Your BYODb infrastructure costs are pass-through to your own cloud provider. Use our <a href="/cost-simulator/" style="color: var(--accent);">Cost Simulator</a> to estimate your savings, or contact <a href="mailto:sales@vigilense.ai" style="color: var(--accent);">sales@vigilense.ai</a> for a custom quote tailored to your environment.</div>
                 </details>
                 <details class="pricing-faq-item">
                     <summary>Are there any hidden fees?</summary>
@@ -478,6 +547,15 @@
                     <div class="faq-answer">Yes. There are no long-term commitments. You can cancel at any time with no penalties. We believe in earning your business through results, not contracts.</div>
                 </details>
             </div>
+        </div>
+    </section>
+
+    <!-- Cost Simulator CTA -->
+    <section class="pricing-value" style="padding: 60px 0;">
+        <div class="container" style="text-align: center;">
+            <h2 style="font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">How Much Could You Save?</h2>
+            <p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 28px; font-size: 1.05rem; line-height: 1.7;">Compare your current SIEM and SOC costs against Vigilense AI. See exactly where the savings come from - no signup required.</p>
+            <a href="/cost-simulator/" class="btn btn-primary btn-large" style="margin-right: 12px;">Estimate Your Savings →</a>
         </div>
     </section>
 
@@ -560,5 +638,232 @@
     </footer>
 
     <script src="/script.js"></script>
+    <script src="/pricing-config.js"></script>
+    <script>
+    (function() {
+        var P = window.VIGILENSE_PRICING;
+        if (!P) return;
+        var PH = P.helpers;
+
+        function maxRulesForVolume(gb) {
+            if (gb <= 10)   return 100;
+            if (gb <= 50)   return 250;
+            if (gb <= 200)  return 500;
+            if (gb <= 1000) return 1500;
+            if (gb <= 5000) return 3000;
+            return 5000;
+        }
+
+        function staticSocCost(dailyAlerts, autoResolveOverride) {
+            var SD = P.socDefaults;
+            var investRate = SD.investigationRate / 100;
+            var benefitsMult = 1 + SD.benefitsPct / 100;
+            var turnoverRate = SD.turnoverPct / 100;
+            var autoResolveRate = (autoResolveOverride !== undefined ? autoResolveOverride : SD.autoResolveRate) / 100;
+            var shiftModel = P.shifts['24/7'];
+            var shifts = shiftModel.count;
+            var fteMult = shiftModel.fteMult;
+            var shiftPremium = shiftModel.premium;
+
+            var investigatedAlerts = Math.round(dailyAlerts * investRate);
+            var alertsPerShift = Math.ceil(investigatedAlerts / shifts);
+            var seatsPerShift = Math.max(1, Math.ceil(alertsPerShift / SD.alertsPerAnalyst));
+            var l1Count = Math.max(2, Math.ceil(seatsPerShift * fteMult));
+            var l2Count = Math.max(1, Math.ceil(l1Count * 0.25));
+            var l3Count = Math.max(1, Math.ceil(l1Count * 0.125));
+            var totalAnalysts = l1Count + l2Count + l3Count;
+            var mgrCount = Math.max(1, Math.ceil(totalAnalysts / 12));
+            var totalStaff = totalAnalysts + mgrCount;
+
+            var l1Cost = Math.round(l1Count * SD.l1Salary * benefitsMult * shiftPremium);
+            var l2Cost = Math.round(l2Count * Math.round(SD.l1Salary * SD.l2Multiplier) * benefitsMult * shiftPremium);
+            var l3Cost = Math.round(l3Count * Math.round(SD.l1Salary * SD.l3Multiplier) * benefitsMult);
+            var mgrCost = Math.round(mgrCount * Math.round(SD.l1Salary * SD.mgrMultiplier) * benefitsMult);
+            var staffCost = l1Cost + l2Cost + l3Cost + mgrCost;
+
+            var turnoverCostTotal = Math.round(totalStaff * turnoverRate * SD.recruitCost);
+            var trainingTotal = totalStaff * SD.trainingCost;
+            var toolingTotal = SD.soarTooling + SD.threatIntel;
+            var humanSocTotal = staffCost + turnoverCostTotal + trainingTotal + toolingTotal;
+
+            var annualInvestigations = dailyAlerts * 365;
+            var socPlat = PH.aiSocPlatformCost(dailyAlerts);
+            var aiCompute = PH.aiComputeCost(annualInvestigations);
+
+            var dailyEscalated = Math.round(dailyAlerts * (1 - autoResolveRate));
+            var reviewerPerShift = Math.max(1, Math.ceil(dailyEscalated / SD.reviewRate));
+            var reviewerCount = Math.ceil(reviewerPerShift * fteMult);
+            var reviewerCost = Math.round(reviewerCount * SD.reviewerSalary * benefitsMult * shiftPremium);
+            var detEngCount = PH.detEngCount(dailyAlerts);
+            var detEngCost = Math.round(detEngCount * SD.detEngSalary * benefitsMult);
+            var irLeadCount = PH.irLeadCount(dailyAlerts);
+            var irLeadCost = Math.round(irLeadCount * SD.irLeadSalary * benefitsMult);
+            var hilStaffTotal = reviewerCost + detEngCost + irLeadCost;
+
+            var vigSocTotal = socPlat.annual + aiCompute + hilStaffTotal;
+
+            return {
+                humanSocTotal: humanSocTotal,
+                vigSocTotal: vigSocTotal,
+                aiSocPlatform: socPlat.annual,
+                aiCompute: aiCompute
+            };
+        }
+
+        var scales = [
+            { gb: 1,     alerts: 100 },
+            { gb: 10,    alerts: 150 },
+            { gb: 100,   alerts: 350 },
+            { gb: 500,   alerts: 1000 },
+            { gb: 2000,  alerts: 2500 },
+            { gb: 10000, alerts: 5000 }
+        ];
+
+        var labels = scales.map(function(s) {
+            return s.gb >= 1000 ? (s.gb/1000) + ' TB' : s.gb + ' GB';
+        });
+
+        var legacyData = [], vigData = [];
+        var vigLowAutoData = [], vigHighAutoData = [];
+
+        scales.forEach(function(s) {
+            var rules = Math.max(100, Math.min(maxRulesForVolume(s.gb), Math.round(200 * (s.gb / 500))));
+            var siem = PH.legacyScenario(s.gb, null, rules);
+            var vig = PH.vigilenseSiemCost(s.gb, rules);
+            var soc = staticSocCost(s.alerts);
+            var socLow  = staticSocCost(s.alerts, 60);
+            var socHigh = staticSocCost(s.alerts, 90);
+
+            var legacyTotal = siem.total + soc.humanSocTotal;
+
+            var vigPlatformCosts = vig.total + soc.aiSocPlatform + soc.aiCompute;
+            var bundleDiscount = Math.round(vigPlatformCosts * P.bundleDiscount);
+            var vigTotal = vig.total + soc.vigSocTotal - bundleDiscount;
+
+            var vigPlatLow = vig.total + socLow.aiSocPlatform + socLow.aiCompute;
+            var vigTotalLow = vig.total + socLow.vigSocTotal - Math.round(vigPlatLow * P.bundleDiscount);
+
+            var vigPlatHigh = vig.total + socHigh.aiSocPlatform + socHigh.aiCompute;
+            var vigTotalHigh = vig.total + socHigh.vigSocTotal - Math.round(vigPlatHigh * P.bundleDiscount);
+
+            legacyData.push(Math.round(legacyTotal / 1000));
+            vigData.push(Math.round(vigTotal / 1000));
+            vigLowAutoData.push(Math.round(vigTotalLow / 1000));
+            vigHighAutoData.push(Math.round(vigTotalHigh / 1000));
+        });
+
+        var ctx = document.getElementById('pricingSovChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Legacy Stack (SIEM + Human SOC)',
+                        data: legacyData,
+                        borderColor: '#FF4444',
+                        backgroundColor: 'rgba(255,68,68,0.08)',
+                        borderWidth: 2.5,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 3,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: 'Vigilense AI SOVEREIGN SOC',
+                        data: vigData,
+                        borderColor: '#00D4AA',
+                        backgroundColor: 'rgba(0,212,170,0.08)',
+                        borderWidth: 2.5,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 3,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: 'Low Automation (60%)',
+                        data: vigLowAutoData,
+                        borderColor: 'rgba(0,212,170,0.4)',
+                        backgroundColor: 'rgba(0,212,170,0.1)',
+                        borderWidth: 1,
+                        borderDash: [4, 4],
+                        fill: '+1',
+                        tension: 0.3,
+                        pointRadius: 0,
+                        pointHoverRadius: 3
+                    },
+                    {
+                        label: 'High Automation (90%)',
+                        data: vigHighAutoData,
+                        borderColor: 'rgba(0,212,170,0.4)',
+                        backgroundColor: 'rgba(0,212,170,0.1)',
+                        borderWidth: 1,
+                        borderDash: [4, 4],
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 0,
+                        pointHoverRadius: 3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: 'rgba(255,255,255,0.7)',
+                            font: { family: "'JetBrains Mono', monospace", size: 9 },
+                            padding: 12, usePointStyle: true, pointStyleWidth: 10
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15,17,21,0.95)',
+                        titleColor: '#fff',
+                        bodyColor: 'rgba(255,255,255,0.8)',
+                        titleFont: { family: "'Outfit', sans-serif", weight: '600', size: 13 },
+                        bodyFont: { family: "'JetBrains Mono', monospace", size: 11 },
+                        padding: 14,
+                        borderColor: 'rgba(255,255,255,0.1)',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(ctx) {
+                                var v = ctx.parsed.y;
+                                var label = ctx.dataset.label || '';
+                                if (v >= 1000) return ' ' + label + ':  $' + (v/1000).toFixed(1) + 'M';
+                                return ' ' + label + ':  $' + v + 'K';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'rgba(255,255,255,0.5)',
+                            font: { family: "'JetBrains Mono', monospace", size: 10 },
+                            maxRotation: 0
+                        },
+                        grid: { color: 'rgba(255,255,255,0.04)' }
+                    },
+                    y: {
+                        position: 'left',
+                        ticks: {
+                            color: 'rgba(255,255,255,0.5)',
+                            font: { family: "'JetBrains Mono', monospace", size: 9 },
+                            callback: function(v) {
+                                if (v >= 1000) return '$' + (v/1000).toFixed(0) + 'M';
+                                return '$' + v + 'K';
+                            }
+                        },
+                        grid: { color: 'rgba(255,255,255,0.04)' },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    })();
+    </script>
 </body>
 </html>

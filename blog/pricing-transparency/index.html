@@ -6,9 +6,9 @@
     <!-- Open Graph -->
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Vigilense AI" />
-    <meta property="og:title" content="Why We Chose Sovereign Over Scale" />
-    <meta property="og:description" content="Your security should never be someone else's leverage. We built Vigilense AI so you never have to trade control for capability." />
-    <meta property="og:url" content="https://vigilense.ai/blog/sovereign-over-scale/" />
+    <meta property="og:title" content="Why We Built a Public Savings Calculator and Put Our Pricing in the Open" />
+    <meta property="og:description" content="Legacy SIEM pricing is broken by design. We built a savings calculator anyone can use, no sales call required. Here is why transparency matters." />
+    <meta property="og:url" content="https://vigilense.ai/blog/pricing-transparency/" />
     <meta property="og:image" content="https://vigilense.ai/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -16,31 +16,28 @@
     <meta property="og:locale" content="en_US" />
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Why We Chose Sovereign Over Scale" />
-    <meta name="twitter:description" content="Your security should never be someone else's leverage. We built Vigilense AI so you never have to trade control for capability." />
+    <meta name="twitter:title" content="Why We Built a Public Savings Calculator and Put Our Pricing in the Open" />
+    <meta name="twitter:description" content="Legacy SIEM pricing is broken by design. We built a savings calculator anyone can use, no sales call required." />
     <meta name="twitter:image" content="https://vigilense.ai/og-image.png" />
     <meta name="twitter:image:alt" content="Vigilense AI dashboard showing autonomous SOC operations" />
     <!-- Standard -->
-    <meta name="description" content="Your security should never be someone else's leverage. We built Vigilense AI so you never have to trade control for capability." />
+    <meta name="description" content="Legacy SIEM vendors hide behind custom quotes and opaque pricing tiers. We decided to do the opposite: a public savings calculator backed by real cost models. Here is why, and what it reveals." />
     <meta name="author" content="Vigilense AI" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://vigilense.ai/blog/sovereign-over-scale/" />
+    <link rel="canonical" href="https://vigilense.ai/blog/pricing-transparency/" />
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="manifest" href="/site.webmanifest" />
-    <title>Why We Chose Sovereign Over Scale - Vigilense AI Blog</title>
+    <title>Why We Built a Public Savings Calculator and Put Our Pricing in the Open - Vigilense AI Blog</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/theme.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* ============================
-           BLOG POST LAYOUT
-           ============================ */
         .blog-post {
             padding: 140px 0 100px;
         }
@@ -99,10 +96,6 @@
             margin: 40px 0;
             border: none;
         }
-
-        /* ============================
-           POST BODY TYPOGRAPHY
-           ============================ */
         .post-body {
             font-family: 'Outfit', sans-serif;
             font-size: 1.1rem;
@@ -145,32 +138,12 @@
             border-radius: 4px;
             color: #0A1628;
         }
-        .post-body pre {
-            background: #F2F5F7;
-            border: 1px solid #E2E8F0;
-            border-radius: 8px;
-            padding: 24px;
-            overflow-x: auto;
-            margin: 32px 0;
-        }
-        .post-body pre code {
-            background: transparent;
-            padding: 0;
-            color: #0A1628;
-            font-size: 0.9rem;
-        }
         .post-body blockquote {
             border-left: 3px solid #0A1628;
             padding-left: 24px;
             margin: 32px 0;
             font-style: italic;
             color: #475569;
-        }
-        .post-body img {
-            width: 100%;
-            border-radius: 8px;
-            margin: 32px 0;
-            border: 1px solid #E2E8F0;
         }
         .post-body a {
             color: #00B892;
@@ -182,10 +155,6 @@
         .post-body strong {
             color: #0A1628;
         }
-
-        /* ============================
-           POST CTA
-           ============================ */
         .post-cta {
             margin-top: 64px;
             padding: 32px;
@@ -213,15 +182,21 @@
             cursor: pointer;
             transition: all 0.2s;
             text-decoration: none;
+            margin: 0 8px;
         }
         .post-cta .btn:hover {
             background: #0F1E36;
             box-shadow: 0 4px 20px rgba(10, 22, 40, 0.3);
         }
-
-        /* ============================
-           AUTHOR CARD
-           ============================ */
+        .post-cta .btn-secondary {
+            background: transparent;
+            color: #0A1628;
+            border: 2px solid #0A1628;
+        }
+        .post-cta .btn-secondary:hover {
+            background: #0A1628;
+            color: #FFFFFF;
+        }
         .author-card {
             margin-top: 48px;
             padding: 24px;
@@ -264,10 +239,6 @@
             color: #475569;
             line-height: 1.6;
         }
-
-        /* ============================
-           RESPONSIVE
-           ============================ */
         @media (max-width: 768px) {
             .blog-post { padding: 120px 0 60px; }
             .post-content { max-width: 100%; }
@@ -288,10 +259,10 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Why We Chose Sovereign Over Scale",
-      "description": "Your security should never be someone else's leverage. We built Vigilense AI so you never have to trade control for capability.",
-      "datePublished": "2026-01-08",
-      "url": "https://vigilense.ai/blog/sovereign-over-scale/",
+      "headline": "Why We Built a Public Savings Calculator and Put Our Pricing in the Open",
+      "description": "Legacy SIEM vendors hide behind custom quotes and opaque pricing tiers. We decided to do the opposite: a public savings calculator backed by real cost models.",
+      "datePublished": "2026-02-15",
+      "url": "https://vigilense.ai/blog/pricing-transparency/",
       "image": "https://vigilense.ai/og-image.png",
       "author": { "@type": "Organization", "name": "Vigilense AI", "url": "https://vigilense.ai" },
       "publisher": { "@type": "Organization", "name": "Vigilense AI", "url": "https://vigilense.ai", "logo": { "@type": "ImageObject", "url": "https://vigilense.ai/vigilense-logo.png" } }
@@ -299,9 +270,6 @@
     </script>
 </head>
 <body>
-    <!-- ========================================
-         NAVIGATION
-         ======================================== -->
     <nav class="navbar">
         <div class="container">
             <a href="/" class="nav-brand">
@@ -356,9 +324,6 @@
         </div>
     </nav>
 
-    <!-- ========================================
-         BLOG POST CONTENT
-         ======================================== -->
     <article class="blog-post">
         <div class="container">
             <div class="post-content">
@@ -369,11 +334,11 @@
 
                 <header class="post-header">
                     <span class="post-category">Company</span>
-                    <h1>Why We Chose Sovereign Over Scale</h1>
+                    <h1>Why We Built a Public Savings Calculator and Put Our Pricing in the Open</h1>
                     <div class="post-meta">
-                        <time datetime="2026-01-08">Jan 8, 2026</time>
+                        <time datetime="2026-02-15">Feb 15, 2026</time>
                         <span>&middot;</span>
-                        <span>4 min read</span>
+                        <span>7 min read</span>
                         <span>&middot;</span>
                         <span>By Zachary Troyer</span>
                     </div>
@@ -382,74 +347,130 @@
                 <hr class="post-divider">
 
                 <div class="post-body">
-                    <p>Your security should never be someone else's leverage.</p>
 
-                    <p>That is the belief we built this company on. Every architectural decision, every product choice, every partnership we pursue flows from that single conviction. If your security vendor has more control over your data than you do, something is fundamentally broken.</p>
+                    <p>Last week we shipped something unusual for a cybersecurity company: a <a href="/cost-simulator/">public savings calculator</a> that lets anyone compare their current SIEM and SOC costs against ours. No gated form. No sales call. No NDA. Just real numbers built on real cost models.</p>
 
-                    <h2>The Trade Nobody Should Have to Make</h2>
+                    <p>This post explains why we built it, what it reveals about the economics of legacy security, and why we believe transparency is the only honest way to sell to CISOs in 2026.</p>
 
-                    <p>For years, the security industry has forced a trade: give us your data, and we will give you capability. Ship your logs to our cloud. Store your telemetry on our infrastructure. Run your queries through our engine. And if you ever want to leave? Good luck. Your data is in our proprietary format now. Migration is a multi-year project. You are locked in.</p>
+                    <h2>The Problem With Legacy SIEM Pricing</h2>
 
-                    <p>Most SIEMs create vendor lock-in through proprietary data formats and proprietary query languages. They do not say it out loud, but the business model depends on it. The harder it is to leave, the easier it is to raise prices.</p>
+                    <p>If you run a SOC today, you already know the pain. Legacy SIEMs charge per gigabyte of data ingested. The more logs your business generates, the more you pay. Not per threat detected. Not per incident resolved. You are billed for the privilege of making your own data searchable.</p>
 
-                    <p>We looked at that model and decided to build the opposite.</p>
-
-                    <h2>What Sovereignty Actually Means</h2>
-
-                    <p>Sovereignty is not a marketing word for us. It is an architecture decision.</p>
-
-                    <p>We built Vigilense AI so you never have to trade control for capability. Your data is yours. It stays in your databases. We never move it, never copy it, never store it on our infrastructure. Our detection engine queries your data where it already lives.</p>
-
-                    <p>If you decide to stop using Vigilense tomorrow, your data has not moved. There is nothing to migrate. Nothing to export. You just stop.</p>
-
-                    <p>That is sovereignty.</p>
-
-                    <h2>Three Things No Other SOC Platform Gives You at Once</h2>
-
-                    <p>We set out to deliver three capabilities that, until now, have never existed in a single platform:</p>
+                    <p>Here is what that looks like at scale:</p>
 
                     <ul>
-                        <li><strong>Autonomous AI SOC:</strong> An AI analyst that investigates, triages, and resolves threats 24/7/365. Not a chatbot. Not a copilot. A full autonomous investigator with human oversight built into its core.</li>
-                        <li><strong>Organizational Learning:</strong> The system learns your environment. Your escalation patterns. Your asset criticality. What is normal for your organization. This context stays with you, not with us.</li>
-                        <li><strong>BYODb (Bring Your Own Database):</strong> Your data stays in your infrastructure. Elasticsearch, Snowflake, BigQuery, S3. We query in place. Zero data movement. Zero lock-in.</li>
+                        <li><strong>500 GB/day at typical rates:</strong> $600K+ per year in license fees alone</li>
+                        <li><strong>Infrastructure to support it:</strong> another 20-30% on top</li>
+                        <li><strong>Admin staff to keep it running:</strong> 1-2 dedicated FTEs</li>
+                        <li><strong>SOC analysts to investigate alerts:</strong> 8-15 people for 24/7 coverage</li>
                     </ul>
 
-                    <p>Any vendor can give you one of these. Some can give you two. Nobody else gives you all three.</p>
+                    <p>Add it all up and a mid-market organization easily spends $1.5M to $3M per year on security operations. An enterprise at 2-5 TB/day? That number can exceed $10M.</p>
 
-                    <h2>Our Guarantee</h2>
+                    <p>The worst part is not the total. It is that most of this budget goes to infrastructure, not outcomes. You are paying to move and store data, not to catch attackers.</p>
 
-                    <p>If you are reading this and thinking "every vendor makes promises," you are right. So here is ours, and it is simple.</p>
+                    <h2>Why Cost Opacity Exists</h2>
 
-                    <p>We deploy. You do not pay until we deliver. Zero burden on your team during deployment. And if we do not measurably reduce your SOC effort, you owe nothing.</p>
+                    <p>Legacy vendors have strong incentives to keep pricing opaque. When every deal is a custom quote behind an NDA, buyers lose the ability to comparison-shop. You cannot benchmark your contract against the market because there is no public market to benchmark against.</p>
 
-                    <p>No credit card. No commitment. Results guaranteed.</p>
+                    <p>This opacity serves the vendor, not the buyer. It allows for:</p>
 
-                    <p>We can make that guarantee because we have seen the numbers. When you stop forcing analysts to triage 15,000 alerts a day and let them focus on the 150 that actually matter, the results speak for themselves.</p>
+                    <ul>
+                        <li><strong>Price discrimination:</strong> charging different customers wildly different rates for the same product</li>
+                        <li><strong>Lock-in leverage:</strong> once your data is ingested into a proprietary format, switching costs are enormous</li>
+                        <li><strong>Renewal pressure:</strong> annual increases of 15-30% are common because the cost of migrating away is higher than the cost of staying</li>
+                        <li><strong>Feature gating:</strong> basic capabilities like user behavior analytics or extended retention get packaged as premium add-ons</li>
+                    </ul>
 
-                    <h2>Why Sovereign Over Scale</h2>
+                    <p>We talked to dozens of CISOs during our design phase. The same frustration came up in nearly every conversation: "I cannot get a straight answer on what this will cost until I am already three months into an evaluation." That is not a sales process. That is a trap.</p>
 
-                    <p>We had a choice when we started Vigilense. We could build a platform that scales fast by centralizing data, locking customers in, and optimizing for ARR growth. That is the playbook. It works. There are billion-dollar SIEMs built on that exact model.</p>
+                    <h2>Our Decision to Build in the Open</h2>
 
-                    <p>We chose differently.</p>
+                    <p>When we started Vigilense AI, we made a deliberate choice: if we are going to claim we save customers 50-70% versus legacy stacks, we should prove it publicly, not just in sales decks.</p>
 
-                    <p>We chose sovereignty over scale because we believe the next generation of security buyers wants something better. They want modular platforms. They want data sovereignty. They want to own their security operations, not rent them.</p>
+                    <p>That is why we built the <a href="/cost-simulator/">Savings Calculator</a>.</p>
 
-                    <p>The buyers who care about these things are the ones we want to build for. They are the teams who have been burned by vendor lock-in. They are the CISOs who are tired of explaining to the board why migration costs more than the original implementation. They are the engineers who want to query their own data without paying per-GB for the privilege.</p>
+                    <p>It is not a marketing gimmick with a few sliders and a big green number. It is a real cost model that calculates both sides of the comparison in detail:</p>
 
-                    <blockquote>
-                        "We did not build Vigilense to be the biggest SOC platform. We built it to be the one you actually own."
-                    </blockquote>
+                    <ul>
+                        <li><strong>Legacy side:</strong> license fees based on published per-GB rates, infrastructure overhead, admin staffing, SOC analyst headcount (scaled by shift model), SOAR tooling, turnover costs, and training</li>
+                        <li><strong>Vigilense side:</strong> BYODb platform fees (pass-through cloud costs to your own database), AI SOC platform subscription, compute for AI investigation, and human-in-the-loop staffing for escalated cases</li>
+                    </ul>
 
-                    <p>That is the bet. Sovereignty over scale. Control over convenience. Your data, your context, your operations.</p>
+                    <p>Every assumption is adjustable. If you think our defaults are too generous, change them. The model works with your numbers, not ours.</p>
 
-                    <p>If that resonates, <a href="/demo/">we should talk</a>.</p>
+                    <h2>Three Modes for Three Buying Decisions</h2>
+
+                    <p>Not every organization is ready to replace their entire security stack at once. That is why the calculator supports three modes:</p>
+
+                    <h3>BYODb SIEM</h3>
+                    <p>For teams that want to keep their SOC but eliminate ingestion fees. Compare the cost of running detections on your own databases (Snowflake, Elasticsearch, OpenSearch, S3, BigQuery) versus paying a legacy SIEM to re-ingest the same data. This is where the "zero ingestion tax" value proposition is most visible.</p>
+
+                    <h3>AI SOC Analyst</h3>
+                    <p>For teams drowning in alert fatigue. Compare the cost of a 24/7 human SOC (staffing, turnover, training, tooling) against an AI analyst that triages 100% of alerts and autonomously resolves 60-90% of them. The remaining investigations are escalated with AI-prepared packages for faster human review.</p>
+
+                    <h3>SOVEREIGN SOC</h3>
+                    <p>The full stack: BYODb SIEM + AI SOC Analyst bundled together with a 15% discount. This is where the savings are most dramatic because you eliminate both the ingestion tax and the bulk of manual SOC labor simultaneously.</p>
+
+                    <h2>What the Numbers Actually Show</h2>
+
+                    <p>After running thousands of scenarios during development, here is what we consistently see:</p>
+
+                    <ul>
+                        <li><strong>At low volumes (1-10 GB/day):</strong> savings are modest because fixed platform costs represent a larger share. We are honest about this. We are not the cheapest option for a five-person startup.</li>
+                        <li><strong>At mid-market volumes (50-500 GB/day):</strong> savings of 45-65% are typical. This is where the BYODb model starts to dominate because your cloud database costs grow slowly while legacy license fees grow linearly.</li>
+                        <li><strong>At enterprise scale (1-10 TB/day):</strong> savings of 55-75% are common. At this scale, the math becomes overwhelming. A legacy SIEM at 5 TB/day can cost $5-8M per year. The Vigilense equivalent, including AI SOC staffing, typically comes in at $1.5-3M.</li>
+                    </ul>
+
+                    <p>The automation rate matters too. The calculator shows a range based on 60-90% autonomous resolution. A mature deployment with well-tuned playbooks and established trust in the AI will trend toward the higher end. A fresh deployment will start closer to 60% and improve over 12-18 months.</p>
+
+                    <h2>Why We Show Everything</h2>
+
+                    <p>Some people have asked why we do not just show the savings number and hide the details. The answer is simple: CISOs are not impressed by a single number. They need to see the work.</p>
+
+                    <p>The detailed cost breakdown shows every line item on both sides:</p>
+
+                    <ul>
+                        <li>How many analysts the model assumes for your alert volume</li>
+                        <li>What salary bands and benefits multipliers are used</li>
+                        <li>How turnover and recruiting costs factor in</li>
+                        <li>Exactly what cloud infrastructure costs the BYODb model incurs</li>
+                        <li>How AI compute scales with investigation volume</li>
+                        <li>What human-in-the-loop staffing looks like post-automation</li>
+                    </ul>
+
+                    <p>If something looks wrong, you can adjust it. The goal is not to produce a flattering number. The goal is to produce an accurate one.</p>
+
+                    <h2>The Bigger Point: Pricing Should Reflect Value</h2>
+
+                    <p>The fundamental problem with per-GB pricing is that it has no relationship to security outcomes. An organization that ingests 1 TB/day is not necessarily ten times more secure than one that ingests 100 GB/day. They just generate more data.</p>
+
+                    <p>We built Vigilense AI around a different principle: you should pay for the security work performed, not the volume of raw material. That means:</p>
+
+                    <ul>
+                        <li><strong>Zero ingestion fees.</strong> Your data stays in your databases. We query it in place. The storage costs are between you and your cloud provider, at commodity rates you already negotiated.</li>
+                        <li><strong>Workload-based pricing.</strong> Platform fees scale with detections running and investigations handled, not with data volume.</li>
+                        <li><strong>Risk-free pilot.</strong> We deploy the full SOVEREIGN SOC at our expense. You pay nothing until we prove measurable results. If the numbers do not work, you walk away.</li>
+                    </ul>
+
+                    <p>This model only works if the numbers are real. That is why we put them in the open.</p>
+
+                    <h2>Try It Yourself</h2>
+
+                    <p>The <a href="/cost-simulator/">Savings Calculator</a> is live now. Enter your data volume, alert count, and staffing assumptions. See exactly what you would pay on both sides. Adjust anything that does not match your reality.</p>
+
+                    <p>If you want the full picture, the <a href="/pricing/">pricing overview</a> explains our outcome-first model, the risk-free pilot, and what is included in every deployment.</p>
+
+                    <p>And if the numbers speak for themselves, <a href="/demo/">let us talk</a>.</p>
+
                 </div>
 
                 <hr class="post-divider">
 
                 <div class="post-cta">
-                    <h3>Ready to own your security operations?</h3>
-                    <a href="/demo/" class="btn">Talk to Us</a>
+                    <h3>See the numbers for your environment.</h3>
+                    <a href="/cost-simulator/" class="btn">Run the Savings Calculator</a>
+                    <a href="/demo/" class="btn btn-secondary">Book a Demo</a>
                 </div>
 
                 <div class="author-card">
@@ -457,16 +478,13 @@
                     <div class="author-info">
                         <h4>Zachary Troyer</h4>
                         <div class="author-title">Co-founder & CEO</div>
-                        <div class="author-bio">Former security operations leader with a conviction that data sovereignty and autonomous capability belong together. Building Vigilense AI to prove it.</div>
+                        <div class="author-bio">Experienced operator who has scaled multiple B2B companies from early stage to market leadership. Focused on building businesses that solve real problems for security teams.</div>
                     </div>
                 </div>
             </div>
         </div>
     </article>
 
-    <!-- ========================================
-         FOOTER
-         ======================================== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
