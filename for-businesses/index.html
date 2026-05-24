@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vigilense AI for IT managers, CIOs, and CTOs at midsize organizations. AI-powered managed detection and response without the SOC headcount or the SIEM bill.">
+    <meta name="keywords" content="MDR for midsize business, AI security for IT managers, security for CIO, security for CTO, midmarket cybersecurity, SOC alternative">
+    <link rel="canonical" href="https://vigilense.ai/for-businesses/">
+    <meta property="og:title" content="For Businesses - Vigilense AI">
+    <meta property="og:description" content="AI-powered MDR for midsize organizations. Enterprise-grade protection without the SOC headcount or the SIEM bill.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vigilense.ai/for-businesses/">
+    <meta property="og:image" content="https://vigilense.ai/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Vigilense AI - AI-Powered Detection & Response for IT managers, CIOs, and CTOs.">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Vigilense AI">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="For Businesses - Vigilense AI">
+    <meta name="twitter:description" content="AI-powered MDR for midsize organizations. Protection without the SOC.">
+    <meta name="twitter:image" content="https://vigilense.ai/og-image.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>For Businesses - Vigilense AI</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mdr-navy: #0A1628;
+            --mdr-teal: #00D4AA;
+            --mdr-teal-soft: rgba(0, 212, 170, 0.12);
+            --mdr-teal-line: rgba(0, 212, 170, 0.28);
+            --mdr-bg: #FAFAF8;
+            --mdr-card: #FFFFFF;
+            --mdr-border: #E2E8F0;
+            --mdr-ink: #0F1419;
+            --mdr-muted: #475569;
+        }
+        .sub-hero {
+            padding: 140px 0 60px;
+            background: linear-gradient(180deg, #FFFFFF 0%, var(--mdr-bg) 100%);
+            text-align: center;
+        }
+        .sub-hero h1 { font-size: clamp(2rem, 4.5vw, 3.2rem); max-width: 820px; margin: 0 auto 18px; }
+        .sub-hero p { font-size: 1.15rem; color: var(--mdr-muted); line-height: 1.65; max-width: 680px; margin: 0 auto 32px; }
+        .sub-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .audience-section { padding: 80px 0; background: #FFFFFF; }
+        .audience-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1080px; margin: 0 auto; }
+        .audience-card {
+            background: var(--mdr-card);
+            border: 1px solid var(--mdr-border);
+            border-radius: 14px;
+            padding: 36px 32px;
+            transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+        }
+        .audience-card:hover { transform: translateY(-3px); border-color: var(--mdr-teal-line); box-shadow: 0 10px 32px rgba(10, 22, 40, 0.08); }
+        .audience-card .tag {
+            display: inline-block;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--mdr-teal);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 14px;
+            padding: 5px 10px;
+            background: var(--mdr-teal-soft);
+            border-radius: 999px;
+        }
+        .audience-card h3 {
+            font-family: var(--font-display, 'Satoshi', 'Outfit', sans-serif);
+            font-size: 1.35rem; font-weight: 800; color: var(--mdr-navy);
+            margin-bottom: 12px; letter-spacing: -0.02em;
+        }
+        .audience-card p { font-size: 0.98rem; color: var(--mdr-muted); line-height: 1.65; }
+        .audience-card ul {
+            list-style: none;
+            padding: 0; margin: 14px 0 0;
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        .audience-card li {
+            font-size: 0.92rem; color: var(--mdr-ink);
+            display: flex; gap: 10px; align-items: flex-start;
+        }
+        .audience-card li::before {
+            content: '✓';
+            color: var(--mdr-teal); font-weight: 700;
+            flex-shrink: 0;
+        }
+        .closing-cta {
+            padding: 100px 0;
+            background: var(--mdr-navy);
+            color: #FFFFFF;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .closing-cta::before {
+            content: '';
+            position: absolute;
+            top: -250px; left: 50%; transform: translateX(-50%);
+            width: 700px; height: 500px;
+            background: radial-gradient(ellipse, rgba(0, 212, 170, 0.18) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .closing-cta h2 { color: #FFFFFF; font-size: clamp(1.7rem, 3.4vw, 2.4rem); margin-bottom: 14px; position: relative; }
+        .closing-cta p { color: rgba(255, 255, 255, 0.75); max-width: 600px; margin: 0 auto 32px; font-size: 1.05rem; line-height: 1.65; position: relative; }
+        @media (max-width: 820px) {
+            .audience-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="nav-brand">
+                <img src="/vigilense-logo.png?v=2" alt="Vigilense AI - Autonomous Vigilance for Security Teams" class="logo-icon">
+                <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="/for-businesses/">For Businesses</a></li>
+                <li><a href="/mssp/">For MSSPs/Partners</a></li>
+                <li><a href="/platform/">Platform</a></li>
+                <li><a href="/pricing/">Pricing</a></li>
+                <li><a href="/resources/">Resources</a></li>
+                <li class="cta-nav"><a href="/demo/">Book a Demo</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="sub-hero">
+        <div class="container">
+            <span class="mdr-eyebrow">For Businesses</span>
+            <h1 class="mdr-display">Enterprise-grade security. Midmarket prices.</h1>
+            <p>You're responsible for protecting your business but don't have a 20-person SOC team. Vigilense gives you 24/7 detection, investigation, and response - powered by AI, running on your existing data.</p>
+            <div class="sub-cta">
+                <a href="/demo/" class="mdr-btn mdr-btn-primary mdr-btn-lg">Book a 15-Minute Demo</a>
+                <a href="/" class="mdr-btn mdr-btn-secondary mdr-btn-lg">See How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="audience-section">
+        <div class="container">
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <span class="tag">IT Managers</span>
+                    <h3>Protection without a SOC</h3>
+                    <p>You're stretched thin. Endpoints, identity, network, cloud - and now security on top. Vigilense runs the SOC for you.</p>
+                    <ul>
+                        <li>24/7 monitoring, no on-call rotation needed</li>
+                        <li>Every alert investigated, not just the loud ones</li>
+                        <li>Compliance-ready audit trails out of the box</li>
+                    </ul>
+                </div>
+                <div class="audience-card">
+                    <span class="tag">CIOs / CTOs</span>
+                    <h3>Security that scales with you</h3>
+                    <p>You need security that scales with your business without scaling your headcount. Vigilense delivers outcomes, not dashboards.</p>
+                    <ul>
+                        <li>50&ndash;70% lower TCO than traditional SIEM + SOC stack</li>
+                        <li>No per-GB ingestion fees - costs don't balloon with growth</li>
+                        <li>Risk-free pilot: you don't pay until we prove value</li>
+                    </ul>
+                </div>
+                <div class="audience-card">
+                    <span class="tag">Security &amp; Compliance Leads</span>
+                    <h3>Demonstrable controls</h3>
+                    <p>Auditors want evidence. Boards want metrics. Vigilense produces both, on every alert, every investigation, every response.</p>
+                    <ul>
+                        <li>Full chain-of-custody on every action</li>
+                        <li>SOC 2 Type 1 compliance in progress</li>
+                        <li>Your data stays in your infrastructure - sovereignty by design</li>
+                    </ul>
+                </div>
+                <div class="audience-card">
+                    <span class="tag">Finance &amp; Procurement</span>
+                    <h3>Predictable spend</h3>
+                    <p>No per-GB surcharges. No surprise overages. Outcome-based pricing that you can actually budget against.</p>
+                    <ul>
+                        <li>Flat platform pricing - no ingestion meter</li>
+                        <li>Cancel anytime, no long-term lock-in</li>
+                        <li>Free pilot to validate the numbers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="closing-cta">
+        <div class="container">
+            <h2 class="mdr-display">Let's see if we're a fit.</h2>
+            <p>Book a 15-minute demo. We'll show you the platform on real data and propose a risk-free pilot tailored to your environment.</p>
+            <a href="/demo/" class="mdr-btn mdr-btn-primary mdr-btn-lg">Book a 15-Minute Demo</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/" class="nav-brand">
+                        <img src="/vigilense-logo.png?v=2" alt="Vigilense AI" class="logo-icon" loading="lazy">
+                        <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+                    </a>
+                    <p>AI-Powered Detection &amp; Response. Your Data Never Leaves.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="/mdr/">AI Detection &amp; Response</a></li>
+                            <li><a href="/platform/byodb-siem/">BYODb Technology</a></li>
+                            <li><a href="/platform/integrations/">Integrations</a></li>
+                            <li><a href="/pricing/">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="/security/">About</a></li>
+                            <li><a href="/careers/">Careers</a></li>
+                            <li><a href="/trust/">Security &amp; Trust</a></li>
+                            <li><a href="/demo/">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="/blog/">Blog</a></li>
+                            <li><a href="/resources/">Documentation</a></li>
+                            <li><a href="/resources/healthcare-case-study/">Case Studies</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="/privacy/">Privacy Policy</a></li>
+                            <li><a href="/terms/">Terms of Service</a></li>
+                            <li><a href="/trust/">Trust Center</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Vigilense AI. All rights reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="/privacy/">Privacy</a>
+                        <a href="/terms/">Terms</a>
+                        <a href="/disclaimer/">Disclaimer</a>
+                        <a href="https://www.linkedin.com/company/111587909/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="https://x.com/VigilenseAI" target="_blank" rel="noopener noreferrer">X</a>
+                        <a href="https://www.youtube.com/@VigilenseAI" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>

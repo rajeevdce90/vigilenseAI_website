@@ -11,6 +11,7 @@ desktop.ini
 *~
 
 # Private internal pages (never deploy)
+_archive/
 cost-simulator/private/
 team/
 team.html
@@ -24,6 +25,8 @@ package.json
 test-*.js
 fix-*.js
 fix-*.ps1
+_*.js
+.git-commit-msg.tmp
 
 # Optional
 *.log

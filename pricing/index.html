@@ -30,7 +30,6 @@
     <title>Pricing - Outcome-First, Usage-Based | Vigilense AI</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/theme.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -63,13 +62,153 @@
             max-width: 500px;
             line-height: 1.7;
         }
-        .pricing-hero-chart {
-            background: #0F1115;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 8px;
-            padding: 20px 16px;
+        /* Pricing hero "at a glance" card (replaces old volume-based chart) */
+        .pricing-hero-card {
+            background: linear-gradient(160deg, #0A1628 0%, #0F1E36 100%);
+            border: 1px solid rgba(0, 212, 170, 0.18);
+            border-radius: 14px;
+            padding: 28px 32px 26px;
+            color: #FFFFFF;
+            box-shadow: 0 24px 60px rgba(10, 22, 40, 0.18);
+            position: relative;
+            overflow: hidden;
         }
-        
+        .pricing-hero-card::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(0, 212, 170, 0.18) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .phc-tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.66rem;
+            font-weight: 700;
+            color: #00D4AA;
+            letter-spacing: 0.18em;
+            background: rgba(0, 212, 170, 0.12);
+            padding: 5px 10px;
+            border-radius: 999px;
+            margin-bottom: 18px;
+        }
+        .phc-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+        .phc-amount {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 6vw, 4rem);
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+        .phc-unit {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .phc-sub {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0 0 22px;
+            line-height: 1.5;
+        }
+        .phc-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 18px 0;
+        }
+        .phc-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .phc-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+        }
+        .phc-line-k {
+            color: rgba(255, 255, 255, 0.55);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .phc-line-v {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 8px;
+            text-align: right;
+        }
+        .phc-amount-sm {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #00D4AA;
+            letter-spacing: -0.01em;
+        }
+        .phc-note {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .phc-vs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .phc-vs-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+        }
+        .phc-vs-them {
+            background: rgba(255, 107, 107, 0.08);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+        .phc-vs-them .phc-vs-label { color: rgba(255, 255, 255, 0.7); font-weight: 500; }
+        .phc-vs-them .phc-vs-value { color: #FF6B6B; font-weight: 600; }
+        .phc-vs-us {
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+        }
+        .phc-vs-us .phc-vs-label { color: #FFFFFF; font-weight: 600; }
+        .phc-vs-us .phc-vs-value { color: #00D4AA; font-weight: 700; }
+        .phc-footnote {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.55;
+            margin: 18px 0 0;
+            text-align: center;
+        }
+        .phc-footnote strong { color: #FFFFFF; font-weight: 700; }
+        .phc-footnote a {
+            color: #00D4AA;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: rgba(0, 212, 170, 0.4);
+        }
+        .phc-footnote a:hover { text-decoration-color: #00D4AA; }
+
         .pricing-hero-cta {
             margin-top: 28px;
             display: flex;
@@ -303,18 +442,265 @@
             .pricing-hero-text { text-align: center; }
             .pricing-hero-cta { justify-content: center; }
         }
+
+        /* =====================================================
+           PRICING TIERS - AI MDR style (per-investigation + platform)
+           ===================================================== */
+        .pricing-tiers-section {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+        }
+        .pt-header {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 48px;
+        }
+        .pt-header h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.7rem, 3.4vw, 2.3rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        .pt-header p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+        .pt-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            max-width: 1180px;
+            margin: 0 auto;
+            align-items: stretch;
+        }
+        .pt-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 32px 28px 28px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+        }
+        .pt-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 212, 170, 0.35);
+            box-shadow: 0 18px 50px rgba(10, 22, 40, 0.10);
+        }
+        .pt-card.featured {
+            border-color: rgba(0, 212, 170, 0.5);
+            box-shadow: 0 14px 44px rgba(0, 212, 170, 0.10);
+            background: linear-gradient(180deg, rgba(0, 212, 170, 0.03) 0%, var(--bg-primary) 30%);
+        }
+        .pt-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00D4AA;
+            color: #0A1628;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 6px 14px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .pt-tier-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #00D4AA;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            margin-bottom: 14px;
+        }
+        .pt-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        .pt-price {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+        .pt-price-unit {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .pt-price-sub {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            opacity: 0.75;
+            margin-bottom: 22px;
+            min-height: 18px;
+        }
+        .pt-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.015em;
+        }
+        .pt-tagline {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin-bottom: 22px;
+            min-height: 50px;
+        }
+        .pt-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 4px 0 20px;
+        }
+        .pt-feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+        }
+        .pt-feature-list li {
+            font-size: 0.92rem;
+            color: var(--text-primary);
+            line-height: 1.5;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .pt-feature-list li::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(0, 212, 170, 0.14);
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%2300D4AA' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='4 8 7 11 12 5'/></svg>");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 14px 14px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .pt-feature-list li strong { color: var(--text-primary); font-weight: 700; }
+        .pt-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1.5px solid;
+            transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .pt-cta-primary {
+            background: #00D4AA;
+            color: #0A1628;
+            border-color: #00D4AA;
+            box-shadow: 0 6px 20px rgba(0, 212, 170, 0.22);
+        }
+        .pt-cta-primary:hover { background: #1AE0BB; transform: translateY(-1px); box-shadow: 0 10px 28px rgba(0, 212, 170, 0.3); }
+        .pt-cta-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border-color: var(--border);
+        }
+        .pt-cta-secondary:hover { border-color: #00D4AA; color: #00D4AA; }
+        .pt-bestfor {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px dashed var(--border);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+        .pt-bestfor strong { color: var(--text-primary); font-weight: 600; }
+
+        .pt-comparison {
+            max-width: 1180px;
+            margin: 48px auto 0;
+            padding: 24px 28px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        .pt-comparison .vs-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .pt-comparison .vs-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+        }
+        .pt-comparison .vs-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+        .pt-comparison .vs-value.red { color: #FF6B6B; }
+        .pt-comparison .vs-value.green { color: #00D4AA; }
+        .pt-comparison .vs-arrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            opacity: 0.4;
+        }
+
+        @media (max-width: 980px) {
+            .pt-grid { grid-template-columns: 1fr; max-width: 460px; }
+            .pt-card.featured { order: -1; }
+        }
+
     </style>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
-        {"@type": "Question", "name": "Is there really no upfront cost?", "acceptedAnswer": {"@type": "Answer", "text": "Correct. We deploy the full Sovereign SOC platform - BYODb SIEM and AI SOC Analyst - at our expense during the pilot. You pay nothing until we demonstrate measurable results."}},
-        {"@type": "Question", "name": "What happens after the pilot?", "acceptedAnswer": {"@type": "Answer", "text": "After the pilot, we review results together. If the outcomes meet your expectations, we move to a subscription. If not, you walk away with zero obligation. No lock-in, no penalties."}},
-        {"@type": "Question", "name": "How is Vigilense AI pricing structured?", "acceptedAnswer": {"@type": "Answer", "text": "Pricing starts with outcomes: you don't pay until the pilot proves value. Post-pilot, pricing is usage-based - a platform subscription that scales with your security workload (investigations handled, detections running), not your raw data volume. Zero per-GB ingestion fees. Use our Cost Simulator to estimate savings, or contact sales@vigilense.ai for a custom quote."}},
-        {"@type": "Question", "name": "Are there any hidden fees?", "acceptedAnswer": {"@type": "Answer", "text": "No. There are no ingestion fees, no data transfer fees, no storage surcharges, and no surprise overages. Your data stays in your databases - we never move or copy it."}},
-        {"@type": "Question", "name": "How long is the Vigilense AI pilot?", "acceptedAnswer": {"@type": "Answer", "text": "Typical pilots run 2-4 weeks, enough time to connect your databases, deploy the AI analyst, and measure results. Deployment itself takes days, not months."}},
-        {"@type": "Question", "name": "Can I cancel anytime?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. There are no long-term commitments. You can cancel at any time with no penalties."}}
+        {"@type": "Question", "name": "What counts as an investigation in Vigilense AI MDR pricing?", "acceptedAnswer": {"@type": "Answer", "text": "An investigation is one alert that the AI SOC analyst picks up, enriches across our 50+ data sources, correlates against your environment, and reaches a verdict on (true positive, false positive, or escalate). Background queries, dashboards, and scheduled detections are not billable. You only pay when the AI actually does investigative work on a discrete alert."}},
+        {"@type": "Question", "name": "Is there really no upfront cost?", "acceptedAnswer": {"@type": "Answer", "text": "Correct. The 30-day pilot is free. We deploy the AI SOC analyst and BYODb SIEM at our expense, connect to your environment, and run live investigations for 30 days. You pay nothing during the pilot."}},
+        {"@type": "Question", "name": "How is Vigilense AI pricing structured?", "acceptedAnswer": {"@type": "Answer", "text": "Three tiers. Pilot: 30 days free, no card required. AI MDR: $4 per investigation, billed monthly, with $0 ingestion and unlimited data sources. Volume discounts kick in at 10K+ investigations per month. Enterprise: custom annual subscription with unlimited investigations, dedicated CSM, and 24/7 priority support."}},
+        {"@type": "Question", "name": "How does $4 per investigation compare to traditional MDR?", "acceptedAnswer": {"@type": "Answer", "text": "Traditional MDR providers typically charge $12-$20 per investigated alert when you factor in their platform fee, ingestion charges, and per-endpoint pricing. Because most traditional MDR providers only investigate the top 10-20% of alerts, you also pay for triage queues full of work that never gets done. Vigilense investigates 100% of alerts at $4 each, on top of $0 ingestion. Midsize customers typically see 50-70% lower total spend."}},
+        {"@type": "Question", "name": "What happens after the pilot?", "acceptedAnswer": {"@type": "Answer", "text": "We review the pilot results together: investigations completed, true positives caught, false positives eliminated, hours saved. If you want to continue, you pick the tier (AI MDR or Enterprise) and we move you onto a contract. If you don't, you walk away with zero obligation, your data, and the audit history. No lock-in. No penalties."}},
+        {"@type": "Question", "name": "Are there any hidden fees?", "acceptedAnswer": {"@type": "Answer", "text": "No. Zero per-GB ingestion fees, zero data transfer fees, zero storage surcharges, zero per-endpoint or per-user charges. Your data stays in your own databases, so the only line items on your invoice are the platform fee (if any) and per-investigation usage."}},
+        {"@type": "Question", "name": "How long is the Vigilense AI pilot?", "acceptedAnswer": {"@type": "Answer", "text": "30 days. Deployment itself takes 5 business days for most environments (read-only connector, detection tuning, shadow mode, go-live). The remaining time is for you to see investigations in action against real alerts in your environment."}},
+        {"@type": "Question", "name": "Can I cancel anytime?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. AI MDR is billed monthly with no minimum term. Enterprise is an annual contract but can be cancelled at the renewal date with 30 days notice. Because your data never moves to us, leaving means simply disconnecting the read-only connector."}}
       ]
     }
     </script>
@@ -334,43 +720,11 @@
                 <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
             </a>
             <ul class="nav-menu">
-                <li><a href="/why-now/" style="color: #FF6B6B; font-weight: 700;">Why Now</a></li>
-                <li>
-                    <a href="#">Platform</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/platform/ai-soc-analyst/">AI SOC Analyst</a></li>
-                        <li><a href="/platform/byodb-siem/">BYODb SIEM</a></li>
-                        <li><a href="/platform/integrations/">Integrations</a></li>
-                        <li><a href="/#how-it-works">How It Works</a></li>
-                        <li><a href="/security/">Security & Trust</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="/pricing/">Pricing</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/pricing/">Pricing Overview</a></li>
-                        <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 600;">Savings Calculator</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Resources</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/blog/">Blog</a></li>
-                        <li><a href="/resources/what-is-byodb-siem/">What is BYODb SIEM?</a></li>
-                        <li><a href="/resources/what-is-sovereign-soc/">What is a Sovereign SOC?</a></li>
-                        <li><a href="/resources/what-is-ai-soc-analyst/">What is an AI SOC Analyst?</a></li>
-                        <li><a href="/resources/siem-buyers-guide/">SIEM Buyer's Guide</a></li>
-                        <li><a href="/resources/healthcare-case-study/">Case Studies</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Company</a>
-                    <ul class="dropdown-menu">
-                        <!-- <li><a href="/team/">Team</a></li> -->
-                        <li><a href="/careers/">Careers</a></li>
-                        <li><a href="/security/">Security</a></li>
-                    </ul>
-                </li>
+                <li><a href="/for-businesses/">For Businesses</a></li>
+                <li><a href="/mssp/">For MSSPs/Partners</a></li>
+                <li><a href="/platform/">Platform</a></li>
+                <li><a href="/pricing/">Pricing</a></li>
+                <li><a href="/resources/">Resources</a></li>
                 <li class="cta-nav"><a href="/demo/">Book a Demo</a></li>
             </ul>
             <div class="hamburger">
@@ -387,24 +741,57 @@
             <div class="pricing-hero-grid">
                 <div class="pricing-hero-text">
                     <span class="section-tag">Pricing</span>
-                    <h1>Outcome-First, Usage-Based Pricing</h1>
-                    <p>No per-GB ingestion costs. No upfront commitment. We deploy at our expense and you don't pay until we deliver measurable security outcomes.</p>
+                    <h1>AI MDR pricing. From $4 per investigation.</h1>
+                    <p>Outcome-first, usage-based pricing for AI-powered managed detection and response. No per-GB ingestion costs. No upfront commitment. Risk-free pilot, then pay only for what the AI investigates.</p>
                     <div class="pricing-hero-cta">
-                        <a href="/cost-simulator/" class="btn btn-primary btn-large">Run Your Own Numbers</a>
+                        <a href="#plans" class="btn btn-primary btn-large">See Plans</a>
                         <a href="/demo/" class="btn btn-secondary btn-large">Book a Demo</a>
                     </div>
-                    <p class="pricing-hero-cta-sub" style="margin-top: 12px;">Interactive savings calculator - no signup required</p>
+                    <p class="pricing-hero-cta-sub" style="margin-top: 12px;">Three tiers. Risk-free pilot included. No signup required to estimate.</p>
                 </div>
-                <div class="pricing-hero-chart">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 4px;">
-                        <div>
-                            <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; margin: 0 0 4px; letter-spacing: 0.03em;"><img src="/vigilense-logo.png?v=2" alt="" style="width:18px; height:18px; vertical-align:middle; margin-right:4px; border-radius:50%; object-fit:contain;"><span style="color:#fff">Vigilense</span> <span style="color:#33E0BB">SOVEREIGN SOC</span> Vs <span style="color:#FF4444">Legacy SIEM</span></h3>
-                            <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: rgba(255,255,255,0.4); margin: 0 0 16px; letter-spacing: 0.04em;">SIEM + SOC combined &middot; Volume &amp; alerts scale together &middot; Y-axis = $/year</p>
+                <div class="pricing-hero-card">
+                    <div class="phc-tag">AT&nbsp;A&nbsp;GLANCE</div>
+                    <div class="phc-price-row">
+                        <span class="phc-amount">$4</span>
+                        <span class="phc-unit">per investigation</span>
+                    </div>
+                    <p class="phc-sub">Outcome-based AI MDR pricing. Volume discounts at 10K+ / month.</p>
+
+                    <div class="phc-divider"></div>
+
+                    <div class="phc-stack">
+                        <div class="phc-line">
+                            <span class="phc-line-k">Ingestion</span>
+                            <span class="phc-line-v"><span class="phc-amount-sm">$0</span><span class="phc-note">always</span></span>
+                        </div>
+                        <div class="phc-line">
+                            <span class="phc-line-k">30-day pilot</span>
+                            <span class="phc-line-v"><span class="phc-amount-sm">$0</span><span class="phc-note">no card required</span></span>
+                        </div>
+                        <div class="phc-line">
+                            <span class="phc-line-k">Data sources</span>
+                            <span class="phc-line-v"><span class="phc-amount-sm">unlimited</span></span>
+                        </div>
+                        <div class="phc-line">
+                            <span class="phc-line-k">Per-endpoint fees</span>
+                            <span class="phc-line-v"><span class="phc-amount-sm">none</span></span>
                         </div>
                     </div>
-                    <div style="position: relative; width: 100%; height: 320px;">
-                        <canvas id="pricingSovChart" style="width:100%!important; height:100%!important;"></canvas>
+
+                    <div class="phc-divider"></div>
+
+                    <div class="phc-vs">
+                        <div class="phc-vs-row phc-vs-them">
+                            <span class="phc-vs-label">Traditional MDR</span>
+                            <span class="phc-vs-value">~ $15&nbsp;/ investigated alert</span>
+                        </div>
+                        <div class="phc-vs-row phc-vs-us">
+                            <span class="phc-vs-label">Vigilense AI&nbsp;MDR</span>
+                            <span class="phc-vs-value">$4&nbsp;/ investigation, 100% coverage</span>
+                        </div>
                     </div>
+
+                    <p class="phc-footnote">Most midsize customers cut total SIEM + SOC spend <strong>50&ndash;70%</strong>. We will run the numbers against your environment during the risk-free pilot.</p>
                 </div>
             </div>
         </div>
@@ -428,6 +815,103 @@
                     <div class="value-icon">[+]</div>
                     <h3>Outcome + Usage-Based</h3>
                     <p>Pricing starts with proven outcomes during a risk-free pilot. Post-pilot, it scales with your usage - alerts investigated, threats resolved - never with data volume.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PRICING TIERS - AI MDR style
+         ============================================ -->
+    <section class="pricing-tiers-section" id="plans">
+        <div class="container">
+            <div class="pt-header">
+                <h2>Three ways to buy. All risk-free to start.</h2>
+                <p>Outcome-based pricing for AI-powered MDR. Pay per investigation, pay flat, or run a free pilot first. Zero ingestion fees on every plan.</p>
+            </div>
+            <div class="pt-grid">
+                <!-- Tier 1: Pilot -->
+                <div class="pt-card">
+                    <div class="pt-tier-name">Pilot</div>
+                    <div class="pt-price-row">
+                        <span class="pt-price">$0</span>
+                        <span class="pt-price-unit">/ 30 days</span>
+                    </div>
+                    <p class="pt-price-sub">No credit card. No commitment.</p>
+                    <h3>Risk-free pilot</h3>
+                    <p class="pt-tagline">Try the full AI SOC analyst against your real data before you spend a dollar.</p>
+                    <div class="pt-divider"></div>
+                    <ul class="pt-feature-list">
+                        <li>Full platform access for 30 days</li>
+                        <li>Up to <strong>3 data sources</strong> connected</li>
+                        <li>Deployment handled by our team</li>
+                        <li>Live investigation reports daily</li>
+                        <li>Walk away at any time, keep your data</li>
+                    </ul>
+                    <a href="/demo/" class="pt-cta pt-cta-secondary">Start a Pilot</a>
+                    <div class="pt-bestfor">Best for: <strong>Validating ROI before committing</strong></div>
+                </div>
+
+                <!-- Tier 2: AI MDR (Most Popular) -->
+                <div class="pt-card featured">
+                    <div class="pt-tier-name">AI MDR</div>
+                    <div class="pt-price-row">
+                        <span class="pt-price">$4</span>
+                        <span class="pt-price-unit">/ investigation</span>
+                    </div>
+                    <p class="pt-price-sub">From, billed monthly. Volume discounts at 10K+.</p>
+                    <h3>Pay per investigation</h3>
+                    <p class="pt-tagline">Outcome-based pricing for midsize teams. Pay only for the alerts the AI actually investigates.</p>
+                    <div class="pt-divider"></div>
+                    <ul class="pt-feature-list">
+                        <li><strong>$0 ingestion</strong>, $0 data transfer, $0 storage fees</li>
+                        <li>Unlimited data sources and integrations</li>
+                        <li>AI SOC analyst, 24/7 monitoring</li>
+                        <li>50+ enrichment sources, full chain of reasoning</li>
+                        <li>Automated response with human-in-the-loop</li>
+                        <li>Email + chat support, &lt;4hr response SLA</li>
+                    </ul>
+                    <a href="/demo/" class="pt-cta pt-cta-primary">Book a Demo</a>
+                    <div class="pt-bestfor">Best for: <strong>50&ndash;500 employee organizations</strong></div>
+                </div>
+
+                <!-- Tier 3: Enterprise -->
+                <div class="pt-card">
+                    <div class="pt-tier-name">Enterprise</div>
+                    <div class="pt-price-row">
+                        <span class="pt-price">Custom</span>
+                    </div>
+                    <p class="pt-price-sub">Annual subscription. Volume + unlimited model.</p>
+                    <h3>Flat platform fee</h3>
+                    <p class="pt-tagline">Unlimited investigations and predictable spend for high-volume environments and regulated industries.</p>
+                    <div class="pt-divider"></div>
+                    <ul class="pt-feature-list">
+                        <li>Everything in AI MDR, plus:</li>
+                        <li><strong>Unlimited investigations</strong> at a flat annual rate</li>
+                        <li>Custom retention &amp; compliance controls</li>
+                        <li>Dedicated Customer Success Manager</li>
+                        <li>24/7 priority support, &lt;1hr response SLA</li>
+                        <li>SSO, SCIM, custom audit exports, SOC 2 reports</li>
+                    </ul>
+                    <a href="mailto:sales@vigilense.ai?subject=Vigilense%20Enterprise%20Pricing" class="pt-cta pt-cta-secondary">Talk to Sales</a>
+                    <div class="pt-bestfor">Best for: <strong>500+ employees, regulated workloads</strong></div>
+                </div>
+            </div>
+
+            <div class="pt-comparison">
+                <div class="vs-item">
+                    <span class="vs-label">Traditional MDR</span>
+                    <span class="vs-value red">~$15 per alert</span>
+                </div>
+                <span class="vs-arrow">&rarr;</span>
+                <div class="vs-item">
+                    <span class="vs-label">Vigilense AI MDR</span>
+                    <span class="vs-value green">$4 per investigation</span>
+                </div>
+                <span class="vs-arrow">&rarr;</span>
+                <div class="vs-item">
+                    <span class="vs-label">+ Ingestion fees</span>
+                    <span class="vs-value green">$0 (always)</span>
                 </div>
             </div>
         </div>
@@ -511,9 +995,6 @@
                     <p><strong>24/7 Support</strong><span>Technical support available around the clock during and after the pilot.</span></p>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 36px;">
-                <a href="/cost-simulator/" style="color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; font-weight: 600; text-decoration: underline; text-underline-offset: 4px;">See how the numbers break down in our Cost Simulator →</a>
-            </div>
         </div>
     </section>
 
@@ -523,39 +1004,38 @@
             <h2>Pricing FAQ</h2>
             <div class="pricing-faq-grid">
                 <details class="pricing-faq-item">
-                    <summary>Is there really no upfront cost?</summary>
-                    <div class="faq-answer">Correct. We deploy the full Sovereign SOC platform - BYODb SIEM and AI SOC Analyst - at our expense during the pilot. You pay nothing until we demonstrate measurable results.</div>
+                    <summary>What counts as an "investigation"?</summary>
+                    <div class="faq-answer">An investigation is one alert that the AI SOC analyst picks up, enriches across our 50+ data sources, correlates against your environment, and reaches a verdict on (true positive, false positive, or escalate). Each investigation produces a full audit packet you can review. Background queries, dashboards, and scheduled detections are not billable. You only pay when the AI actually does investigative work on a discrete alert.</div>
                 </details>
                 <details class="pricing-faq-item">
-                    <summary>What happens after the pilot?</summary>
-                    <div class="faq-answer">After the pilot, we review results together. If the outcomes meet your expectations, we move to a subscription. If not, you walk away with zero obligation. No lock-in, no penalties.</div>
+                    <summary>Is there really no upfront cost?</summary>
+                    <div class="faq-answer">Correct. The 30-day pilot is free. We deploy the AI SOC analyst and BYODb SIEM at our expense, connect to your environment, and run live investigations for 30 days. You pay nothing during the pilot. Most customers see clear ROI within the first two weeks.</div>
                 </details>
                 <details class="pricing-faq-item">
                     <summary>How is pricing structured?</summary>
-                    <div class="faq-answer">Pricing starts with outcomes: you don't pay until the pilot proves value. Post-pilot, pricing is usage-based - a platform subscription that scales with your security workload (investigations handled, detections running), not your raw data volume. Zero per-GB ingestion fees. Your BYODb infrastructure costs are pass-through to your own cloud provider. Use our <a href="/cost-simulator/" style="color: var(--accent);">Cost Simulator</a> to estimate your savings, or contact <a href="mailto:sales@vigilense.ai" style="color: var(--accent);">sales@vigilense.ai</a> for a custom quote tailored to your environment.</div>
+                    <div class="faq-answer">Three tiers. (1) <strong>Pilot</strong>: 30 days free, no card required. (2) <strong>AI MDR</strong>: $4 per investigation, billed monthly, with $0 ingestion and unlimited data sources. Volume discounts kick in at 10K+ investigations per month. (3) <strong>Enterprise</strong>: custom annual subscription with unlimited investigations, dedicated CSM, and 24/7 priority support. Contact <a href="mailto:sales@vigilense.ai" style="color: var(--accent);">sales@vigilense.ai</a> for a tailored quote based on your alert volume and environment.</div>
+                </details>
+                <details class="pricing-faq-item">
+                    <summary>How does $4 per investigation compare to traditional MDR?</summary>
+                    <div class="faq-answer">Traditional MDR providers typically charge $12-$20 per investigated alert when you factor in their platform fee, ingestion charges, and per-endpoint pricing. Because most traditional MDR providers only investigate the top 10-20% of alerts (human analysts can't keep up), you also pay for triage queues full of work that never gets done. Vigilense investigates 100% of alerts at $4 each, on top of $0 ingestion. Midsize customers typically see 50-70% lower total spend.</div>
+                </details>
+                <details class="pricing-faq-item">
+                    <summary>What happens after the pilot?</summary>
+                    <div class="faq-answer">We review the pilot results together: investigations completed, true positives caught, false positives eliminated, hours saved. If you want to continue, you pick the tier (AI MDR or Enterprise) and we move you onto a contract. If you don't, you walk away with zero obligation, your data, and the audit history. No lock-in. No penalties.</div>
                 </details>
                 <details class="pricing-faq-item">
                     <summary>Are there any hidden fees?</summary>
-                    <div class="faq-answer">No. There are no ingestion fees, no data transfer fees, no storage surcharges, and no surprise overages. Your data stays in your databases - we never move or copy it.</div>
+                    <div class="faq-answer">No. Zero per-GB ingestion fees, zero data transfer fees, zero storage surcharges, zero per-endpoint or per-user charges. Your data stays in your own databases, so the only line items on your invoice are the platform fee (if any) and per-investigation usage. The price you see is the price you pay.</div>
                 </details>
                 <details class="pricing-faq-item">
                     <summary>How long is the pilot?</summary>
-                    <div class="faq-answer">Typical pilots run 2-4 weeks, enough time to connect your databases, deploy the AI analyst, and measure results. Deployment itself takes days, not months.</div>
+                    <div class="faq-answer">30 days. Deployment itself takes 5 business days for most environments (read-only connector, detection tuning, shadow mode, go-live). The remaining time is for you to see investigations in action against real alerts in your environment and measure outcomes against your current baseline.</div>
                 </details>
                 <details class="pricing-faq-item">
                     <summary>Can I cancel anytime?</summary>
-                    <div class="faq-answer">Yes. There are no long-term commitments. You can cancel at any time with no penalties. We believe in earning your business through results, not contracts.</div>
+                    <div class="faq-answer">Yes. AI MDR is billed monthly with no minimum term. Enterprise is an annual contract but can be cancelled at the renewal date with 30 days notice. Because your data never moves to us, leaving means simply disconnecting the read-only connector. You keep your data, your detections, and your audit history.</div>
                 </details>
             </div>
-        </div>
-    </section>
-
-    <!-- Cost Simulator CTA -->
-    <section class="pricing-value" style="padding: 60px 0;">
-        <div class="container" style="text-align: center;">
-            <h2 style="font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">How Much Could You Save?</h2>
-            <p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 28px; font-size: 1.05rem; line-height: 1.7;">Compare your current SIEM and SOC costs against Vigilense AI. See exactly where the savings come from - no signup required.</p>
-            <a href="/cost-simulator/" class="btn btn-primary btn-large" style="margin-right: 12px;">Estimate Your Savings →</a>
         </div>
     </section>
 
@@ -638,232 +1118,6 @@
     </footer>
 
     <script src="/script.js"></script>
-    <script src="/pricing-config.js"></script>
-    <script>
-    (function() {
-        var P = window.VIGILENSE_PRICING;
-        if (!P) return;
-        var PH = P.helpers;
 
-        function maxRulesForVolume(gb) {
-            if (gb <= 10)   return 100;
-            if (gb <= 50)   return 250;
-            if (gb <= 200)  return 500;
-            if (gb <= 1000) return 1500;
-            if (gb <= 5000) return 3000;
-            return 5000;
-        }
-
-        function staticSocCost(dailyAlerts, autoResolveOverride) {
-            var SD = P.socDefaults;
-            var investRate = SD.investigationRate / 100;
-            var benefitsMult = 1 + SD.benefitsPct / 100;
-            var turnoverRate = SD.turnoverPct / 100;
-            var autoResolveRate = (autoResolveOverride !== undefined ? autoResolveOverride : SD.autoResolveRate) / 100;
-            var shiftModel = P.shifts['24/7'];
-            var shifts = shiftModel.count;
-            var fteMult = shiftModel.fteMult;
-            var shiftPremium = shiftModel.premium;
-
-            var investigatedAlerts = Math.round(dailyAlerts * investRate);
-            var alertsPerShift = Math.ceil(investigatedAlerts / shifts);
-            var seatsPerShift = Math.max(1, Math.ceil(alertsPerShift / SD.alertsPerAnalyst));
-            var l1Count = Math.max(2, Math.ceil(seatsPerShift * fteMult));
-            var l2Count = Math.max(1, Math.ceil(l1Count * 0.25));
-            var l3Count = Math.max(1, Math.ceil(l1Count * 0.125));
-            var totalAnalysts = l1Count + l2Count + l3Count;
-            var mgrCount = Math.max(1, Math.ceil(totalAnalysts / 12));
-            var totalStaff = totalAnalysts + mgrCount;
-
-            var l1Cost = Math.round(l1Count * SD.l1Salary * benefitsMult * shiftPremium);
-            var l2Cost = Math.round(l2Count * Math.round(SD.l1Salary * SD.l2Multiplier) * benefitsMult * shiftPremium);
-            var l3Cost = Math.round(l3Count * Math.round(SD.l1Salary * SD.l3Multiplier) * benefitsMult);
-            var mgrCost = Math.round(mgrCount * Math.round(SD.l1Salary * SD.mgrMultiplier) * benefitsMult);
-            var staffCost = l1Cost + l2Cost + l3Cost + mgrCost;
-
-            var turnoverCostTotal = Math.round(totalStaff * turnoverRate * SD.recruitCost);
-            var trainingTotal = totalStaff * SD.trainingCost;
-            var toolingTotal = SD.soarTooling + SD.threatIntel;
-            var humanSocTotal = staffCost + turnoverCostTotal + trainingTotal + toolingTotal;
-
-            var annualInvestigations = dailyAlerts * 365;
-            var socPlat = PH.aiSocPlatformCost(dailyAlerts);
-            var aiCompute = PH.aiComputeCost(annualInvestigations);
-
-            var dailyEscalated = Math.round(dailyAlerts * (1 - autoResolveRate));
-            var reviewerPerShift = Math.max(1, Math.ceil(dailyEscalated / SD.reviewRate));
-            var reviewerCount = Math.ceil(reviewerPerShift * fteMult);
-            var reviewerCost = Math.round(reviewerCount * SD.reviewerSalary * benefitsMult * shiftPremium);
-            var detEngCount = PH.detEngCount(dailyAlerts);
-            var detEngCost = Math.round(detEngCount * SD.detEngSalary * benefitsMult);
-            var irLeadCount = PH.irLeadCount(dailyAlerts);
-            var irLeadCost = Math.round(irLeadCount * SD.irLeadSalary * benefitsMult);
-            var hilStaffTotal = reviewerCost + detEngCost + irLeadCost;
-
-            var vigSocTotal = socPlat.annual + aiCompute + hilStaffTotal;
-
-            return {
-                humanSocTotal: humanSocTotal,
-                vigSocTotal: vigSocTotal,
-                aiSocPlatform: socPlat.annual,
-                aiCompute: aiCompute
-            };
-        }
-
-        var scales = [
-            { gb: 1,     alerts: 100 },
-            { gb: 10,    alerts: 150 },
-            { gb: 100,   alerts: 350 },
-            { gb: 500,   alerts: 1000 },
-            { gb: 1000,  alerts: 1800 },
-            { gb: 2000,  alerts: 2500 }
-        ];
-
-        var labels = scales.map(function(s) {
-            return s.gb >= 1000 ? (s.gb/1000) + ' TB' : s.gb + ' GB';
-        });
-
-        var legacyData = [], vigData = [];
-        var vigLowAutoData = [], vigHighAutoData = [];
-
-        scales.forEach(function(s) {
-            var rules = Math.max(100, Math.min(maxRulesForVolume(s.gb), Math.round(200 * (s.gb / 500))));
-            var siem = PH.legacyScenario(s.gb, null, rules);
-            var vig = PH.vigilenseSiemCost(s.gb, rules);
-            var soc = staticSocCost(s.alerts);
-            var socLow  = staticSocCost(s.alerts, 60);
-            var socHigh = staticSocCost(s.alerts, 90);
-
-            var legacyTotal = siem.total + soc.humanSocTotal;
-
-            var vigPlatformCosts = vig.total + soc.aiSocPlatform + soc.aiCompute;
-            var bundleDiscount = Math.round(vigPlatformCosts * P.bundleDiscount);
-            var vigTotal = vig.total + soc.vigSocTotal - bundleDiscount;
-
-            var vigPlatLow = vig.total + socLow.aiSocPlatform + socLow.aiCompute;
-            var vigTotalLow = vig.total + socLow.vigSocTotal - Math.round(vigPlatLow * P.bundleDiscount);
-
-            var vigPlatHigh = vig.total + socHigh.aiSocPlatform + socHigh.aiCompute;
-            var vigTotalHigh = vig.total + socHigh.vigSocTotal - Math.round(vigPlatHigh * P.bundleDiscount);
-
-            legacyData.push(Math.round(legacyTotal / 1000));
-            vigData.push(Math.round(vigTotal / 1000));
-            vigLowAutoData.push(Math.round(vigTotalLow / 1000));
-            vigHighAutoData.push(Math.round(vigTotalHigh / 1000));
-        });
-
-        var ctx = document.getElementById('pricingSovChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Legacy Stack (SIEM + Human SOC)',
-                        data: legacyData,
-                        borderColor: '#FF4444',
-                        backgroundColor: 'rgba(255,68,68,0.08)',
-                        borderWidth: 2.5,
-                        fill: false,
-                        tension: 0.3,
-                        pointRadius: 3,
-                        pointHoverRadius: 6
-                    },
-                    {
-                        label: 'Vigilense AI SOVEREIGN SOC',
-                        data: vigData,
-                        borderColor: '#00D4AA',
-                        backgroundColor: 'rgba(0,212,170,0.08)',
-                        borderWidth: 2.5,
-                        fill: false,
-                        tension: 0.3,
-                        pointRadius: 3,
-                        pointHoverRadius: 6
-                    },
-                    {
-                        label: 'Low Automation (60%)',
-                        data: vigLowAutoData,
-                        borderColor: 'rgba(0,212,170,0.4)',
-                        backgroundColor: 'rgba(0,212,170,0.1)',
-                        borderWidth: 1,
-                        borderDash: [4, 4],
-                        fill: '+1',
-                        tension: 0.3,
-                        pointRadius: 0,
-                        pointHoverRadius: 3
-                    },
-                    {
-                        label: 'High Automation (90%)',
-                        data: vigHighAutoData,
-                        borderColor: 'rgba(0,212,170,0.4)',
-                        backgroundColor: 'rgba(0,212,170,0.1)',
-                        borderWidth: 1,
-                        borderDash: [4, 4],
-                        fill: false,
-                        tension: 0.3,
-                        pointRadius: 0,
-                        pointHoverRadius: 3
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: { mode: 'index', intersect: false },
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            color: 'rgba(255,255,255,0.7)',
-                            font: { family: "'JetBrains Mono', monospace", size: 9 },
-                            padding: 12, usePointStyle: true, pointStyleWidth: 10
-                        }
-                    },
-                    tooltip: {
-                        backgroundColor: 'rgba(15,17,21,0.95)',
-                        titleColor: '#fff',
-                        bodyColor: 'rgba(255,255,255,0.8)',
-                        titleFont: { family: "'Outfit', sans-serif", weight: '600', size: 13 },
-                        bodyFont: { family: "'JetBrains Mono', monospace", size: 11 },
-                        padding: 14,
-                        borderColor: 'rgba(255,255,255,0.1)',
-                        borderWidth: 1,
-                        callbacks: {
-                            label: function(ctx) {
-                                var v = ctx.parsed.y;
-                                var label = ctx.dataset.label || '';
-                                if (v >= 1000) return ' ' + label + ':  $' + (v/1000).toFixed(1) + 'M';
-                                return ' ' + label + ':  $' + v + 'K';
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        ticks: {
-                            color: 'rgba(255,255,255,0.5)',
-                            font: { family: "'JetBrains Mono', monospace", size: 10 },
-                            maxRotation: 0
-                        },
-                        grid: { color: 'rgba(255,255,255,0.04)' }
-                    },
-                    y: {
-                        position: 'left',
-                        ticks: {
-                            color: 'rgba(255,255,255,0.5)',
-                            font: { family: "'JetBrains Mono', monospace", size: 9 },
-                            callback: function(v) {
-                                if (v >= 1000) return '$' + (v/1000).toFixed(0) + 'M';
-                                return '$' + v + 'K';
-                            }
-                        },
-                        grid: { color: 'rgba(255,255,255,0.04)' },
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    })();
-    </script>
 </body>
 </html>

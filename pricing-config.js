@@ -1,5 +1,5 @@
 /**
- * Vigilense AI — Central Pricing Configuration
+ * Vigilense AI - Central Pricing Configuration
  *
  * Single source of truth for ALL pricing constants used across
  * the website (Cost Simulator, Why Now page, etc.).
@@ -76,7 +76,7 @@
     P.marketVariance = 1.0;
 
     // ─────────────────────────────────────────────────────────
-    //  VIGILENSE BYODb SIEM — DETECTION PLATFORM PRICING
+    //  VIGILENSE BYODb SIEM - DETECTION PLATFORM PRICING
     // ─────────────────────────────────────────────────────────
 
     P.siemUsage = {
@@ -149,7 +149,7 @@
     ];
 
     // ─────────────────────────────────────────────────────────
-    //  BYODb INFRASTRUCTURE — per-provider pricing ($/GB/day)
+    //  BYODb INFRASTRUCTURE - per-provider pricing ($/GB/day)
     // ─────────────────────────────────────────────────────────
 
     P.byodbProviders = {
@@ -249,7 +249,7 @@
     P.byodbInfra = P.byodbProviders[P.byodbDefault].tiers;
 
     // ─────────────────────────────────────────────────────────
-    //  AI SOC ANALYST — RESPONSE PLATFORM PRICING
+    //  AI SOC ANALYST - RESPONSE PLATFORM PRICING
     // ─────────────────────────────────────────────────────────
 
     P.aiSocPlatform = [
@@ -564,7 +564,7 @@
         // Governance (customer admin overhead)
         var adminTier = H.lookupTier(vol, P.vigAdminOverhead, 'maxGB');
         var adminCost = adminTier.annual;
-        var adminDesc = adminTier.fte + ' FTE — ' + adminTier.desc;
+        var adminDesc = adminTier.fte + ' FTE - ' + adminTier.desc;
 
         var total = vigilensePlatformCost + byodbCost + adminCost;
 

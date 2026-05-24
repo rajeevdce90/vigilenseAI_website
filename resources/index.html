@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vigilense AI resource center: BYODb architecture, SIEM buyer's guide, case studies, technical deep-dives, and product education on AI-powered MDR.">
+    <meta name="keywords" content="Vigilense AI resources, MDR resources, SIEM buyer's guide, BYODb architecture, AI SOC case studies, security documentation">
+    <link rel="canonical" href="https://vigilense.ai/resources/">
+    <meta property="og:title" content="Resources - Vigilense AI">
+    <meta property="og:description" content="Deep-dives, case studies, buyer's guides, and product education on AI-powered MDR and BYODb architecture.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vigilense.ai/resources/">
+    <meta property="og:image" content="https://vigilense.ai/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Vigilense AI Resource Center.">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Vigilense AI">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Resources - Vigilense AI">
+    <meta name="twitter:description" content="Deep-dives, case studies, buyer's guides for AI-powered MDR.">
+    <meta name="twitter:image" content="https://vigilense.ai/og-image.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>Resources - Vigilense AI</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mdr-navy: #0A1628;
+            --mdr-teal: #00D4AA;
+            --mdr-teal-soft: rgba(0, 212, 170, 0.12);
+            --mdr-teal-line: rgba(0, 212, 170, 0.28);
+            --mdr-bg: #FAFAF8;
+            --mdr-card: #FFFFFF;
+            --mdr-border: #E2E8F0;
+            --mdr-ink: #0F1419;
+            --mdr-muted: #475569;
+            --mdr-faint: #94A3B8;
+        }
+        .sub-hero {
+            padding: 140px 0 50px;
+            background: linear-gradient(180deg, #FFFFFF 0%, var(--mdr-bg) 100%);
+            text-align: center;
+        }
+        .sub-hero h1 { font-size: clamp(2rem, 4.5vw, 3rem); max-width: 760px; margin: 0 auto 16px; }
+        .sub-hero p { font-size: 1.1rem; color: var(--mdr-muted); line-height: 1.65; max-width: 640px; margin: 0 auto; }
+
+        .res-section {
+            padding: 60px 0 90px;
+            background: var(--mdr-bg);
+        }
+        .res-cat-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--mdr-faint);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--mdr-border);
+        }
+        .res-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-bottom: 56px;
+        }
+        .res-card {
+            background: var(--mdr-card);
+            border: 1px solid var(--mdr-border);
+            border-radius: 12px;
+            padding: 26px 24px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.18s ease, box-shadow 0.22s ease, border-color 0.18s ease;
+        }
+        .res-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--mdr-teal-line);
+            box-shadow: 0 10px 28px rgba(10, 22, 40, 0.08);
+        }
+        .res-card .tag {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--mdr-teal);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+        .res-card h3 {
+            font-family: var(--font-display, 'Satoshi', 'Outfit', sans-serif);
+            font-size: 1.12rem;
+            font-weight: 700;
+            color: var(--mdr-navy);
+            margin-bottom: 8px;
+            letter-spacing: -0.015em;
+            line-height: 1.3;
+        }
+        .res-card p {
+            font-size: 0.92rem;
+            color: var(--mdr-muted);
+            line-height: 1.6;
+            margin-bottom: 14px;
+            flex: 1;
+        }
+        .res-card .link {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--mdr-teal);
+        }
+        @media (max-width: 900px) {
+            .res-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 640px) {
+            .res-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="nav-brand">
+                <img src="/vigilense-logo.png?v=2" alt="Vigilense AI - Autonomous Vigilance for Security Teams" class="logo-icon">
+                <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="/for-businesses/">For Businesses</a></li>
+                <li><a href="/mssp/">For MSSPs/Partners</a></li>
+                <li><a href="/platform/">Platform</a></li>
+                <li><a href="/pricing/">Pricing</a></li>
+                <li><a href="/resources/">Resources</a></li>
+                <li class="cta-nav"><a href="/demo/">Book a Demo</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="sub-hero">
+        <div class="container">
+            <span class="mdr-eyebrow">Resource Center</span>
+            <h1 class="mdr-display">Learn. Compare. Decide.</h1>
+            <p>Buyer's guides, technical deep-dives, case studies, and the latest from our team on AI-powered MDR and BYODb architecture.</p>
+        </div>
+    </section>
+
+    <section class="res-section">
+        <div class="container">
+            <p class="res-cat-title">Buyer's Guides &amp; Education</p>
+            <div class="res-grid">
+                <a href="/resources/siem-buyers-guide/" class="res-card">
+                    <span class="tag">Buyer's Guide</span>
+                    <h3>SIEM Buyer's Guide</h3>
+                    <p>What to look for, what to avoid, and how to compare modern AI-powered alternatives to traditional SIEM.</p>
+                    <span class="link">Read the guide &rarr;</span>
+                </a>
+                <a href="/resources/what-is-byodb-siem/" class="res-card">
+                    <span class="tag">Concept</span>
+                    <h3>What is BYODb SIEM?</h3>
+                    <p>Bring Your Own Database changes the economics of SIEM. Here's how it works - and why it matters.</p>
+                    <span class="link">Read &rarr;</span>
+                </a>
+                <a href="/resources/what-is-ai-soc-analyst/" class="res-card">
+                    <span class="tag">Concept</span>
+                    <h3>What is an AI SOC Analyst?</h3>
+                    <p>Beyond chatbots: how an AI analyst actually investigates alerts and what humans still do.</p>
+                    <span class="link">Read &rarr;</span>
+                </a>
+                <a href="/resources/what-is-sovereign-soc/" class="res-card">
+                    <span class="tag">Concept</span>
+                    <h3>What is a Sovereign SOC?</h3>
+                    <p>Data sovereignty in the SOC: why control beats convenience for regulated industries.</p>
+                    <span class="link">Read &rarr;</span>
+                </a>
+            </div>
+
+            <p class="res-cat-title">Technical Deep-Dives</p>
+            <div class="res-grid">
+                <a href="/resources/byodb-architecture/" class="res-card">
+                    <span class="tag">Architecture</span>
+                    <h3>BYODb Architecture</h3>
+                    <p>How Vigilense queries Snowflake, OpenSearch, Elastic, BigQuery, and S3 - in place, with no data movement.</p>
+                    <span class="link">Read &rarr;</span>
+                </a>
+                <a href="/resources/tenant-separation/" class="res-card">
+                    <span class="tag">Architecture</span>
+                    <h3>Tenant Separation</h3>
+                    <p>How multi-tenant isolation works for MSSPs and partners running many client environments.</p>
+                    <span class="link">Read &rarr;</span>
+                </a>
+            </div>
+
+            <p class="res-cat-title">Case Studies &amp; Stories</p>
+            <div class="res-grid">
+                <a href="/resources/healthcare-case-study/" class="res-card">
+                    <span class="tag">Case Study</span>
+                    <h3>Healthcare Case Study</h3>
+                    <p>How a regional healthcare system replaced a traditional SOC stack while strengthening HIPAA posture.</p>
+                    <span class="link">Read the case study &rarr;</span>
+                </a>
+                <a href="/blog/" class="res-card">
+                    <span class="tag">Blog</span>
+                    <h3>The Vigilense Blog</h3>
+                    <p>Thinking out loud on the economics of SOCs, the future of detection, and the BYODb thesis.</p>
+                    <span class="link">Browse all posts &rarr;</span>
+                </a>
+                <a href="/why-now/" class="res-card">
+                    <span class="tag">Perspective</span>
+                    <h3>Why Now</h3>
+                    <p>Why the SOC has to change, the financial unsustainability of legacy SIEM, and what comes next.</p>
+                    <span class="link">Read &rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/" class="nav-brand">
+                        <img src="/vigilense-logo.png?v=2" alt="Vigilense AI" class="logo-icon" loading="lazy">
+                        <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+                    </a>
+                    <p>AI-Powered Detection &amp; Response. Your Data Never Leaves.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="/mdr/">AI Detection &amp; Response</a></li>
+                            <li><a href="/platform/byodb-siem/">BYODb Technology</a></li>
+                            <li><a href="/platform/integrations/">Integrations</a></li>
+                            <li><a href="/pricing/">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="/security/">About</a></li>
+                            <li><a href="/careers/">Careers</a></li>
+                            <li><a href="/trust/">Security &amp; Trust</a></li>
+                            <li><a href="/demo/">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="/blog/">Blog</a></li>
+                            <li><a href="/resources/">Documentation</a></li>
+                            <li><a href="/resources/healthcare-case-study/">Case Studies</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="/privacy/">Privacy Policy</a></li>
+                            <li><a href="/terms/">Terms of Service</a></li>
+                            <li><a href="/trust/">Trust Center</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Vigilense AI. All rights reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="/privacy/">Privacy</a>
+                        <a href="/terms/">Terms</a>
+                        <a href="/disclaimer/">Disclaimer</a>
+                        <a href="https://www.linkedin.com/company/111587909/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="https://x.com/VigilenseAI" target="_blank" rel="noopener noreferrer">X</a>
+                        <a href="https://www.youtube.com/@VigilenseAI" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>

@@ -3,6 +3,8 @@
    Loaded AFTER styles.css to override dark defaults
    ============================================ */
 
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,800,700,500,400&display=swap');
+
 :root {
     /* Brand */
     --accent: #00D4AA;
@@ -14,6 +16,9 @@
     --light-blue: #38BDF8;
     --light-blue-dim: #7DD3FC;
     --light-blue-glow: rgba(56, 189, 248, 0.1);
+
+    /* Display font (Satoshi) - available site-wide; homepage opts in via .mdr-display */
+    --font-display: 'Satoshi', 'Outfit', system-ui, -apple-system, sans-serif;
 
     /* Backgrounds */
     --bg-primary: #FAFAF8;

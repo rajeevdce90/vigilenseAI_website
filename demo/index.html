@@ -133,43 +133,11 @@
                 <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
             </a>
             <ul class="nav-menu">
-                <li><a href="/why-now/" style="color: #FF6B6B; font-weight: 700;">Why Now</a></li>
-                <li>
-                    <a href="#">Platform</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/platform/ai-soc-analyst/">AI SOC Analyst</a></li>
-                        <li><a href="/platform/byodb-siem/">BYODb SIEM</a></li>
-                        <li><a href="/platform/integrations/">Integrations</a></li>
-                        <li><a href="/#how-it-works">How It Works</a></li>
-                        <li><a href="/security/">Security & Trust</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="/pricing/">Pricing</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/pricing/">Pricing Overview</a></li>
-                        <li><a href="/cost-simulator/" style="color: #00D4AA; font-weight: 600;">Savings Calculator</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Resources</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/blog/">Blog</a></li>
-                        <li><a href="/resources/what-is-byodb-siem/">What is BYODb SIEM?</a></li>
-                        <li><a href="/resources/what-is-sovereign-soc/">What is a Sovereign SOC?</a></li>
-                        <li><a href="/resources/what-is-ai-soc-analyst/">What is an AI SOC Analyst?</a></li>
-                        <li><a href="/resources/siem-buyers-guide/">SIEM Buyer's Guide</a></li>
-                        <li><a href="/resources/healthcare-case-study/">Case Studies</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Company</a>
-                    <ul class="dropdown-menu">
-                        <!-- <li><a href="/team/">Team</a></li> -->
-                        <li><a href="/careers/">Careers</a></li>
-                        <li><a href="/security/">Security</a></li>
-                    </ul>
-                </li>
+                <li><a href="/for-businesses/">For Businesses</a></li>
+                <li><a href="/mssp/">For MSSPs/Partners</a></li>
+                <li><a href="/platform/">Platform</a></li>
+                <li><a href="/pricing/">Pricing</a></li>
+                <li><a href="/resources/">Resources</a></li>
                 <li class="cta-nav"><a href="/demo/">Book a Demo</a></li>
             </ul>
             <div class="hamburger">
@@ -184,13 +152,15 @@
     <section class="demo-page-section">
         <div class="container">
             <div class="section-header">
-                <h1 class="section-title">See It In Action</h1>
-                <p class="section-subtitle">Run a pilot on your infrastructure or book a live demo.</p>
+                <h1 class="section-title" id="pageHeading">See It In Action</h1>
+                <p class="section-subtitle" id="pageSubtitle">Run a pilot on your infrastructure or book a live demo.</p>
             </div>
-            <p class="demo-social-proof">In pilot with enterprise security teams. Typical pilot: <strong>2-4 weeks</strong>.</p>
+            <p class="demo-social-proof" id="pageSocialProof">In pilot with enterprise security teams. Typical pilot: <strong>2-4 weeks</strong>.</p>
             <div class="contact-form-container">
                 <form class="contact-form" id="contactForm" action="https://formspree.io/f/mqedeopk" method="POST">
-                    <h3>Request a Demo or Pilot</h3>
+                    <input type="hidden" name="inquiry_type" id="inquiryType" value="demo">
+                    <input type="hidden" name="_subject" id="formSubject" value="New demo / pilot request from vigilense.ai">
+                    <h3 id="formHeading">Request a Demo or Pilot</h3>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName">First Name *</label>
@@ -231,7 +201,7 @@
                         <input type="checkbox" id="consent" name="consent" required>
                         <label for="consent">I agree to the <a href="/privacy/">Privacy Policy</a> and consent to being contacted about <span class="brand-name"><span class="vigilense">Vigilense</span><span class="ai"> AI</span></span>.</label>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-large btn-full">Request Demo</button>
+                    <button type="submit" id="formSubmitBtn" class="btn btn-primary btn-large btn-full">Request Demo</button>
                     <p class="form-note">We respond within 24 hours</p>
                     <div class="form-trust-badges">
                         <div class="form-badge">
@@ -367,5 +337,59 @@
     </footer>
 
     <script src="/script.js"></script>
+    <script>
+        (function () {
+            var params = new URLSearchParams(window.location.search);
+            var type = (params.get('type') || '').toLowerCase();
+            if (!type) return;
+
+            var modes = {
+                'partner': {
+                    heading: 'Apply to the Vigilense Partner Program',
+                    subtitle: 'Tell us about your MSSP, MSP, or reseller practice. The partner team replies within 1 business day.',
+                    socialProof: 'Built for MSSPs and security partners. Typical onboarding: <strong>2 weeks</strong>.',
+                    formHeading: 'Partner Program Application',
+                    submitText: 'Submit Partner Application',
+                    subject: 'New Vigilense Partner Program application',
+                    inquiry: 'partner_program'
+                },
+                'partner-demo': {
+                    heading: 'Book a Partner Demo',
+                    subtitle: 'See the partner program in action. We will tailor the demo to your client mix and current stack.',
+                    socialProof: 'Live walkthrough for MSSPs and resellers. Typical demo: <strong>30 minutes</strong>.',
+                    formHeading: 'Request a Partner Demo',
+                    submitText: 'Book Partner Demo',
+                    subject: 'New partner demo request from vigilense.ai',
+                    inquiry: 'partner_demo'
+                },
+                'pilot': {
+                    heading: 'Start Your Risk-Free Pilot',
+                    subtitle: 'Connect read-only to your environment. See live investigations within 5 business days.',
+                    socialProof: 'Typical pilot: <strong>30 days</strong>. No credit card required.',
+                    formHeading: 'Start a Pilot',
+                    submitText: 'Start Pilot',
+                    subject: 'New pilot request from vigilense.ai',
+                    inquiry: 'pilot'
+                }
+            };
+
+            var mode = modes[type];
+            if (!mode) return;
+
+            var setText = function (id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
+            var setHtml = function (id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; };
+            var setValue = function (id, value) { var el = document.getElementById(id); if (el) el.value = value; };
+
+            setText('pageHeading', mode.heading);
+            setText('pageSubtitle', mode.subtitle);
+            setHtml('pageSocialProof', mode.socialProof);
+            setText('formHeading', mode.formHeading);
+            setText('formSubmitBtn', mode.submitText);
+            setValue('formSubject', mode.subject);
+            setValue('inquiryType', mode.inquiry);
+
+            try { document.title = mode.heading + ' | Vigilense AI'; } catch (e) {}
+        })();
+    </script>
 </body>
 </html>
