@@ -10,7 +10,7 @@
 - **Short name:** Vigilense
 - **Tagline:** The Sovereign SOC
 - **Positioning:** BYODb SIEM + Autonomous AI SOC Analyst
-- **Design philosophy:** "Technical Brutalism" — clean, sharp, engineering-grade aesthetic. Confident, minimal, no unnecessary decoration. The design says "we build serious security infrastructure."
+- **Design philosophy:** "Technical Brutalism". Clean, sharp, engineering-grade aesthetic. Confident, minimal, no unnecessary decoration. The design says "we build serious security infrastructure."
 
 ---
 
@@ -49,7 +49,7 @@ When the logo is rendered as text (e.g., in navbars):
 | **Light Blue** | `#38BDF8` | rgb(56, 189, 248) | Progress indicators, secondary accent |
 | **Light Blue Dim** | `#7DD3FC` | rgb(125, 211, 252) | Softer blue accent |
 
-### Backgrounds (Light Theme — Website Default)
+### Backgrounds (Light Theme, Website Default)
 
 | Name | Hex | Usage |
 |------|-----|-------|
@@ -143,7 +143,7 @@ https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&fam
 | **h2** | `clamp(1.5rem, 3.5vw, 2.5rem)` | 1.2 | JetBrains Mono, 700, letter-spacing: -0.02em |
 | **h3** | `clamp(1.1rem, 2vw, 1.4rem)` | default | JetBrains Mono, 700, letter-spacing: -0.02em |
 | **Body** | 1rem (16px) | 1.6 | Outfit, regular |
-| **Small/Tags** | 0.75rem - 0.85rem | — | JetBrains Mono, 600, uppercase, letter-spacing: 0.15em |
+| **Small/Tags** | 0.75rem - 0.85rem | n/a | JetBrains Mono, 600, uppercase, letter-spacing: 0.15em |
 
 ### Heading Color
 - On light backgrounds: Navy `#0A1628`
@@ -273,13 +273,13 @@ Footer links: `rgba(255, 255, 255, 0.5)`, hover `#00D4AA`
 ## 7. Design Patterns & Conventions
 
 ### General Rules
-- **No rounded corners on buttons** — buttons are squared/minimal (except nav CTA which uses 4px)
-- **Monospace headings everywhere** — every heading uses JetBrains Mono. This is the signature visual trait.
+- **No rounded corners on buttons.** Buttons are squared/minimal (except nav CTA which uses 4px)
+- **Monospace headings everywhere.** Every heading uses JetBrains Mono. This is the signature visual trait.
 - **Navy-on-white** is the default pairing for light sections
 - **White-on-navy** for dark feature sections
-- **Teal accent is used sparingly** — for CTAs, links, highlighted keywords, and the "AI" in the brand name
+- **Teal accent is used sparingly:** for CTAs, links, highlighted keywords, and the "AI" in the brand name
 - **No gradients** on light sections. Clean, flat backgrounds.
-- **Subtle shadows only** — avoid heavy drop shadows
+- **Subtle shadows only.** Avoid heavy drop shadows.
 
 ### Dark Sections
 Navy background sections are used for:
@@ -400,6 +400,6 @@ When building the Vigilense AI software, ensure:
 - [ ] Section tags/labels: navy bg, white uppercase monospace text
 - [ ] Footer: navy bg, teal accent border-top
 - [ ] "Vigilense" in navy/white, "AI" always in teal
-- [ ] Keep the design clean, flat, engineering-grade — no flashy gradients or heavy decoration
+- [ ] Keep the design clean, flat, engineering-grade. No flashy gradients or heavy decoration.
 - [ ] Use the favicon.svg for browser tab icon
 - [ ] Match light theme as default (dark navy sections for emphasis only)
