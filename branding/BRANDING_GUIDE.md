@@ -368,7 +368,7 @@ Copy these into any new project to instantly match the website:
 
 | File | Description |
 |------|-------------|
-| `images/og-image.png` | Open Graph social preview image (1200x630) |
+| `images/og-preview_new.png` | Open Graph social preview image (1424x752) |
 | `images/og-preview.jpg` | Alternative social preview |
 | `images/Vigilense photo.png` | Brand photo |
 

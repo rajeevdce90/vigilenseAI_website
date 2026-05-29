@@ -13,7 +13,7 @@ desktop.ini
 # Private internal pages (never deploy)
 _archive/
 cost-simulator/private/
-team/
+/team/
 team.html
 
 # Dependencies
