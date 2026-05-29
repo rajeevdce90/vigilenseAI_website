@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Compare Vigilense AI to legacy SIEM and traditional MDR. See how data location, ingestion cost, investigation depth, deployment time, and vendor lock-in stack up for midsize organizations.">
+    <meta name="keywords" content="Vigilense AI comparison, legacy SIEM vs MDR, AI MDR comparison, BYODb vs SIEM, traditional MDR alternative">
+    <link rel="canonical" href="https://vigilense.ai/compare/">
+    <meta property="og:title" content="Compare - Vigilense AI vs Legacy SIEM & Traditional MDR">
+    <meta property="og:description" content="Legacy SIEM, traditional MDR, or Vigilense AI? Compare data location, ingestion cost, investigation depth, deployment, and lock-in side by side.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vigilense.ai/compare/">
+    <meta property="og:image" content="https://vigilense.ai/images/og-preview_new.png">
+    <meta property="og:image:width" content="1424">
+    <meta property="og:image:height" content="752">
+    <meta property="og:image:alt" content="Vigilense AI comparison: legacy SIEM vs traditional MDR vs AI-powered MDR.">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Vigilense AI">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Compare - Vigilense AI vs Legacy SIEM & Traditional MDR">
+    <meta name="twitter:description" content="See how Vigilense AI compares on cost, data sovereignty, investigation depth, and deployment speed.">
+    <meta name="twitter:image" content="https://vigilense.ai/images/og-preview_new.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>Compare - Vigilense AI vs Legacy SIEM &amp; Traditional MDR</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mdr-navy: #0A1628;
+            --mdr-teal: #00D4AA;
+            --mdr-teal-soft: rgba(0, 212, 170, 0.12);
+            --mdr-teal-line: rgba(0, 212, 170, 0.28);
+            --mdr-bg: #FAFAF8;
+            --mdr-card: #FFFFFF;
+            --mdr-border: #E2E8F0;
+            --mdr-muted: #475569;
+            --mdr-faint: #94A3B8;
+            --mdr-bad: #DC2626;
+            --mdr-warn: #D97706;
+        }
+        .sub-hero {
+            padding: 140px 0 50px;
+            background: linear-gradient(180deg, #FFFFFF 0%, var(--mdr-bg) 100%);
+            text-align: center;
+        }
+        .sub-hero h1 {
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            max-width: 820px;
+            margin: 0 auto 16px;
+        }
+        .sub-hero p {
+            font-size: 1.1rem;
+            color: var(--mdr-muted);
+            line-height: 1.65;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .compare-section {
+            padding: 50px 0 90px;
+            background: var(--mdr-bg);
+        }
+        .compare-intro {
+            max-width: 720px;
+            margin: 0 auto 36px;
+            text-align: center;
+            font-size: 0.98rem;
+            color: var(--mdr-muted);
+            line-height: 1.65;
+        }
+        .compare-scroll {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border: 1px solid var(--mdr-border);
+            border-radius: 14px;
+            background: var(--mdr-card);
+            box-shadow: 0 10px 32px rgba(10, 22, 40, 0.06);
+        }
+        .compare-table {
+            width: 100%;
+            min-width: 720px;
+            border-collapse: collapse;
+            font-family: 'Outfit', sans-serif;
+        }
+        .compare-table caption {
+            caption-side: top;
+            padding: 0 0 14px;
+            text-align: left;
+            font-size: 0.82rem;
+            color: var(--mdr-faint);
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+        }
+        .compare-table thead th {
+            padding: 22px 20px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--mdr-navy);
+            background: #F8FAFC;
+            border-bottom: 2px solid var(--mdr-border);
+            text-align: center;
+        }
+        .compare-table thead th:first-child {
+            text-align: left;
+            width: 22%;
+            min-width: 160px;
+        }
+        .compare-table thead th.col-vigilense {
+            background: var(--mdr-navy);
+            color: #FFFFFF;
+            border-bottom-color: var(--mdr-teal);
+            position: relative;
+        }
+        .compare-table thead th.col-vigilense::after {
+            content: 'Recommended';
+            display: block;
+            margin-top: 6px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            color: var(--mdr-teal);
+        }
+        .compare-table tbody tr {
+            border-bottom: 1px solid var(--mdr-border);
+        }
+        .compare-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        .compare-table tbody tr:hover {
+            background: rgba(0, 212, 170, 0.04);
+        }
+        .compare-table td,
+        .compare-table th[scope="row"] {
+            padding: 18px 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            vertical-align: middle;
+        }
+        .compare-table th[scope="row"] {
+            font-weight: 700;
+            color: var(--mdr-navy);
+            text-align: left;
+            background: #FAFBFC;
+        }
+        .compare-table td {
+            text-align: center;
+            color: var(--mdr-muted);
+        }
+        .compare-table td.col-vigilense {
+            background: rgba(0, 212, 170, 0.06);
+            color: var(--mdr-navy);
+            font-weight: 600;
+        }
+        .cell-bad { color: var(--mdr-bad); font-weight: 600; }
+        .cell-warn { color: var(--mdr-warn); font-weight: 600; }
+        .cell-good { color: var(--mdr-teal); font-weight: 700; }
+
+        .compare-notes {
+            max-width: 820px;
+            margin: 28px auto 0;
+            padding: 0 4px;
+            font-size: 0.82rem;
+            color: var(--mdr-faint);
+            line-height: 1.6;
+        }
+        .compare-notes p { margin: 0 0 8px; }
+
+        .compare-cards {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .compare-card {
+            background: var(--mdr-card);
+            border: 1px solid var(--mdr-border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .compare-card h3 {
+            font-family: var(--font-display, 'Satoshi', 'Outfit', sans-serif);
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--mdr-navy);
+            margin-bottom: 14px;
+        }
+        .compare-card-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            padding: 10px 0;
+            border-top: 1px solid var(--mdr-border);
+            font-size: 0.85rem;
+        }
+        .compare-card-row:first-of-type { border-top: none; padding-top: 0; }
+        .compare-card-label {
+            grid-column: 1 / -1;
+            font-weight: 700;
+            color: var(--mdr-navy);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 4px;
+        }
+        .compare-card-val {
+            text-align: center;
+            color: var(--mdr-muted);
+            line-height: 1.4;
+        }
+        .compare-card-val.is-vigilense {
+            color: var(--mdr-navy);
+            font-weight: 700;
+            background: var(--mdr-teal-soft);
+            border-radius: 6px;
+            padding: 8px 4px;
+        }
+        .compare-card-val small {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--mdr-faint);
+            margin-bottom: 4px;
+        }
+
+        .compare-cta {
+            padding: 90px 0;
+            background: var(--mdr-navy);
+            color: #FFFFFF;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .compare-cta::before {
+            content: '';
+            position: absolute;
+            top: -250px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 500px;
+            background: radial-gradient(ellipse, rgba(0, 212, 170, 0.18) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .compare-cta h2 {
+            color: #FFFFFF;
+            font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+            margin-bottom: 14px;
+            position: relative;
+        }
+        .compare-cta p {
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 560px;
+            margin: 0 auto 28px;
+            font-size: 1.05rem;
+            line-height: 1.65;
+            position: relative;
+        }
+        .compare-cta .sub-cta {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .compare-scroll { display: none; }
+            .compare-cards { display: flex; }
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Compare Vigilense AI to Legacy SIEM and Traditional MDR",
+      "url": "https://vigilense.ai/compare/",
+      "description": "Side-by-side comparison of legacy SIEM, traditional MDR, and Vigilense AI across data location, cost, investigation depth, deployment, and vendor lock-in.",
+      "isPartOf": { "@type": "WebSite", "name": "Vigilense AI", "url": "https://vigilense.ai/" }
+    }
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="nav-brand">
+                <img src="/vigilense-logo.png?v=2" alt="Vigilense AI - Autonomous Vigilance for Security Teams" class="logo-icon">
+                <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="/for-businesses/">For Businesses</a></li>
+                <li><a href="/mssp/">For MSSPs/Partners</a></li>
+                <li><a href="/platform/">Platform</a></li>
+                <li><a href="/pricing/">Pricing</a></li>
+                <li>
+                    <a href="/resources/">Resources</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/resources/">Resource Center</a></li>
+                        <li><a href="/compare/">Compare</a></li>
+                        <li><a href="/resources/team/">Team</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                    </ul>
+                </li>
+                <li class="cta-nav"><a href="/demo/">Book a Demo</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="sub-hero">
+        <div class="container">
+            <span class="mdr-eyebrow">Comparison</span>
+            <h1 class="mdr-display">Legacy SIEM vs traditional MDR vs Vigilense AI</h1>
+            <p>A plain-language look at how the three approaches differ on the things IT leaders actually care about: where your data lives, what you pay, how deep investigations go, and how fast you can get live.</p>
+        </div>
+    </section>
+
+    <section class="compare-section">
+        <div class="container">
+            <p class="compare-intro">Most midsize teams end up choosing between a legacy SIEM they already own, a traditional MDR provider, or an AI-native model like Vigilense. This table summarizes the trade-offs without the vendor jargon.</p>
+
+            <div class="compare-scroll" role="region" aria-label="Comparison table" tabindex="0">
+                <table class="compare-table">
+                    <caption>Comparison of Legacy SIEM, Traditional MDR, and Vigilense AI</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Capability</th>
+                            <th scope="col">Legacy SIEM</th>
+                            <th scope="col">Traditional MDR</th>
+                            <th scope="col" class="col-vigilense">Vigilense AI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Data location</th>
+                            <td>Their cloud</td>
+                            <td>Their cloud</td>
+                            <td class="col-vigilense"><span class="cell-good">Your infrastructure</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ingestion cost</th>
+                            <td><span class="cell-bad">$0.88+/GB</span></td>
+                            <td><span class="cell-warn">Bundled / hidden</span></td>
+                            <td class="col-vigilense"><span class="cell-good">$0</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Investigation depth</th>
+                            <td>Manual</td>
+                            <td>Tier-1 triage</td>
+                            <td class="col-vigilense"><span class="cell-good">Full-depth AI</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Alert coverage</th>
+                            <td>Depends on staffing</td>
+                            <td><span class="cell-warn">Top 10-20% only</span></td>
+                            <td class="col-vigilense"><span class="cell-good">100% investigated</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Pricing model</th>
+                            <td>Per GB + licenses</td>
+                            <td>Bundled, opaque</td>
+                            <td class="col-vigilense"><span class="cell-good">$4 / investigation</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Deployment time</th>
+                            <td><span class="cell-bad">Months</span></td>
+                            <td><span class="cell-warn">Weeks</span></td>
+                            <td class="col-vigilense"><span class="cell-good">Days</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">24/7 monitoring</th>
+                            <td>DIY (hire or outsource)</td>
+                            <td>Yes (human-limited)</td>
+                            <td class="col-vigilense"><span class="cell-good">Yes (AI-native)</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Vendor lock-in</th>
+                            <td><span class="cell-bad">High</span></td>
+                            <td><span class="cell-bad">High</span></td>
+                            <td class="col-vigilense"><span class="cell-good">None</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="compare-cards" aria-label="Comparison by capability">
+                <article class="compare-card">
+                    <h3>Data location</h3>
+                    <div class="compare-card-row">
+                        <div class="compare-card-val"><small>Legacy SIEM</small>Their cloud</div>
+                        <div class="compare-card-val"><small>Traditional MDR</small>Their cloud</div>
+                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>Your infrastructure</div>
+                    </div>
+                </article>
+                <article class="compare-card">
+                    <h3>Ingestion cost</h3>
+                    <div class="compare-card-row">
+                        <div class="compare-card-val"><small>Legacy SIEM</small>$0.88+/GB</div>
+                        <div class="compare-card-val"><small>Traditional MDR</small>Bundled / hidden</div>
+                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>$0</div>
+                    </div>
+                </article>
+                <article class="compare-card">
+                    <h3>Investigation depth</h3>
+                    <div class="compare-card-row">
+                        <div class="compare-card-val"><small>Legacy SIEM</small>Manual</div>
+                        <div class="compare-card-val"><small>Traditional MDR</small>Tier-1 triage</div>
+                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>Full-depth AI</div>
+                    </div>
+                </article>
+                <article class="compare-card">
+                    <h3>Alert coverage</h3>
+                    <div class="compare-card-row">
+                        <div class="compare-card-val"><small>Legacy SIEM</small>Depends on staffing</div>
+                        <div class="compare-card-val"><small>Traditional MDR</small>Top 10-20% only</div>
+                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>100% investigated</div>
+                    </div>
+                </article>
+                <article class="compare-card">
+                    <h3>Pricing model</h3>
+                    <div class="compare-card-row">
+                        <div class="compare-card-val"><small>Legacy SIEM</small>Per GB + licenses</div>
+                        <div class="compare-card-val"><small>Traditional MDR</small>Bundled, opaque</div>
+                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>$4 / investigation</div>
+                    </div>
+                </article>
+                <article class="compare-card">
+                    <h3>Deployment time</h3>
+                    <div class="compare-card-row">
+                        <div class="compare-card-val"><small>Legacy SIEM</small>Months</div>
+                        <div class="compare-card-val"><small>Traditional MDR</small>Weeks</div>
+                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>Days</div>
+                    </div>
+                </article>
+                <article class="compare-card">
+                    <h3>24/7 monitoring</h3>
+                    <div class="compare-card-row">
+                        <div class="compare-card-val"><small>Legacy SIEM</small>DIY (hire or outsource)</div>
+                        <div class="compare-card-val"><small>Traditional MDR</small>Yes (human-limited)</div>
+                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>Yes (AI-native)</div>
+                    </div>
+                </article>
+                <article class="compare-card">
+                    <h3>Vendor lock-in</h3>
+                    <div class="compare-card-row">
+                        <div class="compare-card-val"><small>Legacy SIEM</small>High</div>
+                        <div class="compare-card-val"><small>Traditional MDR</small>High</div>
+                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>None</div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="compare-notes">
+                <p>Legacy SIEM ingestion pricing based on published rates from major cloud SIEM vendors (typically $0.88-$2.50/GB depending on tier and retention). Traditional MDR costs vary widely and often bundle ingestion, platform, and analyst time into opaque annual contracts.</p>
+                <p>Vigilense queries your existing data in place. No log shipping, no re-ingest, no exit penalty. <a href="/pricing/" style="color: var(--mdr-teal); font-weight: 600;">See pricing details</a> or <a href="/resources/siem-buyers-guide/" style="color: var(--mdr-teal); font-weight: 600;">read the SIEM buyer's guide</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="compare-cta">
+        <div class="container">
+            <h2 class="mdr-display">See the difference on your data.</h2>
+            <p>Run a risk-free 30-day pilot. We connect read-only to your environment and show you what full-depth AI investigation looks like on your actual alerts.</p>
+            <div class="sub-cta">
+                <a href="/demo/" class="mdr-btn mdr-btn-primary mdr-btn-lg">Book a 15-Minute Demo</a>
+                <a href="/pricing/" class="mdr-btn mdr-btn-secondary mdr-btn-lg">View Pricing</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/" class="nav-brand">
+                        <img src="/vigilense-logo.png?v=2" alt="Vigilense AI" class="logo-icon" loading="lazy">
+                        <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
+                    </a>
+                    <p>AI-Powered Detection &amp; Response. Your Data Never Leaves.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="/mdr/">AI Detection &amp; Response</a></li>
+                            <li><a href="/platform/byodb-siem/">BYODb Technology</a></li>
+                            <li><a href="/platform/integrations/">Integrations</a></li>
+                            <li><a href="/pricing/">Pricing</a></li>
+                            <li><a href="/compare/">Compare</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="/resources/team/">Team</a></li>
+                            <li><a href="/security/">About</a></li>
+                            <li><a href="/careers/">Careers</a></li>
+                            <li><a href="/trust/">Security &amp; Trust</a></li>
+                            <li><a href="/demo/">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="/blog/">Blog</a></li>
+                            <li><a href="/resources/">Documentation</a></li>
+                            <li><a href="/resources/healthcare-case-study/">Case Studies</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="/privacy/">Privacy Policy</a></li>
+                            <li><a href="/terms/">Terms of Service</a></li>
+                            <li><a href="/trust/">Trust Center</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Vigilense AI. All rights reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="/privacy/">Privacy</a>
+                        <a href="/terms/">Terms</a>
+                        <a href="/disclaimer/">Disclaimer</a>
+                        <a href="https://www.linkedin.com/company/111587909/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="https://x.com/VigilenseAI" target="_blank" rel="noopener noreferrer">X</a>
+                        <a href="https://www.youtube.com/@VigilenseAI" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>
