@@ -444,7 +444,7 @@
         }
 
         /* =====================================================
-           PRICING TIERS - AI MDR style (per-investigation + platform)
+           PRICING TIERS - AI MDR style (per-endpoint)
            ===================================================== */
         .pricing-tiers-section {
             padding: 80px 0;
@@ -693,12 +693,12 @@
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
-        {"@type": "Question", "name": "What counts as an investigation in Vigilense AI MDR pricing?", "acceptedAnswer": {"@type": "Answer", "text": "An investigation is one alert that the AI SOC analyst picks up, enriches across our 50+ data sources, correlates against your environment, and reaches a verdict on (true positive, false positive, or escalate). Background queries, dashboards, and scheduled detections are not billable. You only pay when the AI actually does investigative work on a discrete alert."}},
+        {"@type": "Question", "name": "How do I calculate my cost?", "acceptedAnswer": {"@type": "Answer", "text": "Multiply your endpoint count by $10. That is your monthly bill. No surprise fees based on alert volume, data ingestion, or query count."}},
         {"@type": "Question", "name": "Is there really no upfront cost?", "acceptedAnswer": {"@type": "Answer", "text": "Correct. The 30-day pilot is free. We deploy the AI SOC analyst and BYODb SIEM at our expense, connect to your environment, and run live investigations for 30 days. You pay nothing during the pilot."}},
-        {"@type": "Question", "name": "How is Vigilense AI pricing structured?", "acceptedAnswer": {"@type": "Answer", "text": "Three tiers. Pilot: 30 days free, no card required. AI MDR: $4 per investigation, billed monthly, with $0 ingestion and unlimited data sources. Volume discounts kick in at 10K+ investigations per month. Enterprise: custom annual subscription with unlimited investigations, dedicated CSM, and 24/7 priority support."}},
-        {"@type": "Question", "name": "How does $4 per investigation compare to traditional MDR?", "acceptedAnswer": {"@type": "Answer", "text": "Traditional MDR providers typically charge $12-$20 per investigated alert when you factor in their platform fee, ingestion charges, and per-endpoint pricing. Because most traditional MDR providers only investigate the top 10-20% of alerts, you also pay for triage queues full of work that never gets done. Vigilense investigates 100% of alerts at $4 each, on top of $0 ingestion. Midsize customers typically see 50-70% lower total spend."}},
+        {"@type": "Question", "name": "How is Vigilense AI pricing structured?", "acceptedAnswer": {"@type": "Answer", "text": "Three tiers. Pilot: 30 days free, no card required. AI MDR: $10 per endpoint per month, with $0 ingestion and unlimited data sources. Enterprise: custom annual subscription with unlimited investigations, dedicated CSM, and 24/7 priority support."}},
+        {"@type": "Question", "name": "How does $10 per endpoint compare to traditional MDR and SIEM?", "acceptedAnswer": {"@type": "Answer", "text": "Traditional MDR runs $12 to $15 per endpoint per month and still charges separate SIEM ingestion fees on top. Vigilense AI MDR is $10 per endpoint all in, with zero ingestion fees and autonomous investigation included."}},
         {"@type": "Question", "name": "What happens after the pilot?", "acceptedAnswer": {"@type": "Answer", "text": "We review the pilot results together: investigations completed, true positives caught, false positives eliminated, hours saved. If you want to continue, you pick the tier (AI MDR or Enterprise) and we move you onto a contract. If you don't, you walk away with zero obligation, your data, and the audit history. No lock-in. No penalties."}},
-        {"@type": "Question", "name": "Are there any hidden fees?", "acceptedAnswer": {"@type": "Answer", "text": "No. Zero per-GB ingestion fees, zero data transfer fees, zero storage surcharges, zero per-endpoint or per-user charges. Your data stays in your own databases, so the only line items on your invoice are the platform fee (if any) and per-investigation usage."}},
+        {"@type": "Question", "name": "Are there any hidden fees?", "acceptedAnswer": {"@type": "Answer", "text": "No. Zero per-GB ingestion fees, zero data transfer fees, zero storage surcharges. Your monthly bill is your endpoint count times $10 - that is it."}},
         {"@type": "Question", "name": "How long is the Vigilense AI pilot?", "acceptedAnswer": {"@type": "Answer", "text": "30 days. Deployment itself takes 5 business days for most environments (read-only connector, detection tuning, shadow mode, go-live). The remaining time is for you to see investigations in action against real alerts in your environment."}},
         {"@type": "Question", "name": "Can I cancel anytime?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. AI MDR is billed monthly with no minimum term. Enterprise is an annual contract but can be cancelled at the renewal date with 30 days notice. Because your data never moves to us, leaving means simply disconnecting the read-only connector."}}
       ]
@@ -724,11 +724,11 @@
                 <li><a href="/mssp/">For MSSPs/Partners</a></li>
                 <li><a href="/platform/">Platform</a></li>
                 <li><a href="/pricing/">Pricing</a></li>
+                <li><a href="/compare/">Compare</a></li>
                 <li>
                     <a href="/resources/">Resources</a>
                     <ul class="dropdown-menu">
                         <li><a href="/resources/">Resource Center</a></li>
-                        <li><a href="/compare/">Compare</a></li>
                         <li><a href="/resources/team/">Team</a></li>
                         <li><a href="/blog/">Blog</a></li>
                     </ul>
@@ -749,21 +749,21 @@
             <div class="pricing-hero-grid">
                 <div class="pricing-hero-text">
                     <span class="section-tag">Pricing</span>
-                    <h1>AI MDR pricing. From $4 per investigation.</h1>
-                    <p>Outcome-first, usage-based pricing for AI-powered managed detection and response. No per-GB ingestion costs. No upfront commitment. Risk-free pilot, then pay only for what the AI investigates.</p>
+                    <h1>AI MDR pricing. From $10 per endpoint per month.</h1>
+                    <p>Simple, predictable pricing for AI-powered managed detection and response. No per-GB ingestion costs. No upfront commitment. Risk-free pilot, then pay per endpoint each month.</p>
                     <div class="pricing-hero-cta">
                         <a href="#plans" class="btn btn-primary btn-large">See Plans</a>
                         <a href="/demo/" class="btn btn-secondary btn-large">Book a Demo</a>
                     </div>
-                    <p class="pricing-hero-cta-sub" style="margin-top: 12px;">Three tiers. Risk-free pilot included. No signup required to estimate.</p>
+                    <p class="pricing-hero-cta-sub" style="margin-top: 12px;">Three tiers. Risk-free pilot included. No signup required to estimate. <a href="/compare/" style="color: var(--accent, #00D4AA); font-weight: 600; text-decoration: none;">Compare legacy SIEM, traditional MDR, and Vigilense &rarr;</a></p>
                 </div>
                 <div class="pricing-hero-card">
                     <div class="phc-tag">AT&nbsp;A&nbsp;GLANCE</div>
                     <div class="phc-price-row">
-                        <span class="phc-amount">$4</span>
-                        <span class="phc-unit">per investigation</span>
+                        <span class="phc-amount">$10</span>
+                        <span class="phc-unit">per endpoint / month</span>
                     </div>
-                    <p class="phc-sub">Outcome-based AI MDR pricing. Volume discounts at 10K+ / month.</p>
+                    <p class="phc-sub">Simple per-endpoint pricing for AI-powered MDR.</p>
 
                     <div class="phc-divider"></div>
 
@@ -781,8 +781,8 @@
                             <span class="phc-line-v"><span class="phc-amount-sm">unlimited</span></span>
                         </div>
                         <div class="phc-line">
-                            <span class="phc-line-k">Per-endpoint fees</span>
-                            <span class="phc-line-v"><span class="phc-amount-sm">none</span></span>
+                            <span class="phc-line-k">Endpoints</span>
+                            <span class="phc-line-v"><span class="phc-amount-sm">$10</span><span class="phc-note">/ month each</span></span>
                         </div>
                     </div>
 
@@ -791,11 +791,11 @@
                     <div class="phc-vs">
                         <div class="phc-vs-row phc-vs-them">
                             <span class="phc-vs-label">Traditional MDR</span>
-                            <span class="phc-vs-value">~ $15&nbsp;/ investigated alert</span>
+                            <span class="phc-vs-value">~ $15&nbsp;/ endpoint</span>
                         </div>
                         <div class="phc-vs-row phc-vs-us">
                             <span class="phc-vs-label">Vigilense AI&nbsp;MDR</span>
-                            <span class="phc-vs-value">$4&nbsp;/ investigation, 100% coverage</span>
+                            <span class="phc-vs-value">$10&nbsp;/ endpoint</span>
                         </div>
                     </div>
 
@@ -822,7 +822,7 @@
                 <div class="value-card">
                     <div class="value-icon">[+]</div>
                     <h3>Outcome + Usage-Based</h3>
-                    <p>Pricing starts with proven outcomes during a risk-free pilot. Post-pilot, it scales with your usage - alerts investigated, threats resolved - never with data volume.</p>
+                    <p>Pricing starts with proven outcomes during a risk-free pilot. Post-pilot, you pay a flat rate per endpoint per month - never per GB of data ingested.</p>
                 </div>
             </div>
         </div>
@@ -835,7 +835,7 @@
         <div class="container">
             <div class="pt-header">
                 <h2>Three ways to buy. All risk-free to start.</h2>
-                <p>Outcome-based pricing for AI-powered MDR. Pay per investigation, pay flat, or run a free pilot first. Zero ingestion fees on every plan.</p>
+                <p>Per-endpoint pricing for AI-powered MDR. Pay monthly per endpoint, pay flat at Enterprise, or run a free pilot first. Zero ingestion fees on every plan.</p>
             </div>
             <div class="pt-grid">
                 <!-- Tier 1: Pilot -->
@@ -851,7 +851,7 @@
                     <div class="pt-divider"></div>
                     <ul class="pt-feature-list">
                         <li>Full platform access for 30 days</li>
-                        <li>Up to <strong>3 data sources</strong> connected</li>
+                        <li>Up to <strong>500 endpoints</strong>, 3 data sources connected</li>
                         <li>Deployment handled by our team</li>
                         <li>Live investigation reports daily</li>
                         <li>Walk away at any time, keep your data</li>
@@ -864,12 +864,12 @@
                 <div class="pt-card featured">
                     <div class="pt-tier-name">AI MDR</div>
                     <div class="pt-price-row">
-                        <span class="pt-price">$4</span>
-                        <span class="pt-price-unit">/ investigation</span>
+                        <span class="pt-price">$10</span>
+                        <span class="pt-price-unit">/ endpoint / month</span>
                     </div>
-                    <p class="pt-price-sub">From, billed monthly. Volume discounts at 10K+.</p>
-                    <h3>Pay per investigation</h3>
-                    <p class="pt-tagline">Outcome-based pricing for midsize teams. Pay only for the alerts the AI actually investigates.</p>
+                    <p class="pt-price-sub">Billed monthly. No minimum term.</p>
+                    <h3>Pay per endpoint</h3>
+                    <p class="pt-tagline">Simple, predictable pricing for midsize teams. Know exactly what you will pay before the month starts.</p>
                     <div class="pt-divider"></div>
                     <ul class="pt-feature-list">
                         <li><strong>$0 ingestion</strong>, $0 data transfer, $0 storage fees</li>
@@ -909,12 +909,12 @@
             <div class="pt-comparison">
                 <div class="vs-item">
                     <span class="vs-label">Traditional MDR</span>
-                    <span class="vs-value red">~$15 per alert</span>
+                    <span class="vs-value red">~$15 per endpoint</span>
                 </div>
                 <span class="vs-arrow">&rarr;</span>
                 <div class="vs-item">
                     <span class="vs-label">Vigilense AI MDR</span>
-                    <span class="vs-value green">$4 per investigation</span>
+                    <span class="vs-value green">$10 per endpoint</span>
                 </div>
                 <span class="vs-arrow">&rarr;</span>
                 <div class="vs-item">
@@ -1012,8 +1012,8 @@
             <h2>Pricing FAQ</h2>
             <div class="pricing-faq-grid">
                 <details class="pricing-faq-item">
-                    <summary>What counts as an "investigation"?</summary>
-                    <div class="faq-answer">An investigation is one alert that the AI SOC analyst picks up, enriches across our 50+ data sources, correlates against your environment, and reaches a verdict on (true positive, false positive, or escalate). Each investigation produces a full audit packet you can review. Background queries, dashboards, and scheduled detections are not billable. You only pay when the AI actually does investigative work on a discrete alert.</div>
+                    <summary>How do I calculate my cost?</summary>
+                    <div class="faq-answer">Multiply your endpoint count by $10. That is your monthly bill. No surprise fees based on alert volume, data ingestion, or query count.</div>
                 </details>
                 <details class="pricing-faq-item">
                     <summary>Is there really no upfront cost?</summary>
@@ -1021,11 +1021,11 @@
                 </details>
                 <details class="pricing-faq-item">
                     <summary>How is pricing structured?</summary>
-                    <div class="faq-answer">Three tiers. (1) <strong>Pilot</strong>: 30 days free, no card required. (2) <strong>AI MDR</strong>: $4 per investigation, billed monthly, with $0 ingestion and unlimited data sources. Volume discounts kick in at 10K+ investigations per month. (3) <strong>Enterprise</strong>: custom annual subscription with unlimited investigations, dedicated CSM, and 24/7 priority support. Contact <a href="mailto:sales@vigilense.ai" style="color: var(--accent);">sales@vigilense.ai</a> for a tailored quote based on your alert volume and environment.</div>
+                    <div class="faq-answer">Three tiers. (1) <strong>Pilot</strong>: 30 days free, no card required. (2) <strong>AI MDR</strong>: $10 per endpoint per month, with $0 ingestion and unlimited data sources. (3) <strong>Enterprise</strong>: custom annual subscription with unlimited investigations, dedicated CSM, and 24/7 priority support. Contact <a href="mailto:sales@vigilense.ai" style="color: var(--accent);">sales@vigilense.ai</a> for a tailored quote based on your environment.</div>
                 </details>
                 <details class="pricing-faq-item">
-                    <summary>How does $4 per investigation compare to traditional MDR?</summary>
-                    <div class="faq-answer">Traditional MDR providers typically charge $12-$20 per investigated alert when you factor in their platform fee, ingestion charges, and per-endpoint pricing. Because most traditional MDR providers only investigate the top 10-20% of alerts (human analysts can't keep up), you also pay for triage queues full of work that never gets done. Vigilense investigates 100% of alerts at $4 each, on top of $0 ingestion. Midsize customers typically see 50-70% lower total spend.</div>
+                    <summary>How does $10 per endpoint compare to traditional MDR and SIEM?</summary>
+                    <div class="faq-answer">Traditional MDR runs $12 to $15 per endpoint per month and still charges separate SIEM ingestion fees on top. Vigilense AI MDR is $10 per endpoint all in, with zero ingestion fees and autonomous investigation included.</div>
                 </details>
                 <details class="pricing-faq-item">
                     <summary>What happens after the pilot?</summary>
@@ -1033,7 +1033,7 @@
                 </details>
                 <details class="pricing-faq-item">
                     <summary>Are there any hidden fees?</summary>
-                    <div class="faq-answer">No. Zero per-GB ingestion fees, zero data transfer fees, zero storage surcharges, zero per-endpoint or per-user charges. Your data stays in your own databases, so the only line items on your invoice are the platform fee (if any) and per-investigation usage. The price you see is the price you pay.</div>
+                    <div class="faq-answer">No. Zero per-GB ingestion fees, zero data transfer fees, zero storage surcharges. Your monthly bill is your endpoint count times $10 - that is it. The price you see is the price you pay.</div>
                 </details>
                 <details class="pricing-faq-item">
                     <summary>How long is the pilot?</summary>

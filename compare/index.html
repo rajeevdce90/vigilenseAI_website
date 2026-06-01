@@ -304,11 +304,11 @@
                 <li><a href="/mssp/">For MSSPs/Partners</a></li>
                 <li><a href="/platform/">Platform</a></li>
                 <li><a href="/pricing/">Pricing</a></li>
+                <li><a href="/compare/">Compare</a></li>
                 <li>
                     <a href="/resources/">Resources</a>
                     <ul class="dropdown-menu">
                         <li><a href="/resources/">Resource Center</a></li>
-                        <li><a href="/compare/">Compare</a></li>
                         <li><a href="/resources/team/">Team</a></li>
                         <li><a href="/blog/">Blog</a></li>
                     </ul>
@@ -325,15 +325,14 @@
 
     <section class="sub-hero">
         <div class="container">
-            <span class="mdr-eyebrow">Comparison</span>
-            <h1 class="mdr-display">Legacy SIEM vs traditional MDR vs Vigilense AI</h1>
-            <p>A plain-language look at how the three approaches differ on the things IT leaders actually care about: where your data lives, what you pay, how deep investigations go, and how fast you can get live.</p>
+            <span class="mdr-eyebrow">Compare MDR</span>
+            <h1 class="mdr-display">Already using a managed security provider? Here is what you are getting versus what you could have.</h1>
+            <p>Most outsourced security programs triage a fraction of your alerts, bundle costs you cannot see, and require you to ship logs to their cloud. Vigilense is built for teams ready to upgrade: $10 per endpoint, zero ingestion fees, 100% of alerts investigated by AI, and your choice of where data lives. The table below shows how your current setup likely compares.</p>
         </div>
     </section>
 
     <section class="compare-section">
         <div class="container">
-            <p class="compare-intro">Most midsize teams end up choosing between a legacy SIEM they already own, a traditional MDR provider, or an AI-native model like Vigilense. This table summarizes the trade-offs without the vendor jargon.</p>
 
             <div class="compare-scroll" role="region" aria-label="Comparison table" tabindex="0">
                 <table class="compare-table">
@@ -348,22 +347,22 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">Data location</th>
-                            <td>Their cloud</td>
-                            <td>Their cloud</td>
-                            <td class="col-vigilense"><span class="cell-good">Your infrastructure</span></td>
-                        </tr>
-                        <tr>
                             <th scope="row">Ingestion cost</th>
                             <td><span class="cell-bad">$0.88+/GB</span></td>
                             <td><span class="cell-warn">Bundled / hidden</span></td>
                             <td class="col-vigilense"><span class="cell-good">$0</span></td>
                         </tr>
                         <tr>
-                            <th scope="row">Investigation depth</th>
-                            <td>Manual</td>
-                            <td>Tier-1 triage</td>
-                            <td class="col-vigilense"><span class="cell-good">Full-depth AI</span></td>
+                            <th scope="row">Pricing model</th>
+                            <td>Per GB + licenses</td>
+                            <td>Bundled, opaque</td>
+                            <td class="col-vigilense"><span class="cell-good">$10 / endpoint / month</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Data location</th>
+                            <td>Their cloud</td>
+                            <td>Their cloud</td>
+                            <td class="col-vigilense"><span class="cell-good">Your choice</span></td>
                         </tr>
                         <tr>
                             <th scope="row">Alert coverage</th>
@@ -372,10 +371,10 @@
                             <td class="col-vigilense"><span class="cell-good">100% investigated</span></td>
                         </tr>
                         <tr>
-                            <th scope="row">Pricing model</th>
-                            <td>Per GB + licenses</td>
-                            <td>Bundled, opaque</td>
-                            <td class="col-vigilense"><span class="cell-good">$4 / investigation</span></td>
+                            <th scope="row">Investigation depth</th>
+                            <td>Manual</td>
+                            <td>Tier-1 triage</td>
+                            <td class="col-vigilense"><span class="cell-good">Full-depth AI</span></td>
                         </tr>
                         <tr>
                             <th scope="row">Deployment time</th>
@@ -401,14 +400,6 @@
 
             <div class="compare-cards" aria-label="Comparison by capability">
                 <article class="compare-card">
-                    <h3>Data location</h3>
-                    <div class="compare-card-row">
-                        <div class="compare-card-val"><small>Legacy SIEM</small>Their cloud</div>
-                        <div class="compare-card-val"><small>Traditional MDR</small>Their cloud</div>
-                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>Your infrastructure</div>
-                    </div>
-                </article>
-                <article class="compare-card">
                     <h3>Ingestion cost</h3>
                     <div class="compare-card-row">
                         <div class="compare-card-val"><small>Legacy SIEM</small>$0.88+/GB</div>
@@ -417,11 +408,19 @@
                     </div>
                 </article>
                 <article class="compare-card">
-                    <h3>Investigation depth</h3>
+                    <h3>Pricing model</h3>
                     <div class="compare-card-row">
-                        <div class="compare-card-val"><small>Legacy SIEM</small>Manual</div>
-                        <div class="compare-card-val"><small>Traditional MDR</small>Tier-1 triage</div>
-                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>Full-depth AI</div>
+                        <div class="compare-card-val"><small>Legacy SIEM</small>Per GB + licenses</div>
+                        <div class="compare-card-val"><small>Traditional MDR</small>Bundled, opaque</div>
+                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>$10 / endpoint / month</div>
+                    </div>
+                </article>
+                <article class="compare-card">
+                    <h3>Data location</h3>
+                    <div class="compare-card-row">
+                        <div class="compare-card-val"><small>Legacy SIEM</small>Their cloud</div>
+                        <div class="compare-card-val"><small>Traditional MDR</small>Their cloud</div>
+                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>Your choice</div>
                     </div>
                 </article>
                 <article class="compare-card">
@@ -433,11 +432,11 @@
                     </div>
                 </article>
                 <article class="compare-card">
-                    <h3>Pricing model</h3>
+                    <h3>Investigation depth</h3>
                     <div class="compare-card-row">
-                        <div class="compare-card-val"><small>Legacy SIEM</small>Per GB + licenses</div>
-                        <div class="compare-card-val"><small>Traditional MDR</small>Bundled, opaque</div>
-                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>$4 / investigation</div>
+                        <div class="compare-card-val"><small>Legacy SIEM</small>Manual</div>
+                        <div class="compare-card-val"><small>Traditional MDR</small>Tier-1 triage</div>
+                        <div class="compare-card-val is-vigilense"><small>Vigilense AI</small>Full-depth AI</div>
                     </div>
                 </article>
                 <article class="compare-card">
@@ -468,7 +467,7 @@
 
             <div class="compare-notes">
                 <p>Legacy SIEM ingestion pricing based on published rates from major cloud SIEM vendors (typically $0.88-$2.50/GB depending on tier and retention). Traditional MDR costs vary widely and often bundle ingestion, platform, and analyst time into opaque annual contracts.</p>
-                <p>Vigilense queries your existing data in place. No log shipping, no re-ingest, no exit penalty. <a href="/pricing/" style="color: var(--mdr-teal); font-weight: 600;">See pricing details</a> or <a href="/resources/siem-buyers-guide/" style="color: var(--mdr-teal); font-weight: 600;">read the SIEM buyer's guide</a>.</p>
+                <p>Vigilense queries your existing data in place if you have the infrastructure to support it. If not, we deploy and manage it for you. Either way, no ingestion fees, no log shipping, no exit penalty. <a href="/pricing/" style="color: var(--mdr-teal); font-weight: 600;">See pricing details</a> or <a href="/resources/siem-buyers-guide/" style="color: var(--mdr-teal); font-weight: 600;">read the SIEM buyer's guide</a>.</p>
             </div>
         </div>
     </section>
@@ -492,7 +491,7 @@
                         <img src="/vigilense-logo.png?v=2" alt="Vigilense AI" class="logo-icon" loading="lazy">
                         <span class="logo-text"><span class="logo-vigilense">Vigilense</span><span class="logo-ai"> AI</span></span>
                     </a>
-                    <p>AI-Powered Detection &amp; Response. Your Data Never Leaves.</p>
+                    <p>AI-Powered Detection &amp; Response. Zero Ingestion Fees. Your Choice of Infrastructure.</p>
                 </div>
                 <div class="footer-links">
                     <div class="footer-column">
